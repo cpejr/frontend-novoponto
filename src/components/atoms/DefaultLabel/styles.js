@@ -8,7 +8,7 @@ const DefaultLabelContainer = styled.div`
     padding: 5px 4px;
     
     display: flex;
-    text-align: center;
+    justify-content: center;
     align-items: center;
     color: ${props => props.color || 'red'};;
     font-size: 12px;

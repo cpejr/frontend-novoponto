@@ -9,6 +9,8 @@ import MemberName from '../../components/atoms/MemberName';
 import MemberDescription from '../../components/atoms/MemberDescription';
 import InputText from '../../components/atoms/InputText';
 
+import LoggedMembersRow from '../../components/molecules/LoggedMembersRow';
+
 const Home = () => {
     const { themeColors } = useContext(ThemeContext);
 
@@ -25,6 +27,7 @@ const Home = () => {
             <MemberName name="Diogo" />
             <MemberDescription description="Meio com sono meio bolado" />
             <InputText placeholder="Logue aqui" handleInputText={handleTest}/>
+            <LoggedMembersRow name="Diogo" />
         </HomeComponent>
     );
 }

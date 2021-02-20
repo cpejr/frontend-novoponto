@@ -7,7 +7,7 @@ const HourDisplayerContainer = styled.div`
     border-radius: 2px;
     
     display: flex;
-    text-align: center;
+    justify-content: center;
     align-items: center;
     color: #FFF;
     font-size: 14px;

@@ -7,6 +7,8 @@ const MemberDescriptionContainer = styled.div`
     font-size: 14px;
     font-weight: 400;
     line-height: 17px;
+
+    margin-left: 8px;
 `;
 
 export default MemberDescriptionContainer;
