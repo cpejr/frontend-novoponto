@@ -1,8 +1,8 @@
 import React from 'react';
 import CommonButtonContainer from './styles';
 
-function CommonButton
-({buttonLabel, buttonColor, buttonWidth}) {
+const CommonButton =
+({buttonLabel, buttonColor, buttonWidth}) => {
     return (
         <CommonButtonContainer color={buttonColor} width={buttonWidth}>
             {buttonLabel}

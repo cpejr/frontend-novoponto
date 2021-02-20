@@ -7,9 +7,14 @@ import CommonButton from '../../components/atoms/CommonButton';
 import DefaultLabel from '../../components/atoms/DefaultLabel';
 import MemberName from '../../components/atoms/MemberName';
 import MemberDescription from '../../components/atoms/MemberDescription';
+import InputText from '../../components/atoms/InputText';
 
 const Home = () => {
     const { themeColors } = useContext(ThemeContext);
+
+    const handleTest = (e) => {
+        console.log(e.target.value);
+    }
 
     return (
         <HomeComponent theme={themeColors}>
@@ -19,6 +24,7 @@ const Home = () => {
             <DefaultLabel labelText="Gerentes de Produtos" labelColor="#FFD100" />
             <MemberName name="Diogo" />
             <MemberDescription description="Meio com sono meio bolado" />
+            <InputText placeholder="Logue aqui" handleInputText={handleTest}/>
         </HomeComponent>
     );
 }

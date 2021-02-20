@@ -1,0 +1,31 @@
+import styled from 'styled-components';
+
+const InputTextContainer = styled.div`
+
+    background-color: #1D1D1D;
+    width: 230px;
+    height: 32px;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 2px;
+    
+    img{
+        width: 14px;
+        height: 15px;
+        margin: 0px 5px;
+    }
+    
+    input{
+        width: 100%;
+        background-color: #1D1D1D;
+        border: none;
+        outline: none;
+        padding: 3px 8px;
+        color: #DDD;
+    }
+`;
+
+export default InputTextContainer;

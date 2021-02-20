@@ -1,7 +1,7 @@
 import React from 'react';
 import MemberNameContainer from './styles';
 
-function MemberName({name}) {
+const MemberName = ({name}) => {
     return (
         <MemberNameContainer>
             {name}

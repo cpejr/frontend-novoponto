@@ -1,7 +1,7 @@
 import React from 'react';
 import MemberDescriptionContainer from './styles';
 
-function MemberDescription({description}) {
+const MemberDescription = ({description}) => {
     return (
         <MemberDescriptionContainer>
             - "{description}"
