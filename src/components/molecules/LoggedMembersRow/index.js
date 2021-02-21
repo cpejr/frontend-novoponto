@@ -7,24 +7,27 @@ import MemberDescription from '../../atoms/MemberDescription';
 import HourDisplayer from '../../atoms/HourDisplayer';
 import DefaultLabel from '../../atoms/DefaultLabel';
 
-const LoggedMembers = ({name}) => {
+const LoggedMembers = ({name, role, mandatoryHour = null, description, startedHour, acumulatedTime}) => {
     return (
         <LoggedMembersContainer>
             <MemberDataSection>
-                <img src={avatarDefault} alt="teste"/>
+                <img src={avatarDefault} alt="Avatar Default"/>
 
                 <div className="nameWithLabelSection">
                     <div className="nameSection">
                         <MemberName name={name} className="namePart"/>
-                        <MemberDescription description="Com sono somente"/>
+                        <MemberDescription description={description}/>
                     </div>
-                    <DefaultLabel labelText="Gerente de Produtos" labelColor="#FFD100" />
+                    <DefaultLabel labelText={role} labelColor="#FFD100" />
+                    {
+                        mandatoryHour && <DefaultLabel labelText="Horário obrigatório" labelColor="#0085FF" />
+                    }
                 </div>
             </MemberDataSection>
 
             <div className="hourControlPart">
-                <HourDisplayer hour="02:52" hourColor="#31D843" className="hourDisplayer"/>
-                <HourDisplayer hour="12:52" hourColor="#FFD100" className="hourDisplayer"/>
+                <HourDisplayer hour={startedHour} hourColor="#31D843" className="hourDisplayer"/>
+                <HourDisplayer hour={acumulatedTime} hourColor="#FFD100" className="hourDisplayer"/>
             </div>
         </LoggedMembersContainer>
     );

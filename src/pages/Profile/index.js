@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { HomeComponent } from './styles';
+import { ProfileComponent } from './styles';
 import { ThemeContext } from '../../context/ThemeProvider';
 
 import HourDisplayer from '../../components/atoms/HourDisplayer';
@@ -8,10 +8,11 @@ import DefaultLabel from '../../components/atoms/DefaultLabel';
 import MemberName from '../../components/atoms/MemberName';
 import MemberDescription from '../../components/atoms/MemberDescription';
 import InputText from '../../components/atoms/InputText';
+import LogoutPointButton from '../../components/atoms/LogoutPointButton';
 
 import LoggedMembersRow from '../../components/molecules/LoggedMembersRow';
 
-const Home = () => {
+const Profile = () => {
     const { themeColors } = useContext(ThemeContext);
 
     const handleTest = (e) => {
@@ -19,8 +20,8 @@ const Home = () => {
     }
 
     return (
-        <HomeComponent theme={themeColors}>
-            <h1>Home</h1>
+        <ProfileComponent theme={themeColors}>
+            <h1>Profile</h1>
             <HourDisplayer hour="10:38" hourColor="rgba(49, 216, 67, 0.5)"/>
             <CommonButton buttonLabel="Clique aqui" buttonColor="rgba(255, 193, 7, 0.5)" buttonWidth="200px"/>
             <DefaultLabel labelText="Gerentes de Produtos" labelColor="#FFD100" />
@@ -28,8 +29,10 @@ const Home = () => {
             <MemberDescription description="Meio com sono meio bolado" />
             <InputText placeholder="Logue aqui" handleInputText={handleTest}/>
             <LoggedMembersRow name="Diogo" />
-        </HomeComponent>
+            <LoggedMembersRow name="Diogo" />
+            <LogoutPointButton buttonColor="#1D1D1D"/>
+        </ProfileComponent>
     );
 }
 
-export default Home;
+export default Profile;
