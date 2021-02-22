@@ -6,6 +6,7 @@ import MemberName from '../../atoms/MemberName';
 import MemberDescription from '../../atoms/MemberDescription';
 import HourDisplayer from '../../atoms/HourDisplayer';
 import DefaultLabel from '../../atoms/DefaultLabel';
+import LogoutPointButton from '../../atoms/LogoutPointButton';
 
 const LoggedMembers = ({name, role, mandatoryHour = null, description, startedHour, acumulatedTime}) => {
     return (
@@ -28,6 +29,7 @@ const LoggedMembers = ({name, role, mandatoryHour = null, description, startedHo
             <div className="hourControlPart">
                 <HourDisplayer hour={startedHour} hourColor="#31D843" className="hourDisplayer"/>
                 <HourDisplayer hour={acumulatedTime} hourColor="#FFD100" className="hourDisplayer"/>
+                <LogoutPointButton />
             </div>
         </LoggedMembersContainer>
     );
