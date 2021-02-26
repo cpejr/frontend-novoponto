@@ -3,11 +3,11 @@ import InputTextContainer from './styles';
 
 import avatar from '../../../assets/avatar.svg';
 
-const InputText = ({icon = '', placeholder, handleInputText}) => {
+const InputText = ({icon = avatar, placeholder, handleInputText}) => {
 
     return (
         <InputTextContainer>
-            <img src={avatar} alt={placeholder} />
+            <img src={icon} alt={placeholder} />
             <input type="text" placeholder={placeholder} onChange={(e) => handleInputText(e)}/>
         </InputTextContainer>
     );

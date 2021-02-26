@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { PontoComponent } from './styles';
 import { ThemeContext } from '../../context/ThemeProvider';
 
 import defaultNews from '../../assets/defaultNews.svg';
+import searchIcon from '../../assets/searchIcon.svg';
 
 import InputText from '../../components/atoms/InputText';
 import CommonButton from '../../components/atoms/CommonButton';
@@ -34,17 +35,41 @@ const fakeLoggedMembers = [
 ]
 
 
+
 const Ponto = () => {
     const { themeColors } = useContext(ThemeContext);
+    
+    const [loggedMembers, setLoggedMembers] = useState(fakeLoggedMembers);
+    const [filteredMembers, setFilteredMembers] = useState(fakeLoggedMembers);
 
     const handleLogin = () => {
-        alert("Parabéns, vc logou!")
+        alert("Parabéns, vc logou!");
     };
-
+    
     const handleSearchMembers = (e) => {
-        alert("Parabéns, vc logou!")
+        
+        if(e.target.value !== ''){
+            const filteredMembersAfterForEach = loggedMembers.filter(item => {
+                if(item.member.toLowerCase().includes(e.target.value)){
+                    return item;
+                }
+            });
+            console.log('deposi', filteredMembersAfterForEach)
+            setFilteredMembers(filteredMembersAfterForEach);
+        }else{
+            setFilteredMembers(loggedMembers);
+        }
     };
 
+    useEffect(() => {
+        setFilteredMembers( loggedMembers.sort(function(a, b){
+            if(a.member < b.member) { return -1; }
+            if(a.member > b.member) { return 1; }
+            return 0;
+        })
+        )
+    }, [loggedMembers]);
+    
     return (
         <PontoComponent theme={themeColors}>
 
@@ -63,7 +88,7 @@ const Ponto = () => {
                 <div className="pointSection">
 
                     <div className="searchesSubsection">
-                        <InputText placeholder="Pesquisar membros" handleInputText={handleSearchMembers} />
+                        <InputText icon={searchIcon} placeholder="Pesquisar membros" handleInputText={(e) => handleSearchMembers(e)} />
 
                         <InputText placeholder="Logar" handleInputText={handleLogin} />
                     </div>
@@ -76,20 +101,24 @@ const Ponto = () => {
                                 <th className="finishTime">Tempo</th>
                                 <th className="logoutButton"></th>
                             </tr>
-                            <tr>
-                                <td className="memberColumn">
-                                    <LoggedMembers name="Diogo" role="Gerente de Produtos" description="Cansado demais para dormir" />
-                                </td>
-                                <td className="startTime">
-                                    <HourDisplayer hour="12:09" hourColor="#31D843"/>
-                                </td>
-                                <td className="finishTime">
-                                    <HourDisplayer hour="12:09" hourColor="#FFD100"/>
-                                </td>
-                                <td className="logoutButton">
-                                    <LogoutPointButton />
-                                </td>
-                            </tr>
+                            {   
+                                filteredMembers.map(item => (
+                                            <tr>
+                                                <td className="memberColumn">
+                                                    <LoggedMembers name={item.member} role={item.role} description={item.description} />
+                                                </td>
+                                                <td className="startTime">
+                                                    <HourDisplayer hour="12:09" hourColor="#31D843"/>
+                                                </td>
+                                                <td className="finishTime">
+                                                    <HourDisplayer hour="12:09" hourColor="#FFD100"/>
+                                                </td>
+                                                <td className="logoutButton">
+                                                    <LogoutPointButton />
+                                                </td>
+                                            </tr>
+                                        ))
+                                }
                         </table>
                     </div>
 

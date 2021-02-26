@@ -11,18 +11,19 @@ const PontoComponent = styled.div`
 
     .fullContentPagePoint{
         width: 90%;
+        min-height: 100vh;
         margin: 0 auto;
     }
 
     .newsSection{
         width: 100%;
-        height: 350px;
+        height: 300px;
 
         display: flex;
         justify-content: space-evenly;
         align-items: center;
 
-        padding: 30px 20px;
+        padding: 0px 20px;
 
         .news{
             width: 500px;
@@ -46,6 +47,8 @@ const PontoComponent = styled.div`
 
     .pointSection{
         width: 100%;
+
+        max-height: 600px;
 
         display: flex;
         flex-direction: column;

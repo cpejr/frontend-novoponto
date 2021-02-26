@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const HourDisplayerContainer = styled.div`
     width: 55px;
-    height: 25px;
+    height: 32px;
     background-color: ${props => props.color || 'red'};
     border-radius: 2px;
     
@@ -10,7 +10,8 @@ const HourDisplayerContainer = styled.div`
     justify-content: center;
     align-items: center;
     color: #FFF;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 600;
 `;
 
 export default HourDisplayerContainer;
