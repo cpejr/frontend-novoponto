@@ -10,7 +10,7 @@ import MemberDescription from '../../components/atoms/MemberDescription';
 import InputText from '../../components/atoms/InputText';
 import LogoutPointButton from '../../components/atoms/LogoutPointButton';
 
-import LoggedMembersRow from '../../components/molecules/LoggedMembersRow';
+import LoggedMembers from '../../components/molecules/LoggedMembersSection';
 
 const Profile = () => {
     const { themeColors } = useContext(ThemeContext);
@@ -28,8 +28,8 @@ const Profile = () => {
             <MemberName name="Diogo" />
             <MemberDescription description="Meio com sono meio bolado" />
             <InputText placeholder="Logue aqui" handleInputText={handleTest}/>
-            <LoggedMembersRow name="Diogo" />
-            <LoggedMembersRow name="Diogo" />
+            <LoggedMembers name="Diogo" />
+            <LoggedMembers name="Diogo" />
             <LogoutPointButton buttonColor="#1D1D1D"/>
         </ProfileComponent>
     );

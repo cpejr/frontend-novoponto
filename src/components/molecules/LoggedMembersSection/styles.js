@@ -3,10 +3,7 @@ import styled from 'styled-components';
 const LoggedMembersContainer = styled.div`
     width: 100%;
     height: 72px;
-    border: 2px solid #1C1C1D;
 
-    padding: 0px 20px;
-    
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -26,7 +23,7 @@ const LoggedMembersContainer = styled.div`
 `;
 
 const MemberDataSection = styled.div`
-        width: 50%;
+        width: 100%;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;

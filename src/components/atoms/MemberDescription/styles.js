@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const MemberDescriptionContainer = styled.div`
+    width: auto;
     display: flex;
     text-align: center;
     color: #5C5C5C;

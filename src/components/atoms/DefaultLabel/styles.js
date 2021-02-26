@@ -5,7 +5,7 @@ const DefaultLabelContainer = styled.div`
     height: 17px;
     border: 1px solid ${props => props.color || 'red'};
     border-radius: 2px;
-    padding: 5px 4px;
+    padding: 8px 12px;
     
     display: flex;
     justify-content: center;

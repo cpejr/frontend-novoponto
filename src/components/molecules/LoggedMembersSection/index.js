@@ -4,11 +4,9 @@ import { LoggedMembersContainer, MemberDataSection } from './styles';
 import avatarDefault from '../../../assets/defaultAvatar.svg';
 import MemberName from '../../atoms/MemberName';
 import MemberDescription from '../../atoms/MemberDescription';
-import HourDisplayer from '../../atoms/HourDisplayer';
 import DefaultLabel from '../../atoms/DefaultLabel';
-import LogoutPointButton from '../../atoms/LogoutPointButton';
 
-const LoggedMembers = ({name, role, mandatoryHour = null, description, startedHour, acumulatedTime}) => {
+const LoggedMembers = ({name, role, mandatoryHour = null, description}) => {
     return (
         <LoggedMembersContainer>
             <MemberDataSection>
@@ -19,21 +17,14 @@ const LoggedMembers = ({name, role, mandatoryHour = null, description, startedHo
                         <MemberName name={name} className="namePart"/>
                         <MemberDescription description={description}/>
                     </div>
-                    <DefaultLabel labelText={role} labelColor="#FFD100" />
+                    <DefaultLabel labelText={role}  labelColor="#FFD100" />
                     {
                         mandatoryHour && <DefaultLabel labelText="Horário obrigatório" labelColor="#0085FF" />
                     }
                 </div>
             </MemberDataSection>
-
-            <div className="hourControlPart">
-                <HourDisplayer hour={startedHour} hourColor="#31D843" className="hourDisplayer"/>
-                <HourDisplayer hour={acumulatedTime} hourColor="#FFD100" className="hourDisplayer"/>
-                <LogoutPointButton />
-            </div>
         </LoggedMembersContainer>
     );
 }
 
-export default LoggedMembers
-;
+export default LoggedMembers;
