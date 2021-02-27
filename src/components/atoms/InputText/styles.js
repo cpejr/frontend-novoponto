@@ -11,6 +11,8 @@ const InputTextContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
     border-radius: 2px;
+
+    border: ${props => props.error ? "0.7px solid red": "none"};
     
     img{
         width: 14px;

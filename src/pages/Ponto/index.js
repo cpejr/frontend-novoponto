@@ -47,7 +47,6 @@ const Ponto = () => {
   const [showModal, setShowModal] = useState(false);
 
   const handleLogin = (e) => {
-    console.log("Escrevendo", e.target.value);
     setMemberToLogin(e.target.value);
   };
 
@@ -82,17 +81,21 @@ const Ponto = () => {
 
   const handleSearchMembers = (e) => {
     if (e.target.value !== "") {
-      const filteredMembersAfterForEach = loggedMembers.filter((item) => {
+      const filteredMembersAfterForEach = filteredMembers.filter((item) => {
         if (item.member.toLowerCase().includes(e.target.value)) {
           return item;
         }
       });
-      console.log("deposi", filteredMembersAfterForEach);
       setFilteredMembers(filteredMembersAfterForEach);
     } else {
       setFilteredMembers(loggedMembers);
     }
   };
+
+  const handleLogoutMember = (membersName) => {
+    const teste = filteredMembers.filter(item => item.member !== membersName);
+    setFilteredMembers(teste);
+  }
 
   useEffect(() => {
     setFilteredMembers(
@@ -114,7 +117,6 @@ const Ponto = () => {
         for (var i = 0; i < elements.length; i++) {
           var toRotate = elements[i].getAttribute("data-rotate");
           var period = elements[i].getAttribute("data-period");
-          console.log('pegou', period)
           if (toRotate) {
             new TxtRotate(elements[i], JSON.parse(toRotate), period);
           }
@@ -195,7 +197,7 @@ const Ponto = () => {
 
             <div className="loginAndItsValidateSection">
               <div className="loginSection">
-                <InputText placeholder="Logar" handleInputText={handleLogin} />
+                <InputText placeholder="Logar" handleInputText={handleLogin} error={errorInpuLogin}/>
                 <CommonButton
                   buttonLabel="Login"
                   buttonColor={themeColors.yellow}
@@ -244,7 +246,7 @@ const Ponto = () => {
                       />
                     </td>
                     <td className="logoutButton">
-                      <LogoutPointButton />
+                      <LogoutPointButton onClick={() => handleLogoutMember(item.member)}/>
                     </td>
                   </tr>
                 ))

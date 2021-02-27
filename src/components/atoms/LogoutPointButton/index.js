@@ -4,9 +4,9 @@ import LogoutPointButtonContainer from './styles';
 import logoutPointIcon from '../../../assets/logoutPointIcon.svg';
 
 const LogoutPointButton =
-({buttonColor = '#1D1D1D'}) => {
+({buttonColor = '#1D1D1D', onClick}) => {
     return (
-        <LogoutPointButtonContainer color={buttonColor} >
+        <LogoutPointButtonContainer color={buttonColor} onClick={onClick}>
             <img src={logoutPointIcon} alt="Deslogar" />
         </LogoutPointButtonContainer>
     );

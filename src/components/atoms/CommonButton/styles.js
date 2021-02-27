@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const CommonButtonContainer = styled.button`
     width: ${props => props.width || '50px'};;
-    height: 30px;
+    height: 32px;
     background-color: ${props => props.color || 'red'};
     border-radius: 0px 4px 4px 0px;
     outline: none;
