@@ -63,6 +63,13 @@ const Ponto = () => {
     handleOpenModal();
   };
 
+  const handleLogouAllMembers = () => {
+    // alert("Parabéns, vc logou!");
+    if(loggedMembers.length > 0){
+        setLoggedMembers([]);
+    }
+  };
+
   const handleSearchMembers = (e) => {
     if (e.target.value !== "") {
       const filteredMembersAfterForEach = loggedMembers.filter((item) => {
@@ -90,6 +97,70 @@ const Ponto = () => {
       })
     );
   }, [loggedMembers]);
+
+  useEffect(() => {
+    function carregou() {
+        var elements = document.getElementsByClassName("txt-rotate");
+        for (var i = 0; i < elements.length; i++) {
+          var toRotate = elements[i].getAttribute("data-rotate");
+          var period = elements[i].getAttribute("data-period");
+          console.log('pegou', period)
+          if (toRotate) {
+            new TxtRotate(elements[i], JSON.parse(toRotate), period);
+          }
+        }
+        // INJECT CSS
+        var css = document.createElement("style");
+        // css.type = "text/css";
+        css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+        document.body.appendChild(css);
+    };
+    carregou();
+  }, [filteredMembers])
+  var TxtRotate = function (el, toRotate, period) {
+    this.toRotate = toRotate;
+    this.el = el;
+    this.loopNum = 0;
+    this.period = parseInt(period, 10) || 2000;
+    this.txt = "";
+    this.tick();
+    this.isDeleting = false;
+  };
+
+  TxtRotate.prototype.tick = function () {
+    var i = this.loopNum % this.toRotate.length;
+    var fullTxt = this.toRotate[i];
+
+    if (this.isDeleting) {
+      this.txt = fullTxt.substring(0, this.txt.length - 1);
+    } else {
+      this.txt = fullTxt.substring(0, this.txt.length + 1);
+    }
+
+    this.el.innerHTML = '<span class="wrap">' + this.txt + "</span>";
+
+    var that = this;
+    var delta = 200 - Math.random() * 100;
+
+    if (this.isDeleting) {
+      delta /= 2;
+    }
+
+    if (!this.isDeleting && this.txt === fullTxt) {
+      delta = this.period;
+      this.isDeleting = true;
+    } else if (this.isDeleting && this.txt === "") {
+      this.isDeleting = false;
+      this.loopNum++;
+      delta = 500;
+    }
+
+    setTimeout(function () {
+      that.tick();
+    }, delta);
+  };
+
+  
 
   return (
     <PontoComponent theme={themeColors}>
@@ -132,33 +203,46 @@ const Ponto = () => {
                 <th className="finishTime">Tempo</th>
                 <th className="logoutButton"></th>
               </tr>
-              {filteredMembers.map((item, index) => (
-                <tr key={index}>
-                  <td className="memberColumn">
-                    <LoggedMembers
-                      name={item.member}
-                      role={item.role}
-                      description={item.description}
-                    />
-                  </td>
-                  <td className="startTime">
-                    <HourDisplayer
-                      hour={new Date()}
-                      hourColor={themeColors.green}
-                    />
-                  </td>
-                  <td className="finishTime">
-                    <HourDisplayer
-                      hour={new Date().getTime()}
-                      hourColor={themeColors.yellow}
-                      startTime={true}
-                    />
-                  </td>
-                  <td className="logoutButton">
-                    <LogoutPointButton />
-                  </td>
+              {filteredMembers.length > 0 ? (
+                filteredMembers.map((item, index) => (
+                  <tr key={index}>
+                    <td className="memberColumn">
+                      <LoggedMembers
+                        name={item.member}
+                        role={item.role}
+                        description={item.description}
+                      />
+                    </td>
+                    <td className="startTime">
+                      <HourDisplayer
+                        hour={new Date()}
+                        hourColor={themeColors.green}
+                      />
+                    </td>
+                    <td className="finishTime">
+                      <HourDisplayer
+                        hour={new Date().getTime()}
+                        hourColor={themeColors.yellow}
+                        startTime={true}
+                      />
+                    </td>
+                    <td className="logoutButton">
+                      <LogoutPointButton />
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <h1 style={{color: '#fff'}}>
+                    Trabalhe enquanto eles 
+                    <span
+                      class="txt-rotate"
+                      data-period="2000"
+                      data-rotate='[ " dormem...", " comem (???)", " estudam rsrs", " dão migué B)", " ... isso não faz mais sentido" ]'
+                    ></span>
+                  </h1>
                 </tr>
-              ))}
+              )}
             </table>
           </div>
 
@@ -168,6 +252,7 @@ const Ponto = () => {
               buttonColor={themeColors.yellow}
               buttonColorHover={themeColors.yellowHover}
               buttonWidth="207px"
+              handleClick={handleLogouAllMembers}
             />
           </div>
         </div>

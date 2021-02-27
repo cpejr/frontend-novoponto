@@ -26,7 +26,7 @@ const HourDisplayer = ({hour, hourColor, startTime = false}) => {
 
     return (
         <HourDisplayerContainer color={hourColor}>
-            {!startTime ? `${currentHour}:${currentMinute}` : `${startTimeHourMember.toString().padStart(2, '0')}:${startTimeMinuteMember.toString().padStart(2, '0')}`}
+            {!startTime ? `${currentHour.toString().padStart(2, '0')}:${currentMinute.toString().padStart(2, '0')}` : `${startTimeHourMember.toString().padStart(2, '0')}:${startTimeMinuteMember.toString().padStart(2, '0')}`}
         </HourDisplayerContainer>
     );
 }
