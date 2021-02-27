@@ -10,6 +10,7 @@ import CommonButton from "../../components/atoms/CommonButton";
 import HourDisplayer from "../../components/atoms/HourDisplayer";
 import LogoutPointButton from "../../components/atoms/LogoutPointButton";
 import LoggedMembers from "../../components/molecules/LoggedMembersSection";
+import ConfirmationModal from "../../components/molecules/Modal";
 
 const fakeLoggedMembers = [
   {
@@ -40,12 +41,26 @@ const Ponto = () => {
   const [loggedMembers, setLoggedMembers] = useState(fakeLoggedMembers);
   const [filteredMembers, setFilteredMembers] = useState(fakeLoggedMembers);
 
+  const [showModal, setShowModal] = useState(false);
+
   const handleLogin = (e) => {
     console.log("Escrevendo", e.target.value);
   };
 
+  const handleOpenModal = () => {
+    console.log("clicou");
+    setShowModal(true);
+  };
+  const handleOkModal = () => {
+    setShowModal(false);
+  };
+  const handleCancelModal = () => {
+    setShowModal(false);
+  };
+
   const handleClick = () => {
-    alert("Parabéns, vc logou!");
+    // alert("Parabéns, vc logou!");
+    handleOpenModal();
   };
 
   const handleSearchMembers = (e) => {
@@ -104,7 +119,7 @@ const Ponto = () => {
                 buttonColor={themeColors.yellow}
                 buttonColorHover={themeColors.yellowHover}
                 buttonWidth="84px"
-                handleClick={handleClick}
+                handleClick={handleOpenModal}
               />
             </div>
           </div>
@@ -117,8 +132,8 @@ const Ponto = () => {
                 <th className="finishTime">Tempo</th>
                 <th className="logoutButton"></th>
               </tr>
-              {filteredMembers.map((item) => (
-                <tr>
+              {filteredMembers.map((item, index) => (
+                <tr key={index}>
                   <td className="memberColumn">
                     <LoggedMembers
                       name={item.member}
@@ -130,7 +145,10 @@ const Ponto = () => {
                     <HourDisplayer hour="12:09" hourColor={themeColors.green} />
                   </td>
                   <td className="finishTime">
-                    <HourDisplayer hour="12:09" hourColor={themeColors.yellow} />
+                    <HourDisplayer
+                      hour="12:09"
+                      hourColor={themeColors.yellow}
+                    />
                   </td>
                   <td className="logoutButton">
                     <LogoutPointButton />
@@ -150,6 +168,13 @@ const Ponto = () => {
           </div>
         </div>
       </div>
+      <ConfirmationModal
+        content="teste"
+        title="Um titulo"
+        isVisible={showModal}
+        handleOk={handleOkModal}
+        handleCancel={handleCancelModal}
+      />
     </PontoComponent>
   );
 };
