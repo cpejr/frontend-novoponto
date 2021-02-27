@@ -42,12 +42,15 @@ const Ponto = () => {
     const [loggedMembers, setLoggedMembers] = useState(fakeLoggedMembers);
     const [filteredMembers, setFilteredMembers] = useState(fakeLoggedMembers);
 
-    const handleLogin = () => {
+    const handleLogin = (e) => {
+        console.log('Escrevendo', e.target.value)
+    };
+
+    const handleClick = () => {
         alert("Parabéns, vc logou!");
     };
     
     const handleSearchMembers = (e) => {
-        
         if(e.target.value !== ''){
             const filteredMembersAfterForEach = loggedMembers.filter(item => {
                 if(item.member.toLowerCase().includes(e.target.value)){
@@ -90,7 +93,10 @@ const Ponto = () => {
                     <div className="searchesSubsection">
                         <InputText icon={searchIcon} placeholder="Pesquisar membros" handleInputText={(e) => handleSearchMembers(e)} />
 
-                        <InputText placeholder="Logar" handleInputText={handleLogin} />
+                        <div className="loginSection">
+                            <InputText placeholder="Logar" handleInputText={handleLogin} />
+                            <CommonButton buttonLabel="Login" buttonColor="rgba(255, 193, 7, 0.5)" buttonWidth="84px" handleClick={handleClick} />
+                        </div>
                     </div>
 
                     <div className="subSectionLoggedMembers">

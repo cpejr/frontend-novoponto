@@ -24,7 +24,9 @@ const InputTextContainer = styled.div`
         border: none;
         outline: none;
         padding: 3px 8px;
-        color: #DDD;
+        font-size: 14px;
+        line-height: 17px;
+        color: #FFF;
     }
 `;
 
