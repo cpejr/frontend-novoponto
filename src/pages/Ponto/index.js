@@ -39,7 +39,7 @@ const Ponto = () => {
   const { themeColors } = useContext(ThemeContext);
 
   const [loggedMembers, setLoggedMembers] = useState(fakeLoggedMembers);
-  const [filteredMembers, setFilteredMembers] = useState(fakeLoggedMembers);
+  const [filteredMembers, setFilteredMembers] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -89,7 +89,7 @@ const Ponto = () => {
         return 0;
       })
     );
-  }, [filteredMembers]);
+  }, [loggedMembers]);
 
   return (
     <PontoComponent theme={themeColors}>
@@ -142,12 +142,16 @@ const Ponto = () => {
                     />
                   </td>
                   <td className="startTime">
-                    <HourDisplayer hour="12:09" hourColor={themeColors.green} />
+                    <HourDisplayer
+                      hour={new Date()}
+                      hourColor={themeColors.green}
+                    />
                   </td>
                   <td className="finishTime">
                     <HourDisplayer
-                      hour="12:09"
+                      hour={new Date().getTime()}
                       hourColor={themeColors.yellow}
+                      startTime={true}
                     />
                   </td>
                   <td className="logoutButton">
