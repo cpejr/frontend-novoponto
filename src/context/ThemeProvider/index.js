@@ -10,7 +10,7 @@ const ThemeContextProvider = (props) => {
   const [theme, setTheme] = useState("dark");
 
   // Nome seleciona o tema com cores ja configuradas
-  const [themeColors, setThemeColors] = useState(themedColors["dark"]);
+  const [themeColors, setThemeColors] = useState(themedColors["light"]);
 
   // Cores 
   const [colorsFromPallete, setColorsFromPallete] = useState(colors);

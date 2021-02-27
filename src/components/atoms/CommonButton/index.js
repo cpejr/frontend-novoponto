@@ -2,9 +2,9 @@ import React from 'react';
 import CommonButtonContainer from './styles';
 
 const CommonButton =
-({buttonLabel, buttonColor, buttonWidth, handleClick}) => {
+({buttonLabel, buttonColor, buttonColorHover, buttonWidth, handleClick}) => {
     return (
-        <CommonButtonContainer color={buttonColor} width={buttonWidth} onClick={handleClick}>
+        <CommonButtonContainer color={buttonColor} colorHover={buttonColorHover} width={buttonWidth} onClick={handleClick}>
             {buttonLabel}
         </CommonButtonContainer>
     );

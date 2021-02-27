@@ -16,9 +16,10 @@ const CommonButtonContainer = styled.button`
     font-weight: 400;
 
     cursor: pointer;
+    transition: background-color 0.35s;
 
     &:hover{
-        background-color: ${props => props.color || 'red'};
+        background-color: ${props => props.colorHover};
     }
 `;
 

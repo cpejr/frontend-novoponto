@@ -1,36 +1,27 @@
 const palette = {
   orange400: '#F68D14',
 
-  green700: '#2C6A2E',
-  green400: '#43A246',
-  green300: '#54B057',
+  greenMoss: 'rgba(49, 216, 67, 0.5)',
+  greenMossHover: 'rgba(49, 230, 67, 0.7)',
 
-  red700: '#AB4141',
-  red400: '#EC4E4E',
-  red300: '#E85F5F',
+  red300: '#CA191B',
+  red300Hover: '#CA301B',
 
-  yellow900: '#2F2711',
-  yellow700: '#D8AA2D',
   yellow400: '#E4CC2F',
-  yellow50: '#F5F9E0',
+  yellowMustard: 'rgba(255, 209, 7, 0.5)',
+  yellowMustardHover: 'rgba(255, 215, 7, 0.7)',
 
-  blue900: '#0B3333',
-  blue700: '#13B1B1',
   blue400: '#227ECF',
-  blue50: '#C0EBF6',
+  blueSky: '#0085FF',
 
   overlayDark: 'rgba(0,0,0,0.5)',
   overlayLight: 'rgba(255,255,255,0.3)',
   backDropLight: 'rgba(255,255,255,0.1)',
 
-  black: '#141414',
-  gray900: '#0E0E0E',
-  gray850: '#1F1F1F',
-  gray800: '#363636',
-  gray600: '#828282',
-  gray400: '#C2C2C2',
-  gray300: '#DFDFDF',
-  gray200: '#EFEFEF',
+  black: '#000',
+  gray900: '#141414',
+  gray800: '#1D1D1D',
+  grayDescription: '#5C5C5C',
   white: '#fff',
 };
 
@@ -38,42 +29,29 @@ export const colors = {
   white: palette.white,
   black: palette.black,
 
-  primary: palette.green400,
-  accent: palette.orange400,
-  primaryDark: palette.green700,
-  activeTintColor: palette.orange400,
+  primary: palette.gray900 ,
+  accent: palette.gray800,
 
-  appBackground: palette.white,
-  appSurface: palette.gray200,
-
-  header: palette.green400,
-  statusBar: palette.green700,
+  header: palette.black,
+  statusBar: palette.gray800,
 
   textHeader: palette.white,
   text: palette.gray800,
   textNote: palette.gray600,
   error: palette.red400,
 
-  blue: palette.blue400,
-  lightBlue: palette.blue50,
-  yellow: palette.yellow700,
-  lightYellow: palette.yellow50,
+  blue: palette.blueSky,
+  blueOk: palette.blue400,
 
-  chip: palette.gray300,
+  yellow: palette.yellowMustard,
+  yellowHover: palette.yellowMustardHover,
 
-  darkPositive: palette.green700,
-  positiveColor: palette.green400,
+  red: palette.red300,
+  redHover: palette.red300Hover,
 
-  darkNegative: palette.red700,
-  negativeColor: palette.red400,
+  green: palette.greenMoss,
+  greenHover: palette.greenMossHover,
 
-  overlayDark: palette.overlayLight,
-  overlayLight: palette.overlayDark,
-
-  overlayColor: palette.overlayLight,
-  backDrop: palette.overlayDark,
-
-  shadow: palette.black,
 };
 
 export const themedColors = {
