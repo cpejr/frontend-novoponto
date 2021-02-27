@@ -41,10 +41,14 @@ const Ponto = () => {
   const [loggedMembers, setLoggedMembers] = useState(fakeLoggedMembers);
   const [filteredMembers, setFilteredMembers] = useState([]);
 
+  const [errorInpuLogin, setErrorInpuLogin] = useState(false);
+
+  const [memberToLogin, setMemberToLogin] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   const handleLogin = (e) => {
     console.log("Escrevendo", e.target.value);
+    setMemberToLogin(e.target.value);
   };
 
   const handleOpenModal = () => {
@@ -60,7 +64,13 @@ const Ponto = () => {
 
   const handleClick = () => {
     // alert("Parabéns, vc logou!");
-    handleOpenModal();
+
+    if(memberToLogin === ''){
+      setErrorInpuLogin(true)
+    }else{
+      setErrorInpuLogin(false)
+    }
+    // handleOpenModal();
   };
 
   const handleLogouAllMembers = () => {
@@ -183,15 +193,22 @@ const Ponto = () => {
               handleInputText={(e) => handleSearchMembers(e)}
             />
 
-            <div className="loginSection">
-              <InputText placeholder="Logar" handleInputText={handleLogin} />
-              <CommonButton
-                buttonLabel="Login"
-                buttonColor={themeColors.yellow}
-                buttonColorHover={themeColors.yellowHover}
-                buttonWidth="84px"
-                handleClick={handleOpenModal}
-              />
+            <div className="loginAndItsValidateSection">
+              <div className="loginSection">
+                <InputText placeholder="Logar" handleInputText={handleLogin} />
+                <CommonButton
+                  buttonLabel="Login"
+                  buttonColor={themeColors.yellow}
+                  buttonColorHover={themeColors.yellowHover}
+                  buttonWidth="84px"
+                  handleClick={handleClick}
+                />
+              </div>
+              { errorInpuLogin &&
+                  <span className="validateMessageLogin">
+                    Campo vazio.
+                  </span>
+              }
             </div>
           </div>
 

@@ -62,11 +62,20 @@ const PontoComponent = styled.div`
             display: flex;
             justify-content: space-between;
 
-            .loginSection{
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-start;
+            .loginAndItsValidateSection{
+
+                .validateMessageLogin{
+                    color: red; 
+                    font-size: 12px;
+                }
+
+                .loginSection{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                }
             }
+
 
         }
 
