@@ -9,8 +9,6 @@ const PontoComponent = styled.div`
 
     background-color: ${props => props.theme.primary};
 
-    overflow-x: scroll;
-
     .fullContentPagePoint{
         width: 90%;
         min-height: 100vh;
@@ -148,6 +146,7 @@ const PontoComponent = styled.div`
     @media(max-width: 720px){
 
         height: auto;
+        overflow-x: scroll;
 
         .newsSection{
             height: auto;

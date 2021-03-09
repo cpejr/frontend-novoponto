@@ -6,6 +6,7 @@ import AdministrationLogin from '../pages/Administration/Login';
 import HourChanges from '../pages/HourChanges';
 import HourConsultation from '../pages/HourConsultation';
 import Ponto from '../pages/Ponto';
+import StandBy from '../pages/StandBy';
 
 const Routes = () => {
     return (
@@ -16,6 +17,7 @@ const Routes = () => {
                 <Route path="/alteracaodehoras" component={HourChanges}/>
                 <Route path="/consultadehoras" component={HourConsultation}/>
                 <Route path="/profile" component={Profile}/>
+                <Route path="/standby" component={StandBy}/>
             </Switch>
         </BrowserRouter>
 
