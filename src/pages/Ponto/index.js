@@ -11,6 +11,7 @@ import HourDisplayer from "../../components/atoms/HourDisplayer";
 import LogoutPointButton from "../../components/atoms/LogoutPointButton";
 import LoggedMembers from "../../components/molecules/LoggedMembersSection";
 import ConfirmationModal from "../../components/molecules/Modal";
+import AutocompleteInput from "../../components/molecules/AutocompleteInput";
 
 const fakeLoggedMembers = [
   {
@@ -64,7 +65,7 @@ const Ponto = () => {
   const handleClick = () => {
     // alert("Parabéns, vc logou!");
 
-    if(memberToLogin === ''){
+    if(!memberToLogin){
       setErrorInpuLogin(true)
     }else{
       setErrorInpuLogin(false)
@@ -172,7 +173,7 @@ const Ponto = () => {
     }, delta);
   };
 
-  
+  const options = ['Arthur Lima', 'Arthur Braga', 'Diogo Almazan', 'João Prates']
 
   return (
     <PontoComponent theme={themeColors}>
@@ -197,7 +198,8 @@ const Ponto = () => {
 
             <div className="loginAndItsValidateSection">
               <div className="loginSection">
-                <InputText placeholder="Logar" handleInputText={handleLogin} error={errorInpuLogin}/>
+                {/* <InputText placeholder="Logar" handleInputText={handleLogin} error={errorInpuLogin}/> */}
+                <AutocompleteInput options={options} setMemberToLogin={setMemberToLogin} />
                 <CommonButton
                   buttonLabel="Login"
                   buttonColor={themeColors.yellow}
