@@ -9,6 +9,8 @@ const PontoComponent = styled.div`
 
     background-color: ${props => props.theme.primary};
 
+    overflow-x: scroll;
+
     .fullContentPagePoint{
         width: 90%;
         min-height: 100vh;
@@ -93,7 +95,7 @@ const PontoComponent = styled.div`
             }
 
             .HeaderTablePointMembers tr{
-                height: 72px;
+                height: 80px;
                 background-color: #141414;
                 padding: 0px 20px;
                 
@@ -142,6 +144,47 @@ const PontoComponent = styled.div`
             margin-top: 30px;
         }
     }
+
+    @media(max-width: 720px){
+
+        height: auto;
+
+        .newsSection{
+            height: auto;
+            flex-direction: column;
+            margin-bottom: 20px;
+
+            .news{
+                margin-top: 20px;
+                max-width: 100%;
+            }
+
+            .news + .news{
+                margin-top: 20px;
+                margin-left: 0px;
+            }
+        }
+        
+        .pointSection{
+            height: auto;
+
+            .searchesSubsection{
+                height: auto;
+                flex-direction: column;
+                align-items: flex-start;
+
+                .loginSection{
+                    margin: 16px 0px;
+                }
+            }
+
+            .subSectionLoggedMembers .memberColumn{
+                width: auto;
+                min-width: 280px;
+            }
+        }
+    }
+
 `;
 
 const newsComponent = styled.div`

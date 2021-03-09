@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const MemberNameContainer = styled.div`
+    width: auto;
     display: flex;
     text-align: center;
     color: #FFF;

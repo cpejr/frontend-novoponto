@@ -20,6 +20,10 @@ const LoggedMembersContainer = styled.div`
     .hourDisplayer + .hourDisplayer{
         margin-left: 20px; 
     }
+
+    @media(max-width: 720px){
+        width: auto;
+    }
 `;
 
 const MemberDataSection = styled.div`
@@ -36,14 +40,24 @@ const MemberDataSection = styled.div`
         }
         
         .nameWithLabelSection{
+            min-width: 200px;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             
             .nameSection{
-                margin: 8px 0px;
                 display: flex;
                 align-items: center;
+            }
+        }
+
+        @media(max-width: 720px){
+            width: auto;
+
+            .nameWithLabelSection .nameSection{
+                margin: 3px 0px;
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
 `;
