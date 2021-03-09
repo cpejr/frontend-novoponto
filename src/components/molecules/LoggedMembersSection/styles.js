@@ -46,6 +46,7 @@ const MemberDataSection = styled.div`
             align-items: flex-start;
             
             .nameSection{
+                margin: 8px 0px;
                 display: flex;
                 align-items: center;
             }
