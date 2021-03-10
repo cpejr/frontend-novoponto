@@ -6,10 +6,12 @@ import AdministrationLogin from '../pages/Administration/Login';
 import HourChanges from '../pages/HourChanges';
 import HourConsultation from '../pages/HourConsultation';
 import Ponto from '../pages/Ponto';
+import SidebarMenu from '../components/organisms/SidebarMenu';
 
 const Routes = () => {
     return (
         <BrowserRouter>
+        <SidebarMenu>
             <Switch>
                 <Route path="/" exact component={Ponto}/>
                 <Route path="/admin/login" component={AdministrationLogin}/>
@@ -17,6 +19,7 @@ const Routes = () => {
                 <Route path="/consultadehoras" component={HourConsultation}/>
                 <Route path="/profile" component={Profile}/>
             </Switch>
+        </SidebarMenu>
         </BrowserRouter>
 
     );
