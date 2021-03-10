@@ -39,7 +39,7 @@ export const AutocompleteInputContainer = styled.div`
         width: 230px;
 
         ::-webkit-scrollbar {
-            width: 20px;
+            width: 15px;
         }
 
         /* Track */
@@ -50,6 +50,7 @@ export const AutocompleteInputContainer = styled.div`
 
         /* Handle */
         ::-webkit-scrollbar-thumb {
+            width: 5px;
             background: #fff;
             border-radius: 10px;
         }

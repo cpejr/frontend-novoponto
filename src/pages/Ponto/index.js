@@ -36,6 +36,44 @@ const fakeLoggedMembers = [
   },
 ];
 
+const allMembers = [
+  {
+    member: "Diogo",
+    role: "Gerente de Produtos",
+    description: "Um teste",
+  },
+  {
+    member: "Arthur Lima",
+    role: "Head de Projetos",
+    description: "Opa, e ai",
+  },
+  {
+    member: "Arthur Braga",
+    role: "Head de Marketing",
+    description: "NADA MAIS",
+  },
+  {
+    member: "João Prates",
+    role: "Consultor de Vendas",
+    description: "VENDASSSSSSSSSSSS",
+  },
+  {
+    member: "Maria Caneschi",
+    role: "Assessora de desenvolvimento",
+    description: "Teste",
+  },
+  {
+    member: "Giovanna Souza",
+    role: "Gerente de desenvolvimento",
+    description: "Frase testee",
+  },
+  {
+    member: "Pedro Barros",
+    role: "Diretor de desenvolvimento",
+    description: "Bora beber",
+  },
+];
+
 const Ponto = () => {
   const { themeColors } = useContext(ThemeContext);
 
@@ -47,9 +85,13 @@ const Ponto = () => {
   const [memberToLogin, setMemberToLogin] = useState("");
   const [showModal, setShowModal] = useState(false);
 
-  const handleLogin = (e) => {
-    setMemberToLogin(e.target.value);
-  };
+  const [resetAutocompleteField, setResetAutocompleteField] = useState(false);
+
+  let clearSetTimeout = '';
+
+  // const handleLogin = (e) => {
+  //   setMemberToLogin(e.target.value);
+  // };
 
   const handleOpenModal = () => {
     console.log("clicou");
@@ -62,19 +104,28 @@ const Ponto = () => {
     setShowModal(false);
   };
 
-  const handleClick = () => {
-    // alert("Parabéns, vc logou!");
+  const handleLogin = () => {
 
     if(!memberToLogin){
-      setErrorInpuLogin(true)
+      setErrorInpuLogin(true);
     }else{
-      setErrorInpuLogin(false)
+      setErrorInpuLogin(false);
+
+      const foundMember = allMembers.filter(item => item.member === memberToLogin);
+      console.log('achou', foundMember)
+      const foundMemberLogged = loggedMembers.filter(item => item.member === memberToLogin);
+      console.log('nao achou', foundMemberLogged)
+
+      if(foundMember.length > 0 && foundMemberLogged.length === 0){
+        setLoggedMembers([...loggedMembers, foundMember[0]]);
+        setMemberToLogin(null);
+        setResetAutocompleteField(true);
+      }
+
     }
-    // handleOpenModal();
   };
 
   const handleLogouAllMembers = () => {
-    // alert("Parabéns, vc logou!");
     if(loggedMembers.length > 0){
         setLoggedMembers([]);
     }
@@ -95,7 +146,7 @@ const Ponto = () => {
 
   const handleLogoutMember = (membersName) => {
     const teste = filteredMembers.filter(item => item.member !== membersName);
-    setFilteredMembers(teste);
+    setLoggedMembers(teste);
   }
 
   useEffect(() => {
@@ -110,9 +161,11 @@ const Ponto = () => {
         return 0;
       })
     );
+    setResetAutocompleteField(false);
   }, [loggedMembers]);
 
   useEffect(() => {
+    clearTimeout(clearSetTimeout);
     function carregou() {
         var elements = document.getElementsByClassName("txt-rotate");
         for (var i = 0; i < elements.length; i++) {
@@ -125,11 +178,12 @@ const Ponto = () => {
         // INJECT CSS
         var css = document.createElement("style");
         // css.type = "text/css";
-        css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+        css.innerHTML = ".txt-rotate > .wrap { font-size: 30px; border-right: 0.01em solid #666 }";
         document.body.appendChild(css);
     };
     carregou();
-  }, [filteredMembers])
+  }, [filteredMembers]);
+
   var TxtRotate = function (el, toRotate, period) {
     this.toRotate = toRotate;
     this.el = el;
@@ -168,12 +222,12 @@ const Ponto = () => {
       delta = 500;
     }
 
-    setTimeout(function () {
+    clearSetTimeout = setTimeout(function () {
       that.tick();
     }, delta);
   };
 
-  const options = ['Arthur Lima', 'Arthur Braga', 'Diogo Almazan', 'João Prates']
+  const options = allMembers.map(item => item.member);
 
   return (
     <PontoComponent theme={themeColors}>
@@ -198,14 +252,17 @@ const Ponto = () => {
 
             <div className="loginAndItsValidateSection">
               <div className="loginSection">
-                {/* <InputText placeholder="Logar" handleInputText={handleLogin} error={errorInpuLogin}/> */}
-                <AutocompleteInput options={options} setMemberToLogin={setMemberToLogin} />
+                <AutocompleteInput 
+                  options={options} 
+                  setMemberToLogin={setMemberToLogin} 
+                  resetAutocompleteField={resetAutocompleteField}
+                />
                 <CommonButton
                   buttonLabel="Login"
                   buttonColor={themeColors.yellow}
                   buttonColorHover={themeColors.yellowHover}
                   buttonWidth="84px"
-                  handleClick={handleClick}
+                  handleClick={handleLogin}
                 />
               </div>
               { errorInpuLogin &&
@@ -254,7 +311,7 @@ const Ponto = () => {
                 ))
               ) : (
                 <tr>
-                  <h1 style={{color: '#fff'}}>
+                  <h1 style={{color: '#fff', fontSize: '30px'}}>
                     Trabalhe enquanto eles 
                     <span
                       class="txt-rotate"
