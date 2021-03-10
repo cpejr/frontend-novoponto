@@ -40,11 +40,15 @@ const SidebarMenu = ({children}) => {
                 </div>
                 </Header>
                 <Layout>
-                <Sider width={200} className="site-layout-background" trigger={null} collapsible collapsed={openSideBar}>
+                <Sider width={200} className="site-layout-background" 
+                    trigger={null} 
+                    collapsible 
+                    collapsed={openSideBar}
+                >
                     <Menu
-                    mode="inline"
-                    defaultSelectedKeys={['1']}
-                    style={{ height: '100%', borderRight: 0 }}
+                        mode="inline"
+                        defaultSelectedKeys={['1']}
+                        style={{ height: '100%', borderRight: 0 }}
                     >
                     <Menu.Item key="1"  icon={<BulbOutlined />}>
                         <Link to="/">
