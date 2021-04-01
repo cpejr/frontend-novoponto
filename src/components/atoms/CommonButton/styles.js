@@ -17,9 +17,15 @@ const CommonButtonContainer = styled.button`
 
   cursor: pointer;
   transition: background-color 0.35s;
+  transition: filter 0.35s;
 
   &:hover {
-    background-color: ${(props) => props.colorHover};
+    filter: brightness(125%);
+  }
+
+  &:active {
+    filter: brightness(100%);
+    transition: filter 0.0s;
   }
 
   span {

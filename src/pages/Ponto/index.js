@@ -87,7 +87,7 @@ const Ponto = () => {
 
   const [resetAutocompleteField, setResetAutocompleteField] = useState(false);
 
-  let clearSetTimeout = '';
+  let clearSetTimeout = "";
 
   // const handleLogin = (e) => {
   //   setMemberToLogin(e.target.value);
@@ -105,29 +105,31 @@ const Ponto = () => {
   };
 
   const handleLogin = () => {
-
-    if(!memberToLogin){
+    if (!memberToLogin) {
       setErrorInpuLogin(true);
-    }else{
+    } else {
       setErrorInpuLogin(false);
 
-      const foundMember = allMembers.filter(item => item.member === memberToLogin);
-      console.log('achou', foundMember)
-      const foundMemberLogged = loggedMembers.filter(item => item.member === memberToLogin);
-      console.log('nao achou', foundMemberLogged)
+      const foundMember = allMembers.filter(
+        (item) => item.member === memberToLogin
+      );
+      console.log("achou", foundMember);
+      const foundMemberLogged = loggedMembers.filter(
+        (item) => item.member === memberToLogin
+      );
+      console.log("nao achou", foundMemberLogged);
 
-      if(foundMember.length > 0 && foundMemberLogged.length === 0){
+      if (foundMember.length > 0 && foundMemberLogged.length === 0) {
         setLoggedMembers([...loggedMembers, foundMember[0]]);
         setMemberToLogin(null);
         setResetAutocompleteField(true);
       }
-
     }
   };
 
   const handleLogouAllMembers = () => {
-    if(loggedMembers.length > 0){
-        setLoggedMembers([]);
+    if (loggedMembers.length > 0) {
+      setLoggedMembers([]);
     }
   };
 
@@ -145,9 +147,9 @@ const Ponto = () => {
   };
 
   const handleLogoutMember = (membersName) => {
-    const teste = filteredMembers.filter(item => item.member !== membersName);
+    const teste = filteredMembers.filter((item) => item.member !== membersName);
     setLoggedMembers(teste);
-  }
+  };
 
   useEffect(() => {
     setFilteredMembers(
@@ -167,20 +169,21 @@ const Ponto = () => {
   useEffect(() => {
     clearTimeout(clearSetTimeout);
     function carregou() {
-        var elements = document.getElementsByClassName("txt-rotate");
-        for (var i = 0; i < elements.length; i++) {
-          var toRotate = elements[i].getAttribute("data-rotate");
-          var period = elements[i].getAttribute("data-period");
-          if (toRotate) {
-            new TxtRotate(elements[i], JSON.parse(toRotate), period);
-          }
+      var elements = document.getElementsByClassName("txt-rotate");
+      for (var i = 0; i < elements.length; i++) {
+        var toRotate = elements[i].getAttribute("data-rotate");
+        var period = elements[i].getAttribute("data-period");
+        if (toRotate) {
+          new TxtRotate(elements[i], JSON.parse(toRotate), period);
         }
-        // INJECT CSS
-        var css = document.createElement("style");
-        // css.type = "text/css";
-        css.innerHTML = ".txt-rotate > .wrap { font-size: 30px; border-right: 0.01em solid #666 }";
-        document.body.appendChild(css);
-    };
+      }
+      // INJECT CSS
+      var css = document.createElement("style");
+      // css.type = "text/css";
+      css.innerHTML =
+        ".txt-rotate > .wrap { font-size: 30px; border-right: 0.01em solid #666 }";
+      document.body.appendChild(css);
+    }
     carregou();
   }, [filteredMembers]);
 
@@ -227,7 +230,7 @@ const Ponto = () => {
     }, delta);
   };
 
-  const options = allMembers.map(item => item.member);
+  const options = allMembers.map((item) => item.member);
 
   return (
     <PontoComponent theme={themeColors}>
@@ -252,24 +255,21 @@ const Ponto = () => {
 
             <div className="loginAndItsValidateSection">
               <div className="loginSection">
-                <AutocompleteInput 
-                  options={options} 
-                  setMemberToLogin={setMemberToLogin} 
+                <AutocompleteInput
+                  options={options}
+                  setMemberToLogin={setMemberToLogin}
                   resetAutocompleteField={resetAutocompleteField}
                 />
                 <CommonButton
                   buttonLabel="Login"
                   buttonColor={themeColors.yellow}
-                  buttonColorHover={themeColors.yellowHover}
                   buttonWidth="84px"
                   handleClick={handleLogin}
                 />
               </div>
-              { errorInpuLogin &&
-                  <span className="validateMessageLogin">
-                    Campo vazio.
-                  </span>
-              }
+              {errorInpuLogin && (
+                <span className="validateMessageLogin">Campo vazio.</span>
+              )}
             </div>
           </div>
 
@@ -305,14 +305,16 @@ const Ponto = () => {
                       />
                     </td>
                     <td className="logoutButton">
-                      <LogoutPointButton onClick={() => handleLogoutMember(item.member)}/>
+                      <LogoutPointButton
+                        onClick={() => handleLogoutMember(item.member)}
+                      />
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <h1 style={{color: '#fff', fontSize: '30px'}}>
-                    Trabalhe enquanto eles 
+                  <h1 style={{ color: "#fff", fontSize: "30px" }}>
+                    Trabalhe enquanto eles
                     <span
                       class="txt-rotate"
                       data-period="2000"
@@ -328,7 +330,6 @@ const Ponto = () => {
             <CommonButton
               buttonLabel="Deslogar todos os membros"
               buttonColor={themeColors.yellow}
-              buttonColorHover={themeColors.yellowHover}
               buttonWidth="207px"
               handleClick={handleLogouAllMembers}
             />

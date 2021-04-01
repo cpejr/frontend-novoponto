@@ -34,7 +34,7 @@ const Profile = () => {
       <HourDisplayer hour="10:38" hourColor="rgba(49, 216, 67, 0.5)" />
       <CommonButton
         buttonLabel="Clique aqui"
-        buttonColor="rgba(255, 193, 7, 0.5)"
+        buttonColor="#8A6B0E"
         buttonWidth="200px"
       />
       <DefaultLabel labelText="Gerentes de Produtos" labelColor="#FFD100" />
