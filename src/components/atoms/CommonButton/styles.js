@@ -4,7 +4,7 @@ const CommonButtonContainer = styled.button`
   width: ${(props) => props.width || "50px"};
   height: 32px;
   background-color: ${(props) => props.color || "red"};
-  border-radius: 0px 4px 4px 0px;
+  border-radius: 4px;
   outline: none;
   border: none;
 

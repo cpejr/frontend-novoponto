@@ -6,3 +6,4 @@ export { default as InputText } from "./InputText";
 export { default as LogoutPointButton } from "./LogoutPointButton";
 export { default as MemberDescription } from "./MemberDescription";
 export { default as MemberName } from "./MemberName";
+export { default as OutlinedBox } from "./OutlinedBox";
