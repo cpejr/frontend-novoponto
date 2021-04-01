@@ -7,8 +7,6 @@ const SidebarMenuContainer = styled.div`
     color: #fff;
   }
 
-  
-
   .ant-layout-header {
     padding: 0 40px;
   }
@@ -48,6 +46,7 @@ const SidebarMenuContainer = styled.div`
     color: #fff;
   }
 
+  #site-layout-background,
   .ant-layout-sider {
     background: #141414;
   }
@@ -62,6 +61,9 @@ const SidebarMenuContainer = styled.div`
     > .ant-menu-submenu-title
     > .ant-menu-submenu-expand-icon,
   .ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-arrow,
+  .ant-menu-submenu-selected
+    > .ant-menu-submenu-title
+    > .ant-menu-submenu-arrow,
   .ant-menu-submenu-selected,
   .ant-menu-item-selected,
   .ant-menu-item:hover,
@@ -78,9 +80,6 @@ const SidebarMenuContainer = styled.div`
   .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
     background-color: #ffffff20;
   }
-   {
-    background-color: #ffffff20;
-  }
 
   .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
     font-weight: 600;
@@ -89,10 +88,6 @@ const SidebarMenuContainer = styled.div`
   .ant-row-rtl #components-layout-demo-top-side-2 .logo {
     float: right;
     margin: 16px 0 16px 24px;
-  }
-
-  #site-layout-background {
-    background: #141414;
   }
 
   .ant-menu-vertical .ant-menu-item::after,
