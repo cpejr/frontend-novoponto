@@ -48,8 +48,6 @@ const PontoComponent = styled.div`
     .pointSection{
         width: 100%;
 
-        max-height: 600px;
-
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -57,7 +55,7 @@ const PontoComponent = styled.div`
         .searchesSubsection{
             width: 100%;
             height: 60px;
-            padding: 0px 20px;
+            /* padding: 0px 20px; */
 
             display: flex;
             justify-content: space-between;
@@ -167,10 +165,15 @@ const PontoComponent = styled.div`
         .pointSection{
             height: auto;
 
+            .subSectionLoggedMembers, .searchesSubsection{
+                padding-left: 20px;
+            }
+
             .searchesSubsection{
                 height: auto;
                 flex-direction: column;
                 align-items: flex-start;
+
 
                 .loginSection{
                     margin: 16px 0px;

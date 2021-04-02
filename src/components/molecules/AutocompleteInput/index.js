@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AutocompleteInputContainer } from './styles';
 
-const AutocompleteInput = ({options = [], setMemberToLogin}) => {
+const AutocompleteInput = ({options = [], setMemberToLogin, resetAutocompleteField}) => {
 
     const [activeSuggestion, setActiveSuggestion] = useState(0);
     const [filteredSuggestions, setFilteredSuggestions] = useState([]);
@@ -82,6 +82,12 @@ const AutocompleteInput = ({options = [], setMemberToLogin}) => {
         );
       }
     }
+
+    useEffect(() => {
+      if(resetAutocompleteField){
+        setUserInput("");
+      }
+    }, [resetAutocompleteField]);
 
     return (
         <AutocompleteInputContainer>

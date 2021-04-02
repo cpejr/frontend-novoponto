@@ -7,10 +7,12 @@ import HourChanges from '../pages/HourChanges';
 import HourConsultation from '../pages/HourConsultation';
 import Ponto from '../pages/Ponto';
 import StandBy from '../pages/StandBy';
+import SidebarMenu from '../components/organisms/SidebarMenu';
 
 const Routes = () => {
     return (
         <BrowserRouter>
+        <SidebarMenu>
             <Switch>
                 <Route path="/" exact component={Ponto}/>
                 <Route path="/admin/login" component={AdministrationLogin}/>
@@ -19,6 +21,7 @@ const Routes = () => {
                 <Route path="/profile" component={Profile}/>
                 <Route path="/standby" component={StandBy}/>
             </Switch>
+        </SidebarMenu>
         </BrowserRouter>
 
     );
