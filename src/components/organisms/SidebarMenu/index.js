@@ -70,18 +70,29 @@ const SidebarMenu = ({ children }) => {
               <Menu.Item key="4" icon={<CarryOutOutlined />}>
                 <Link to="/alteracaodehoras">Adicionar/Remover horas</Link>
               </Menu.Item>
-              <Menu.Item key="5" icon={<LockOutlined />}>
+              {/* <Menu.Item key="5" icon={<LockOutlined />}>
                 <Link to="/admin/login">Administração</Link>
-              </Menu.Item>
+              </Menu.Item> */}
               <SubMenu
                 key="sub3"
-                icon={<NotificationOutlined />}
-                title="Exemplo com subtopicos"
+                icon={<LockOutlined />}
+                title="Administração"
               >
-                <Menu.Item key="9">option9</Menu.Item>
-                <Menu.Item key="10">option10</Menu.Item>
-                <Menu.Item key="11">option11</Menu.Item>
-                <Menu.Item key="12">option12</Menu.Item>
+                <Menu.Item key="9">
+                  <Link to="/acompanhamentodehoras">Acomp. de horas</Link>
+                </Menu.Item>
+                <Menu.Item key="10">
+                  <Link to="/atualizarnoticias">Atualizar Notícias</Link>
+                </Menu.Item>
+                <Menu.Item key="11">
+                  <Link to="/horarioobrigatorio">Horário Obrigatório</Link>
+                </Menu.Item>
+                <Menu.Item key="12">
+                  <Link to="/membros">Membros</Link>
+                </Menu.Item>
+                <Menu.Item key="12">
+                  <Link to="/cargos">Cargos</Link>
+                </Menu.Item>
               </SubMenu>
             </Menu>
           </Sider>
