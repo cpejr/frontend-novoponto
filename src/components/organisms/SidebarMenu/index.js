@@ -90,7 +90,7 @@ const SidebarMenu = ({ children }) => {
                 <Menu.Item key="12">
                   <Link to="/membros">Membros</Link>
                 </Menu.Item>
-                <Menu.Item key="12">
+                <Menu.Item key="13">
                   <Link to="/cargos">Cargos</Link>
                 </Menu.Item>
               </SubMenu>
