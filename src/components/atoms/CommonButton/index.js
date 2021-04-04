@@ -3,9 +3,14 @@ import CommonButtonContainer from "./styles";
 
 const CommonButton = ({ children, buttonLabel, icon, ...props }) => {
   return (
-    <CommonButtonContainer {...props}>
+    <CommonButtonContainer color="#454545" {...props}>
       {icon && <span>{icon}</span>}
-      {buttonLabel}
+      {(buttonLabel || children) && (
+        <div>
+          {buttonLabel}
+          {children}
+        </div>
+      )}
     </CommonButtonContainer>
   );
 };

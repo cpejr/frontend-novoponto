@@ -25,11 +25,11 @@ const CommonButtonContainer = styled.button`
 
   &:active {
     filter: brightness(100%);
-    transition: filter 0.0s;
+    transition: filter 0s;
   }
 
-  span {
-    margin-right: 0.3em;
+  span + div {
+    margin-left: 0.3em;
   }
 `;
 

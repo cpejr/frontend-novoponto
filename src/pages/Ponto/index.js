@@ -250,7 +250,7 @@ const Ponto = () => {
             <InputText
               icon={searchIcon}
               placeholder="Pesquisar membros"
-              handleInputText={(e) => handleSearchMembers(e)}
+              onChange={(e) => handleSearchMembers(e)}
             />
 
             <div className="loginAndItsValidateSection">

@@ -1,22 +1,11 @@
 import React from "react";
 import InputTextContainer from "./styles";
 
-import avatar from "../../../assets/avatar.svg";
-
-const InputText = ({
-  icon = avatar,
-  placeholder,
-  handleInputText,
-  error = false,
-}) => {
+const InputText = ({ icon, error = false, ...props }) => {
   return (
     <InputTextContainer error={error}>
-      <img src={icon} alt={placeholder} />
-      <input
-        type="text"
-        placeholder={placeholder}
-        onChange={(e) => handleInputText(e)}
-      />
+      {icon && <img src={icon} alt={props.placeholder} />}
+      <input type="text" {...props} />
     </InputTextContainer>
   );
 };

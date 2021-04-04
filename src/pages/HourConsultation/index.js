@@ -33,7 +33,7 @@ const HoursConsultation = () => {
       <DefaultLabel labelText="Gerentes de Produtos" labelColor="#FFD100" />
       <MemberName name="Diogo" />
       <MemberDescription description="Meio com sono meio bolado" />
-      <InputText placeholder="Logue aqui" handleInputText={handleTest} />
+      <InputText placeholder="Logue aqui" onChange={handleTest} />
       <LoggedMembers name="Diogo" />
       <LoggedMembers name="Diogo" />
       <LogoutPointButton color="#1D1D1D" />
