@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Profile from '../pages/Profile';
 import AdministrationLogin from '../pages/Administration/Login';
@@ -23,8 +23,5 @@ const Routes = () => {
             </Switch>
         </SidebarMenu>
         </BrowserRouter>
-
-    );
-}
 
 export default Routes;
