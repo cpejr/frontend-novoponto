@@ -262,9 +262,9 @@ const Ponto = () => {
                 />
                 <CommonButton
                   buttonLabel="Login"
-                  buttonColor={themeColors.yellow}
-                  buttonWidth="84px"
-                  handleClick={handleLogin}
+                  color={themeColors.yellow}
+                  width="84px"
+                  onClick={handleLogin}
                 />
               </div>
               {errorInpuLogin && (
@@ -329,9 +329,9 @@ const Ponto = () => {
           <div className="buttonLogouAllMembers">
             <CommonButton
               buttonLabel="Deslogar todos os membros"
-              buttonColor={themeColors.yellow}
-              buttonWidth="207px"
-              handleClick={handleLogouAllMembers}
+              color={themeColors.yellow}
+              width="207px"
+              onClick={handleLogouAllMembers}
             />
           </div>
         </div>

@@ -32,13 +32,13 @@ const ConfirmationModal = ({
         <ModalButtonSection>
           <CommonButton
             buttonLabel="Cancelar"
-            buttonColor={themeColors.red}
-            buttonWidth="150px"
+            color={themeColors.red}
+            width="150px"
           />
           <CommonButton
             buttonLabel="Confirmar"
-            buttonColor={themeColors.yellow}
-            buttonWidth="150px"
+            color={themeColors.yellow}
+            width="150px"
           />
         </ModalButtonSection>
       </ModalContainer>

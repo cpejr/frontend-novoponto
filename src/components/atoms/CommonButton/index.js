@@ -1,19 +1,9 @@
 import React from "react";
 import CommonButtonContainer from "./styles";
 
-const CommonButton = ({
-  buttonLabel,
-  buttonColor,
-  buttonWidth,
-  handleClick,
-  icon,
-}) => {
+const CommonButton = ({ children, buttonLabel, icon, ...props }) => {
   return (
-    <CommonButtonContainer
-      color={buttonColor}
-      width={buttonWidth}
-      onClick={handleClick}
-    >
+    <CommonButtonContainer {...props}>
       {icon && <span>{icon}</span>}
       {buttonLabel}
     </CommonButtonContainer>

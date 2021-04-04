@@ -27,8 +27,8 @@ const HoursConsultation = () => {
       <HourDisplayer hour="10:38" hourColor="rgba(49, 216, 67, 0.5)" />
       <CommonButton
         buttonLabel="Clique aqui"
-        buttonColor="#8A6B0E"
-        buttonWidth="200px"
+        color="#8A6B0E"
+        width="200px"
       />
       <DefaultLabel labelText="Gerentes de Produtos" labelColor="#FFD100" />
       <MemberName name="Diogo" />
@@ -36,7 +36,7 @@ const HoursConsultation = () => {
       <InputText placeholder="Logue aqui" handleInputText={handleTest} />
       <LoggedMembers name="Diogo" />
       <LoggedMembers name="Diogo" />
-      <LogoutPointButton buttonColor="#1D1D1D" />
+      <LogoutPointButton color="#1D1D1D" />
     </HoursConsultationComponent>
   );
 };
