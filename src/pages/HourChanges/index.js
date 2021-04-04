@@ -48,7 +48,7 @@ const HourChanges = () => {
 
                 <CommonSelectBox inputRef={selectMemberInput} placeholderSelect="Escolha um membro" value={selectedMember} optionsList={OptionsMembers} onChangeFunction={handleSelectMember} />
                 <CommonSelectBox inputRef={addOrRemoveInput} placeholderSelect="Adicionar / remover horas" value={addOrRemoveHours} optionsList={AddOrRemoveHours} onChangeFunction={handleAddOrRemoveHours} />
-                <CommonButton buttonLabel="Enviar" buttonColor="#31D843" buttonWidth="100%"/>
+                <CommonButton buttonLabel="Enviar" color="#31D843" width="100%"/>
             </div>
         </HourChangesComponent>
     );

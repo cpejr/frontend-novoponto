@@ -1,35 +1,34 @@
 const palette = {
-  orange400: '#F68D14',
+  orange400: "#F68D14",
 
-  greenMoss: 'rgba(49, 216, 67, 0.5)',
-  greenMossHover: 'rgba(49, 230, 67, 0.7)',
+  greenMoss: "rgba(49, 216, 67, 0.5)",
+  greenMossHover: "rgba(49, 230, 67, 0.7)",
 
-  red300: '#CA191B',
-  red300Hover: '#CA301B',
+  red300: "#CA191B",
+  red300Hover: "#CA301B",
 
-  yellowCPEPrimary: '#E4CC2F',
-  yellowMustard: 'rgba(255, 209, 7, 0.5)',
-  yellowMustardHover: 'rgba(255, 215, 7, 0.7)',
+  yellowCPEPrimary: "#FFD100",
+  yellowMustard: "#8A6B0E",
 
-  blue400: '#227ECF',
-  blueSky: '#0085FF',
+  blue400: "#227ECF",
+  blueSky: "#0085FF",
 
-  overlayDark: 'rgba(0,0,0,0.5)',
-  overlayLight: 'rgba(255,255,255,0.3)',
-  backDropLight: 'rgba(255,255,255,0.1)',
+  overlayDark: "rgba(0,0,0,0.5)",
+  overlayLight: "rgba(255,255,255,0.3)",
+  backDropLight: "rgba(255,255,255,0.1)",
 
-  black: '#000',
-  gray900: '#141414',
-  gray800: '#1D1D1D',
-  grayDescription: '#5C5C5C',
-  white: '#fff',
+  black: "#000",
+  gray900: "#141414",
+  gray800: "#1D1D1D",
+  grayDescription: "#5C5C5C",
+  white: "#fff",
 };
 
 export const colors = {
   white: palette.white,
   black: palette.black,
 
-  primary: palette.gray900 ,
+  primary: palette.gray900,
   accent: palette.gray800,
 
   header: palette.black,
@@ -45,14 +44,12 @@ export const colors = {
 
   yellowCPE: palette.yellowMustard,
   yellow: palette.yellowMustard,
-  yellowHover: palette.yellowMustardHover,
 
   red: palette.red300,
   redHover: palette.red300Hover,
 
   green: palette.greenMoss,
   greenHover: palette.greenMossHover,
-
 };
 
 export const themedColors = {

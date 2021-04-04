@@ -102,6 +102,7 @@ const SidebarMenu = ({ children }) => {
               style={{
                 margin: 0,
                 minHeight: 280,
+                padding: 16,
               }}
             >
               {children}
