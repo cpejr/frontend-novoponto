@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { RolesComponent } from './styles';
 import { ThemeContext } from '../../../context/ThemeProvider';
 
 import CommonButton from '../../../components/atoms/CommonButton';
 import DefaultLabel from '../../../components/atoms/DefaultLabel';
+import ConfirmationModal from '../../../components/molecules/Modal';
 import { Redirect } from 'react-router';
 
 import {
@@ -31,6 +32,31 @@ const roles = [
 const Roles = () => {
     const { themeColors } = useContext(ThemeContext);
 
+    const [currentRoles, setCurrentRoles] = useState([]);
+
+    const [openModalExcludeRole, setOpenModalExcludeRole] = useState(false);
+    const [excludeRoleName, setExcludeRoleName] = useState("");
+
+
+    const handleOpenModal = (roleName) => {
+        setExcludeRoleName(roleName)
+        setOpenModalExcludeRole(true);
+    }
+
+    const handleExcludeRole = (roleName) => {
+        const newRoleArray = roles.filter((item) => item.roleName !== roleName);
+        setCurrentRoles(newRoleArray);
+        setOpenModalExcludeRole(false);
+    };
+
+    const handleCloseModal = () => {
+        setOpenModalExcludeRole(false);
+    }
+
+    useEffect(() => {
+        setCurrentRoles(roles);
+    }, []);
+
     return (
         <RolesComponent theme={themeColors}>
             <div className="iconWithTitle">
@@ -51,7 +77,7 @@ const Roles = () => {
                     <th className="roleColumn">Cargo</th>
                 </tr>
                 {
-                    roles.length > 0 ? roles.map( item => (
+                    currentRoles.length > 0 ? currentRoles.map( item => (
                         <tr>
                             <td className="roleColumn">
                                 {item.roleName}
@@ -67,7 +93,7 @@ const Roles = () => {
                                 <EditOutlined />
                             </td>
                             <td className="garbageColumn">
-                                <RestOutlined />
+                                <RestOutlined onClick={() => handleOpenModal(item.roleName)} />
                             </td>
                         </tr>
                     ))
@@ -77,6 +103,13 @@ const Roles = () => {
                     </tr>
                 }
             </table>
+            <ConfirmationModal 
+                title="Apagar cargo"
+                content={`Deseja mesmo apagar o cargo "${excludeRoleName}"?`}
+                isVisible={openModalExcludeRole}
+                handleOk={() => handleExcludeRole(excludeRoleName)}
+                handleCancel={handleCloseModal}
+            />
         </RolesComponent>
     );
 }
