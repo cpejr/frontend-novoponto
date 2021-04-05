@@ -1,0 +1,68 @@
+/* ATENÇÃO
+ * nesse arquivo podemos alterar o tema padrão do ant design
+ * como o ant design usa aquivos .less, temos que realizar alguns passos
+ * para que as mudanças realizadas aqui PERSISTAM.
+ *
+ * 1) Instalar less
+ *    yarn add less -g
+ *
+ * 2) Rodar o segunte comando
+ *    npx lessc "./src/styles/main.less" "./src/styles/compiled/antd.css" --js
+ */
+
+// Para encontrar mais variáveis
+// acesse: https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
+
+@import "node_modules/antd/dist/antd.less";
+// primary color for all components
+@primary-color: #ffd100;
+// Background color for `<body>`
+@body-background: #141414;
+// Base background color for most components
+@component-background: #1d1d1d;
+
+@text-color: fade(@white, 85%);
+@text-color-secondary: fade(@white, 65%);
+@text-color-inverse: @black;
+
+@icon-color: inherit;
+@icon-color-hover: fade(@black, 85%);
+
+@steps-nav-arrow-color: fade(@white, 25%);
+
+@layout-header-background: #000;
+@menu-inline-submenu-bg: #1d1d1d;
+@layout-body-background: #141414;
+
+// Border color
+@border-color-base: hsv(0, 0, 15%); // base border outline a component
+@border-color-split: hsv(0, 0, 6%); // split border inside a component
+@border-color-inverse: @black;
+@border-width-base: 1px; // width of the border for a component
+@border-style-base: solid; // style of a components border
+
+// Disabled states
+@disabled-color: fade(#fff, 35%);
+@disabled-bg: #1d1d1d;
+@item-hover-bg: #383838;
+
+// Color used by default to control hover and active backgrounds and for
+// alert info backgrounds.
+@primary-1: color(
+  ~`colorPalette("@{body-background}", 3) `
+); // replace tint(@body-background, 90%)
+@primary-2: color(
+  ~`colorPalette("@{body-background}", 3) `
+); // replace tint(@body-background, 80%)
+@primary-3: color(~`colorPalette("@{body-background}", 4) `); // unused
+@primary-4: color(~`colorPalette("@{body-background}", 5) `); // unused
+@primary-5: color(
+  ~`colorPalette("@{body-background}", 6) `
+); // color used to control the text color in many active and hover states, replace tint(@body-background, 20%)
+@primary-6: @body-background; // color used to control the text color of active buttons, don't use, use @body-background
+@primary-7: color(
+  ~`colorPalette("@{body-background}", 7) `
+); // replace shade(@body-background, 5%)
+@primary-8: color(~`colorPalette("@{body-background}", 8) `); // unused
+@primary-9: color(~`colorPalette("@{body-background}", 9) `); // unused
+@primary-10: color(~`colorPalette("@{body-background}", 10) `); // unused

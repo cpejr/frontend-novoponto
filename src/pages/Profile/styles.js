@@ -21,7 +21,7 @@ const ProfileComponent = styled.div`
 
   .outlinedBox {
     max-width: 400px;
-    min-height: 580px;
+    min-height: 590px;
   }
 
   .row {
@@ -58,7 +58,7 @@ const ProfileComponent = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 100px;
+    height: 120px;
   }
 
   .quote textarea {
@@ -69,6 +69,8 @@ const ProfileComponent = styled.div`
     position: absolute;
     right: 0;
     bottom: 0;
+    margin-bottom: 8px;
+    margin-right: 8px;
   }
 `;
 
