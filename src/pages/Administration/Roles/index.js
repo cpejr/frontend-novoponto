@@ -44,7 +44,7 @@ const Roles = () => {
     }
 
     const handleExcludeRole = (roleName) => {
-        const newRoleArray = roles.filter((item) => item.roleName !== roleName);
+        const newRoleArray = currentRoles.filter((item) => item.roleName !== roleName);
         setCurrentRoles(newRoleArray);
         setOpenModalExcludeRole(false);
     };
