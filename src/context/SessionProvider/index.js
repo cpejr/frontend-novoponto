@@ -3,47 +3,52 @@ import React, { createContext, useEffect, useState } from "react";
 
 export const SessionContext = createContext();
 
+const MEMBER_FIELDS = gql`
+  fragment MEMBER_FIELDS on Member {
+    _id
+    name
+    status
+    message
+    imageLink
+    responsible {
+      _id
+      name
+    }
+    role {
+      name
+      access
+    }
+  }
+`;
+
 const LOGIN = gql`
   mutation Login($tokenId: ID!) {
     login(tokenId: $tokenId) {
       accessToken
       member {
-        _id
-        name
-        status
-        message
-        imageLink
-        responsible {
-          _id
-          name
-        }
-        role {
-          name
-          access
-        }
+        ...MEMBER_FIELDS
       }
     }
   }
+  ${MEMBER_FIELDS}
 `;
 
 const GET_SESSION_DATA = gql`
   mutation GetSessionData {
     getSessionData {
-      _id
-      name
-      status
-      message
-      imageLink
-      responsible {
-        _id
-        name
-      }
-      role {
-        name
-        access
-      }
+      ...MEMBER_FIELDS
     }
   }
+  ${MEMBER_FIELDS}
+`;
+
+const UPDATE_SESSION_DATA = gql`
+  mutation updateMember($data: MemberUpdate!) {
+    updateMember(data: $data) {
+      ...MEMBER_FIELDS
+    }
+  }
+  ${MEMBER_FIELDS}
 `;
 
 const SessionContextProvider = (props) => {
@@ -52,6 +57,11 @@ const SessionContextProvider = (props) => {
     error: undefined,
     data: undefined,
   });
+
+  function onError(error) {
+    console.log(error);
+    setStorage({ loading: false, error, data: undefined });
+  }
 
   const [_login] = useMutation(LOGIN, {
     update(_, { data }) {
@@ -63,10 +73,7 @@ const SessionContextProvider = (props) => {
         data: { ...data.login },
       });
     },
-    onError(error) {
-      console.log(error);
-      setStorage({ loading: false, error, data: undefined });
-    },
+    onError,
   });
 
   const [getSessionData] = useMutation(GET_SESSION_DATA, {
@@ -77,10 +84,17 @@ const SessionContextProvider = (props) => {
         data: { ...storage.data, member: data.getSessionData },
       });
     },
-    onError(error) {
-      console.log(error);
-      setStorage({ loading: false, error, data: undefined });
+    onError,
+  });
+
+  const [_updateSessionData] = useMutation(UPDATE_SESSION_DATA, {
+    update(_, { data }) {
+      setStorage({
+        ...storage,
+        data: { ...storage.data, member: data.updateMember },
+      });
     },
+    onError,
   });
 
   useEffect(() => {
@@ -89,6 +103,8 @@ const SessionContextProvider = (props) => {
       setStorage({ ...storage, loading: true });
       getSessionData();
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function logOut() {
@@ -101,6 +117,10 @@ const SessionContextProvider = (props) => {
     return _login({ variables: { tokenId } });
   }
 
+  function updateSessionData(fields) {
+    return _updateSessionData({ variables: { data: fields } });
+  }
+
   return (
     <SessionContext.Provider
       value={{
@@ -109,6 +129,7 @@ const SessionContextProvider = (props) => {
         data: storage.data,
         login,
         logOut,
+        updateSessionData,
       }}
     >
       {props.children}

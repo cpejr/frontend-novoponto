@@ -53,6 +53,23 @@ const ProfileComponent = styled.div`
     flex-direction: column;
     flex-grow: 1;
   }
+
+  .quote {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100px;
+  }
+
+  .quote textarea {
+    height: 100%;
+  }
+
+  .quote button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
 `;
 
 export { ProfileComponent };

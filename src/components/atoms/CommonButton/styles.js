@@ -19,13 +19,17 @@ const CommonButtonContainer = styled.button`
   transition: background-color 0.35s;
   transition: filter 0.35s;
 
-  &:hover {
+  &:hover:enabled {
     filter: brightness(125%);
   }
 
-  &:active {
+  &:active:enabled {
     filter: brightness(100%);
     transition: filter 0s;
+  }
+
+  &:disabled {
+    cursor: default;
   }
 
   span + div {

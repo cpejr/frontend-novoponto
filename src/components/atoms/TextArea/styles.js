@@ -10,6 +10,7 @@ const TextArea = styled.textarea`
   font-size: 14px;
   line-height: 17px;
   color: #fff;
+  resize: ${(props) => props.resize || "true"};
 `;
 
 export default TextArea;
