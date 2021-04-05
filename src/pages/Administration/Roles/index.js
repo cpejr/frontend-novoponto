@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Tooltip } from 'antd';
 import { RolesComponent } from './styles';
 import { ThemeContext } from '../../../context/ThemeProvider';
 
@@ -90,10 +91,14 @@ const Roles = () => {
                                 )}
                             </td>
                             <td className="editColumn">
-                                <EditOutlined />
+                                <Tooltip placement="topLeft" title={"Editar"}>
+                                    <EditOutlined />
+                                </Tooltip>
                             </td>
                             <td className="garbageColumn">
-                                <RestOutlined onClick={() => handleOpenModal(item.roleName)} />
+                                <Tooltip placement="topLeft" title={"Excluir"}>
+                                    <RestOutlined onClick={() => handleOpenModal(item.roleName)} />
+                                </Tooltip>
                             </td>
                         </tr>
                     ))
