@@ -29,6 +29,12 @@ const InputTextContainer = styled.div`
     line-height: 17px;
     color: #fff;
   }
+
 `;
 
-export default InputTextContainer;
+const ErrorMessage = styled.span`
+  color: red;
+
+`;
+
+export {InputTextContainer, ErrorMessage};
