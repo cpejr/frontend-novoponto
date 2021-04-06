@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { HoursConsultationComponent } from "./styles";
 import { ThemeContext } from "../../context/ThemeProvider";
 import { DatePicker, Space } from 'antd';
@@ -74,19 +74,18 @@ const HoursConsultation = () => {
 
   const inputSelect = useRef(null);
 
-  const [startDate, setStartDate] = useState(new Date());
+  const [rangeDate, setRangeDate] = useState([]);
+  const [memberSelected, setMemberSelected] = useState("");
+  const [resultSumHistoricHours, setResultSumHistoricHours] = useState(0);
 
-  const handleTest = (e) => {
+  const handleSelectMember = (e) => {
     console.log(e.target);
+    setMemberSelected(e.target);
   };
   
-  const handleSelectDate = (e) => {
-    console.log(e.target.value);
-    setStartDate(e.target.value);
-  };
-
-  function onChange(value, dateString) {
+  function handleSelectDate(value, dateString) {
     console.log('Selected Time: ', value);
+    setRangeDate([dateString[0], dateString[1]]);
     console.log('Formatted Selected Time: ', dateString);
   }
   
@@ -94,14 +93,18 @@ const HoursConsultation = () => {
     console.log('onOk: ', value);
   }
 
+  useEffect(() => {
+    setResultSumHistoricHours("10:00");
+  }, []);
+
   return (
     <HoursConsultationComponent theme={themeColors}>
       <div className="selectMemberArea">
         <CommonSelectBox 
           inputRef={inputSelect}
-          defaultValue="ola"
+          defaultValue="Escolhe um membro"
           optionsList={options}
-          onChangeFunction={handleTest}
+          onChangeFunction={handleSelectMember}
         />
       </div>
 
@@ -159,7 +162,7 @@ const HoursConsultation = () => {
         <Space direction="vertical" size={12}>
           <RangePicker
             format="YYYY-MM-DD"
-            onChange={onChange}
+            onChange={handleSelectDate}
             onOk={onOk}
             placeholder={['Inicio', 'Fim']}
             />
@@ -167,7 +170,7 @@ const HoursConsultation = () => {
       </div>
 
       <div className="hoursSumAndTablesArea">
-        <h2>Soma: 9999</h2>
+        <h2>Soma: {resultSumHistoricHours}</h2>
 
         <table className="hoursSumAndTable">
           <tr>
@@ -192,14 +195,12 @@ const HoursConsultation = () => {
                   <HourDisplayer
                     hour={new Date().getTime()}
                     hourColor={themeColors.green}
-                    startTime={true}
                   />
                 </td>
                 <td className="timeArea">
                   <HourDisplayer
                     hour={new Date().getTime()}
                     hourColor={themeColors.yellow}
-                    startTime={true}
                   />
                 </td>
               </tr>
@@ -239,7 +240,6 @@ const HoursConsultation = () => {
                   <HourDisplayer
                     hour={new Date().getTime()}
                     hourColor={themeColors.yellow}
-                    startTime={true}
                   />
                 </td>
               </tr>

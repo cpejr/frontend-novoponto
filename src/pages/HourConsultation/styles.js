@@ -18,7 +18,7 @@ const HoursConsultationComponent = styled.div`
 
     .memberArea{
         min-height: 80px;
-        padding: 16px 0px;
+        padding: 32px 0px;
     }
 
     .mandatoryHours{
