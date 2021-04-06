@@ -10,11 +10,12 @@ export const AutocompleteInputContainer = styled.div`
   align-items: center;
   border-radius: 2px;
 
+
   input {
+    border: ${(props) => (props.error ? "0.7px solid red" : "none")};
     width: 100%;
     height: 32px;
     background-color: #1d1d1d;
-    border: none;
     outline: none;
     padding: 3px 8px;
     font-size: 14px;
@@ -79,5 +80,9 @@ export const AutocompleteInputContainer = styled.div`
 
   .suggestions li:not(:last-of-type) {
     border-bottom: 1px solid #999;
+  }
+
+  .errorMessage {
+    color: red;
   }
 `;

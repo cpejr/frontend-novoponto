@@ -49,7 +49,7 @@ const Routes = () => {
                 <PrivatADMRoute path="/acompanhamentodehoras" component={TimeTracking}/>
                 <PrivatADMRoute path="/atualizarnoticias" component={UpdateNews}/>
                 <PrivatADMRoute path="/horarioobrigatorio" component={MandatoryHours}/>
-                <PrivatADMRoute path="/membros" component={Members}/>
+                <Route path="/membros" component={Members}/>
                 <PrivatADMRoute path="/cargos" component={Roles}/>
             </Switch>
         </SidebarMenu>
