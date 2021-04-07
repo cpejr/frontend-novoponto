@@ -2,24 +2,26 @@ import React from "react";
 import { Select } from "antd";
 import { InputContainer, ErrorMessage } from "./styles";
 
-const SelectInput = (
-  { style = { width: "auto" }, options, error = false, errorMessage },
+const SelectInput = ({
+  options,
+  error = false,
+  errorMessage,
   value = "",
-  callback
-) => {
+  callback,
+}) => {
   const { Option } = Select;
 
   return (
     <>
-      <InputContainer>
+      <InputContainer error={error}>
         <Select
           defaultValue={value}
-          style={style}
           onChange={(value) => callback(value)}
+          className="inputSelect"
         >
-          <Option value="">--</Option>
+          <Option value="" className="inputSelect">--</Option>
           {options.map((option) => {
-            return <Option value={option.value}>{option.text}</Option>;
+            return <Option value={option} className="inputSelect">{option}</Option>;
           })}
         </Select>
       </InputContainer>

@@ -78,9 +78,9 @@ const Roles = () => {
       },
       {
         key: "isAdm",
-        type: "autoComplete",
+        type: "select",
         label: "Permissão",
-        validator: validators.notEmpityAndInsideArray,
+        validator: validators.notEmpity,
 
         options: ["Administrador", "Sem Adminstrador"],
       },
@@ -107,7 +107,7 @@ const Roles = () => {
     role.isAdm = (role.isAdm==="Administrador");
     const index = currentRoles.map((mapRole) => role.id).indexOf(role.id);
     currentRoles[index] = role;
-    setCurrentRoles([...roles]);
+    setCurrentRoles([...currentRoles]);
     handleCloseEditOrCreate();
   };
 

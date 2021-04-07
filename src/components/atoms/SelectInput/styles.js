@@ -8,7 +8,7 @@ const InputContainer = styled.div`
 
   border: ${(props) => (props.error ? "0.7px solid red" : "none")};
 
-  input {
+  .inputSelect {
     width: 100%;
     background-color: #1d1d1d;
     border: none;

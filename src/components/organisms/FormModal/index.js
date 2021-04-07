@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FormContainer } from "./styles";
 import Modal from "../../molecules/Modal";
 import AutoCompleteInput from "../../molecules/AutocompleteInput";
-import { InputText } from "../../atoms";
+import { InputText, SelectInput } from "../../atoms";
 
 // This Modal recieves an array of fields and deals with each one of them, including its type and validation
 // It can be used to create or edit any object, since the object has only simple keys (no arrays or objects inside it)
@@ -87,7 +87,7 @@ const FormModal = ({
     fields.forEach((field, index) => {
       if (field.type === "autoComplete")
         validation = field.validator(currentValue[field.key], field.options);
-      if (field.type === "text")
+      if (field.type === "text" || field.type === "select")
         validation = field.validator(currentValue[field.key]);
 
       //In case a validation fails, we can't send the object yet, so we set an error in the field and prevent the callback
@@ -133,6 +133,20 @@ const FormModal = ({
               callback={(value) => handleChangeObject(field.key, index, value)}
               resetAutocompleteField={reset[index]}
               initValue={originalObject ? originalObject[field.key] : ""}
+              error={error[index] ? error[index].error : false}
+              errorMessage={error[index] ? error[index].errorMessage : false}
+            />
+          </>
+        );
+      }
+      if (field.type === "select") {
+        returnField = (
+          <>
+            {field.label}
+            <SelectInput
+              options={field.options}
+              callback={(value) => handleChangeObject(field.key, index, value)}
+              value={originalObject ? originalObject[field.key] : ""}
               error={error[index] ? error[index].error : false}
               errorMessage={error[index] ? error[index].errorMessage : false}
             />
