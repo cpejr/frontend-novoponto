@@ -10,3 +10,4 @@ export { default as MemberName } from "./MemberName";
 export { default as MemberAvatar } from "./MemberAvatar";
 export { default as OutlinedBox } from "./OutlinedBox";
 export { default as TextArea } from "./TextArea";
+export { default as SelectInput } from "./SelectInput";

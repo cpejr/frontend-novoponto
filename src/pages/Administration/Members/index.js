@@ -55,7 +55,7 @@ const Members = () => {
   const [excludeMemberName, setExcludeMemberName] = useState("");
 
   ///////////////////////////////////////////////////////////////////////
-  // EDIT OR CREATE MEMBER HANDLING  //
+  // EDIT OR CREATE MEMBER HANDLING BEGIN //
   ///////////////////////////////////////////////////////////////////////
 
   const [editOrCreateModalInfo, setEditOrCreateModalInfo] = useState({
@@ -122,7 +122,7 @@ const Members = () => {
   };
 
   ///////////////////////////////////////////////////////////////////////
-  // EDIT OR CREATE MEMBER HANDLING  //
+  // EDIT OR CREATE MEMBER HANDLING END //
   ///////////////////////////////////////////////////////////////////////
 
   const handleOpenModal = (memberName) => {
