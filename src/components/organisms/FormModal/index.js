@@ -12,11 +12,11 @@ import { InputText, SelectInput } from "../../atoms";
 
 // const field = {
 //   key: "key name of the field, as in original object (or the key for the new one), examples: "name", "age", etc ",
-//   type: "text or autocomplete (further options can be developed)",
+//   type: "text, select or autocomplete (further options can be developed)",
 //   label: "label for the input",
-//   validator: "function called on validation. Should return "ok" or an error message. For text, receives only the input value; for autocomplete, receives the value and an array of its options",
+//   validator: "function called on validation. Should return "ok" or an error message. For text or select, receives only the input value; for autocomplete, receives the value and an array of its options",
 
-//   options: "in case its an autocomplete, the possible options",
+//   options: "in case its an autocomplete or select, the possible options",
 // };
 
 const FormModal = ({

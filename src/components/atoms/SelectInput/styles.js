@@ -18,7 +18,13 @@ const InputContainer = styled.div`
     line-height: 17px;
     color: #fff;
   }
-
+  .ant-select-selector {
+    background-color: #1d1d1d !important;
+    border: none !important;
+  }
+  .ant-select-arrow {
+    color: #ffff
+  }
 `;
 
 const ErrorMessage = styled.span`
