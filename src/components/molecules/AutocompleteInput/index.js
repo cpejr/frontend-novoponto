@@ -13,10 +13,10 @@ const AutocompleteInput = ({
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [userInput, setUserInput] = useState(initValue ? initValue : "");
-
+  
   const onChange = (e) => {
     const userInput = e.currentTarget.value;
-
+    
     const filteredSuggestions = options.filter(
       (suggestion) =>
         suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1

@@ -50,7 +50,7 @@ const Routes = () => {
                 <PrivatADMRoute path="/atualizarnoticias" component={UpdateNews}/>
                 <PrivatADMRoute path="/horarioobrigatorio" component={MandatoryHours}/>
                 <Route path="/membros" component={Members}/>
-                <PrivatADMRoute path="/cargos" component={Roles}/>
+                <Route path="/cargos" component={Roles}/>
             </Switch>
         </SidebarMenu>
         </BrowserRouter>

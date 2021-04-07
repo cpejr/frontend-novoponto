@@ -9,9 +9,11 @@ import searchIcon from "../../../assets/searchIcon.svg";
 
 import DefaultLabel from "../../../components/atoms/DefaultLabel";
 import ConfirmationModal from "../../../components/molecules/Modal";
-import EditOrCreateMemberModal from "../../../components/organisms/EditOrCreateMemberModal";
+import FormModal from "../../../components/organisms/FormModal";
 
 import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";
+
+import validators from "../../../services/validators";
 
 const members = [
   {
@@ -40,14 +42,14 @@ const members = [
 const rolesConst = [
   "Head de Marketing",
   "Assessor(a) de Desenvolvimento",
-  "Consultor(a) de Tecnologia"
+  "Consultor(a) de Tecnologia",
 ];
 
 const Members = () => {
   const { themeColors } = useContext(ThemeContext);
 
   const [currentMembers, setCurrentMembers] = useState([]);
-	const [roles, setRoles] = useState([]);
+  const [roles, setRoles] = useState([]);
 
   const [openModalExcludeMember, setOpenModalExcludeMember] = useState(false);
   const [excludeMemberName, setExcludeMemberName] = useState("");
@@ -56,26 +58,54 @@ const Members = () => {
   // EDIT OR CREATE MEMBER HANDLING  //
   ///////////////////////////////////////////////////////////////////////
 
-  const [editOrCreateModal, setEditOrCreateModal] = useState({
+  const [editOrCreateModalInfo, setEditOrCreateModalInfo] = useState({
     open: false,
   });
 
   const handleCloseEditOrCreate = () => {
-    setEditOrCreateModal({ open: false });
+    setEditOrCreateModalInfo({ open: false });
   };
 
-  const editorCreateMember = (method, member) => {
+  const editOrCreateMember = (method, member) => {
+    var fields = [
+      {
+        key: "memberName",
+        type: "text",
+        label: "Nome",
+        validator: validators.notEmpity,
+      },
+      {
+        key: "roleName",
+        type: "autoComplete",
+        label: "Cargo",
+        validator: validators.notEmpityAndInsideArray,
+
+        options:  [...roles ],
+      },
+      {
+        key: "responsableName",
+        type: "autoComplete",
+        label: "Assessor",
+        validator: validators.notEmpityAndInsideArray,
+
+        options:  [...(currentMembers.map(member => member.memberName)) ],
+      },
+    ];
     method === "edit"
-      ? setEditOrCreateModal({
-          open: true,
-          method: "edit",
+      ? setEditOrCreateModalInfo({
+          title: "Editar Membro",
+          fields: fields,
           callback: updateMember,
-          member: member,
-        })
-      : setEditOrCreateModal({
           open: true,
-          method: "create",
+          cancel: handleCloseEditOrCreate,
+          originalObject: member,
+        })
+      : setEditOrCreateModalInfo({
+          title: "Criar Membro",
+          fields: fields,
           callback: createMember,
+          open: true,
+          cancel: handleCloseEditOrCreate,
         });
   };
 
@@ -126,7 +156,7 @@ const Members = () => {
 
   useEffect(() => {
     setCurrentMembers(members);
-		setRoles(rolesConst);
+    setRoles(rolesConst);
   }, []);
 
   return (
@@ -145,7 +175,7 @@ const Members = () => {
           buttonLabel="Adicionar novo membro"
           color={themeColors.green}
           width="223px"
-          onClick={() => editorCreateMember("new")}
+          onClick={() => editOrCreateMember("new")}
         />
       </div>
 
@@ -171,7 +201,7 @@ const Members = () => {
                 <Tooltip
                   placement="topLeft"
                   title={"Editar"}
-                  onClick={() => editorCreateMember("edit", item)}
+                  onClick={() => editOrCreateMember("edit", item)}
                 >
                   <EditOutlined />
                 </Tooltip>
@@ -196,11 +226,13 @@ const Members = () => {
         handleOk={() => handleExcludeRole(excludeMemberName)}
         handleCancel={handleCloseModal}
       />
-      <EditOrCreateMemberModal
-				members={members}
-				roles={roles}
-        properties={editOrCreateModal}
-        cancel={handleCloseEditOrCreate}
+      <FormModal
+        title={editOrCreateModalInfo.title}
+        fields={editOrCreateModalInfo.fields}
+        callback={editOrCreateModalInfo.callback}
+        open={editOrCreateModalInfo.open}
+        cancel={editOrCreateModalInfo.cancel}
+        originalObject={editOrCreateModalInfo.originalObject}
       />
     </MembersComponent>
   );

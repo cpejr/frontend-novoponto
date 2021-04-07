@@ -13,7 +13,7 @@ import {
     EditOutlined,
     RestOutlined
 
-  } from "@ant-design/icons";
+} from "@ant-design/icons";
 
 const roles = [
     {
