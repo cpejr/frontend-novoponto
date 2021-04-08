@@ -12,6 +12,7 @@ import MandatoryHours from '../pages/Administration/MandatoryHours';
 import Members from '../pages/Administration/Members';
 import Roles from '../pages/Administration/Roles';
 import SidebarMenu from '../components/organisms/SidebarMenu';
+import AdministrationLogin from "../pages/Administration/Login";
 
 import { SessionContext } from '../context/SessionProvider';
 import { isAuthenticated, isADM } from '../services/auth';
@@ -46,11 +47,12 @@ const Routes = () => {
                 <Route path="/consultadehoras" component={HourConsultation}/>
                 <Route path="/profile" component={Profile}/>
                 <Route path="/standby" component={StandBy}/>
+                <Route path="/admin/login" component={AdministrationLogin} />
                 <PrivatADMRoute path="/acompanhamentodehoras" component={TimeTracking}/>
                 <PrivatADMRoute path="/atualizarnoticias" component={UpdateNews}/>
                 <PrivatADMRoute path="/horarioobrigatorio" component={MandatoryHours}/>
-                <Route path="/membros" component={Members}/>
-                <Route path="/cargos" component={Roles}/>
+                <PrivateADMRoute path="/membros" component={Members}/>
+                <PrivateADMRoute path="/cargos" component={Roles}/>
             </Switch>
         </SidebarMenu>
         </BrowserRouter>

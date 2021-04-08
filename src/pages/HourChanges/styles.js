@@ -1,36 +1,34 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const HourChangesComponent = styled.div`
-    width: 100%;
-    min-height: 100vh;
+  width: 100%;
+  min-height: 100vh;
+  background-color: ${(props) => props.theme.appBackground};
 
+  .outlinedBox {
+    max-width: 400px;
+    min-height: 580px;
+  }
+
+  h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .inputGroup + .inputGroup {
+    margin-top: 16px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+  }
 
-    background-color: ${props => props.theme.appBackground};
-
-    .hourChangesBox{
-        width: 550px;
-        max-width: 90%;
-        border: 2px solid #454545;
-        border-radius: 5px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        padding: 20px 42px 25px 42px;
-
-        h1{
-            font-size: 20px;
-            font-weight: 700;
-            color: #FFF;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-    }
+  .title {
+    font-weight: 600;
+    text-align: center;
+    font-size: 16px;
+  }
 `;
 
-export  { HourChangesComponent };
+export { HourChangesComponent };

@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { ThemeContext } from "../../context/ThemeProvider";
 import {
+  CommonButton,
   DefaultLabel,
   DefaultText,
   LogoutPointButton,
@@ -9,10 +10,24 @@ import {
   TextArea,
 } from "../../components/atoms";
 import { SessionContext } from "../../context/SessionProvider";
+import { SaveOutlined } from "@ant-design/icons";
+import SaveButton from "../../components/molecules/SaveButton";
 
 const Profile = () => {
   const { themeColors } = useContext(ThemeContext);
-  const { data, logOut } = useContext(SessionContext);
+  const { data, logOut, updateSessionData } = useContext(SessionContext);
+
+  const [status, setStatus] = useState(data?.member?.status || "");
+
+  async function handleSave() {
+    updateSessionData({ status });
+  }
+
+  function handleOnChange(e) {
+    setStatus(e.target.value);
+  }
+
+  const saved = status === data?.member?.status;
 
   return (
     <>
@@ -34,8 +49,16 @@ const Profile = () => {
       <div className="message">
         <DefaultText>{data?.member?.message}</DefaultText>
       </div>
-      <DefaultText>Frase:</DefaultText>
-      <TextArea maxLength={50} />
+      <div className="quote">
+        <DefaultText>Frase:</DefaultText>
+        <TextArea
+          maxLength={50}
+          resize={"none"}
+          onChange={handleOnChange}
+          value={status}
+        />
+        <SaveButton saved={saved} onClick={handleSave} />
+      </div>
     </>
   );
 };
