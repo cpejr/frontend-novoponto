@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const ModalContainer = styled.div`
-    width: 300px;
     height: auto;
     padding: 30px 20px;
 

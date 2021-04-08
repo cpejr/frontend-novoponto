@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Modal } from "antd";
+import { Modal, Button } from "antd";
 import {
   ModalContainer,
   ModalContentSection,
@@ -16,31 +16,27 @@ const ConfirmationModal = ({
   isVisible,
   handleOk,
   handleCancel,
+  children,
 }) => {
   const { themeColors } = useContext(ThemeContext);
 
-  console.log("entoru");
   return (
     <Modal
       title={title}
       visible={isVisible}
       onOk={handleOk}
       onCancel={handleCancel}
+      footer={[
+        <Button key="back" onClick={handleCancel}>
+          Cancelar
+        </Button>,
+        <Button key="submit" type="primary" onClick={handleOk}>
+          Confirmar
+        </Button>,
+      ]}
     >
       <ModalContainer>
-        <ModalContentSection>{content}</ModalContentSection>
-        <ModalButtonSection>
-          <CommonButton
-            buttonLabel="Cancelar"
-            color={themeColors.red}
-            width="150px"
-          />
-          <CommonButton
-            buttonLabel="Confirmar"
-            color={themeColors.yellow}
-            width="150px"
-          />
-        </ModalButtonSection>
+        <ModalContentSection>{content}{children}</ModalContentSection>
       </ModalContainer>
     </Modal>
   );

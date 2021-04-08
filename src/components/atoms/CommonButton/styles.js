@@ -11,7 +11,7 @@ const CommonButtonContainer = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: #fff !important;
   font-size: 14px;
   font-weight: 400;
 

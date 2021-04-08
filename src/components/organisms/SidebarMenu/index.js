@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { SidebarMenuContainer } from "./styles";
 
@@ -7,7 +7,6 @@ import {
   BulbOutlined,
   UserOutlined,
   ClockCircleOutlined,
-  NotificationOutlined,
   LockOutlined,
   CarryOutOutlined,
   MenuUnfoldOutlined,
@@ -15,10 +14,14 @@ import {
 } from "@ant-design/icons";
 
 import logoMenu from "../../../assets/logoMenu.svg";
+import { SessionContext } from "../../../context/SessionProvider";
 
 const SidebarMenu = ({ children }) => {
   const { SubMenu } = Menu;
   const { Header, Content, Sider } = Layout;
+
+  const { data } = useContext(SessionContext);
+  const user = data?.login || null; // É isso msm?
 
   const [openSideBar, setOpenSideBar] = useState(false);
 
@@ -58,7 +61,7 @@ const SidebarMenu = ({ children }) => {
               theme="light"
               style={{ height: "100%", borderRight: 0 }}
             >
-              <Menu.Item key="1" icon={<BulbOutlined />}>
+              <Menu.Item key="1" icon={<BulbOutlined />} >
                 <Link to="/">Ponto</Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<ClockCircleOutlined />}>
@@ -70,18 +73,27 @@ const SidebarMenu = ({ children }) => {
               <Menu.Item key="4" icon={<CarryOutOutlined />}>
                 <Link to="/alteracaodehoras">Adicionar/Remover horas</Link>
               </Menu.Item>
-              <Menu.Item key="5" icon={<LockOutlined />}>
-                <Link to="/admin/login">Administração</Link>
-              </Menu.Item>
               <SubMenu
                 key="sub3"
-                icon={<NotificationOutlined />}
-                title="Exemplo com subtopicos"
+                icon={<LockOutlined />}
+                title="Administração"
+                disabled={user?.role?.access !== 'ADM'}  // É isso msm?
               >
-                <Menu.Item key="9">option9</Menu.Item>
-                <Menu.Item key="10">option10</Menu.Item>
-                <Menu.Item key="11">option11</Menu.Item>
-                <Menu.Item key="12">option12</Menu.Item>
+                <Menu.Item key="9">
+                  <Link to="/acompanhamentodehoras">Acomp. de horas</Link>
+                </Menu.Item>
+                <Menu.Item key="10">
+                  <Link to="/atualizarnoticias">Atualizar Notícias</Link>
+                </Menu.Item>
+                <Menu.Item key="11">
+                  <Link to="/horarioobrigatorio">Horário Obrigatório</Link>
+                </Menu.Item>
+                <Menu.Item key="12">
+                  <Link to="/membros">Membros</Link>
+                </Menu.Item>
+                <Menu.Item key="13">
+                  <Link to="/cargos">Cargos</Link>
+                </Menu.Item>
               </SubMenu>
             </Menu>
           </Sider>
