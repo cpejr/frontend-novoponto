@@ -114,7 +114,7 @@ const FormModal = ({
           <>
             {field.label}
             <InputText
-              value={originalObject ? originalObject[field.key] : ""}
+              value={currentValue[field.key] }
               onChange={(e) =>
                 handleChangeObject(field.key, index, e.target.value)
               }
