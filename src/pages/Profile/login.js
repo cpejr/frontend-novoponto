@@ -24,7 +24,7 @@ const CLIENT_ID =
 const Login = () => {
   const { themeColors } = useContext(ThemeContext);
   const { loading, error, data, login } = useContext(SessionContext);
-  console.log(error);
+
   function handleLogin(googleData) {
     const { tokenId } = googleData;
     login(tokenId);

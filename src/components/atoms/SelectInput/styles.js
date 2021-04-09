@@ -1,25 +1,14 @@
 import styled from "styled-components";
 
-const InputTextContainer = styled.div`
+const InputContainer = styled.div`
   background-color: #1d1d1d;
   width: 230px;
   height: 32px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
   border-radius: 2px;
 
   border: ${(props) => (props.error ? "0.7px solid red" : "none")};
 
-  img {
-    width: 14px;
-    height: 15px;
-    margin: 0px 0px 0px 8px;
-  }
-
-  input {
+  .inputSelect {
     width: 100%;
     background-color: #1d1d1d;
     border: none;
@@ -29,12 +18,17 @@ const InputTextContainer = styled.div`
     line-height: 17px;
     color: #fff;
   }
-
+  .ant-select-selector {
+    background-color: #1d1d1d !important;
+    border: none !important;
+  }
+  .ant-select-arrow {
+    color: #ffff
+  }
 `;
 
 const ErrorMessage = styled.span`
   color: red;
-
 `;
 
-export {InputTextContainer, ErrorMessage};
+export { InputContainer, ErrorMessage };

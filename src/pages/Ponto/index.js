@@ -257,7 +257,7 @@ const Ponto = () => {
               <div className="loginSection">
                 <AutocompleteInput
                   options={options}
-                  setMemberToLogin={setMemberToLogin}
+                  callback={setMemberToLogin}
                   resetAutocompleteField={resetAutocompleteField}
                 />
                 <CommonButton

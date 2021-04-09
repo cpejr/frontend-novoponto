@@ -16,6 +16,7 @@ const ConfirmationModal = ({
   isVisible,
   handleOk,
   handleCancel,
+  children,
 }) => {
   const { themeColors } = useContext(ThemeContext);
 
@@ -35,7 +36,7 @@ const ConfirmationModal = ({
       ]}
     >
       <ModalContainer>
-        <ModalContentSection>{content}</ModalContentSection>
+        <ModalContentSection>{content}{children}</ModalContentSection>
       </ModalContainer>
     </Modal>
   );
