@@ -6,7 +6,7 @@ const SelectInput = ({
   options,
   error = false,
   errorMessage,
-  value = "",
+  defaultValue = "",
   callback,
 }) => {
   const { Option } = Select;
@@ -15,11 +15,11 @@ const SelectInput = ({
     <>
       <InputContainer error={error}>
         <Select
-          defaultValue={value}
+          defaultValue={defaultValue}
           onChange={(value) => callback(value)}
           className="inputSelect"
         >
-          <Option value="" className="inputSelect">--</Option>
+          <Option value="" className="inputSelect">Selecione um membro</Option>
           {options.map((option) => {
             return <Option value={option} className="inputSelect">{option}</Option>;
           })}
