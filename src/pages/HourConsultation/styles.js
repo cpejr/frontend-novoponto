@@ -12,6 +12,10 @@ const HoursConsultationComponent = styled.div`
     flex-direction: column;
     align-items: flex-start;
 
+    /* Ajuste CSS do RangePicjer */
+    .ant-picker-range{
+        min-width: 250px;
+    }
     .selectMemberArea{
         width: 300px;
     }
@@ -62,7 +66,7 @@ const HoursConsultationComponent = styled.div`
 
     .dayColumn{
         width: 40%;
-        min-width: 100px;
+        min-width: 120px;
         display: flex;
         justify-content: flex-start;
         color: #FFFFFF;
@@ -70,7 +74,7 @@ const HoursConsultationComponent = styled.div`
 
     .startTime, .finishTime, .timeArea, .typeArea{
         width: 30%;
-        min-width: 100px;
+        min-width: 120px;
         display: flex;
         justify-content: flex-start;
         color: #FFFFFF;
