@@ -5,6 +5,7 @@ import { DatePicker, Space } from 'antd';
 
 import {
   HourDisplayer,
+  InfoDisplayer,
   CommonSelectBox,
 } from "../../components/atoms";
 
@@ -100,12 +101,10 @@ const HoursConsultation = () => {
     console.log('Formatted Selected Time: ', dateString);
   }
   
-  function onOk(value) {
-    console.log('onOk: ', value);
-  }
 
+  // Somente para inicializar, depois retiraremos o useEffect
   useEffect(() => {
-    setResultSumHistoricHours("10:00");
+    setResultSumHistoricHours("100:00");
   }, []);
 
 
@@ -174,7 +173,6 @@ const HoursConsultation = () => {
           <RangePicker
             format="YYYY-MM-DD"
             onChange={handleSelectDate}
-            onOk={onOk}
             placeholder={['Inicio', 'Fim']}
             />
         </Space>
@@ -209,9 +207,9 @@ const HoursConsultation = () => {
                   />
                 </td>
                 <td className="timeArea">
-                  <HourDisplayer
-                    hour={new Date().getTime()}
-                    hourColor={themeColors.yellow}
+                  <InfoDisplayer
+                    info={"10:00"}
+                    infoColor={themeColors.yellow}
                   />
                 </td>
               </tr>
@@ -242,14 +240,14 @@ const HoursConsultation = () => {
                   {item.dia}
                 </td>
                 <td className="typeArea">
-                  <HourDisplayer
-                    hour={"Adicionar"}
-                    hourColor={themeColors.green}
+                  <InfoDisplayer
+                    info={"Adicionar"}
+                    infoColor={themeColors.green}
                   />
                 </td>
                 <td className="timeArea">
                   <HourDisplayer
-                    hour={new Date().getTime()}
+                    hour={"10:00"}
                     hourColor={themeColors.yellow}
                   />
                 </td>
