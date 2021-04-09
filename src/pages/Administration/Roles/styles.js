@@ -26,6 +26,7 @@ const RolesComponent = styled.div`
             font-size: 30px;
             font-weight: 400;
             line-height: 29px;
+            color: #FFFFFF;
         }
     }
 
