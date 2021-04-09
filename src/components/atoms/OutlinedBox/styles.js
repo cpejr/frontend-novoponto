@@ -6,6 +6,7 @@ const OutlinedBoxContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 16px;
+  position: relative;
 `;
 
 export default OutlinedBoxContainer;

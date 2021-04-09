@@ -11,6 +11,7 @@ import UpdateNews from '../pages/Administration/UpdateNews';
 import MandatoryHours from '../pages/Administration/MandatoryHours';
 import Members from '../pages/Administration/Members';
 import Roles from '../pages/Administration/Roles';
+import HourFollowing from '../pages/Administration/HourFollowing';
 import SidebarMenu from '../components/organisms/SidebarMenu';
 
 import { SessionContext } from '../context/SessionProvider';
@@ -51,6 +52,7 @@ const Routes = () => {
                 <PrivateADMRoute path="/horarioobrigatorio" component={MandatoryHours}/>
                 <PrivateADMRoute path="/membros" component={Members}/>
                 <PrivateADMRoute path="/cargos" component={Roles}/>
+                <Route path="/acompanhamento" component={HourFollowing}/>
             </Switch>
         </SidebarMenu>
         </BrowserRouter>
