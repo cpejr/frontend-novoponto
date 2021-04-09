@@ -5,14 +5,13 @@ import { Select } from 'antd';
 const { Option } = Select;
 
 const CommonSelectBox =
-({inputRef, placeholderSelect, value, optionsList = [], onChangeFunction}) => {
+({inputRef, defaultValue, optionsList = [], onChangeFunction}) => {
     return (
         <CommonSelectBoxContainer>
             <Select
                 size="default"
                 ref={inputRef}
-                value={value}
-                placeholder={placeholderSelect}
+                defaultValue={defaultValue}
                 onChange={onChangeFunction}
                 style={{ width: '100%' }}
             >

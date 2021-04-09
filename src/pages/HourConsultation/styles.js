@@ -25,6 +25,7 @@ const HoursConsultationComponent = styled.div`
         margin-bottom: 48px;
         h2{
             margin-bottom: 16px;
+            color: #FFFFFF;
         }
     }
 
@@ -80,6 +81,7 @@ const HoursConsultationComponent = styled.div`
         margin-bottom: 48px;
         h2{
             margin-bottom: 16px;
+            color: #FFFFFF;
         }
     }
 
@@ -88,6 +90,7 @@ const HoursConsultationComponent = styled.div`
         margin-bottom: 24px;
         h2{
             margin-bottom: 16px;
+            color: #FFFFFF;
         }
         .hoursSumAndTable{
             width: 100%;
@@ -99,6 +102,7 @@ const HoursConsultationComponent = styled.div`
         margin-bottom: 48px;
         h2{
             margin-bottom: 16px;
+            color: #FFFFFF;
         }
         .hoursSumAndTable{
             width: 100%;

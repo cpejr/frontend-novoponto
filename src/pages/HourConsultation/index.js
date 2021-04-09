@@ -6,23 +6,34 @@ import { DatePicker, Space } from 'antd';
 import {
   HourDisplayer,
   CommonSelectBox,
-  DefaultLabel
 } from "../../components/atoms";
 
 import LoggedMembers from "../../components/molecules/LoggedMembersSection";
 
-const options = [
+const membersOptions = [
   {
     value: 'Diogo',
+    role: 'Gerente de Produtos',
+    description: 'Uma descrição',
     label: 'Diogo',
   },
   {
     value: 'Arthur Lima',
+    role: 'Head de Projetos',
+    description: 'Uma descrição teste',
     label: 'Arthur Lima',
   },
   {
     value: 'Arthur Braga',
+    role: 'Head de Marketing',
+    description: 'Uma descrição teste 2',
     label: 'Arthur Braga',
+  },
+  {
+    value: 'João Prates',
+    role: 'Consultor de Vendas',
+    description: 'Vendas',
+    label: 'João Prates',
   },
 ]
 
@@ -75,12 +86,12 @@ const HoursConsultation = () => {
   const inputSelect = useRef(null);
 
   const [rangeDate, setRangeDate] = useState([]);
-  const [memberSelected, setMemberSelected] = useState("");
+  const [memberSelected, setMemberSelected] = useState([]);
   const [resultSumHistoricHours, setResultSumHistoricHours] = useState(0);
 
-  const handleSelectMember = (e) => {
-    console.log(e.target);
-    setMemberSelected(e.target);
+  const handleSelectMember = (value) => {
+    console.log(value);
+    setMemberSelected(membersOptions.filter(item => item.value === value));
   };
   
   function handleSelectDate(value, dateString) {
@@ -97,22 +108,23 @@ const HoursConsultation = () => {
     setResultSumHistoricHours("10:00");
   }, []);
 
+
   return (
     <HoursConsultationComponent theme={themeColors}>
       <div className="selectMemberArea">
         <CommonSelectBox 
           inputRef={inputSelect}
-          defaultValue="Escolhe um membro"
-          optionsList={options}
+          defaultValue="Escolha um membro"
+          optionsList={membersOptions}
           onChangeFunction={handleSelectMember}
         />
       </div>
 
       <div className="memberArea">
         <LoggedMembers 
-          name="Fulano"
-          role="Default"
-          description="Default"
+          name={memberSelected[0]?.label || 'Lampinho'}
+          role={memberSelected[0]?.role || 'Mascote'}
+          description={memberSelected[0]?.description || 'Trabalhe enquanto eles dormem'}
         />
       </div>
 
@@ -141,7 +153,6 @@ const HoursConsultation = () => {
                   <HourDisplayer
                     hour={new Date().getTime()}
                     hourColor={themeColors.yellow}
-                    startTime={true}
                   />
                 </td>
               </tr>
