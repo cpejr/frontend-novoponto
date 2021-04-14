@@ -40,7 +40,7 @@ const FormModal = ({
   useEffect(() => {
     // If the goal is to update one object, this will be its initial value
     if (originalObject) setCurrentValue({ ...originalObject });
-
+    else setCurrentValue({});
     if (fields) {
       //If the goal is to create a new object, we need to set the inputs to empty strings
       if (!originalObject) {
@@ -146,7 +146,7 @@ const FormModal = ({
             <SelectInput
               options={field.options}
               callback={(value) => handleChangeObject(field.key, index, value)}
-              value={originalObject ? originalObject[field.key] : ""}
+              value={originalObject && originalObject[field.key]}
               error={error[index] ? error[index].error : false}
               errorMessage={error[index] ? error[index].errorMessage : false}
             />

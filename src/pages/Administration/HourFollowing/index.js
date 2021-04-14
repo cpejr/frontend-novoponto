@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { SelectInput } from "../../../components/atoms";
 import MemberDataADM from "../../../components/organisms/MemberDataADM";
-import { message } from "antd";
+import { message, Skeleton } from "antd";
 
 import { HourFollowingContainer } from "./styles";
 
@@ -40,26 +40,36 @@ const HourFollowing = () => {
 
   const saveData = async (newMessage) => {
     var hide = message.loading("Salvando");
-		try{
-			await updateMember({
-				variables: { memberId: selected._id, data: { message: newMessage } },
-			});
-			hide();
-			message.success("Salvo com sucesso", 2.5);
-			refetch();
-		}
-		catch (err) {
-			console.log(err);
-			message.error("Houve um problema, tente novamente", 2.5);
-		}
+    try {
+      await updateMember({
+        variables: { memberId: selected._id, data: { message: newMessage } },
+      });
+      hide();
+      message.success("Salvo com sucesso", 2.5);
+      refetch();
+    } catch (err) {
+      console.log(err);
+      message.error("Houve um problema, tente novamente", 2.5);
+    }
   };
 
   const [updateMember] = useMutation(UPDATE_MEMBER);
   const { loading, error, data, refetch } = useQuery(GET_MEMBERS);
 
-  if (loading) return "Loading...";
-  else if (error) return `Error! ${error.message}`;
-  else if (data) {
+  if (loading)
+    return (
+      <Skeleton
+        paragraph={{ rows: 4 }}
+        size={"large"}
+        active={loading}
+        loading={loading}
+      />
+    );
+  else if (error) {
+		console.log(error);
+    message.error("Houve um problema, tente recarregar a pagina", 2.5);
+    return <h1>Erro, recarregue a pagina</h1>;
+  } else if (data) {
     var members = data.members;
     return (
       <HourFollowingContainer>
