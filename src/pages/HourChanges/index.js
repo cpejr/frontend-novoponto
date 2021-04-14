@@ -1,14 +1,20 @@
 import React, { useState, useContext, useRef } from "react";
+import { TimePicker } from "antd";
+
 import { HourChangesComponent } from "./styles";
 import { ThemeContext } from "../../context/ThemeProvider";
+import { GlobalsContext } from "../../context/GlobalsProvider";
 
-import CommonButton from "../../components/atoms/CommonButton";
-import CommonSelectBox from "../../components/atoms/CommonSelectBox";
-
-import OptionsMembers from "../../utils/SelectBoxOptions/Members";
 import AddOrRemoveHours from "../../utils/SelectBoxOptions/AddOrRemoveHours";
-import { DefaultText, OutlinedBox, TextArea } from "../../components/atoms";
-import { TimePicker } from "antd";
+import {
+  DefaultText,
+  OutlinedBox,
+  TextArea,
+  CommonButton,
+  CommonSelectBox,
+} from "../../components/atoms";
+
+import MembersSelectBox from "../../components/molecules/MembersSelectBox";
 
 const HourChanges = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -16,18 +22,8 @@ const HourChanges = () => {
   const [selectedMember, setSelectedMember] = useState();
   const [addOrRemoveHours, setAddOrRemoveHours] = useState();
 
-  const [errorQuantityHour, setErrorQuantityHour] = useState(false);
-  const [errorQuantityHourMessage, setErrorQuantityHourMessage] = useState("");
-
-  const [errorJustificative, setErrorJustificative] = useState(false);
-  const [errorJustificativeMessage, setErrorJustificativeMessage] = useState(
-    ""
-  );
-
   const selectMemberInput = useRef(null);
   const addOrRemoveInput = useRef(null);
-  const hoursQuantityInput = useRef(null);
-  const justificativeInput = useRef(null);
 
   const handleSelectMember = (e) => {
     setSelectedMember(e.target);
@@ -53,22 +49,15 @@ const HourChanges = () => {
         </div>
         <div className="inputGroup">
           <DefaultText>Quem é você?</DefaultText>
-          <CommonSelectBox
-            inputRef={selectMemberInput}
-            placeholder="Escolha um membro"
-            value={selectedMember}
-            optionsList={OptionsMembers}
-            onChangeFunction={handleSelectMember}
-          />
+          <MembersSelectBox />
         </div>
         <div className="inputGroup">
           <DefaultText>O que deseja fazer?</DefaultText>
           <CommonSelectBox
-            inputRef={addOrRemoveInput}
             placeholder="Adicionar / remover horas"
             value={addOrRemoveHours}
             optionsList={AddOrRemoveHours}
-            onChangeFunction={handleAddOrRemoveHours}
+            onChange={handleAddOrRemoveHours}
           />
         </div>
         <div className="inputGroup">

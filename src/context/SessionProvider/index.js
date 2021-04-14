@@ -1,55 +1,9 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import React, { createContext, useEffect, useState } from "react";
 
+import { Login, GetSessionData, UpdateSelf } from "../../graphql/Member";
+
 export const SessionContext = createContext();
-
-const MEMBER_FIELDS = gql`
-  fragment MEMBER_FIELDS on Member {
-    _id
-    name
-    status
-    message
-    imageLink
-    responsible {
-      _id
-      name
-    }
-    role {
-      name
-      access
-    }
-  }
-`;
-
-const LOGIN = gql`
-  mutation Login($tokenId: ID!) {
-    login(tokenId: $tokenId) {
-      accessToken
-      member {
-        ...MEMBER_FIELDS
-      }
-    }
-  }
-  ${MEMBER_FIELDS}
-`;
-
-const GET_SESSION_DATA = gql`
-  mutation GetSessionData {
-    getSessionData {
-      ...MEMBER_FIELDS
-    }
-  }
-  ${MEMBER_FIELDS}
-`;
-
-const UPDATE_SESSION_DATA = gql`
-  mutation updateMember($data: MemberUpdate!) {
-    updateMember(data: $data) {
-      ...MEMBER_FIELDS
-    }
-  }
-  ${MEMBER_FIELDS}
-`;
 
 const SessionContextProvider = (props) => {
   const [storage, setStorage] = useState({
@@ -58,12 +12,18 @@ const SessionContextProvider = (props) => {
     data: undefined,
   });
 
-  function onError(error) {
-    console.log(error);
-    setStorage({ loading: false, error, data: undefined });
-  }
+  const [getSessionData] = useMutation(GetSessionData, {
+    update(_, { data }) {
+      setStorage({
+        loading: false,
+        error: undefined,
+        data: { ...storage.data, member: data.getSessionData },
+      });
+    },
+    onError,
+  });
 
-  const [_login] = useMutation(LOGIN, {
+  const [_login] = useMutation(Login, {
     update(_, { data }) {
       localStorage.setItem("accessToken", data.login.accessToken);
 
@@ -76,26 +36,26 @@ const SessionContextProvider = (props) => {
     onError,
   });
 
-  const [getSessionData] = useMutation(GET_SESSION_DATA, {
+  function login(tokenId) {
+    setStorage({ ...storage, loading: true });
+    return _login({ variables: { tokenId } });
+  }
+
+  const [_updateSelf] = useMutation(UpdateSelf, {
     update(_, { data }) {
+      localStorage.setItem("accessToken", data.updateSelf.accessToken);
+
       setStorage({
-        loading: false,
-        error: undefined,
-        data: { ...storage.data, member: data.getSessionData },
+        ...storage,
+        data: { ...data.updateSelf },
       });
     },
     onError,
   });
 
-  const [_updateSessionData] = useMutation(UPDATE_SESSION_DATA, {
-    update(_, { data }) {
-      setStorage({
-        ...storage,
-        data: { ...storage.data, member: data.updateMember },
-      });
-    },
-    onError,
-  });
+  function updateSelf(fields) {
+    return _updateSelf({ variables: { data: fields } });
+  }
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -112,13 +72,9 @@ const SessionContextProvider = (props) => {
     setStorage({ ...storage, data: undefined });
   }
 
-  function login(tokenId) {
-    setStorage({ ...storage, loading: true });
-    return _login({ variables: { tokenId } });
-  }
-
-  function updateSessionData(fields) {
-    return _updateSessionData({ variables: { data: fields } });
+  function onError(error) {
+    console.log(error);
+    setStorage({ loading: false, error, data: undefined });
   }
 
   return (
@@ -129,7 +85,7 @@ const SessionContextProvider = (props) => {
         data: storage.data,
         login,
         logOut,
-        updateSessionData,
+        updateSelf,
       }}
     >
       {props.children}
