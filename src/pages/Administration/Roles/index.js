@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Tooltip } from "antd";
+import { gql, useQuery, useMutation } from "@apollo/client";
+import { Tooltip, message, Skeleton } from "antd";
 import { RolesComponent } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
 
@@ -7,48 +8,75 @@ import CommonButton from "../../../components/atoms/CommonButton";
 import DefaultLabel from "../../../components/atoms/DefaultLabel";
 import ConfirmationModal from "../../../components/molecules/Modal";
 import FormModal from "../../../components/organisms/FormModal";
-import { Redirect } from "react-router";
 
-import { RocketOutlined, EditOutlined, RestOutlined } from "@ant-design/icons";
+import { RocketOutlined, EditOutlined, RestOutlined, IdcardFilled } from "@ant-design/icons";
 
-import validators from '../../../services/validators'
+import validators from "../../../services/validators";
 
-const roles = [
-  {
-    id: 0,
-    roleName: "Head de Marketing",
-    isAdm: false,
-  },
-  {
-    id: 1,
-    roleName: "Assessor(a) de Desenvolvimento",
-    isAdm: true,
-  },
-  {
-    id: 2,
-    roleName: "Consultor(a) de Tecnologia",
-    isAdm: false,
-  },
-];
+const GET_ROLES = gql`
+  query GetRoles {
+    roles {
+      name
+      _id
+      access
+    }
+  }
+`;
+
+const DELETE_ROLE = gql`
+  mutation DeleteRole($roleId: ID!) {
+    deleteRole (roleId: $roleId){
+      _id
+    }
+  }
+`;
+
+const UPDATE_ROLE = gql`
+  mutation UpdateRole($roleId: ID!, $data: RoleUpdate) {
+    updateRole (roleId: $roleId, data: $data){
+      _id
+      name
+      access
+    }
+  }
+`;
+
+const CREATE_ROLE = gql`
+  mutation CreateRole($data: RoleInput!) {
+    createRole (data: $data){
+      _id
+      name
+      access
+    }
+  }
+`;
+
 
 const Roles = () => {
   const { themeColors } = useContext(ThemeContext);
 
-  const [currentRoles, setCurrentRoles] = useState([]);
-
   const [openModalExcludeRole, setOpenModalExcludeRole] = useState(false);
-  const [excludeRoleName, setExcludeRoleName] = useState("");
+  const [excludeRole, setExcludeRole] = useState({});
 
-  const handleOpenModal = (roleName) => {
-    setExcludeRoleName(roleName);
+  const handleOpenModal = (role) => {
+    setExcludeRole(role);
     setOpenModalExcludeRole(true);
   };
 
-  const handleExcludeRole = (roleName) => {
-    const newRoleArray = currentRoles.filter(
-      (item) => item.roleName !== roleName
-    );
-    setCurrentRoles(newRoleArray);
+  const handleExcludeRole = async (role) => {
+    var hide = message.loading("Excluindo");
+    try{
+      await deleteRoleMutation({variables:{roleId: role._id}});
+      hide();
+      message.success("Excluido com sucesso", 2.5);
+      refetch()
+    }
+    catch(err){
+      console.error(err);
+      hide();
+      message.error("Houve um problema, tente novamente", 2.5);
+      refetch()
+    }
     setOpenModalExcludeRole(false);
   };
 
@@ -71,13 +99,13 @@ const Roles = () => {
   const editOrCreateRole = (method, role) => {
     var fields = [
       {
-        key: "roleName",
+        key: "name",
         type: "text",
         label: "Cargo",
         validator: validators.notEmpity,
       },
       {
-        key: "isAdm",
+        key: "access",
         type: "select",
         label: "Permissão",
         validator: validators.notEmpity,
@@ -92,7 +120,11 @@ const Roles = () => {
           callback: updateRole,
           open: true,
           cancel: handleCloseEditOrCreate,
-          originalObject: {id: role.id, roleName: role.roleName, isAdm: (role.isAdm)? "Administrador" : "Sem Adminstrador"},
+          originalObject: {
+            _id: role._id,
+            name: role.name,
+            access: (role.access===1) ? "Administrador" : "Sem Adminstrador",
+          },
         })
       : setEditOrCreateModalInfo({
           title: "Criar Cargo",
@@ -103,17 +135,38 @@ const Roles = () => {
         });
   };
 
-  const updateRole = (role) => {
-    role.isAdm = (role.isAdm==="Administrador");
-    const index = currentRoles.map((mapRole) => role.id).indexOf(role.id);
-    currentRoles[index] = role;
-    setCurrentRoles([...currentRoles]);
+  const updateRole = async (updatedRole) => {
+    const {_id, ...role} = updatedRole;
+    role.access = (role.access === "Administrador") ? 1 : 0;
+    var hide = message.loading("Excluindo");
+    try{
+      await updateRoleMutation({variables:{roleId: _id, data: role}});
+      hide();
+      message.success("Alterado com sucesso", 2.5);
+    }
+    catch(err){
+      console.error(err);
+      hide();
+      message.error("Houve um problema, tente novamente", 2.5);
+    }
+    refetch()
     handleCloseEditOrCreate();
   };
 
-  const createRole = (role) => {
-    role.isAdm = (role.isAdm==="Administrador");
-    setCurrentRoles([...currentRoles, role]);
+  const createRole = async (role) => {
+    role.access = (role.access === "Administrador") ? 1 : 0;
+    var hide = message.loading("Excluindo");
+    try{
+      await createRoleMutation({variables:{data: role}});
+      hide();
+      message.success("Criado com sucesso", 2.5);
+    }
+    catch(err){
+      console.error(err);
+      hide();
+      message.error("Houve um problema, tente novamente", 2.5);
+    }
+    refetch()
     handleCloseEditOrCreate();
   };
 
@@ -121,76 +174,99 @@ const Roles = () => {
   // EDIT OR CREATE MEMBER HANDLING END //
   ///////////////////////////////////////////////////////////////////////
 
-  useEffect(() => {
-    setCurrentRoles(roles);
-  }, []);
 
-  return (
-    <RolesComponent theme={themeColors}>
-      <div className="iconWithTitle">
-        <RocketOutlined className="svgIcon" />
-        <h1>Cargos</h1>
-      </div>
-      <div className="addNewRoleButtonArea">
-        <CommonButton
-          buttonLabel="Adicionar novo cargo"
-          color={themeColors.green}
-          width="223px"
-          onClick={() => editOrCreateRole("create")}
+  const [deleteRoleMutation] = useMutation(DELETE_ROLE);
+  const [updateRoleMutation] = useMutation(UPDATE_ROLE);
+  const [createRoleMutation] = useMutation(CREATE_ROLE);
+  const { loading, error, data, refetch } = useQuery(GET_ROLES);
+
+  if (loading)
+    return (
+      <Skeleton
+        paragraph={{ rows: 4 }}
+        size={"large"}
+        active={loading}
+        loading={loading}
+      />
+    );
+  else if (error) {
+    console.log(error);
+    message.error("Houve um problema, tente recarregar a pagina", 2.5);
+    return <h1>Erro, recarregue a pagina</h1>;
+  } else if (data) {
+    var roles = data.roles;
+
+    return (
+      <RolesComponent theme={themeColors}>
+        <div className="iconWithTitle">
+          <RocketOutlined className="svgIcon" />
+          <h1>Cargos</h1>
+        </div>
+        <div className="addNewRoleButtonArea">
+          <CommonButton
+            buttonLabel="Adicionar novo cargo"
+            color={themeColors.green}
+            width="223px"
+            onClick={() => editOrCreateRole("create")}
+          />
+        </div>
+
+        <table className="roleTable">
+          <tr>
+            <th className="roleColumn">Cargo</th>
+          </tr>
+          {roles.length > 0 ? (
+            roles.map((item) => (
+              <tr>
+                <td className="roleColumn">{item.name}</td>
+                <td className="isAdmColumn">
+                  {(item.access===1) && (
+                    <DefaultLabel
+                      labelText="Administrador"
+                      labelColor="#FFD100"
+                    />
+                  )}
+                </td>
+                <td className="editColumn">
+                  <Tooltip
+                    placement="topLeft"
+                    title={"Editar"}
+                    onClick={() => editOrCreateRole("edit", item)}
+                  >
+                    <EditOutlined />
+                  </Tooltip>
+                </td>
+                <td className="garbageColumn">
+                  <Tooltip placement="topLeft" title={"Excluir"}>
+                    <RestOutlined
+                      onClick={() => handleOpenModal(item)}
+                    />
+                  </Tooltip>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>Nenhum cargo cadastrado</tr>
+          )}
+        </table>
+        <ConfirmationModal
+          title="Apagar cargo"
+          content={`Deseja mesmo apagar o cargo "${excludeRole.name}"?`}
+          isVisible={openModalExcludeRole}
+          handleOk={() => handleExcludeRole(excludeRole)}
+          handleCancel={handleCloseModal}
         />
-      </div>
-
-      <table className="roleTable">
-        <tr>
-          <th className="roleColumn">Cargo</th>
-        </tr>
-        {currentRoles.length > 0 ? (
-          currentRoles.map((item) => (
-            <tr>
-              <td className="roleColumn">{item.roleName}</td>
-              <td className="isAdmColumn">
-                {item.isAdm && (
-                  <DefaultLabel
-                    labelText="Administrador"
-                    labelColor="#FFD100"
-                  />
-                )}
-              </td>
-              <td className="editColumn">
-                <Tooltip placement="topLeft" title={"Editar"} onClick={() => editOrCreateRole("edit", item)}>
-                  <EditOutlined />
-                </Tooltip>
-              </td>
-              <td className="garbageColumn">
-                <Tooltip placement="topLeft" title={"Excluir"}>
-                  <RestOutlined
-                    onClick={() => handleOpenModal(item.roleName)}
-                  />
-                </Tooltip>
-              </td>
-            </tr>
-          ))
-        ) : (
-          <tr>Nenhum cargo cadastrado</tr>
-        )}
-      </table>
-      <ConfirmationModal
-        title="Apagar cargo"
-        content={`Deseja mesmo apagar o cargo "${excludeRoleName}"?`}
-        isVisible={openModalExcludeRole}
-        handleOk={() => handleExcludeRole(excludeRoleName)}
-        handleCancel={handleCloseModal}
-      />
-      <FormModal
-        title={editOrCreateModalInfo.title}
-        fields={editOrCreateModalInfo.fields}
-        callback={editOrCreateModalInfo.callback}
-        open={editOrCreateModalInfo.open}
-        cancel={editOrCreateModalInfo.cancel}
-        originalObject={editOrCreateModalInfo.originalObject}
-      />
-    </RolesComponent>
-  );
+        <FormModal
+          title={editOrCreateModalInfo.title}
+          fields={editOrCreateModalInfo.fields}
+          callback={editOrCreateModalInfo.callback}
+          open={editOrCreateModalInfo.open}
+          cancel={editOrCreateModalInfo.cancel}
+          originalObject={editOrCreateModalInfo.originalObject}
+        />
+      </RolesComponent>
+    );
+  }
 };
 
 export default Roles;

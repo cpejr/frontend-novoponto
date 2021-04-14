@@ -19,7 +19,7 @@ const SelectInput = ({
           onChange={(value) => callback(value)}
           className="inputSelect"
         >
-          <Option value="" className="inputSelect">Selecione um membro</Option>
+          <Option value="" className="inputSelect">--</Option>
           {options.map((option) => {
             return <Option value={option} className="inputSelect">{option}</Option>;
           })}
