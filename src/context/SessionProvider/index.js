@@ -43,9 +43,12 @@ const GET_SESSION_DATA = gql`
 `;
 
 const UPDATE_SESSION_DATA = gql`
-  mutation updateMember($data: MemberUpdate!) {
-    updateMember(data: $data) {
-      ...MEMBER_FIELDS
+  mutation updateSelf($data: MemberUpdate!) {
+    updateSelf(data: $data) {
+      member {
+        ...MEMBER_FIELDS
+      }
+      accessToken
     }
   }
   ${MEMBER_FIELDS}
@@ -58,10 +61,16 @@ const SessionContextProvider = (props) => {
     data: undefined,
   });
 
-  function onError(error) {
-    console.log(error);
-    setStorage({ loading: false, error, data: undefined });
-  }
+  const [getSessionData] = useMutation(GET_SESSION_DATA, {
+    update(_, { data }) {
+      setStorage({
+        loading: false,
+        error: undefined,
+        data: { ...storage.data, member: data.getSessionData },
+      });
+    },
+    onError,
+  });
 
   const [_login] = useMutation(LOGIN, {
     update(_, { data }) {
@@ -76,26 +85,26 @@ const SessionContextProvider = (props) => {
     onError,
   });
 
-  const [getSessionData] = useMutation(GET_SESSION_DATA, {
+  function login(tokenId) {
+    setStorage({ ...storage, loading: true });
+    return _login({ variables: { tokenId } });
+  }
+
+  const [_updateSelf] = useMutation(UPDATE_SESSION_DATA, {
     update(_, { data }) {
+      localStorage.setItem("accessToken", data.updateSelf.accessToken);
+
       setStorage({
-        loading: false,
-        error: undefined,
-        data: { ...storage.data, member: data.getSessionData },
+        ...storage,
+        data: { ...data.updateSelf },
       });
     },
     onError,
   });
 
-  const [_updateSessionData] = useMutation(UPDATE_SESSION_DATA, {
-    update(_, { data }) {
-      setStorage({
-        ...storage,
-        data: { ...storage.data, member: data.updateMember },
-      });
-    },
-    onError,
-  });
+  function updateSelf(fields) {
+    return _updateSelf({ variables: { data: fields } });
+  }
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -112,13 +121,9 @@ const SessionContextProvider = (props) => {
     setStorage({ ...storage, data: undefined });
   }
 
-  function login(tokenId) {
-    setStorage({ ...storage, loading: true });
-    return _login({ variables: { tokenId } });
-  }
-
-  function updateSessionData(fields) {
-    return _updateSessionData({ variables: { data: fields } });
+  function onError(error) {
+    console.log(error);
+    setStorage({ loading: false, error, data: undefined });
   }
 
   return (
@@ -129,7 +134,7 @@ const SessionContextProvider = (props) => {
         data: storage.data,
         login,
         logOut,
-        updateSessionData,
+        updateSelf,
       }}
     >
       {props.children}

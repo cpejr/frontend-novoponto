@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
+
 import { ThemeContext } from "../../context/ThemeProvider";
 import {
-  CommonButton,
   DefaultLabel,
   DefaultText,
   LogoutPointButton,
@@ -10,17 +10,16 @@ import {
   TextArea,
 } from "../../components/atoms";
 import { SessionContext } from "../../context/SessionProvider";
-import { SaveOutlined } from "@ant-design/icons";
 import SaveButton from "../../components/molecules/SaveButton";
 
 const Profile = () => {
   const { themeColors } = useContext(ThemeContext);
-  const { data, logOut, updateSessionData } = useContext(SessionContext);
+  const { data, logOut, updateSelf } = useContext(SessionContext);
 
   const [status, setStatus] = useState(data?.member?.status || "");
 
   async function handleSave() {
-    updateSessionData({ status });
+    updateSelf({ status });
   }
 
   function handleOnChange(e) {
@@ -35,10 +34,12 @@ const Profile = () => {
         <MemberAvatar src={data?.member?.imageLink} />
         <div className="col-1">
           <MemberName name={data?.member?.name} className="namePart" />
-          <DefaultLabel
-            labelText={data?.member?.role?.name}
-            labelColor="#FFD100"
-          />
+          {data?.member?.role && (
+            <DefaultLabel
+              labelText={data?.member?.role?.name}
+              labelColor="#FFD100"
+            />
+          )}
         </div>
         <LogoutPointButton className="exitButton" onClick={logOut} />
       </div>
