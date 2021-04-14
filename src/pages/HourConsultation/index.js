@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { HoursConsultationComponent } from "./styles";
 import { ThemeContext } from "../../context/ThemeProvider";
-import { DatePicker, Space } from 'antd';
+import { DatePicker, Space } from "antd";
 
 import {
   HourDisplayer,
@@ -13,74 +13,73 @@ import LoggedMembers from "../../components/molecules/LoggedMembersSection";
 
 const membersOptions = [
   {
-    value: 'Diogo',
-    role: 'Gerente de Produtos',
-    description: 'Uma descrição',
-    label: 'Diogo',
+    value: "Diogo",
+    role: "Gerente de Produtos",
+    description: "Uma descrição",
+    label: "Diogo",
   },
   {
-    value: 'Arthur Lima',
-    role: 'Head de Projetos',
-    description: 'Uma descrição teste',
-    label: 'Arthur Lima',
+    value: "Arthur Lima",
+    role: "Head de Projetos",
+    description: "Uma descrição teste",
+    label: "Arthur Lima",
   },
   {
-    value: 'Arthur Braga',
-    role: 'Head de Marketing',
-    description: 'Uma descrição teste 2',
-    label: 'Arthur Braga',
+    value: "Arthur Braga",
+    role: "Head de Marketing",
+    description: "Uma descrição teste 2",
+    label: "Arthur Braga",
   },
   {
-    value: 'João Prates',
-    role: 'Consultor de Vendas',
-    description: 'Vendas',
-    label: 'João Prates',
+    value: "João Prates",
+    role: "Consultor de Vendas",
+    description: "Vendas",
+    label: "João Prates",
   },
-]
+];
 
 const mandatoryHoursOptions = [
   {
-    dia: 'Segunda',
-    inicio: '10:30',
-    fim: '12:30',
+    dia: "Segunda",
+    inicio: "10:30",
+    fim: "12:30",
   },
   {
-    dia: 'Terça',
-    inicio: '17:30',
-    fim: '19:30',
+    dia: "Terça",
+    inicio: "17:30",
+    fim: "19:30",
   },
 ];
 
 const historicHoursOptions = [
   {
-    dia: '18/01/2021',
-    chegada: '10:30',
-    saida: '12:30',
-    tempo: '19:30',
+    dia: "18/01/2021",
+    chegada: "10:30",
+    saida: "12:30",
+    tempo: "19:30",
   },
   {
-    dia: '19/02/2021',
-    chegada: '14:30',
-    saida: '16:30',
-    tempo: '02:30',
+    dia: "19/02/2021",
+    chegada: "14:30",
+    saida: "16:30",
+    tempo: "02:30",
   },
 ];
 
 const justificativeOptions = [
   {
-    dia: '18/01/2021',
-    tipo: '10:30',
-    tempo: '19:30',
+    dia: "18/01/2021",
+    tipo: "10:30",
+    tempo: "19:30",
   },
   {
-    dia: '19/02/2021',
-    tipo: '14:30',
-    tempo: '02:30',
+    dia: "19/02/2021",
+    tipo: "14:30",
+    tempo: "02:30",
   },
 ];
 
 const HoursConsultation = () => {
-
   const { RangePicker } = DatePicker;
   const { themeColors } = useContext(ThemeContext);
 
@@ -92,38 +91,37 @@ const HoursConsultation = () => {
 
   const handleSelectMember = (value) => {
     console.log(value);
-    setMemberSelected(membersOptions.filter(item => item.value === value));
+    setMemberSelected(membersOptions.filter((item) => item.value === value));
   };
-  
+
   function handleSelectDate(value, dateString) {
-    console.log('Selected Time: ', value);
+    console.log("Selected Time: ", value);
     setRangeDate([dateString[0], dateString[1]]);
-    console.log('Formatted Selected Time: ', dateString);
+    console.log("Formatted Selected Time: ", dateString);
   }
-  
 
   // Somente para inicializar, depois retiraremos o useEffect
   useEffect(() => {
     setResultSumHistoricHours("100:00");
   }, []);
 
-
   return (
     <HoursConsultationComponent theme={themeColors}>
       <div className="selectMemberArea">
-        <CommonSelectBox 
-          inputRef={inputSelect}
+        <CommonSelectBox
           defaultValue="Escolha um membro"
           optionsList={membersOptions}
-          onChangeFunction={handleSelectMember}
+          onChange={handleSelectMember}
         />
       </div>
 
       <div className="memberArea">
-        <LoggedMembers 
-          name={memberSelected[0]?.label || 'Lampinho'}
-          role={memberSelected[0]?.role || 'Mascote'}
-          description={memberSelected[0]?.description || 'Trabalhe enquanto eles dormem'}
+        <LoggedMembers
+          name={memberSelected[0]?.label || "Lampinho"}
+          role={memberSelected[0]?.role || "Mascote"}
+          description={
+            memberSelected[0]?.description || "Trabalhe enquanto eles dormem"
+          }
         />
       </div>
 
@@ -139,9 +137,7 @@ const HoursConsultation = () => {
           {mandatoryHoursOptions.length > 0 ? (
             mandatoryHoursOptions.map((item, index) => (
               <tr key={index}>
-                <td className="dayColumn">
-                  {item.dia}
-                </td>
+                <td className="dayColumn">{item.dia}</td>
                 <td className="startTime">
                   <HourDisplayer
                     hour={new Date()}
@@ -173,8 +169,8 @@ const HoursConsultation = () => {
           <RangePicker
             format="YYYY-MM-DD"
             onChange={handleSelectDate}
-            placeholder={['Inicio', 'Fim']}
-            />
+            placeholder={["Inicio", "Fim"]}
+          />
         </Space>
       </div>
 
@@ -186,14 +182,12 @@ const HoursConsultation = () => {
             <th className="dayColumn">Dia</th>
             <th className="startTime">Chegada</th>
             <th className="finishTime">Saída</th>
-            <th className="timeArea">Tempo</th> 
+            <th className="timeArea">Tempo</th>
           </tr>
           {historicHoursOptions.length > 0 ? (
             historicHoursOptions.map((item, index) => (
               <tr key={index}>
-                <td className="dayColumn">
-                  {item.dia}
-                </td>
+                <td className="dayColumn">{item.dia}</td>
                 <td className="startTime">
                   <HourDisplayer
                     hour={new Date()}
@@ -231,14 +225,12 @@ const HoursConsultation = () => {
           <tr>
             <th className="dayColumn">Dia</th>
             <th className="typeArea">Tipo</th>
-            <th className="timeArea">Tempo</th> 
+            <th className="timeArea">Tempo</th>
           </tr>
           {justificativeOptions.length > 0 ? (
             justificativeOptions.map((item, index) => (
               <tr key={index}>
-                <td className="dayColumn">
-                  {item.dia}
-                </td>
+                <td className="dayColumn">{item.dia}</td>
                 <td className="typeArea">
                   <InfoDisplayer
                     info={"Adicionar"}

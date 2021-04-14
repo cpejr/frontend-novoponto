@@ -13,6 +13,7 @@ import ThemeContextProvider from "./context/ThemeProvider";
 import SessionContextProvider from "./context/SessionProvider";
 import GlobalStyle from "./styles/GlobalStyle";
 import "./styles/compiled/antd.css"; // Tema do ant desing
+import GlobalsContextProvider from "./context/GlobalsProvider";
 
 const httpLink = new HttpLink({
   uri: "http://localhost:4000/",
@@ -43,8 +44,10 @@ function App() {
     <ApolloProvider client={client}>
       <ThemeContextProvider>
         <SessionContextProvider>
-          <GlobalStyle />
-          <Routes />
+          <GlobalsContextProvider>
+            <GlobalStyle />
+            <Routes />
+          </GlobalsContextProvider>
         </SessionContextProvider>
       </ThemeContextProvider>
     </ApolloProvider>

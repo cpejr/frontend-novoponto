@@ -1,58 +1,9 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import React, { createContext, useEffect, useState } from "react";
 
+import { Login, GetSessionData, UpdateSelf } from "../../graphql/Member";
+
 export const SessionContext = createContext();
-
-const MEMBER_FIELDS = gql`
-  fragment MEMBER_FIELDS on Member {
-    _id
-    name
-    status
-    message
-    imageLink
-    responsible {
-      _id
-      name
-    }
-    role {
-      name
-      access
-    }
-  }
-`;
-
-const LOGIN = gql`
-  mutation Login($tokenId: ID!) {
-    login(tokenId: $tokenId) {
-      accessToken
-      member {
-        ...MEMBER_FIELDS
-      }
-    }
-  }
-  ${MEMBER_FIELDS}
-`;
-
-const GET_SESSION_DATA = gql`
-  mutation GetSessionData {
-    getSessionData {
-      ...MEMBER_FIELDS
-    }
-  }
-  ${MEMBER_FIELDS}
-`;
-
-const UPDATE_SESSION_DATA = gql`
-  mutation updateSelf($data: MemberUpdate!) {
-    updateSelf(data: $data) {
-      member {
-        ...MEMBER_FIELDS
-      }
-      accessToken
-    }
-  }
-  ${MEMBER_FIELDS}
-`;
 
 const SessionContextProvider = (props) => {
   const [storage, setStorage] = useState({
@@ -61,7 +12,7 @@ const SessionContextProvider = (props) => {
     data: undefined,
   });
 
-  const [getSessionData] = useMutation(GET_SESSION_DATA, {
+  const [getSessionData] = useMutation(GetSessionData, {
     update(_, { data }) {
       setStorage({
         loading: false,
@@ -72,7 +23,7 @@ const SessionContextProvider = (props) => {
     onError,
   });
 
-  const [_login] = useMutation(LOGIN, {
+  const [_login] = useMutation(Login, {
     update(_, { data }) {
       localStorage.setItem("accessToken", data.login.accessToken);
 
@@ -90,7 +41,7 @@ const SessionContextProvider = (props) => {
     return _login({ variables: { tokenId } });
   }
 
-  const [_updateSelf] = useMutation(UPDATE_SESSION_DATA, {
+  const [_updateSelf] = useMutation(UpdateSelf, {
     update(_, { data }) {
       localStorage.setItem("accessToken", data.updateSelf.accessToken);
 

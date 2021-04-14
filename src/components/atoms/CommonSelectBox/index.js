@@ -4,17 +4,12 @@ import { Select } from "antd";
 
 const { Option } = Select;
 
-const CommonSelectBox = ({ defaultValue, optionsList = [], onChangeFunction, ...props }) => {
+const CommonSelectBox = ({ optionsList = [], ...props }) => {
   return (
     <CommonSelectBoxContainer>
-      <Select
-        size="default"
-        {...props}
-        defaultValue={defaultValue}
-        onChange={onChangeFunction}
-        style={{ width: "100%" }}
-      >
+      <Select size="default" style={{ width: "100%" }} {...props}>
         {optionsList.map((item) => (
+          //To do: renomear item.value para item.key
           <Option key={item.value}>{item.label}</Option>
         ))}
       </Select>
