@@ -8,7 +8,7 @@ const InputText = ({ icon, error = false, errorMessage, ...props }) => {
         {icon && <img src={icon} alt={props.placeholder} />}
         <input type="text" {...props} />
       </InputTextContainer>
-      {error && <ErrorMessage class="errorMessage">{errorMessage}</ErrorMessage>}
+      {error && <ErrorMessage className="errorMessage">{errorMessage}</ErrorMessage>}
     </>
   );
 };

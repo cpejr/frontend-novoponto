@@ -10,7 +10,7 @@ const MembersSelectBox = ({ ...props }) => {
     label: member.name,
   }));
 
-  return <CommonSelectBox optionsList={optionsList} {...props} />;
+  return <CommonSelectBox optionsList={optionsList} defaultValue={"Escolha um membro"} {...props} />;
 };
 
 export default MembersSelectBox;

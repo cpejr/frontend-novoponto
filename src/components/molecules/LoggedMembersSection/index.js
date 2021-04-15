@@ -18,7 +18,7 @@ const LoggedMembers = ({ name, role, mandatoryHour = null, description }) => {
             <MemberName name={name} className="namePart" />
             <MemberDescription description={description} />
           </div>
-          <DefaultLabel labelText={role} labelColor="#FFD100" />
+          {role && <DefaultLabel labelText={role} labelColor="#FFD100" />}
           {mandatoryHour && (
             <DefaultLabel
               labelText="Horário obrigatório"

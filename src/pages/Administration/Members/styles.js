@@ -58,7 +58,7 @@ const MembersComponent = styled.div`
         border-bottom: 2px solid #1C1C1D;
     }
 
-    .roleTable tr:first-child{
+    .roleTable thead tr:first-child{
         height: 65px;
         background-color: #1D1D1D;
         

@@ -165,40 +165,44 @@ const Roles = () => {
         </div>
 
         <table className="roleTable">
-          <tr>
-            <th className="roleColumn">Cargo</th>
-          </tr>
-          {roles.length > 0 ? (
-            roles.map((item) => (
-              <tr>
-                <td className="roleColumn">{item.name}</td>
-                <td className="isAdmColumn">
-                  {item.access === 1 && (
-                    <DefaultLabel
-                      labelText="Administrador"
-                      labelColor="#FFD100"
-                    />
-                  )}
-                </td>
-                <td className="editColumn">
-                  <Tooltip
-                    placement="topLeft"
-                    title={"Editar"}
-                    onClick={() => editOrCreateRole("edit", item)}
-                  >
-                    <EditOutlined />
-                  </Tooltip>
-                </td>
-                <td className="garbageColumn">
-                  <Tooltip placement="topLeft" title={"Excluir"}>
-                    <RestOutlined onClick={() => handleOpenModal(item)} />
-                  </Tooltip>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>Nenhum cargo cadastrado</tr>
-          )}
+          <thead>
+            <tr>
+              <th className="roleColumn">Cargo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {roles.length > 0 ? (
+              roles.map((item) => (
+                <tr>
+                  <td className="roleColumn">{item.name}</td>
+                  <td className="isAdmColumn">
+                    {item.access === 1 && (
+                      <DefaultLabel
+                        labelText="Administrador"
+                        labelColor="#FFD100"
+                      />
+                    )}
+                  </td>
+                  <td className="editColumn">
+                    <Tooltip
+                      placement="topLeft"
+                      title={"Editar"}
+                      onClick={() => editOrCreateRole("edit", item)}
+                    >
+                      <EditOutlined />
+                    </Tooltip>
+                  </td>
+                  <td className="garbageColumn">
+                    <Tooltip placement="topLeft" title={"Excluir"}>
+                      <RestOutlined onClick={() => handleOpenModal(item)} />
+                    </Tooltip>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>Nenhum cargo cadastrado</tr>
+            )}
+          </tbody>
         </table>
         <ConfirmationModal
           title="Apagar cargo"
