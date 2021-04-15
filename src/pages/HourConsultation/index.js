@@ -17,61 +17,6 @@ import {
 
 import LoggedMembers from "../../components/molecules/LoggedMembersSection";
 
-const membersOptions = [
-  {
-    value: "Diogo",
-    role: "Gerente de Produtos",
-    description: "Uma descrição",
-    label: "Diogo",
-  },
-  {
-    value: "Arthur Lima",
-    role: "Head de Projetos",
-    description: "Uma descrição teste",
-    label: "Arthur Lima",
-  },
-  {
-    value: "Arthur Braga",
-    role: "Head de Marketing",
-    description: "Uma descrição teste 2",
-    label: "Arthur Braga",
-  },
-  {
-    value: "João Prates",
-    role: "Consultor de Vendas",
-    description: "Vendas",
-    label: "João Prates",
-  },
-];
-
-// const mandatoryHoursOptions = [
-//   {
-//     dia: "Segunda",
-//     inicio: "10:30",
-//     fim: "12:30",
-//   },
-//   {
-//     dia: "Terça",
-//     inicio: "17:30",
-//     fim: "19:30",
-//   },
-// ];
-
-const historicHoursOptions = [
-  {
-    dia: "18/01/2021",
-    chegada: "10:30",
-    saida: "12:30",
-    tempo: "19:30",
-  },
-  {
-    dia: "19/02/2021",
-    chegada: "14:30",
-    saida: "16:30",
-    tempo: "02:30",
-  },
-];
-
 const justificativeOptions = [
   {
     dia: "18/01/2021",
@@ -125,8 +70,16 @@ const HoursConsultation = () => {
   ] = useLazyQuery(FetchCompiledForHC, {
     variables: {
       memberId: selectedId,
-      startDate: rangeDate ? rangeDate[0] : undefined,
-      endDate: rangeDate ? rangeDate[1] : undefined,
+      startDate: rangeDate
+        ? rangeDate[0]
+          ? rangeDate[0]
+          : undefined
+        : undefined,
+      endDate: rangeDate
+        ? rangeDate[1]
+          ? rangeDate[1]
+          : undefined
+        : undefined,
     },
   });
 
@@ -176,6 +129,17 @@ const HoursConsultation = () => {
       "Sábado",
     ];
     return days[daynumber];
+  }
+
+  function getOperation(op){
+    switch(op){
+      case "ADD":
+        return {text: "Adicionar", color: "green"};
+      case "REMOVE":
+        return {text: "Remover", color: "red"};
+      default:
+        return {text: "Erro...", color: "yellow"};
+    }
   }
 
   return (
@@ -263,10 +227,12 @@ const HoursConsultation = () => {
               </tr>
             </thead>
             <tbody>
-              {(sessions.length > 0) && (
+              {sessions.length > 0 &&
                 sessions.map((item, index) => (
                   <tr key={index}>
-                    <td className="dayColumn">{moment(item.start).format("DD/MM/yy")}</td>
+                    <td className="dayColumn">
+                      {moment(item.start).format("DD/MM/yy")}
+                    </td>
                     <td className="startTime">
                       <HourDisplayer
                         hour={item.start}
@@ -286,53 +252,48 @@ const HoursConsultation = () => {
                       />
                     </td>
                   </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {compiledDirectData && (
+        <div className="justificationTablesArea">
+          <h2>Justificativas</h2>
+
+          <table className="justificationTable">
+            <thead>
+              <tr>
+                <th className="dayColumn">Dia</th>
+                <th className="typeArea">Tipo</th>
+                <th className="timeArea">Tempo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {aditionalHours.length > 0 && (
+                aditionalHours.map((item, index) => (
+                  <tr key={index}>
+                    <td className="dayColumn">{moment(item.date).format("DD/MM/yy")}</td>
+                    <td className="typeArea">
+                      <InfoDisplayer
+                        info={getOperation(item.action).text}
+                        infoColor={themeColors[getOperation(item.action).color]}
+                      />
+                    </td>
+                    <td className="timeArea">
+                      <HourDisplayer
+                        hour={item.amount}
+                        hourColor={themeColors.yellow}
+                      />
+                    </td>
+                  </tr>
                 ))
               )}
             </tbody>
           </table>
         </div>
       )}
-
-      {/* <div className="justificationTablesArea">
-        <h2>Justificativas</h2>
-
-        <table className="justificationTable">
-          <thead>
-            <tr>
-              <th className="dayColumn">Dia</th>
-              <th className="typeArea">Tipo</th>
-              <th className="timeArea">Tempo</th>
-            </tr>
-          </thead>
-          <tbody>
-            {justificativeOptions.length > 0 ? (
-              justificativeOptions.map((item, index) => (
-                <tr key={index}>
-                  <td className="dayColumn">{item.dia}</td>
-                  <td className="typeArea">
-                    <InfoDisplayer
-                      info={"Adicionar"}
-                      infoColor={themeColors.green}
-                    />
-                  </td>
-                  <td className="timeArea">
-                    <HourDisplayer
-                      hour={"10:00"}
-                      hourColor={themeColors.yellow}
-                    />
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <h1 style={{ color: "#fff", fontSize: "30px" }}>
-                  Seja mais Braga
-                </h1>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div> */}
     </HoursConsultationComponent>
   );
 };
