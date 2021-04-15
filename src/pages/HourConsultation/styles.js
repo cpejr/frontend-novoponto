@@ -61,9 +61,9 @@ const HoursConsultationComponent = styled.div`
     border-bottom: 2px solid #1c1c1d;
   }
 
-  .mandatoryHoursTable tr:first-child,
-  .hoursSumAndTable tr:first-child,
-  .justificationTable tr:first-child {
+  .mandatoryHoursTable thead tr:first-child,
+  .hoursSumAndTable thead tr:first-child,
+  .justificationTable thead tr:first-child {
     height: 65px;
     background-color: #1d1d1d;
 

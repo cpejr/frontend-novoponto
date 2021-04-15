@@ -43,33 +43,33 @@ const membersOptions = [
   },
 ];
 
-const mandatoryHoursOptions = [
-  {
-    dia: "Segunda",
-    inicio: "10:30",
-    fim: "12:30",
-  },
-  {
-    dia: "Terça",
-    inicio: "17:30",
-    fim: "19:30",
-  },
-];
+// const mandatoryHoursOptions = [
+//   {
+//     dia: "Segunda",
+//     inicio: "10:30",
+//     fim: "12:30",
+//   },
+//   {
+//     dia: "Terça",
+//     inicio: "17:30",
+//     fim: "19:30",
+//   },
+// ];
 
-const historicHoursOptions = [
-  {
-    dia: "18/01/2021",
-    chegada: "10:30",
-    saida: "12:30",
-    tempo: "19:30",
-  },
-  {
-    dia: "19/02/2021",
-    chegada: "14:30",
-    saida: "16:30",
-    tempo: "02:30",
-  },
-];
+// const historicHoursOptions = [
+//   {
+//     dia: "18/01/2021",
+//     chegada: "10:30",
+//     saida: "12:30",
+//     tempo: "19:30",
+//   },
+//   {
+//     dia: "19/02/2021",
+//     chegada: "14:30",
+//     saida: "16:30",
+//     tempo: "02:30",
+//   },
+// ];
 
 const justificativeOptions = [
   {
@@ -94,6 +94,7 @@ const HoursConsultation = () => {
   const [rangeDate, setRangeDate] = useState([]);
   const [selectedId, setSelectedId] = useState();
   const [memberSelected, setMemberSelected] = useState();
+  const [mandatoryHoursOptions, setMandatoryHoursOptions] = useState();
   const [resultSumHistoricHours, setResultSumHistoricHours] = useState(0);
 
   console.log("Renderizou!");
@@ -123,13 +124,11 @@ const HoursConsultation = () => {
     }
   }, [selectedId, memberData]);
 
-  // useEffect(() => {
-  //   if (memberData)
-  //     console.log(
-  //       "🚀 ~ file: index.js ~ line 126 ~ HoursConsultation ~ memberData",
-  //       memberData.member
-  //     );
-  // }, [memberData]);
+  useEffect(() => {
+    if (memberSelected) {
+      setMandatoryHoursOptions(memberSelected.mandatories);
+    }
+  }, [memberSelected]);
 
   function handleSelectDate(value, dateString) {
     console.log("Selected Time: ", value);
@@ -142,6 +141,19 @@ const HoursConsultation = () => {
     setResultSumHistoricHours("100:00");
   }, []);
 
+  function getWeekDay(daynumber) {
+    const days = [
+      "Domingo",
+      "Segunda-Feira",
+      "Terça-Feira",
+      "Quarta-Feira",
+      "Quinta-Feira",
+      "Sexta-Feira",
+      "Sábado",
+    ];
+    return days[daynumber];
+  }
+
   return (
     <HoursConsultationComponent theme={themeColors}>
       <div className="selectMemberArea">
@@ -153,58 +165,55 @@ const HoursConsultation = () => {
         )}
       </div>
 
-      <div className="memberArea">
-        {memberSelected && (
+      {memberSelected && (
+        <div className="memberArea">
           <LoggedMembers
             name={memberSelected.name || "Lampinho"}
             role={memberSelected.role?.name}
-            description={memberSelected.status || "Trabalhe enquanto eles dormem"}
+            description={
+              memberSelected.status || "Trabalhe enquanto eles dormem"
+            }
           />
-        )}
-      </div>
+        </div>
+      )}
 
-      {/* <div className="mandatoryHours">
-        <h2>Horários Obrigatórios</h2>
-
-        <table className="mandatoryHoursTable">
-          <thead>
-            <tr>
-              <th className="dayColumn">Dia</th>
-              <th className="startTime">Início</th>
-              <th className="finishTime">Fim</th>
-            </tr>
-          </thead>
-          <tbody>
-            {mandatoryHoursOptions.length > 0 ? (
-              mandatoryHoursOptions.map((item, index) => (
-                <tr key={index}>
-                  <td className="dayColumn">{item.dia}</td>
-                  <td className="startTime">
-                    <HourDisplayer
-                      hour={new Date()}
-                      hourColor={themeColors.green}
-                    />
-                  </td>
-                  <td className="finishTime">
-                    <HourDisplayer
-                      hour={new Date().getTime()}
-                      hourColor={themeColors.yellow}
-                    />
-                  </td>
+      {memberSelected &&
+        mandatoryHoursOptions &&
+        (mandatoryHoursOptions.length > 0) && (
+          <div className="mandatoryHours">
+            <h2>Horários Obrigatórios</h2>
+            <table className="mandatoryHoursTable">
+              <thead>
+                <tr>
+                  <th className="dayColumn">Dia</th>
+                  <th className="startTime">Início</th>
+                  <th className="finishTime">Fim</th>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <h1 style={{ color: "#fff", fontSize: "30px" }}>
-                  Seja mais Braga
-                </h1>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+              </thead>
+              <tbody>
+                {mandatoryHoursOptions.map((item, index) => (
+                  <tr key={index}>
+                    <td className="dayColumn">{getWeekDay(item.weekDay)}</td>
+                    <td className="startTime">
+                      <HourDisplayer
+                        hour={item.startAt}
+                        hourColor={themeColors.green}
+                      />
+                    </td>
+                    <td className="finishTime">
+                      <HourDisplayer
+                        hour={item.endAt}
+                        hourColor={themeColors.yellow}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
-      <div className="pointHistoric">
+      {/* <div className="pointHistoric">
         <h2>Histórico Ponto</h2>
 
         <Space direction="vertical" size={12}>
@@ -214,9 +223,9 @@ const HoursConsultation = () => {
             placeholder={["Inicio", "Fim"]}
           />
         </Space>
-      </div>
+      </div> */}
 
-      <div className="hoursSumAndTablesArea">
+      {/* <div className="hoursSumAndTablesArea">
         <h2>Soma: {resultSumHistoricHours}</h2>
 
         <table className="hoursSumAndTable">
@@ -262,9 +271,9 @@ const HoursConsultation = () => {
             )}
           </tbody>
         </table>
-      </div>
+      </div> */}
 
-      <div className="justificationTablesArea">
+      {/* <div className="justificationTablesArea">
         <h2>Justificativas</h2>
 
         <table className="justificationTable">
