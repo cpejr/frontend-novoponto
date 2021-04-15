@@ -72,6 +72,24 @@ const Members = gql`
   }
 `;
 
+const FetchMemberForHC = gql`
+query members {
+  members{
+    _id
+    name
+    status
+    mandatories{
+      startAt
+      endAt
+      weekDay
+    }
+    role {
+      name
+    }
+  }
+}
+`
+
 export {
   //Fragments
   DefaultSessionFields,
@@ -82,4 +100,5 @@ export {
   UpdateSelf,
   //Query
   Members,
+  FetchMemberForHC,
 };

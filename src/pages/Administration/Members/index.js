@@ -80,7 +80,7 @@ const Members = () => {
         label: "Cargo",
         validator: validators.notEmpityAndInsideArray,
 
-        options:  [...roles ],
+        options: [...roles],
       },
       {
         key: "responsableName",
@@ -88,7 +88,7 @@ const Members = () => {
         label: "Assessor",
         validator: validators.notEmpityAndInsideArray,
 
-        options:  [...(currentMembers.map(member => member.memberName)) ],
+        options: [...currentMembers.map((member) => member.memberName)],
       },
     ];
     method === "edit"
@@ -180,44 +180,48 @@ const Members = () => {
       </div>
 
       <table className="roleTable">
-        <tr>
-          <th className="memberColumn">Nome</th>
-          <th className="roleColumn">Cargo</th>
-        </tr>
-        {currentMembers.length > 0 ? (
-          currentMembers.map((item) => (
-            <tr>
-              <td className="memberColumn">{item.memberName}</td>
-              <td className="roleColumn">{item.roleName}</td>
-              <td className="isAdmColumn">
-                {item.isAdm && (
-                  <DefaultLabel
-                    labelText="Administrador"
-                    labelColor="#FFD100"
-                  />
-                )}
-              </td>
-              <td className="editColumn">
-                <Tooltip
-                  placement="topLeft"
-                  title={"Editar"}
-                  onClick={() => editOrCreateMember("edit", item)}
-                >
-                  <EditOutlined />
-                </Tooltip>
-              </td>
-              <td className="garbageColumn">
-                <Tooltip placement="topLeft" title={"Excluir"}>
-                  <RestOutlined
-                    onClick={() => handleOpenModal(item.memberName)}
-                  />
-                </Tooltip>
-              </td>
-            </tr>
-          ))
-        ) : (
-          <tr>Nenhum cargo cadastrado</tr>
-        )}
+        <thead>
+          <tr>
+            <th className="memberColumn">Nome</th>
+            <th className="roleColumn">Cargo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentMembers.length > 0 ? (
+            currentMembers.map((item) => (
+              <tr>
+                <td className="memberColumn">{item.memberName}</td>
+                <td className="roleColumn">{item.roleName}</td>
+                <td className="isAdmColumn">
+                  {item.isAdm && (
+                    <DefaultLabel
+                      labelText="Administrador"
+                      labelColor="#FFD100"
+                    />
+                  )}
+                </td>
+                <td className="editColumn">
+                  <Tooltip
+                    placement="topLeft"
+                    title={"Editar"}
+                    onClick={() => editOrCreateMember("edit", item)}
+                  >
+                    <EditOutlined />
+                  </Tooltip>
+                </td>
+                <td className="garbageColumn">
+                  <Tooltip placement="topLeft" title={"Excluir"}>
+                    <RestOutlined
+                      onClick={() => handleOpenModal(item.memberName)}
+                    />
+                  </Tooltip>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>Nenhum cargo cadastrado</tr>
+          )}
+        </tbody>
       </table>
       <ConfirmationModal
         title="Apagar membro"

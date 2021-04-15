@@ -275,54 +275,58 @@ const Ponto = () => {
 
           <div className="subSectionLoggedMembers">
             <table className="HeaderTablePointMembers">
-              <tr>
-                <th className="memberColumn">Membro</th>
-                <th className="startTime">Chegada</th>
-                <th className="finishTime">Tempo</th>
-                <th className="logoutButton"></th>
-              </tr>
-              {filteredMembers.length > 0 ? (
-                filteredMembers.map((item, index) => (
-                  <tr key={index}>
-                    <td className="memberColumn">
-                      <LoggedMembers
-                        name={item.member}
-                        role={item.role}
-                        description={item.description}
-                      />
-                    </td>
-                    <td className="startTime">
-                      <HourDisplayer
-                        hour={new Date()}
-                        hourColor={themeColors.green}
-                      />
-                    </td>
-                    <td className="finishTime">
-                      <HourDisplayer
-                        hour={new Date().getTime()}
-                        hourColor={themeColors.yellow}
-                        startTime={true}
-                      />
-                    </td>
-                    <td className="logoutButton">
-                      <LogoutPointButton
-                        onClick={() => handleLogoutMember(item.member)}
-                      />
-                    </td>
-                  </tr>
-                ))
-              ) : (
+              <thead>
                 <tr>
-                  <h1 style={{ color: "#fff", fontSize: "30px" }}>
-                    Trabalhe enquanto eles
-                    <span
-                      class="txt-rotate"
-                      data-period="2000"
-                      data-rotate='[ " dormem...", " comem (???)", " estudam rsrs", " dão migué B)", " ... isso não faz mais sentido" ]'
-                    ></span>
-                  </h1>
+                  <th className="memberColumn">Membro</th>
+                  <th className="startTime">Chegada</th>
+                  <th className="finishTime">Tempo</th>
+                  <th className="logoutButton"></th>
                 </tr>
-              )}
+              </thead>
+              <tbody>
+                {filteredMembers.length > 0 ? (
+                  filteredMembers.map((item, index) => (
+                    <tr key={index}>
+                      <td className="memberColumn">
+                        <LoggedMembers
+                          name={item.member}
+                          role={item.role}
+                          description={item.description}
+                        />
+                      </td>
+                      <td className="startTime">
+                        <HourDisplayer
+                          hour={new Date()}
+                          hourColor={themeColors.green}
+                        />
+                      </td>
+                      <td className="finishTime">
+                        <HourDisplayer
+                          hour={new Date().getTime()}
+                          hourColor={themeColors.yellow}
+                          startTime={true}
+                        />
+                      </td>
+                      <td className="logoutButton">
+                        <LogoutPointButton
+                          onClick={() => handleLogoutMember(item.member)}
+                        />
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <h1 style={{ color: "#fff", fontSize: "30px" }}>
+                      Trabalhe enquanto eles
+                      <span
+                        class="txt-rotate"
+                        data-period="2000"
+                        data-rotate='[ " dormem...", " comem (???)", " estudam rsrs", " dão migué B)", " ... isso não faz mais sentido" ]'
+                      ></span>
+                    </h1>
+                  </tr>
+                )}
+              </tbody>
             </table>
           </div>
 

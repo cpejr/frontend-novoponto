@@ -1,7 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { useQuery } from "@apollo/client";
+
 import { HoursConsultationComponent } from "./styles";
 import { ThemeContext } from "../../context/ThemeProvider";
-import { DatePicker, Space } from "antd";
+import { DatePicker, Space, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { FetchMemberForHC } from "../../graphql/Member";
+import MembersSelectBox from "../../components/molecules/MembersSelectBox";
 
 import {
   HourDisplayer,
@@ -83,16 +88,46 @@ const HoursConsultation = () => {
   const { RangePicker } = DatePicker;
   const { themeColors } = useContext(ThemeContext);
 
+  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
   const inputSelect = useRef(null);
 
   const [rangeDate, setRangeDate] = useState([]);
   const [memberSelected, setMemberSelected] = useState([]);
+  const [memberPageLoading, setMemberPageLoading] = useState(false);
   const [resultSumHistoricHours, setResultSumHistoricHours] = useState(0);
 
-  const handleSelectMember = (value) => {
-    console.log(value);
-    setMemberSelected(membersOptions.filter((item) => item.value === value));
-  };
+  const {
+    loading: memberLoading,
+    error: memberError,
+    data: memberData,
+    refetch: refetchMember,
+  } = useQuery(FetchMemberForHC);
+
+  function handleSelectMember(value) {
+    function checkForError(loading, error, setLoading) {
+      console.log("Check error");
+      setLoading(true);
+      while (loading) {
+        console.log(
+          "🚀 ~ file: index.js ~ line 109 ~ checkForError ~ loading",
+          loading
+        );
+      }
+      setLoading(false);
+      return error;
+    }
+
+    console.log("handleSelectMember!");
+    const response = checkForError(
+      memberLoading,
+      memberError,
+      setMemberPageLoading
+    );
+    if (!response)
+      setMemberSelected(
+        memberData && memberData.filter((item) => item.value === value)
+      );
+  }
 
   function handleSelectDate(value, dateString) {
     console.log("Selected Time: ", value);
@@ -108,11 +143,8 @@ const HoursConsultation = () => {
   return (
     <HoursConsultationComponent theme={themeColors}>
       <div className="selectMemberArea">
-        <CommonSelectBox
-          defaultValue="Escolha um membro"
-          optionsList={membersOptions}
-          onChange={handleSelectMember}
-        />
+        <MembersSelectBox onChange={handleSelectMember} />
+        {memberPageLoading && <Spin indicator={antIcon} className="loadIcon" />}
       </div>
 
       <div className="memberArea">
@@ -129,36 +161,40 @@ const HoursConsultation = () => {
         <h2>Horários Obrigatórios</h2>
 
         <table className="mandatoryHoursTable">
-          <tr>
-            <th className="dayColumn">Dia</th>
-            <th className="startTime">Início</th>
-            <th className="finishTime">Fim</th>
-          </tr>
-          {mandatoryHoursOptions.length > 0 ? (
-            mandatoryHoursOptions.map((item, index) => (
-              <tr key={index}>
-                <td className="dayColumn">{item.dia}</td>
-                <td className="startTime">
-                  <HourDisplayer
-                    hour={new Date()}
-                    hourColor={themeColors.green}
-                  />
-                </td>
-                <td className="finishTime">
-                  <HourDisplayer
-                    hour={new Date().getTime()}
-                    hourColor={themeColors.yellow}
-                  />
-                </td>
-              </tr>
-            ))
-          ) : (
+          <thead>
             <tr>
-              <h1 style={{ color: "#fff", fontSize: "30px" }}>
-                Seja mais Braga
-              </h1>
+              <th className="dayColumn">Dia</th>
+              <th className="startTime">Início</th>
+              <th className="finishTime">Fim</th>
             </tr>
-          )}
+          </thead>
+          <tbody>
+            {mandatoryHoursOptions.length > 0 ? (
+              mandatoryHoursOptions.map((item, index) => (
+                <tr key={index}>
+                  <td className="dayColumn">{item.dia}</td>
+                  <td className="startTime">
+                    <HourDisplayer
+                      hour={new Date()}
+                      hourColor={themeColors.green}
+                    />
+                  </td>
+                  <td className="finishTime">
+                    <HourDisplayer
+                      hour={new Date().getTime()}
+                      hourColor={themeColors.yellow}
+                    />
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <h1 style={{ color: "#fff", fontSize: "30px" }}>
+                  Seja mais Braga
+                </h1>
+              </tr>
+            )}
+          </tbody>
         </table>
       </div>
 
@@ -178,43 +214,47 @@ const HoursConsultation = () => {
         <h2>Soma: {resultSumHistoricHours}</h2>
 
         <table className="hoursSumAndTable">
-          <tr>
-            <th className="dayColumn">Dia</th>
-            <th className="startTime">Chegada</th>
-            <th className="finishTime">Saída</th>
-            <th className="timeArea">Tempo</th>
-          </tr>
-          {historicHoursOptions.length > 0 ? (
-            historicHoursOptions.map((item, index) => (
-              <tr key={index}>
-                <td className="dayColumn">{item.dia}</td>
-                <td className="startTime">
-                  <HourDisplayer
-                    hour={new Date()}
-                    hourColor={themeColors.green}
-                  />
-                </td>
-                <td className="finishTime">
-                  <HourDisplayer
-                    hour={new Date().getTime()}
-                    hourColor={themeColors.green}
-                  />
-                </td>
-                <td className="timeArea">
-                  <InfoDisplayer
-                    info={"10:00"}
-                    infoColor={themeColors.yellow}
-                  />
-                </td>
-              </tr>
-            ))
-          ) : (
+          <thead>
             <tr>
-              <h1 style={{ color: "#fff", fontSize: "30px" }}>
-                Seja mais Braga
-              </h1>
+              <th className="dayColumn">Dia</th>
+              <th className="startTime">Chegada</th>
+              <th className="finishTime">Saída</th>
+              <th className="timeArea">Tempo</th>
             </tr>
-          )}
+          </thead>
+          <tbody>
+            {historicHoursOptions.length > 0 ? (
+              historicHoursOptions.map((item, index) => (
+                <tr key={index}>
+                  <td className="dayColumn">{item.dia}</td>
+                  <td className="startTime">
+                    <HourDisplayer
+                      hour={new Date()}
+                      hourColor={themeColors.green}
+                    />
+                  </td>
+                  <td className="finishTime">
+                    <HourDisplayer
+                      hour={new Date().getTime()}
+                      hourColor={themeColors.green}
+                    />
+                  </td>
+                  <td className="timeArea">
+                    <InfoDisplayer
+                      info={"10:00"}
+                      infoColor={themeColors.yellow}
+                    />
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <h1 style={{ color: "#fff", fontSize: "30px" }}>
+                  Seja mais Braga
+                </h1>
+              </tr>
+            )}
+          </tbody>
         </table>
       </div>
 
@@ -222,36 +262,40 @@ const HoursConsultation = () => {
         <h2>Justificativas</h2>
 
         <table className="justificationTable">
-          <tr>
-            <th className="dayColumn">Dia</th>
-            <th className="typeArea">Tipo</th>
-            <th className="timeArea">Tempo</th>
-          </tr>
-          {justificativeOptions.length > 0 ? (
-            justificativeOptions.map((item, index) => (
-              <tr key={index}>
-                <td className="dayColumn">{item.dia}</td>
-                <td className="typeArea">
-                  <InfoDisplayer
-                    info={"Adicionar"}
-                    infoColor={themeColors.green}
-                  />
-                </td>
-                <td className="timeArea">
-                  <HourDisplayer
-                    hour={"10:00"}
-                    hourColor={themeColors.yellow}
-                  />
-                </td>
-              </tr>
-            ))
-          ) : (
+          <thead>
             <tr>
-              <h1 style={{ color: "#fff", fontSize: "30px" }}>
-                Seja mais Braga
-              </h1>
+              <th className="dayColumn">Dia</th>
+              <th className="typeArea">Tipo</th>
+              <th className="timeArea">Tempo</th>
             </tr>
-          )}
+          </thead>
+          <tbody>
+            {justificativeOptions.length > 0 ? (
+              justificativeOptions.map((item, index) => (
+                <tr key={index}>
+                  <td className="dayColumn">{item.dia}</td>
+                  <td className="typeArea">
+                    <InfoDisplayer
+                      info={"Adicionar"}
+                      infoColor={themeColors.green}
+                    />
+                  </td>
+                  <td className="timeArea">
+                    <HourDisplayer
+                      hour={"10:00"}
+                      hourColor={themeColors.yellow}
+                    />
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <h1 style={{ color: "#fff", fontSize: "30px" }}>
+                  Seja mais Braga
+                </h1>
+              </tr>
+            )}
+          </tbody>
         </table>
       </div>
     </HoursConsultationComponent>
