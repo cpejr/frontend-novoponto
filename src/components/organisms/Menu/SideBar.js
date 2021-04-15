@@ -20,6 +20,7 @@ const SideBar = ({ collapsed, ...props }) => {
   const { data } = useContext(SessionContext);
 
   const access = data?.member?.role?.access;
+  const showAdm = access && access > 0;
 
   return (
     <Sider
@@ -35,6 +36,7 @@ const SideBar = ({ collapsed, ...props }) => {
         defaultSelectedKeys={[location.pathname]}
         theme="light"
         style={{ height: "100%", borderRight: 0 }}
+        inlineCollapsed={collapsed}
       >
         <MenuItem route="/" icon={<BulbOutlined />} label="Ponto" />
         <MenuItem
@@ -53,13 +55,29 @@ const SideBar = ({ collapsed, ...props }) => {
           key="sub3"
           icon={<LockOutlined />}
           title="Administração"
-          disabled={!access || access === 0}
+          style={{ display: showAdm ? "block" : "none" }}
         >
           <MenuItem route="/acompanhamentodehoras" label="Acomp. de horas" />
-          <MenuItem route="/atualizarnoticias" label="Atualizar Notícias" />
-          <MenuItem route="/horarioobrigatorio" label="Horário Obrigatório" />
-          <MenuItem route="/membros" label="Membros" />
-          <MenuItem route="/cargos" label="Cargos" />
+          <MenuItem
+            disabled={!access || access === 0}
+            route="/atualizarnoticias"
+            label="Atualizar Notícias"
+          />
+          <MenuItem
+            disabled={!access || access === 0}
+            route="/horarioobrigatorio"
+            label="Horário Obrigatório"
+          />
+          <MenuItem
+            disabled={!access || access === 0}
+            route="/membros"
+            label="Membros"
+          />
+          <MenuItem
+            disabled={!access || access === 0}
+            route="/cargos"
+            label="Cargos"
+          />
         </SubMenu>
       </Menu>
     </Sider>

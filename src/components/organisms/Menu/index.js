@@ -22,19 +22,17 @@ const SidebarMenu = ({ children }) => {
           isSidebarOpen={openSideBar}
         />
         <Layout hasSider={true}>
-          <SideBar />
-          <Layout>
-            <Content
-              id="site-layout-background"
-              style={{
-                margin: 0,
-                minHeight: 280,
-                padding: 16,
-              }}
-            >
-              {children}
-            </Content>
-          </Layout>
+          <SideBar collapsed={openSideBar} />
+          <Content
+            id="site-layout-background"
+            style={{
+              margin: 0,
+              minHeight: 280,
+              padding: 16,
+            }}
+          >
+            {children}
+          </Content>
         </Layout>
       </Layout>
     </SidebarMenuContainer>
