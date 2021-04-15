@@ -1,11 +1,13 @@
 import React, { useState, useContext, useRef } from "react";
-import { TimePicker } from "antd";
+import { DatePicker, TimePicker } from "antd";
+import moment from "moment";
+import { useMutation } from "@apollo/client";
 
 import { HourChangesComponent } from "./styles";
 import { ThemeContext } from "../../context/ThemeProvider";
-import { GlobalsContext } from "../../context/GlobalsProvider";
 
-import AddOrRemoveHours from "../../utils/SelectBoxOptions/AddOrRemoveHours";
+import MembersSelectBox from "../../components/molecules/MembersSelectBox";
+import hourActionOptions from "./hourActionOptions";
 import {
   DefaultText,
   OutlinedBox,
@@ -14,30 +16,85 @@ import {
   CommonSelectBox,
 } from "../../components/atoms";
 
-import MembersSelectBox from "../../components/molecules/MembersSelectBox";
+import { SendAditionalHour } from "../../graphql/AditionalHour";
+
+const INITIAL_ERRORS = {
+  member: false,
+  hourAction: false,
+  date: false,
+  duration: false,
+  comment: false,
+};
+
+function convertDurationToMilliseconds(time) {
+  return moment.duration(time.format("HH:mm")).asMilliseconds();
+}
 
 const HourChanges = () => {
+  const [submitAditionalHours, { loading, error, data }] = useMutation(
+    SendAditionalHour
+  );
+
   const { themeColors } = useContext(ThemeContext);
 
-  const [selectedMember, setSelectedMember] = useState();
-  const [addOrRemoveHours, setAddOrRemoveHours] = useState();
+  const [errors, setErrors] = useState(INITIAL_ERRORS);
 
-  const selectMemberInput = useRef(null);
-  const addOrRemoveInput = useRef(null);
+  const [formData, setFormData] = useState({});
 
-  const handleSelectMember = (e) => {
-    setSelectedMember(e.target);
-  };
+  const needComment = formData.hourAction !== "REMOVE";
 
-  const handleAddOrRemoveHours = (e) => {
-    setAddOrRemoveHours(e.target);
-  };
+  function validateFields() {
+    const newErrors = {};
+    const { hourAction, member, date, duration, comment } = formData;
 
-  const handleChangeText = (e, type) => {
-    if ((type = "quantityHour")) {
-    } else {
+    if (!!!member) newErrors.member = true;
+
+    if (!!!hourAction) newErrors.hourAction = true;
+
+    if (!!!date || date === "") newErrors.date = true;
+
+    if (!!!duration || duration < 1000) newErrors.duration = true;
+
+    if (needComment && (!!!comment || comment?.trim() === ""))
+      newErrors.comment = true;
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors({ ...INITIAL_ERRORS, ...newErrors });
+      return false;
     }
-  };
+
+    setErrors(INITIAL_ERRORS);
+    return true;
+  }
+
+  function handleSubmit() {
+    if (!loading && validateFields()) {
+      const { hourAction, member, date, comment } = formData;
+      let { duration } = formData;
+
+      if (hourAction === "REMOVE") duration *= -1;
+
+      submitAditionalHours({
+        variables: {
+          data: {
+            memberId: member,
+            date: date.startOf("day").toISOString(),
+            amount: convertDurationToMilliseconds(duration),
+            description: comment,
+          },
+        },
+      }).then(() => setFormData({}));
+    }
+  }
+
+  function disabledDate(current) {
+    // Can not select days after today
+    return current && current > moment().endOf("day");
+  }
+
+  function handleChangeData(key, data) {
+    setFormData({ ...formData, [key]: data });
+  }
 
   return (
     <HourChangesComponent theme={themeColors}>
@@ -48,29 +105,68 @@ const HourChanges = () => {
           </DefaultText>
         </div>
         <div className="inputGroup">
-          <DefaultText>Quem é você?</DefaultText>
-          <MembersSelectBox />
-        </div>
-        <div className="inputGroup">
-          <DefaultText>O que deseja fazer?</DefaultText>
-          <CommonSelectBox
-            placeholder="Adicionar / remover horas"
-            value={addOrRemoveHours}
-            optionsList={AddOrRemoveHours}
-            onChange={handleAddOrRemoveHours}
+          <DefaultText error={errors.member}>Quem é você? *</DefaultText>
+          <MembersSelectBox
+            onChange={(data) => handleChangeData("member", data)}
+            value={formData.member}
           />
         </div>
         <div className="inputGroup">
-          <DefaultText>Qual a é quantidade de Horas?</DefaultText>
-          <TimePicker format={"HH:mm"} showNow={false} placeholder={"00:00"} />
+          <DefaultText error={errors.hourAction}>
+            O que deseja fazer? *
+          </DefaultText>
+          <CommonSelectBox
+            placeholder="Adicionar / remover horas"
+            optionsList={hourActionOptions}
+            onChange={(data) => handleChangeData("hourAction", data)}
+            value={formData.hourAction}
+          />
         </div>
         <div className="inputGroup">
-          <DefaultText>O que você fez nesse horário?</DefaultText>
-          <TextArea />
+          <DefaultText error={errors.date}>
+            Qual foi o dia do ocorrido? *
+          </DefaultText>
+          <DatePicker
+            onChange={(data) => handleChangeData("date", data)}
+            locale="pt_BR"
+            format="DD/MM/yyyy"
+            disabledDate={disabledDate}
+            value={formData.date}
+          />
         </div>
         <div className="inputGroup">
-          <CommonButton buttonLabel="Enviar" color="#22762B" width="100%" />
+          <DefaultText error={errors.duration}>
+            Qual a é quantidade de Horas? *
+          </DefaultText>
+          <TimePicker
+            format={"HH:mm"}
+            showNow={false}
+            placeholder={"00:00"}
+            onChange={(data) => handleChangeData("duration", data)}
+            value={formData.duration}
+          />
         </div>
+        {needComment && (
+          <div className="inputGroup">
+            <DefaultText error={errors.comment}>
+              O que você fez nesse horário? *
+            </DefaultText>
+            <TextArea
+              onChange={(e) => handleChangeData("comment", e.target.value)}
+              value={formData.comment}
+            />
+          </div>
+        )}
+        <div className="inputGroup">
+          <CommonButton
+            buttonLabel="Enviar"
+            color="#22762B"
+            width="100%"
+            onClick={handleSubmit}
+            loading={loading}
+          />
+        </div>
+        <DefaultText error>{JSON.stringify(error)}</DefaultText>
       </OutlinedBox>
     </HourChangesComponent>
   );

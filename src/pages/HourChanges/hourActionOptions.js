@@ -1,10 +1,10 @@
 const AddOrRemoveHours = [
     {
-        value: 'Adicionar',
+        value: 'ADD',
         label: 'Adicionar horas'
     },
     {
-        value: 'Remover',
+        value: 'REMOVE',
         label: 'Remover horas'
     },
 ];
