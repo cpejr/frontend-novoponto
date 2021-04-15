@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { SidebarMenuContainer } from "./styles";
 
 import { Layout, Menu } from "antd";
@@ -20,7 +20,9 @@ const SidebarMenu = ({ children }) => {
   const { SubMenu } = Menu;
   const { Header, Content, Sider } = Layout;
 
+  const location = useLocation();
   const { data } = useContext(SessionContext);
+
   const user = data?.login || null; // É isso msm?
 
   const [openSideBar, setOpenSideBar] = useState(false);
@@ -57,41 +59,41 @@ const SidebarMenu = ({ children }) => {
           >
             <Menu
               mode="inline"
-              defaultSelectedKeys={["1"]}
+              defaultSelectedKeys={[location.pathname]}
               theme="light"
               style={{ height: "100%", borderRight: 0 }}
             >
-              <Menu.Item key="1" icon={<BulbOutlined />} >
+              <Menu.Item key="/" icon={<BulbOutlined />}>
                 <Link to="/">Ponto</Link>
               </Menu.Item>
-              <Menu.Item key="2" icon={<ClockCircleOutlined />}>
+              <Menu.Item key="/consultadehoras" icon={<ClockCircleOutlined />}>
                 <Link to="/consultadehoras">Consulta de horas</Link>
               </Menu.Item>
-              <Menu.Item key="3" icon={<UserOutlined />}>
+              <Menu.Item key="/profile" icon={<UserOutlined />}>
                 <Link to="/profile">Perfil</Link>
               </Menu.Item>
-              <Menu.Item key="4" icon={<CarryOutOutlined />}>
+              <Menu.Item key="/alteracaodehoras" icon={<CarryOutOutlined />}>
                 <Link to="/alteracaodehoras">Adicionar/Remover horas</Link>
               </Menu.Item>
               <SubMenu
                 key="sub3"
                 icon={<LockOutlined />}
                 title="Administração"
-                disabled={user?.role?.access !== 'ADM'}  // É isso msm?
+                disabled={user?.role?.access !== "ADM"} // É isso msm?
               >
-                <Menu.Item key="9">
+                <Menu.Item key="/acompanhamentodehoras">
                   <Link to="/acompanhamentodehoras">Acomp. de horas</Link>
                 </Menu.Item>
-                <Menu.Item key="10">
+                <Menu.Item key="/atualizarnoticias">
                   <Link to="/atualizarnoticias">Atualizar Notícias</Link>
                 </Menu.Item>
-                <Menu.Item key="11">
+                <Menu.Item key="/horarioobrigatorio">
                   <Link to="/horarioobrigatorio">Horário Obrigatório</Link>
                 </Menu.Item>
-                <Menu.Item key="12">
+                <Menu.Item key="/membros">
                   <Link to="/membros">Membros</Link>
                 </Menu.Item>
-                <Menu.Item key="13">
+                <Menu.Item key="/cargos">
                   <Link to="/cargos">Cargos</Link>
                 </Menu.Item>
               </SubMenu>
