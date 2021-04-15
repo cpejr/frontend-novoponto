@@ -72,13 +72,13 @@ const Members = () => {
         key: "memberName",
         type: "text",
         label: "Nome",
-        validator: validators.notEmpity,
+        validator: validators.notEmpty,
       },
       {
         key: "roleName",
         type: "autoComplete",
         label: "Cargo",
-        validator: validators.notEmpityAndInsideArray,
+        validator: validators.notEmptyAndInsideArray,
 
         options:  [...roles ],
       },
@@ -86,7 +86,7 @@ const Members = () => {
         key: "responsableName",
         type: "autoComplete",
         label: "Assessor",
-        validator: validators.notEmpityAndInsideArray,
+        validator: validators.notEmptyAndInsideArray,
 
         options:  [...(currentMembers.map(member => member.memberName)) ],
       },

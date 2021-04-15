@@ -102,13 +102,13 @@ const Roles = () => {
         key: "name",
         type: "text",
         label: "Cargo",
-        validator: validators.notEmpity,
+        validator: validators.notEmpty,
       },
       {
         key: "access",
         type: "select",
         label: "Permissão",
-        validator: validators.notEmpity,
+        validator: validators.notEmpty,
 
         options: ["Administrador", "Sem Adminstrador"],
       },
