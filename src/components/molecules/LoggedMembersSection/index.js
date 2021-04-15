@@ -8,11 +8,17 @@ import {
   MemberAvatar,
 } from "../../atoms";
 
-const LoggedMembers = ({ name, role, mandatoryHour = null, description }) => {
+const LoggedMembers = ({
+  name,
+  imageLink,
+  role,
+  mandatoryHour = null,
+  description,
+}) => {
   return (
     <LoggedMembersContainer>
       <MemberDataSection>
-        <MemberAvatar />
+        <MemberAvatar src={imageLink} />
         <div className="nameWithLabelSection">
           <div className="nameSection">
             <MemberName name={name} className="namePart" />

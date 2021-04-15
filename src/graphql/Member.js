@@ -86,7 +86,7 @@ const UpdateMember = gql`
     updateMember(memberId: $memberId, data: $data) {
       _id
       name
-      responsible{
+      responsible {
         name
         _id
       }
@@ -116,46 +116,43 @@ const CreateMember = gql`
 `;
 
 const FetchMemberForHC = gql`
-query member($_id: ID!) {
-  member(_id: $_id){
-    _id
-    name
-    status
-    mandatories{
-      startAt
-      endAt
-      weekDay
-    }
-    role {
+  query member($_id: ID!) {
+    member(_id: $_id) {
+      _id
       name
+      status
+      imageLink
+      mandatories {
+        startAt
+        endAt
+        weekDay
+      }
+      role {
+        name
+      }
     }
   }
-}
-`
+`;
 
 const FetchCompiledForHC = gql`
-query compiled($memberId: ID!, $startDate: DateScalar, $endDate: DateScalar) {
-  compiled(
-    memberId: $memberId
-    startDate: $startDate
-    endDate: $endDate
-  ) {
-    sessions {
-      start
-      end
-      formatedDuration
+  query compiled($memberId: ID!, $startDate: DateScalar, $endDate: DateScalar) {
+    compiled(memberId: $memberId, startDate: $startDate, endDate: $endDate) {
+      sessions {
+        start
+        end
+        formatedDuration
+      }
+      aditionalHours {
+        date
+        amount
+        action
+        formatedAmount
+      }
+      total
+      formatedTotal
     }
-    aditionalHours {
-      date
-      amount
-      action
-      formatedAmount
-    }
-    total
-    formatedTotal
   }
-}
-`
+`;
 
 export {
   //Fragments

@@ -112,6 +112,10 @@ const HoursConsultation = () => {
       setMandatoryHoursOptions(memberSelected.mandatories);
     }
   }, [memberSelected]);
+  console.log(
+    "🚀 ~ file: index.js ~ line 115 ~ HoursConsultation ~ memberSelected",
+    memberSelected
+  );
 
   function handleSelectDate(value, dateString) {
     setRangeDate([dateString[0], dateString[1]]);
@@ -131,14 +135,14 @@ const HoursConsultation = () => {
     return days[daynumber];
   }
 
-  function getOperation(op){
-    switch(op){
+  function getOperation(op) {
+    switch (op) {
       case "ADD":
-        return {text: "Adicionar", color: "green"};
+        return { text: "Adicionar", color: "green" };
       case "REMOVE":
-        return {text: "Remover", color: "red"};
+        return { text: "Remover", color: "red" };
       default:
-        return {text: "Erro...", color: "yellow"};
+        return { text: "Erro...", color: "yellow" };
     }
   }
 
@@ -161,6 +165,7 @@ const HoursConsultation = () => {
             description={
               memberSelected.status || "Trabalhe enquanto eles dormem"
             }
+            imageLink={memberSelected.imageLink}
           />
         </div>
       )}
@@ -271,10 +276,12 @@ const HoursConsultation = () => {
               </tr>
             </thead>
             <tbody>
-              {aditionalHours.length > 0 && (
+              {aditionalHours.length > 0 &&
                 aditionalHours.map((item, index) => (
                   <tr key={index}>
-                    <td className="dayColumn">{moment(item.date).format("DD/MM/yy")}</td>
+                    <td className="dayColumn">
+                      {moment(item.date).format("DD/MM/yy")}
+                    </td>
                     <td className="typeArea">
                       <InfoDisplayer
                         info={getOperation(item.action).text}
@@ -288,8 +295,7 @@ const HoursConsultation = () => {
                       />
                     </td>
                   </tr>
-                ))
-              )}
+                ))}
             </tbody>
           </table>
         </div>
