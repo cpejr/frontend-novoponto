@@ -68,8 +68,51 @@ const Members = gql`
     members {
       _id
       name
+      role {
+        _id
+        name
+        access
+      }
+      responsible {
+        _id
+        name
+      }
     }
   }
+`;
+
+const UpdateMember = gql`
+  mutation UpdateMember($memberId: ID!, $data: MemberUpdate!) {
+    updateMember(memberId: $memberId, data: $data) {
+      _id
+      name
+      responsible{
+        name
+        _id
+      }
+      role {
+        name
+        _id
+      }
+    }
+  }
+`;
+
+const DeleteMember = gql`
+  mutation DeleteMember($memberId: ID!) {
+    deleteMember(memberId: $memberId) {
+      name
+    }
+  }
+`;
+
+const CreateMember = gql`
+  mutation CreateMember($data: MemberInput!) {
+    createMember(data: $data) {
+      ...DefaultSessionFields
+    }
+  }
+  ${DefaultSessionFields}
 `;
 
 export {
@@ -80,6 +123,9 @@ export {
   Login,
   GetSessionData,
   UpdateSelf,
+  UpdateMember,
+  DeleteMember,
+  CreateMember,
   //Query
   Members,
 };

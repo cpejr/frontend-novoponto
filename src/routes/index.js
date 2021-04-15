@@ -50,7 +50,7 @@ const Routes = () => {
                 <PrivateADMRoute path="/acompanhamentodehoras" component={TimeTracking}/>
                 <PrivateADMRoute path="/atualizarnoticias" component={UpdateNews}/>
                 <PrivateADMRoute path="/horarioobrigatorio" component={MandatoryHours}/>
-                <PrivateADMRoute path="/membros" component={Members}/>
+                <Route path="/membros" component={Members}/>
                 <Route path="/cargos" component={Roles}/>
                 <Route path="/acompanhamento" component={HourFollowing}/>
             </Switch>
