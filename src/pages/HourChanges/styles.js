@@ -29,6 +29,10 @@ const HourChangesComponent = styled.div`
     text-align: center;
     font-size: 16px;
   }
+
+  .alert {
+    margin-top: 16px;
+  }
 `;
 
 export { HourChangesComponent };
