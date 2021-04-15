@@ -118,7 +118,10 @@ const HoursConsultation = () => {
     if (selectedId) {
       loadMember();
     }
-  }, [selectedId]);
+    if (memberData) {
+      setMemberSelected(memberData.member);
+    }
+  }, [selectedId, memberData]);
 
   // useEffect(() => {
   //   if (memberData)
@@ -143,24 +146,22 @@ const HoursConsultation = () => {
     <HoursConsultationComponent theme={themeColors}>
       <div className="selectMemberArea">
         <MembersSelectBox onChange={handleSelectMember} />
-        {!memberLoading ? (
+        {memberLoading ? (
           <Spin indicator={antIcon} className="loadIcon" />
         ) : (
           <div className="loadIcon"></div>
         )}
       </div>
 
-      {/* <div className="memberArea">
-        <LoggedMembers
-          name={memberSelected[0]?.label || "Lampinho"}
-          role={memberSelected[0]?.role || "Mascote"}
-          description={
-    console.log("🚀 ~ file: index.js ~ line 154 ~ useEffect ~ memberData", memberData)
-    console.log("🚀 ~ file: index.js ~ line 154 ~ useEffect ~ memberData", memberData)
-            memberSelected[0]?.description || "Trabalhe enquanto eles dormem"
-          }
-        />
-      </div> */}
+      <div className="memberArea">
+        {memberSelected && (
+          <LoggedMembers
+            name={memberSelected.name || "Lampinho"}
+            role={memberSelected.role?.name}
+            description={memberSelected.status || "Trabalhe enquanto eles dormem"}
+          />
+        )}
+      </div>
 
       {/* <div className="mandatoryHours">
         <h2>Horários Obrigatórios</h2>
