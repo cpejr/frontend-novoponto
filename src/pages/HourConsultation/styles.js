@@ -25,7 +25,8 @@ const HoursConsultationComponent = styled.div`
   }
 
   .loadIcon {
-    margin-left: 10px;
+    width: 20%;
+    margin-left: 5px;
   }
 
   .memberArea {

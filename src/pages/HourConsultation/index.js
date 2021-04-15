@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 
 import { HoursConsultationComponent } from "./styles";
 import { ThemeContext } from "../../context/ThemeProvider";
@@ -92,42 +92,41 @@ const HoursConsultation = () => {
   const inputSelect = useRef(null);
 
   const [rangeDate, setRangeDate] = useState([]);
-  const [memberSelected, setMemberSelected] = useState([]);
-  const [memberPageLoading, setMemberPageLoading] = useState(false);
+  const [selectedId, setSelectedId] = useState();
+  const [memberSelected, setMemberSelected] = useState();
   const [resultSumHistoricHours, setResultSumHistoricHours] = useState(0);
 
-  const {
-    loading: memberLoading,
-    error: memberError,
-    data: memberData,
-    refetch: refetchMember,
-  } = useQuery(FetchMemberForHC);
+  console.log("Renderizou!");
+
+  const [
+    loadMember,
+    {
+      loading: memberLoading,
+      error: memberError,
+      data: memberData,
+      refetch: refetchMember,
+    },
+  ] = useLazyQuery(FetchMemberForHC, {
+    variables: { _id: selectedId },
+  });
 
   function handleSelectMember(value) {
-    function checkForError(loading, error, setLoading) {
-      console.log("Check error");
-      setLoading(true);
-      while (loading) {
-        console.log(
-          "🚀 ~ file: index.js ~ line 109 ~ checkForError ~ loading",
-          loading
-        );
-      }
-      setLoading(false);
-      return error;
-    }
-
-    console.log("handleSelectMember!");
-    const response = checkForError(
-      memberLoading,
-      memberError,
-      setMemberPageLoading
-    );
-    if (!response)
-      setMemberSelected(
-        memberData && memberData.filter((item) => item.value === value)
-      );
+    setSelectedId(value);
   }
+
+  useEffect(() => {
+    if (selectedId) {
+      loadMember();
+    }
+  }, [selectedId]);
+
+  // useEffect(() => {
+  //   if (memberData)
+  //     console.log(
+  //       "🚀 ~ file: index.js ~ line 126 ~ HoursConsultation ~ memberData",
+  //       memberData.member
+  //     );
+  // }, [memberData]);
 
   function handleSelectDate(value, dateString) {
     console.log("Selected Time: ", value);
@@ -144,20 +143,26 @@ const HoursConsultation = () => {
     <HoursConsultationComponent theme={themeColors}>
       <div className="selectMemberArea">
         <MembersSelectBox onChange={handleSelectMember} />
-        {memberPageLoading && <Spin indicator={antIcon} className="loadIcon" />}
+        {!memberLoading ? (
+          <Spin indicator={antIcon} className="loadIcon" />
+        ) : (
+          <div className="loadIcon"></div>
+        )}
       </div>
 
-      <div className="memberArea">
+      {/* <div className="memberArea">
         <LoggedMembers
           name={memberSelected[0]?.label || "Lampinho"}
           role={memberSelected[0]?.role || "Mascote"}
           description={
+    console.log("🚀 ~ file: index.js ~ line 154 ~ useEffect ~ memberData", memberData)
+    console.log("🚀 ~ file: index.js ~ line 154 ~ useEffect ~ memberData", memberData)
             memberSelected[0]?.description || "Trabalhe enquanto eles dormem"
           }
         />
-      </div>
+      </div> */}
 
-      <div className="mandatoryHours">
+      {/* <div className="mandatoryHours">
         <h2>Horários Obrigatórios</h2>
 
         <table className="mandatoryHoursTable">
@@ -297,7 +302,7 @@ const HoursConsultation = () => {
             )}
           </tbody>
         </table>
-      </div>
+      </div> */}
     </HoursConsultationComponent>
   );
 };

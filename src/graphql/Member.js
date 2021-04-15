@@ -73,8 +73,8 @@ const Members = gql`
 `;
 
 const FetchMemberForHC = gql`
-query members {
-  members{
+query member($_id: ID!) {
+  member(_id: $_id){
     _id
     name
     status

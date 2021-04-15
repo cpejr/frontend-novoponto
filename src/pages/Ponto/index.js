@@ -319,7 +319,7 @@ const Ponto = () => {
                     <h1 style={{ color: "#fff", fontSize: "30px" }}>
                       Trabalhe enquanto eles
                       <span
-                        class="txt-rotate"
+                        className="txt-rotate"
                         data-period="2000"
                         data-rotate='[ " dormem...", " comem (???)", " estudam rsrs", " dão migué B)", " ... isso não faz mais sentido" ]'
                       ></span>
