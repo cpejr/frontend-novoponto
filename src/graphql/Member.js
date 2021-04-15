@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
-const DefaultSesionFields = gql`
-  fragment DefaultSesionFields on Member {
+const DefaultSessionFields = gql`
+  fragment DefaultSessionFields on Member {
     _id
     name
     status
@@ -35,32 +35,32 @@ const Login = gql`
     login(tokenId: $tokenId) {
       accessToken
       member {
-        ...DefaultSesionFields
+        ...DefaultSessionFields
       }
     }
   }
-  ${DefaultSesionFields}
+  ${DefaultSessionFields}
 `;
 
 const GetSessionData = gql`
   mutation GetSessionData {
     getSessionData {
-      ...DefaultSesionFields
+      ...DefaultSessionFields
     }
   }
-  ${DefaultSesionFields}
+  ${DefaultSessionFields}
 `;
 
 const UpdateSelf = gql`
   mutation UpdateSelf($data: MemberUpdate!) {
     updateSelf(data: $data) {
       member {
-        ...DefaultSesionFields
+        ...DefaultSessionFields
       }
       accessToken
     }
   }
-  ${DefaultSesionFields}
+  ${DefaultSessionFields}
 `;
 
 const Members = gql`
@@ -74,7 +74,7 @@ const Members = gql`
 
 export {
   //Fragments
-  DefaultSesionFields,
+  DefaultSessionFields,
   DefaultMemberFields,
   //Mutations
   Login,
