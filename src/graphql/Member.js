@@ -90,6 +90,30 @@ query member($_id: ID!) {
 }
 `
 
+const FetchCompiledForHC = gql`
+query compiled($memberId: ID!, $startDate: DateScalar, $endDate: DateScalar) {
+  compiled(
+    memberId: $memberId
+    startDate: $startDate
+    endDate: $endDate
+  ) {
+    sessions {
+      start
+      end
+      formatedDuration
+    }
+    aditionalHours {
+      date
+      amount
+      action
+      formatedAmount
+    }
+    total
+    formatedTotal
+  }
+}
+`
+
 export {
   //Fragments
   DefaultSessionFields,
@@ -101,4 +125,5 @@ export {
   //Query
   Members,
   FetchMemberForHC,
+  FetchCompiledForHC,
 };
