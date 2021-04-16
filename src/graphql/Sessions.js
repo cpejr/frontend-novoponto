@@ -1,21 +1,41 @@
 import gql from "graphql-tag";
 
+const LOGGED_MEMBERS = gql`
+  query LoggedMembers {
+    loggedMembers {
+      member{
+        _id
+        name
+        status
+        role {
+          name
+        }
+      }
+      start
+    }
+  }
+`;
+
 const CREATE_SESSION = gql`
-  mutation StartSession($data: MemberId!) {
-    startSession(data: $data) {
-      memberId
-      name
+  mutation StartSession($memberId: ID!) {
+    startSession(memberId: $memberId) {
+      start
+      member{
+        name
+      }
     }
   }
 `;
 
 const FINISH_SESSION = gql`
-  mutation EndSession($data: MemberId!) {
-    endSession(data: $data) {
-      memberId
-      name
+  mutation EndSession($memberId: ID!) {
+    endSession(memberId: $memberId) {
+      end
+      member {
+        name
+      }
     }
   }
 `;
 
-export { CREATE_SESSION, FINISH_SESSION };
+export { LOGGED_MEMBERS, CREATE_SESSION, FINISH_SESSION };
