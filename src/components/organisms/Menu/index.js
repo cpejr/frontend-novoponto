@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Layout } from "antd";
 
 import Header from "./Header";
@@ -14,7 +14,10 @@ const SidebarMenu = ({ children }) => {
   return (
     <SidebarMenuContainer>
       <Layout>
-        <Header onClickOpenSidebar={toggleMenu} isSidebarColapsed={menuColapse} />
+        <Header
+          onClickOpenSidebar={toggleMenu}
+          isSidebarColapsed={menuColapse}
+        />
         <Layout hasSider={true}>
           <SideBar collapsed={menuColapse} />
           <Layout>
