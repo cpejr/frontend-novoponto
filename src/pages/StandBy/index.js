@@ -78,7 +78,7 @@ const StandBy = () => {
             <h1 style={{color: '#fff'}}>
                 Somos 
                 <span
-                    class="txt-rotate"
+                    className="txt-rotate"
                     data-period="2000"
                     data-rotate='[ " CPE", " onda amarela", " foda"]'
                 ></span>

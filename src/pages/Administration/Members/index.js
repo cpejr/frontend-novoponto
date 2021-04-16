@@ -1,58 +1,46 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Tooltip } from "antd";
+import { GlobalsContext } from "../../../context/GlobalsProvider";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_ROLES } from "../../../graphql/Roles";
+import {
+  UpdateMember,
+  DeleteMember,
+  CreateMember,
+} from "../../../graphql/Member";
+import { Tooltip, message, Skeleton } from "antd";
 import { MembersComponent } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
 
-import CommonButton from "../../../components/atoms/CommonButton";
-import InputText from "../../../components/atoms/InputText";
+import {
+  CommonButton,
+  DefaultLabel,
+  InputText,
+} from "../../../components/atoms";
 import searchIcon from "../../../assets/searchIcon.svg";
-
-import DefaultLabel from "../../../components/atoms/DefaultLabel";
 import ConfirmationModal from "../../../components/molecules/Modal";
 import FormModal from "../../../components/organisms/FormModal";
 
 import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";
 
 import validators from "../../../services/validators";
-
-const members = [
-  {
-    memberName: "Arthur Braga",
-    roleName: "Head de Marketing",
-    responsableName: "Ian Xavier",
-    isAdm: false,
-    id: 0,
-  },
-  {
-    memberName: "Ian Xavier",
-    roleName: "Assessor(a) de Desenvolvimento",
-    responsableName: "Ian Xavier",
-    isAdm: true,
-    id: 1,
-  },
-  {
-    memberName: "Bryan Azevedo",
-    roleName: "Consultor(a) de Tecnologia",
-    responsableName: "Ian Xavier",
-    isAdm: false,
-    id: 2,
-  },
-];
-
-const rolesConst = [
-  "Head de Marketing",
-  "Assessor(a) de Desenvolvimento",
-  "Consultor(a) de Tecnologia",
-];
+import { isPunctuatorTokenKind } from "graphql/language/lexer";
 
 const Members = () => {
   const { themeColors } = useContext(ThemeContext);
-
-  const [currentMembers, setCurrentMembers] = useState([]);
-  const [roles, setRoles] = useState([]);
+  const {
+    membersLoading,
+    membersError,
+    membersData,
+    refetchMembers,
+  } = useContext(GlobalsContext);
+  const { data: roles, error: errorRoles } = useQuery(GET_ROLES);
+  const [updateMemberMutation] = useMutation(UpdateMember);
+  const [createMemberMutation] = useMutation(CreateMember);
+  const [deleteMemberMutation] = useMutation(DeleteMember);
 
   const [openModalExcludeMember, setOpenModalExcludeMember] = useState(false);
-  const [excludeMemberName, setExcludeMemberName] = useState("");
+  const [filteredMembers, setFilteredMembers] = useState([]);
+  const [excludeMember, setExcludeMember] = useState({});
 
   ///////////////////////////////////////////////////////////////////////
   // EDIT OR CREATE MEMBER HANDLING BEGIN //
@@ -69,26 +57,26 @@ const Members = () => {
   const editOrCreateMember = (method, member) => {
     var fields = [
       {
-        key: "memberName",
+        key: "name",
         type: "text",
         label: "Nome",
         validator: validators.notEmpty,
       },
       {
-        key: "roleName",
+        key: "role",
         type: "autoComplete",
         label: "Cargo",
         validator: validators.notEmptyAndInsideArray,
 
-        options:  [...roles ],
+        options: [...roles.roles.map((role) => role.name)],
       },
       {
-        key: "responsableName",
+        key: "responsible",
         type: "autoComplete",
         label: "Assessor",
         validator: validators.notEmptyAndInsideArray,
 
-        options:  [...(currentMembers.map(member => member.memberName)) ],
+        options: [...membersData.members.map((member) => member.name)],
       },
     ];
     method === "edit"
@@ -98,7 +86,12 @@ const Members = () => {
           callback: updateMember,
           open: true,
           cancel: handleCloseEditOrCreate,
-          originalObject: member,
+          originalObject: {
+            name: member.name,
+            responsible: member.responsible? member.responsible.name : "",
+            role: member.role? member.role.name : "",
+            _id: member._id,
+          },
         })
       : setEditOrCreateModalInfo({
           title: "Criar Membro",
@@ -109,15 +102,53 @@ const Members = () => {
         });
   };
 
-  const updateMember = (member) => {
-    const index = members.map((mapMember) => mapMember.id).indexOf(member.id);
-    members[index] = member;
-    setCurrentMembers([...members]);
+  const createMember = async (member) => {
+    var hide = message.loading("Criando...");
+    try {
+      var indexResponsible = membersData.members
+        .map((member) => member.name)
+        .indexOf(member.responsible);
+      var indexRole = roles.roles.map((role) => role.name).indexOf(member.role);
+      const newMember = {
+        name: member.name,
+        responsibleId: membersData.members[indexResponsible]._id,
+        roleId: roles.roles[indexRole]._id,
+      };
+      await createMemberMutation({ variables: { data: newMember } });
+      hide();
+      message.success("Criado com sucesso", 2.5);
+    } catch (err) {
+      console.error(err);
+      hide();
+      message.error("Houve um problema, tente novamente", 2.5);
+    }
+    refetchMembers();
     handleCloseEditOrCreate();
   };
 
-  const createMember = (member) => {
-    setCurrentMembers([...members, member]);
+  const updateMember = async (member) => {
+    var hide = message.loading("Atualizando dados do membro...");
+    try {
+      var indexResponsible = membersData.members
+        .map((member) => member.name)
+        .indexOf(member.responsible);
+      var indexRole = roles.roles.map((role) => role.name).indexOf(member.role);
+      const newMember = {
+        name: member.name,
+        responsibleId: membersData.members[indexResponsible]._id,
+        roleId: roles.roles[indexRole]._id,
+      };
+      await updateMemberMutation({
+        variables: { memberId: member._id, data: newMember },
+      });
+      hide();
+      message.success("Atualizado com sucesso", 2.5);
+    } catch (err) {
+      console.error(err);
+      hide();
+      message.error("Houve um problema, tente novamente", 2.5);
+    }
+    refetchMembers();
     handleCloseEditOrCreate();
   };
 
@@ -125,39 +156,64 @@ const Members = () => {
   // EDIT OR CREATE MEMBER HANDLING END //
   ///////////////////////////////////////////////////////////////////////
 
-  const handleOpenModal = (memberName) => {
-    setExcludeMemberName(memberName);
+  const handleOpenModal = (member) => {
+    setExcludeMember(member);
     setOpenModalExcludeMember(true);
   };
   const handleCloseModal = () => {
     setOpenModalExcludeMember(false);
   };
 
-  const handleExcludeRole = (memberName) => {
-    const newMembersArray = currentMembers.filter(
-      (item) => item.memberName !== memberName
-    );
-    setCurrentMembers(newMembersArray);
+  const handleExcludeMember = async (memberId) => {
+    var hide = message.loading("Excluindo membro...");
+    try {
+      await deleteMemberMutation({ variables: { memberId } });
+      hide();
+      message.success("Excluído com sucesso", 2.5);
+    } catch (err) {
+      console.error(err);
+      hide();
+      message.error("Houve um problema, tente novamente", 2.5);
+    }
+    refetchMembers();
     setOpenModalExcludeMember(false);
   };
 
   const handleSearchMembers = (e) => {
     if (e.target.value !== "") {
-      const filteredMembersAfterForEach = currentMembers.filter((item) => {
+      const filteredMembersAfterForEach = membersData.members.filter((item) => {
         if (item.memberName.toLowerCase().includes(e.target.value)) {
           return item;
         }
       });
-      setCurrentMembers(filteredMembersAfterForEach);
+      setFilteredMembers(filteredMembersAfterForEach);
     } else {
-      setCurrentMembers(members);
+      setFilteredMembers([...membersData.members]);
     }
   };
 
   useEffect(() => {
-    setCurrentMembers(members);
-    setRoles(rolesConst);
-  }, []);
+    if (membersData) setFilteredMembers([...membersData.members]);
+  }, [membersData]);
+
+  if (membersLoading)
+    return (
+      <Skeleton
+        paragraph={{ rows: 4 }}
+        size={"large"}
+        active={membersLoading}
+        loading={membersLoading}
+      />
+    );
+  else if (membersError) {
+    console.log(membersError);
+    message.error("Houve um problema, tente recarregar a pagina", 2.5);
+    return <h1>Erro, recarregue a pagina</h1>;
+  } else if (errorRoles) {
+    console.log(errorRoles);
+    message.error("Houve um problema, tente recarregar a pagina", 2.5);
+    return <h1>Erro, recarregue a pagina</h1>;
+  }
 
   return (
     <MembersComponent theme={themeColors}>
@@ -180,50 +236,54 @@ const Members = () => {
       </div>
 
       <table className="roleTable">
-        <tr>
-          <th className="memberColumn">Nome</th>
-          <th className="roleColumn">Cargo</th>
-        </tr>
-        {currentMembers.length > 0 ? (
-          currentMembers.map((item) => (
-            <tr>
-              <td className="memberColumn">{item.memberName}</td>
-              <td className="roleColumn">{item.roleName}</td>
-              <td className="isAdmColumn">
-                {item.isAdm && (
-                  <DefaultLabel
-                    labelText="Administrador"
-                    labelColor="#FFD100"
-                  />
-                )}
-              </td>
-              <td className="editColumn">
-                <Tooltip
-                  placement="topLeft"
-                  title={"Editar"}
-                  onClick={() => editOrCreateMember("edit", item)}
-                >
-                  <EditOutlined />
-                </Tooltip>
-              </td>
-              <td className="garbageColumn">
-                <Tooltip placement="topLeft" title={"Excluir"}>
-                  <RestOutlined
-                    onClick={() => handleOpenModal(item.memberName)}
-                  />
-                </Tooltip>
-              </td>
-            </tr>
-          ))
-        ) : (
-          <tr>Nenhum cargo cadastrado</tr>
-        )}
+        <thead>
+          <tr>
+            <th className="memberColumn">Nome</th>
+            <th className="roleColumn">Cargo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredMembers.length > 0 ? (
+            filteredMembers.map((item) => (
+              <tr>
+                <td className="memberColumn">{item.memberName}</td>
+                <td className="roleColumn">{item.roleName}</td>
+                <td className="isAdmColumn">
+                  {item.isAdm && (
+                    <DefaultLabel
+                      labelText="Administrador"
+                      labelColor="#FFD100"
+                    />
+                  )}
+                </td>
+                <td className="editColumn">
+                  <Tooltip
+                    placement="topLeft"
+                    title={"Editar"}
+                    onClick={() => editOrCreateMember("edit", item)}
+                  >
+                    <EditOutlined />
+                  </Tooltip>
+                </td>
+                <td className="garbageColumn">
+                  <Tooltip placement="topLeft" title={"Excluir"}>
+                    <RestOutlined
+                      onClick={() => handleOpenModal(item.memberName)}
+                    />
+                  </Tooltip>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>Nenhum cargo cadastrado</tr>
+          )}
+        </tbody>
       </table>
       <ConfirmationModal
         title="Apagar membro"
-        content={`Deseja mesmo apagar o membro "${excludeMemberName}"?`}
+        content={`Deseja mesmo apagar o membro "${excludeMember.name}"?`}
         isVisible={openModalExcludeMember}
-        handleOk={() => handleExcludeRole(excludeMemberName)}
+        handleOk={() => handleExcludeMember(excludeMember._id)}
         handleCancel={handleCloseModal}
       />
       <FormModal

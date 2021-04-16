@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef } from "react";
-import { DatePicker, TimePicker } from "antd";
+import { Alert, DatePicker, TimePicker } from "antd";
 import moment from "moment";
 import { useMutation } from "@apollo/client";
 
@@ -31,14 +31,15 @@ function convertDurationToMilliseconds(time) {
 }
 
 const HourChanges = () => {
-  const [submitAditionalHours, { loading, error, data }] = useMutation(
-    SendAditionalHour
-  );
+  const [
+    submitAditionalHours,
+    { loading, error },
+  ] = useMutation(SendAditionalHour, { ignoreResults: true });
 
   const { themeColors } = useContext(ThemeContext);
 
   const [errors, setErrors] = useState(INITIAL_ERRORS);
-
+  const [showAlert, setShowAlert] = useState(false);
   const [formData, setFormData] = useState({});
 
   const needComment = formData.hourAction !== "REMOVE";
@@ -53,7 +54,8 @@ const HourChanges = () => {
 
     if (!!!date || date === "") newErrors.date = true;
 
-    if (!!!duration || duration < 1000) newErrors.duration = true;
+    if (!!!duration || convertDurationToMilliseconds(duration) < 1000)
+      newErrors.duration = true;
 
     if (needComment && (!!!comment || comment?.trim() === ""))
       newErrors.comment = true;
@@ -72,6 +74,7 @@ const HourChanges = () => {
       const { hourAction, member, date, comment } = formData;
       let { duration } = formData;
 
+      duration = convertDurationToMilliseconds(duration);
       if (hourAction === "REMOVE") duration *= -1;
 
       submitAditionalHours({
@@ -79,11 +82,14 @@ const HourChanges = () => {
           data: {
             memberId: member,
             date: date.startOf("day").toISOString(),
-            amount: convertDurationToMilliseconds(duration),
+            amount: duration,
             description: comment,
           },
         },
-      }).then(() => setFormData({}));
+      }).then(() => {
+        setFormData({});
+        setShowAlert(true);
+      });
     }
   }
 
@@ -93,6 +99,7 @@ const HourChanges = () => {
   }
 
   function handleChangeData(key, data) {
+    if (showAlert) setShowAlert(false);
     setFormData({ ...formData, [key]: data });
   }
 
@@ -166,6 +173,15 @@ const HourChanges = () => {
             loading={loading}
           />
         </div>
+        {showAlert && (
+          <Alert
+            className="alert"
+            message="Enviado com sucesso!"
+            type="success"
+            showIcon
+            closable
+          />
+        )}
         <DefaultText error>{JSON.stringify(error)}</DefaultText>
       </OutlinedBox>
     </HourChangesComponent>

@@ -61,7 +61,7 @@ const AutocompleteInput = ({
   if (showSuggestions && userInput) {
     if (filteredSuggestions.length) {
       suggestionsListComponent = (
-        <ul class="suggestions">
+        <ul className="suggestions">
           {filteredSuggestions.map((suggestion, index) => {
             let className;
 
@@ -80,7 +80,7 @@ const AutocompleteInput = ({
       );
     } else {
       suggestionsListComponent = (
-        <div class="no-suggestions">
+        <div className="no-suggestions">
           <em>No suggestions, you're on your own!</em>
         </div>
       );
@@ -106,7 +106,7 @@ const AutocompleteInput = ({
         value={userInput}
       />
       {suggestionsListComponent}
-      {error && <span class="errorMessage">{errorMessage}</span>}
+      {error && <span className="errorMessage">{errorMessage}</span>}
     </AutocompleteInputContainer>
   );
 };
