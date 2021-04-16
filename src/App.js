@@ -22,7 +22,6 @@ import GlobalsContextProvider from "./context/GlobalsProvider";
 const httpLink = new HttpLink({
   uri: process.env.REACT_APP_API || "http://localhost:4000/",
 });
-  console.log("🚀 ~ file: App.js ~ line 25 ~ process.env", process.env)
 
 const authLink = new ApolloLink((operation, forward) => {
   // add the authorization to the headers

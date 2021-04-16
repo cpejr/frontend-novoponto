@@ -112,10 +112,6 @@ const HoursConsultation = () => {
       setMandatoryHoursOptions(memberSelected.mandatories);
     }
   }, [memberSelected]);
-  console.log(
-    "🚀 ~ file: index.js ~ line 115 ~ HoursConsultation ~ memberSelected",
-    memberSelected
-  );
 
   function handleSelectDate(value, dateString) {
     setRangeDate([dateString[0], dateString[1]]);
