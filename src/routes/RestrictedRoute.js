@@ -3,12 +3,12 @@ import { Route } from "react-router";
 import { SessionContext } from "../context/SessionProvider";
 import Lottie from "react-lottie";
 import errorLottie from "../assets/lotties/error-lottie.json";
+import waitLottie from "../assets/lotties/relax.json";
 import { DefaultText } from "../components/atoms";
 
 const defaultOptions = {
   loop: false,
   autoplay: true,
-  animationData: errorLottie,
   rendererSettings: {
     preserveAspectRatio: "xMidYMid slice",
   },
@@ -25,7 +25,11 @@ const RestrictedRoute = ({ minAccessLevel, ...props }) => {
       <Route
         {...props}
         component={() => (
-          <Lottie options={defaultOptions} height={200} width={200} />
+          <Lottie
+            options={{ ...defaultOptions, animationData: waitLottie }}
+            height={200}
+            width={200}
+          />
         )}
       />
     );
@@ -44,7 +48,11 @@ const RestrictedRoute = ({ minAccessLevel, ...props }) => {
             alignItems: "center",
           }}
         >
-          <Lottie options={defaultOptions} height={150} width={150} />
+          <Lottie
+            options={{ ...defaultOptions, animationData: errorLottie }}
+            height={150}
+            width={150}
+          />
           <DefaultText error style={{ fontSize: "20px" }}>
             Acesso negado
           </DefaultText>
