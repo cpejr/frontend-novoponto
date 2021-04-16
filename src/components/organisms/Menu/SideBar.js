@@ -13,10 +13,11 @@ import { useLocation } from "react-router";
 
 import { SessionContext } from "../../../context/SessionProvider";
 import MenuItem from "./MenuItem";
+import { Link } from "react-router-dom";
 
 const SideBar = ({ collapsed, ...props }) => {
   const location = useLocation();
-
+  console.log(location);
   const { data } = useContext(SessionContext);
 
   const access = data?.member?.role?.access;
@@ -38,14 +39,21 @@ const SideBar = ({ collapsed, ...props }) => {
         style={{ height: "100%", borderRight: 0 }}
         inlineCollapsed={collapsed}
       >
-        <MenuItem route="/" icon={<BulbOutlined />} label="Ponto" />
+        <MenuItem key="/" route="/" icon={<BulbOutlined />} label="Ponto" />
         <MenuItem
+          key="/consultadehoras"
           route="/consultadehoras"
           icon={<ClockCircleOutlined />}
           label="Consulta de horas"
         />
-        <MenuItem route="/profile" icon={<UserOutlined />} label="Perfil" />
         <MenuItem
+          key="/profile"
+          route="/profile"
+          icon={<UserOutlined />}
+          label="Perfil"
+        />
+        <MenuItem
+          key="/alteracaodehoras"
           route="/alteracaodehoras"
           icon={<CarryOutOutlined />}
           label="Adicionar/Remover horas"
@@ -57,24 +65,32 @@ const SideBar = ({ collapsed, ...props }) => {
           title="Administração"
           style={{ display: showAdm ? "block" : "none" }}
         >
-          <MenuItem route="/acompanhamentodehoras" label="Acomp. de horas" />
+          <MenuItem
+            key="/acompanhamentodehoras"
+            route="/acompanhamentodehoras"
+            label="Acomp. de horas"
+          />
           <MenuItem
             disabled={!access || access === 0}
+            key="/atualizarnoticias"
             route="/atualizarnoticias"
             label="Atualizar Notícias"
           />
           <MenuItem
             disabled={!access || access === 0}
+            key="/horarioobrigatorio"
             route="/horarioobrigatorio"
             label="Horário Obrigatório"
           />
           <MenuItem
             disabled={!access || access === 0}
+            key="/membros"
             route="/membros"
             label="Membros"
           />
           <MenuItem
             disabled={!access || access === 0}
+            key="/cargos"
             route="/cargos"
             label="Cargos"
           />
