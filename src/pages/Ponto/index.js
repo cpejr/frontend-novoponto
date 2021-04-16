@@ -1,6 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PontoComponent } from "./styles";
 import { ThemeContext } from "../../context/ThemeProvider";
+import { useMutation } from "@apollo/client";
+
+import {
+  CREATE_SESSION, 
+  FINISH_SESSION
+} from "../../graphql/Sessions";
 
 import defaultNews from "../../assets/defaultNews.svg";
 import searchIcon from "../../assets/searchIcon.svg";
@@ -12,6 +18,8 @@ import LogoutPointButton from "../../components/atoms/LogoutPointButton";
 import LoggedMembers from "../../components/molecules/LoggedMembersSection";
 import ConfirmationModal from "../../components/molecules/Modal";
 import AutocompleteInput from "../../components/molecules/AutocompleteInput";
+
+import { GlobalsContext } from '../../context/GlobalsProvider';
 
 const fakeLoggedMembers = [
   {
@@ -76,6 +84,12 @@ const allMembers = [
 
 const Ponto = () => {
   const { themeColors } = useContext(ThemeContext);
+  const { membersLoading,
+     membersError,
+     membersData,
+     refetchMembers } = useContext(GlobalsContext);
+
+     console.log('todos os membros', membersData)
 
   const [loggedMembers, setLoggedMembers] = useState(fakeLoggedMembers);
   const [filteredMembers, setFilteredMembers] = useState([]);
@@ -87,11 +101,11 @@ const Ponto = () => {
 
   const [resetAutocompleteField, setResetAutocompleteField] = useState(false);
 
-  let clearSetTimeout = "";
+  const [startSessionMutation] = useMutation(CREATE_SESSION);
+  const [endSessionMutation] = useMutation(FINISH_SESSION);
 
-  // const handleLogin = (e) => {
-  //   setMemberToLogin(e.target.value);
-  // };
+
+  let clearSetTimeout = "";
 
   const handleOpenModal = () => {
     console.log("clicou");
@@ -165,6 +179,11 @@ const Ponto = () => {
     );
     setResetAutocompleteField(false);
   }, [loggedMembers]);
+
+  useEffect(() => {
+    console.log('aqui', membersData);
+    setLoggedMembers(membersData);
+  }, []);
 
   useEffect(() => {
     clearTimeout(clearSetTimeout);
