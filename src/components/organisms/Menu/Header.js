@@ -5,11 +5,11 @@ import { Layout } from "antd";
 
 import logoMenu from "../../../assets/logoMenu.svg";
 
-const Header = ({ onClickOpenSidebar, isSidebarOpen, ...props }) => {
+const Header = ({ onClickOpenSidebar, isSidebarColapsed, ...props }) => {
   return (
     <Layout.Header className="header">
       <div className="logo">
-        {isSidebarOpen ? (
+        {isSidebarColapsed ? (
           <MenuUnfoldOutlined onClick={onClickOpenSidebar} />
         ) : (
           <MenuFoldOutlined onClick={onClickOpenSidebar} />

@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import React, { createContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 import { Members } from "../../graphql/Member";
 
@@ -13,6 +13,22 @@ const GlobalsContextProvider = (props) => {
     refetch: refetchMembers,
   } = useQuery(Members);
 
+  const [menuColapse, setMenuColapse] = useState(false);
+
+  useEffect(() => {
+    // Favor manter somente 2 iguais
+    // eslint-disable-next-line eqeqeq
+    const toggle = localStorage.getItem("menuColapse") == "true";
+
+    if (toggle) setMenuColapse(toggle);
+  }, []);
+
+  function toggleMenu() {
+    localStorage.setItem("menuColapse", !menuColapse);
+
+    setMenuColapse(!menuColapse);
+  }
+
   return (
     <GlobalsContext.Provider
       value={{
@@ -20,6 +36,8 @@ const GlobalsContextProvider = (props) => {
         membersError,
         membersData,
         refetchMembers,
+        toggleMenu,
+        menuColapse,
       }}
     >
       {props.children}

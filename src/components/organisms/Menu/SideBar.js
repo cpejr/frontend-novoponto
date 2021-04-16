@@ -13,11 +13,10 @@ import { useLocation } from "react-router";
 
 import { SessionContext } from "../../../context/SessionProvider";
 import MenuItem from "./MenuItem";
-import { Link } from "react-router-dom";
 
 const SideBar = ({ collapsed, ...props }) => {
   const location = useLocation();
-  console.log(location);
+  
   const { data } = useContext(SessionContext);
 
   const access = data?.member?.role?.access;

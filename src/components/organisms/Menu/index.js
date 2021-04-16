@@ -1,28 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Layout } from "antd";
 
 import Header from "./Header";
 import SideBar from "./SideBar";
 import { SidebarMenuContainer } from "./styles";
+import { GlobalsContext } from "../../../context/GlobalsProvider";
 
 const SidebarMenu = ({ children }) => {
   const { Content } = Layout;
 
-  const [openSideBar, setOpenSideBar] = useState(false);
-
-  const handleOpenSideBar = () => {
-    setOpenSideBar(!openSideBar);
-  };
+  const { menuColapse, toggleMenu } = useContext(GlobalsContext);
 
   return (
     <SidebarMenuContainer>
       <Layout>
-        <Header
-          onClickOpenSidebar={handleOpenSideBar}
-          isSidebarOpen={openSideBar}
-        />
+        <Header onClickOpenSidebar={toggleMenu} isSidebarColapsed={menuColapse} />
         <Layout hasSider={true}>
-          <SideBar collapsed={openSideBar}/>
+          <SideBar collapsed={menuColapse} />
           <Layout>
             <Content
               id="site-layout-background"
