@@ -21,69 +21,10 @@ import LogoutPointButton from "../../components/atoms/LogoutPointButton";
 import LoggedMembers from "../../components/molecules/LoggedMembersSection";
 import ConfirmationModal from "../../components/molecules/Modal";
 import AutocompleteInput from "../../components/molecules/AutocompleteInput";
+import DurationDisplayer from "../../components/molecules/DurationDisplayer";
 
 import { GlobalsContext } from "../../context/GlobalsProvider";
 
-const fakeLoggedMembers = [
-  {
-    member: "Diogo",
-    role: "Gerente de Produtos",
-    description: "Um teste",
-  },
-  {
-    member: "Arthur Lima",
-    role: "Head de Projetos",
-    description: "Opa, e ai",
-  },
-  {
-    member: "Arthur Braga",
-    role: "Head de Marketing",
-    description: "NADA MAIS",
-  },
-  {
-    member: "João Prates",
-    role: "Consultor de Vendas",
-    description: "VENDASSSSSSSSSSSS",
-  },
-];
-
-const allMembers = [
-  {
-    member: "Diogo",
-    role: "Gerente de Produtos",
-    description: "Um teste",
-  },
-  {
-    member: "Arthur Lima",
-    role: "Head de Projetos",
-    description: "Opa, e ai",
-  },
-  {
-    member: "Arthur Braga",
-    role: "Head de Marketing",
-    description: "NADA MAIS",
-  },
-  {
-    member: "João Prates",
-    role: "Consultor de Vendas",
-    description: "VENDASSSSSSSSSSSS",
-  },
-  {
-    member: "Maria Caneschi",
-    role: "Assessora de desenvolvimento",
-    description: "Teste",
-  },
-  {
-    member: "Giovanna Souza",
-    role: "Gerente de desenvolvimento",
-    description: "Frase testee",
-  },
-  {
-    member: "Pedro Barros",
-    role: "Diretor de desenvolvimento",
-    description: "Bora beber",
-  },
-];
 
 const Ponto = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -115,10 +56,6 @@ const Ponto = () => {
 
   let clearSetTimeout = "";
 
-  const handleOpenModal = () => {
-    console.log("clicou");
-    setShowModal(true);
-  };
   const handleOkModal = () => {
     setShowModal(false);
   };
@@ -363,10 +300,9 @@ const Ponto = () => {
                           />
                         </td>
                         <td className="finishTime">
-                          <HourDisplayer
-                            hour={item.formatedDuration}
-                            hourColor={themeColors.yellow}
-                            dateOrTime={"time"}
+                          <DurationDisplayer
+                            startTime={item.start}
+                            color={themeColors.yellow}
                           />
                         </td>
                         <td className="logoutButton">
