@@ -351,8 +351,7 @@ const Ponto = () => {
                         <td className="memberColumn">
                           <LoggedMembers
                             name={item.member.name}
-                            // role={item.member.role.name}
-                            role="Head de Projetos"
+                            role={item.member.role.name}
                             description={item.member.status}
                           />
                         </td>
@@ -360,13 +359,14 @@ const Ponto = () => {
                           <HourDisplayer
                             hour={item.start}
                             hourColor={themeColors.green}
+                            dateOrTime={"date"}
                           />
                         </td>
                         <td className="finishTime">
                           <HourDisplayer
-                            hour={new Date().getTime()}
+                            hour={item.formatedDuration}
                             hourColor={themeColors.yellow}
-                            startTime={true}
+                            dateOrTime={"time"}
                           />
                         </td>
                         <td className="logoutButton">

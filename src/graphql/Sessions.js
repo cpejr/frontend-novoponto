@@ -12,6 +12,9 @@ const LOGGED_MEMBERS = gql`
         }
       }
       start
+      end
+      duration
+      formatedDuration
     }
   }
 `;
