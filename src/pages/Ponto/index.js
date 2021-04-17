@@ -47,7 +47,10 @@ const Ponto = () => {
   const [errorInpuLogin, setErrorInpuLogin] = useState(false);
 
   const [memberToLogin, setMemberToLogin] = useState("");
+  const [memberToLogout, setMemberToLogout] = useState("");
+  const [memberToLogoutMessage, setMemberToLogoutMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showLogoutMemberModal, setShowLogoutMemberModal] = useState(false);
 
   const [resetAutocompleteField, setResetAutocompleteField] = useState(false);
 
@@ -119,6 +122,16 @@ const Ponto = () => {
     }
   };
 
+  const handleOpenModalToLogoutMember = (member) => {
+    setMemberToLogoutMessage(`Deseja deslogar ${member.name}?`);
+    setMemberToLogout(member);
+    setShowLogoutMemberModal(true);
+  }
+
+  const handleCancelLogoutMemberModal = () => {
+    setShowLogoutMemberModal(false);
+  };
+
   const handleLogoutMember = async (member) => {
     var hide = message.loading("Fazendo Login...");
     try {
@@ -127,6 +140,7 @@ const Ponto = () => {
       });
       hide();
       message.success(`Bom descanso ${member.name}!`, 2.5);
+      setShowLogoutMemberModal(false);
     } catch (err) {
       console.error(err);
       hide();
@@ -288,6 +302,7 @@ const Ponto = () => {
                         <td className="memberColumn">
                           <LoggedMembers
                             name={item.member.name}
+                            imageLink={item.member.imageLink}
                             role={item.member.role.name}
                             description={item.member.status}
                           />
@@ -307,7 +322,7 @@ const Ponto = () => {
                         </td>
                         <td className="logoutButton">
                           <LogoutPointButton
-                            onClick={() => handleLogoutMember(item.member)}
+                            onClick={() => handleOpenModalToLogoutMember(item.member)}
                           />
                         </td>
                       </tr>
@@ -344,6 +359,13 @@ const Ponto = () => {
           isVisible={showModal}
           handleOk={handleOkModal}
           handleCancel={handleCancelModal}
+        />
+        <ConfirmationModal
+          title="Confirmação de logout"
+          content={memberToLogoutMessage}
+          isVisible={showLogoutMemberModal}
+          handleOk={() => handleLogoutMember(memberToLogout)}
+          handleCancel={handleCancelLogoutMemberModal}
         />
       </PontoComponent>
     );

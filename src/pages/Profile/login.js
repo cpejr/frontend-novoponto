@@ -1,20 +1,10 @@
-import React, { useContext, useEffect } from "react";
-import { GoogleOutlined, LogoutOutlined } from "@ant-design/icons";
-import { ProfileComponent } from "./styles";
-import { ThemeContext } from "../../context/ThemeProvider";
+import React, { useContext } from "react";
+import { GoogleOutlined } from "@ant-design/icons";
 import {
   CommonButton,
-  DefaultLabel,
   DefaultText,
-  InputText,
-  LogoutPointButton,
-  MemberAvatar,
-  MemberName,
-  OutlinedBox,
-  TextArea,
 } from "../../components/atoms";
 import { GoogleLogin } from "react-google-login";
-import { gql, useMutation } from "@apollo/client";
 import { Skeleton } from "antd";
 import { SessionContext } from "../../context/SessionProvider";
 
@@ -22,7 +12,6 @@ const CLIENT_ID =
   "927681508740-6avqgv44im25umcj7ji2856o84fcrhje.apps.googleusercontent.com";
 
 const Login = () => {
-  const { themeColors } = useContext(ThemeContext);
   const { loading, error, data, login } = useContext(SessionContext);
 
   function handleLogin(googleData) {

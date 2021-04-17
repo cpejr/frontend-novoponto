@@ -7,6 +7,7 @@ const LOGGED_MEMBERS = gql`
         _id
         name
         status
+        imageLink
         role {
           name
         }
