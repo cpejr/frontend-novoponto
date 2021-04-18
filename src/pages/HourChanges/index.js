@@ -91,7 +91,7 @@ const HourChanges = () => {
           message.success("Enviado com sucesso!");
         })
         .catch(() => {
-          message.error("Vish algo deu errado.\nTente novamente mais tarde");
+          message.error("Vish algo deu errado.\nTente novamente mais tarde.");
         });
     }
   }
