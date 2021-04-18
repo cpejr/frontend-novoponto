@@ -1,14 +1,17 @@
-import React from 'react';
-import HourDisplayerContainer from './styles';
+import React from "react";
+import HourDisplayerContainer from "./styles";
 import moment from "moment";
 
-const HourDisplayer = ({hour, hourColor, ...props}) => {
-
+const HourDisplayer = ({ text, hour, hourColor, ...props }) => {
+  if (text || hour) {
     return (
-        <HourDisplayerContainer color={hourColor} {...props}>
-            {moment(hour).format("HH:mm")}
-        </HourDisplayerContainer>
+      <HourDisplayerContainer color={hourColor} {...props}>
+        {hour && moment(hour).format("HH:mm")}
+        {text}
+      </HourDisplayerContainer>
     );
-}
+  }
+  return <></>;
+};
 
 export default HourDisplayer;

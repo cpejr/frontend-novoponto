@@ -12,6 +12,38 @@ const HoursConsultationComponent = styled.div`
   flex-direction: column;
   align-items: flex-start;
 
+  h3 {
+    margin-bottom: 16px;
+    color: #ffffff;
+  }
+
+  .sum {
+    display: flex;
+    margin-bottom: 16px;
+    align-items: center;
+  }
+
+  .sum > h3 {
+    margin: 0px;
+    margin-right: 8px;
+  }
+
+  .ant-collapse-item {
+    margin-bottom: 32px;
+  }
+
+  .ant-collapse-header {
+    padding-left: 25px !important;
+  }
+
+  .ant-collapse-header svg {
+    color: #fff;
+  }
+
+  .ant-collapse-header span {
+    left: 0 !important;
+  }
+
   /* Ajuste CSS do RangePicjer */
   .ant-picker-range {
     min-width: 250px;
@@ -36,10 +68,6 @@ const HoursConsultationComponent = styled.div`
 
   .mandatoryHours {
     margin-bottom: 48px;
-    h2 {
-      margin-bottom: 16px;
-      color: #ffffff;
-    }
   }
 
   .mandatoryHoursTable,
@@ -95,20 +123,13 @@ const HoursConsultationComponent = styled.div`
   .pointHistoric {
     max-width: 300px;
     margin-bottom: 48px;
-    h2 {
-      margin-bottom: 16px;
-      color: #ffffff;
-    }
   }
 
   .hoursSumAndTablesArea,
   .justificationTablesArea {
     width: 100%;
     margin-bottom: 24px;
-    h2 {
-      margin-bottom: 16px;
-      color: #ffffff;
-    }
+
     .hoursSumAndTable {
       width: 100%;
     }
@@ -118,10 +139,7 @@ const HoursConsultationComponent = styled.div`
   .justificationTablesArea {
     width: 100%;
     margin-bottom: 48px;
-    h2 {
-      margin-bottom: 16px;
-      color: #ffffff;
-    }
+
     .hoursSumAndTable {
       width: 100%;
     }
