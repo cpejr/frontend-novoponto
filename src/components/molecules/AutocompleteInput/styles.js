@@ -10,7 +10,6 @@ export const AutocompleteInputContainer = styled.div`
   align-items: center;
   border-radius: 2px;
 
-
   input {
     border: ${(props) => (props.error ? "0.7px solid red" : "none")};
     width: 100%;
@@ -63,15 +62,14 @@ export const AutocompleteInputContainer = styled.div`
 
   .suggestions li {
     padding: 0.5rem;
-    background: rgba(255, 209, 7, 0.8);
+    background: #2F2F2F;
   }
 
   .suggestion-active,
   .suggestions li:hover {
-    background: rgba(49, 216, 67, 1);
+    background: #505050;
     color: #fff;
     cursor: pointer;
-    font-weight: 700;
   }
 
   .suggestion-active {
@@ -79,7 +77,7 @@ export const AutocompleteInputContainer = styled.div`
   }
 
   .suggestions li:not(:last-of-type) {
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid #222;
   }
 
   .errorMessage {

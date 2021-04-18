@@ -1,5 +1,5 @@
 import { Collapse } from "antd";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { HourDisplayer } from "../../components/atoms";
 import { ThemeContext } from "../../context/ThemeProvider";
 
