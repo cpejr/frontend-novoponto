@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef } from "react";
-import { Alert, DatePicker, TimePicker } from "antd";
+import { Alert, DatePicker, message, TimePicker } from "antd";
 import moment from "moment";
 import { useMutation } from "@apollo/client";
 
@@ -39,7 +39,6 @@ const HourChanges = () => {
   const { themeColors } = useContext(ThemeContext);
 
   const [errors, setErrors] = useState(INITIAL_ERRORS);
-  const [showAlert, setShowAlert] = useState(false);
   const [formData, setFormData] = useState({});
 
   const needComment = formData.hourAction !== "REMOVE";
@@ -86,10 +85,14 @@ const HourChanges = () => {
             description: comment,
           },
         },
-      }).then(() => {
-        setFormData({});
-        setShowAlert(true);
-      });
+      })
+        .then(() => {
+          setFormData({});
+          message.success("Enviado com sucesso!");
+        })
+        .catch(() => {
+          message.error("Vish algo deu errado.\nTente novamente mais tarde");
+        });
     }
   }
 
@@ -99,7 +102,6 @@ const HourChanges = () => {
   }
 
   function handleChangeData(key, data) {
-    if (showAlert) setShowAlert(false);
     setFormData({ ...formData, [key]: data });
   }
 
@@ -173,15 +175,6 @@ const HourChanges = () => {
             loading={loading}
           />
         </div>
-        {showAlert && (
-          <Alert
-            className="alert"
-            message="Enviado com sucesso!"
-            type="success"
-            showIcon
-            closable
-          />
-        )}
         <DefaultText error>{JSON.stringify(error)}</DefaultText>
       </OutlinedBox>
     </HourChangesComponent>
