@@ -9,6 +9,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "antd": "^4.13.1",
+    "dotenv": "^8.2.0",
     "graphql": "^15.5.0",
     "less": "^4.1.1",
     "react": "^17.0.1",

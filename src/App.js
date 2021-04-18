@@ -20,7 +20,7 @@ import "./styles/compiled/antd.css"; // Tema do ant design
 import GlobalsContextProvider from "./context/GlobalsProvider";
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:4000/",
+  uri: process.env.REACT_APP_API || "http://localhost:4000/",
 });
 
 const authLink = new ApolloLink((operation, forward) => {
