@@ -103,11 +103,13 @@ const Ponto = () => {
     }
   };
 
-  // const handleLogouAllMembers = () => {
-  //   if (loggedMembers.length > 0) {
-  //     setLoggedMembers([]);
-  //   }
-  // };
+  const handleLogoutAllMembers = () => {
+    if (loggedMembers.loggedMembers.length > 0) {
+      loggedMembers.loggedMembers.forEach(member => {
+        handleLogoutMember(member);
+      })
+    }
+  };
 
   const handleSearchMembers = (e) => {
     if (e.target.value !== "") {
@@ -348,7 +350,7 @@ const Ponto = () => {
                 buttonLabel="Deslogar todos os membros"
                 color={themeColors.yellow}
                 width="207px"
-                // onClick={handleLogouAllMembers}
+                onClick={handleLogoutAllMembers}
               />
             </div>
           </div>
