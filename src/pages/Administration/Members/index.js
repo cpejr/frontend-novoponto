@@ -204,7 +204,7 @@ const Members = () => {
         active={membersLoading}
         loading={membersLoading}
       />
-    );
+      );
   else if (membersError) {
     console.log(membersError);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);

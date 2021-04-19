@@ -1,14 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Modal, Button } from "antd";
 import {
   ModalContainer,
   ModalContentSection,
-  ModalButtonSection,
 } from "./styles";
-
-import { ThemeContext } from "../../../context/ThemeProvider";
-
-import CommonButton from "../../atoms/CommonButton";
 
 const ConfirmationModal = ({
   content,
@@ -18,7 +13,6 @@ const ConfirmationModal = ({
   handleCancel,
   children,
 }) => {
-  const { themeColors } = useContext(ThemeContext);
 
   return (
     <Modal

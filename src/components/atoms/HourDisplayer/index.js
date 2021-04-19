@@ -2,11 +2,17 @@ import React from "react";
 import HourDisplayerContainer from "./styles";
 import moment from "moment";
 
-const HourDisplayer = ({ text, hour, hourColor, ...props }) => {
+const HourDisplayer = ({
+  text,
+  hour,
+  hourColor,
+  dateOrTime = "date",
+  ...props
+}) => {
   if (text || hour) {
     return (
       <HourDisplayerContainer color={hourColor} {...props}>
-        {hour && moment(hour).format("HH:mm")}
+        {dateOrTime === "date" ? moment(hour).format("HH:mm") : hour}
         {text}
       </HourDisplayerContainer>
     );
