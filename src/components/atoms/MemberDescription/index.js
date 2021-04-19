@@ -1,12 +1,14 @@
-import React from 'react';
-import MemberDescriptionContainer from './styles';
+import React from "react";
+import MemberDescriptionContainer from "./styles";
 
-const MemberDescription = ({description}) => {
+const MemberDescription = ({ description }) => {
+  if (description) {
     return (
-        <MemberDescriptionContainer>
-            - "{description}"
-        </MemberDescriptionContainer>
+      <MemberDescriptionContainer>- "{description}"</MemberDescriptionContainer>
     );
-}
+  } else {
+    return <MemberDescriptionContainer />;
+  }
+};
 
 export default MemberDescription;
