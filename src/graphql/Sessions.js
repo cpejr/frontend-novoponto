@@ -1,16 +1,11 @@
 import gql from "graphql-tag";
+import { DefaultSessionFields } from "./Member";
 
 const LOGGED_MEMBERS = gql`
   query LoggedMembers {
     loggedMembers {
-      member{
-        _id
-        name
-        status
-        imageLink
-        role {
-          name
-        }
+      member {
+        ...DefaultSessionFields
       }
       start
       end
@@ -18,13 +13,14 @@ const LOGGED_MEMBERS = gql`
       formatedDuration
     }
   }
+  ${DefaultSessionFields}
 `;
 
 const CREATE_SESSION = gql`
   mutation StartSession($memberId: ID!) {
     startSession(memberId: $memberId) {
       start
-      member{
+      member {
         name
       }
     }
@@ -42,4 +38,10 @@ const FINISH_SESSION = gql`
   }
 `;
 
-export { LOGGED_MEMBERS, CREATE_SESSION, FINISH_SESSION };
+const END_ALL_SESSIONS = gql`
+  mutation EndALLSessions {
+    endAllSessions
+  }
+`;
+
+export { LOGGED_MEMBERS, CREATE_SESSION, FINISH_SESSION, END_ALL_SESSIONS };
