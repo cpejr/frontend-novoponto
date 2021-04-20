@@ -5,6 +5,11 @@ import { Login, GetSessionData, UpdateSelf } from "../../graphql/Member";
 
 export const SessionContext = createContext();
 
+function updateAccessToken(accessToken) {
+  if (accessToken) localStorage.setItem("accessToken", accessToken);
+  else localStorage.removeItem("accessToken");
+}
+
 const SessionContextProvider = (props) => {
   const [storage, setStorage] = useState({
     loading: false,
@@ -14,18 +19,23 @@ const SessionContextProvider = (props) => {
 
   const [getSessionData] = useMutation(GetSessionData, {
     update(_, { data }) {
+      const { accessToken, member } = data.getSessionData;
+
+      if (accessToken) updateAccessToken(accessToken);
+
       setStorage({
         loading: false,
         error: undefined,
-        data: { ...storage.data, member: data.getSessionData },
+        data: { ...storage.data, member },
       });
     },
     onError,
   });
 
+  // Login
   const [_login] = useMutation(Login, {
     update(_, { data }) {
-      localStorage.setItem("accessToken", data.login.accessToken);
+      updateAccessToken(data.login.accessToken);
 
       setStorage({
         loading: false,
@@ -41,9 +51,10 @@ const SessionContextProvider = (props) => {
     return _login({ variables: { tokenId } });
   }
 
+  // UpdateSelf
   const [_updateSelf] = useMutation(UpdateSelf, {
     update(_, { data }) {
-      localStorage.setItem("accessToken", data.updateSelf.accessToken);
+      updateAccessToken(data.updateSelf.accessToken);
 
       setStorage({
         ...storage,
@@ -68,7 +79,7 @@ const SessionContextProvider = (props) => {
   }, []);
 
   function logOut() {
-    localStorage.removeItem("accessToken");
+    updateAccessToken();
     setStorage({ ...storage, data: undefined });
   }
 

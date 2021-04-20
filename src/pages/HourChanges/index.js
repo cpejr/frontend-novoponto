@@ -27,6 +27,7 @@ const INITIAL_ERRORS = {
 };
 
 function convertDurationToMilliseconds(time) {
+  
   return moment.duration(time.format("HH:mm")).asMilliseconds();
 }
 
@@ -148,6 +149,7 @@ const HourChanges = () => {
             Qual a é quantidade de Horas? *
           </DefaultText>
           <TimePicker
+            onSelect={(data) => handleChangeData("duration", data)}
             format={"HH:mm"}
             showNow={false}
             placeholder={"00:00"}

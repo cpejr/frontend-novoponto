@@ -19,10 +19,27 @@ const SendAditionalHour = gql`
   ${DefaultHourFields}
 `;
 
+const AditionalHours = gql`
+  query AditionalHours($memberId: ID!, $startDate: DateScalar, $endDate: DateScalar){
+  aditionalHours(
+    memberId: $memberId
+    startDate: $startDate
+    endDate: $endDate
+    ) {
+      date
+      amount
+      action
+      formatedAmount
+      description
+    }
+  }
+`;
+
 export {
   //Fragments
   DefaultHourFields,
   //Mutations
   SendAditionalHour,
   //Query
+  AditionalHours
 };

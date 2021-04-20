@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const MemberDataADMContainer = styled.div`
     position: relative;
-    margin-top: 20px;
+    margin: 20px;
 
     h1 {
         color: #ffff;

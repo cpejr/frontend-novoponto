@@ -8,7 +8,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "antd": "^4.13.1",
+    "antd": "^4.15.2",
     "dotenv": "^8.2.0",
     "graphql": "^15.5.0",
     "less": "^4.1.1",
@@ -16,9 +16,11 @@
     "react-dom": "^17.0.1",
     "react-google-login": "^5.2.2",
     "react-lottie": "^1.2.3",
+    "react-rotating-text": "^1.4.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
     "styled-components": "^5.2.1",
+    "subscriptions-transport-ws": "^0.9.18",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

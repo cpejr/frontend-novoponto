@@ -1,16 +1,20 @@
-import React from "react";
-import {InputTextContainer, ErrorMessage} from "./styles";
+import React, { forwardRef } from "react";
+import { InputTextContainer, ErrorMessage } from "./styles";
 
-const InputText = ({ icon, error = false, errorMessage, ...props }) => {
-  return (
-    <>
-      <InputTextContainer error={error}>
-        {icon && <img src={icon} alt={props.placeholder} />}
-        <input type="text" {...props} />
-      </InputTextContainer>
-      {error && <ErrorMessage className="errorMessage">{errorMessage}</ErrorMessage>}
-    </>
-  );
-};
+const InputText = forwardRef(
+  ({ icon, error = false, errorMessage, ...props }, ref) => {
+    return (
+      <>
+        <InputTextContainer error={error}>
+          {icon && <img src={icon} alt={props.placeholder} />}
+          <input type="text" {...props} ref={ref} />
+        </InputTextContainer>
+        {error && (
+          <ErrorMessage className="errorMessage">{errorMessage}</ErrorMessage>
+        )}
+      </>
+    );
+  }
+);
 
 export default InputText;

@@ -1,9 +1,6 @@
 import React from "react";
 import { Modal, Button } from "antd";
-import {
-  ModalContainer,
-  ModalContentSection,
-} from "./styles";
+import { ModalContainer, ModalContentSection } from "./styles";
 
 const ConfirmationModal = ({
   content,
@@ -13,13 +10,13 @@ const ConfirmationModal = ({
   handleCancel,
   children,
 }) => {
-
   return (
     <Modal
       title={title}
       visible={isVisible}
       onOk={handleOk}
       onCancel={handleCancel}
+      bodyStyle={{ backgroundColor: "#141414" }}
       footer={[
         <Button key="back" onClick={handleCancel}>
           Cancelar
@@ -30,7 +27,10 @@ const ConfirmationModal = ({
       ]}
     >
       <ModalContainer>
-        <ModalContentSection>{content}{children}</ModalContentSection>
+        <ModalContentSection>
+          {content}
+          {children}
+        </ModalContentSection>
       </ModalContainer>
     </Modal>
   );

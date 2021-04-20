@@ -45,7 +45,10 @@ const Login = gql`
 const GetSessionData = gql`
   mutation GetSessionData {
     getSessionData {
-      ...DefaultSessionFields
+      member {
+        ...DefaultSessionFields
+      }
+      accessToken
     }
   }
   ${DefaultSessionFields}
@@ -147,6 +150,7 @@ const FetchCompiledForHC = gql`
         amount
         action
         formatedAmount
+        description
       }
       total
       formatedTotal

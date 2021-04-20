@@ -6,17 +6,18 @@ import {
   UPDATE_ROLE,
   CREATE_ROLE,
 } from "../../../graphql/Roles";
-import { Tooltip, message, Skeleton } from "antd";
+import {  message, Skeleton } from "antd";
 import { RolesComponent } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
 
-import {CommonButton, DefaultLabel} from "../../../components/atoms";
+import { CommonButton } from "../../../components/atoms";
 import ConfirmationModal from "../../../components/molecules/Modal";
 import FormModal from "../../../components/organisms/FormModal";
 
-import { RocketOutlined, EditOutlined, RestOutlined } from "@ant-design/icons";
+import { RocketOutlined } from "@ant-design/icons";
 
 import validators from "../../../services/validators";
+import RoleRow from "./RoleRow";
 
 const Roles = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -51,7 +52,6 @@ const Roles = () => {
       console.error(err);
       hide();
       message.error("Houve um problema, tente novamente", 2.5);
-      refetch();
     }
     setOpenModalExcludeRole(false);
   };
@@ -98,23 +98,23 @@ const Roles = () => {
   const updateRole = async (updatedRole) => {
     const { _id, ...role } = updatedRole;
     role.access = role.access === "Administrador" ? 1 : 0;
-    var hide = message.loading("Excluindo");
+    var hide = message.loading("Atualizando");
     try {
       await updateRoleMutation({ variables: { roleId: _id, data: role } });
       hide();
       message.success("Alterado com sucesso", 2.5);
+      refetch();
     } catch (err) {
       console.error(err);
       hide();
       message.error("Houve um problema, tente novamente", 2.5);
     }
-    refetch();
     handleCloseEditOrCreate();
   };
 
   const createRole = async (role) => {
     role.access = role.access === "Administrador" ? 1 : 0;
-    var hide = message.loading("Excluindo");
+    var hide = message.loading("Criando");
     try {
       await createRoleMutation({ variables: { data: role } });
       hide();
@@ -142,12 +142,15 @@ const Roles = () => {
         loading={loading}
       />
     );
-  else if (error) {
+
+  if (error) {
     console.log(error);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
-  } else if (data) {
-    var roles = data.roles;
+  }
+
+  if (data) {
+    const { roles } = data;
 
     return (
       <RolesComponent theme={themeColors}>
@@ -172,32 +175,13 @@ const Roles = () => {
           </thead>
           <tbody>
             {roles.length > 0 ? (
-              roles.map((item) => (
-                <tr>
-                  <td className="roleColumn">{item.name}</td>
-                  <td className="isAdmColumn">
-                    {item.access === 1 && (
-                      <DefaultLabel
-                        labelText="Administrador"
-                        labelColor="#FFD100"
-                      />
-                    )}
-                  </td>
-                  <td className="editColumn">
-                    <Tooltip
-                      placement="topLeft"
-                      title={"Editar"}
-                      onClick={() => editOrCreateRole("edit", item)}
-                    >
-                      <EditOutlined />
-                    </Tooltip>
-                  </td>
-                  <td className="garbageColumn">
-                    <Tooltip placement="topLeft" title={"Excluir"}>
-                      <RestOutlined onClick={() => handleOpenModal(item)} />
-                    </Tooltip>
-                  </td>
-                </tr>
+              roles.map((role) => (
+                <RoleRow
+                  key={role._id}
+                  role={role}
+                  onEdit={() => editOrCreateRole("edit", role)}
+                  onDelete={() => handleOpenModal(role)}
+                />
               ))
             ) : (
               <tr>Nenhum cargo cadastrado</tr>

@@ -88,8 +88,8 @@ const Members = () => {
           cancel: handleCloseEditOrCreate,
           originalObject: {
             name: member.name,
-            responsible: member.responsible? member.responsible.name : "",
-            role: member.role? member.role.name : "",
+            responsible: member.responsible ? member.responsible.name : "",
+            role: member.role ? member.role.name : "",
             _id: member._id,
           },
         })
@@ -160,6 +160,7 @@ const Members = () => {
     setExcludeMember(member);
     setOpenModalExcludeMember(true);
   };
+
   const handleCloseModal = () => {
     setOpenModalExcludeMember(false);
   };
@@ -204,7 +205,7 @@ const Members = () => {
         active={membersLoading}
         loading={membersLoading}
       />
-      );
+    );
   else if (membersError) {
     console.log(membersError);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
@@ -215,6 +216,7 @@ const Members = () => {
     return <h1>Erro, recarregue a pagina</h1>;
   }
 
+  console.log(filteredMembers);
   return (
     <MembersComponent theme={themeColors}>
       <div className="iconWithTitle">
@@ -246,8 +248,8 @@ const Members = () => {
           {filteredMembers.length > 0 ? (
             filteredMembers.map((item) => (
               <tr>
-                <td className="memberColumn">{item.memberName}</td>
-                <td className="roleColumn">{item.roleName}</td>
+                <td className="memberColumn">{item.name}</td>
+                <td className="roleColumn">{item.role.name}</td>
                 <td className="isAdmColumn">
                   {item.isAdm && (
                     <DefaultLabel

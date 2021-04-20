@@ -65,9 +65,9 @@ const SideBar = ({ collapsed, ...props }) => {
           style={{ display: showAdm ? "block" : "none" }}
         >
           <MenuItem
-            key="/acompanhamentodehoras"
-            route="/acompanhamentodehoras"
-            label="Acomp. de horas"
+            key="/acompanhamento"
+            route="/acompanhamento"
+            label="Acompanhamento"
           />
           <MenuItem
             disabled={!access || access === 0}

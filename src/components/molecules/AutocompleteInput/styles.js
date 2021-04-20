@@ -62,12 +62,12 @@ export const AutocompleteInputContainer = styled.div`
 
   .suggestions li {
     padding: 0.5rem;
-    background: #2F2F2F;
+    background: #2f2f2f;
   }
 
   .suggestion-active,
   .suggestions li:hover {
-    background: #505050;
+    background: #505050 !important;
     color: #fff;
     cursor: pointer;
   }

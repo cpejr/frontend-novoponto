@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import SidebarMenu from "../components/organisms/Menu";
 import RestrictedRoute from "./RestrictedRoute";
@@ -10,7 +10,6 @@ import {
   HourConsultation,
   Ponto,
   StandBy,
-  TimeTracking,
   UpdateNews,
   MandatoryHours,
   Members,
@@ -28,15 +27,25 @@ const Routes = () => {
           <Route path="/consultadehoras" component={HourConsultation} />
           <Route path="/profile" component={Profile} />
           <Route path="/standby" component={StandBy} />
-          <Route path="/membros" component={Members} />
-          <Route path="/cargos" component={Roles} />
-          <Route path="/acompanhamento" component={HourFollowing} />
 
           <RestrictedRoute
-            path="/acompanhamentodehoras"
             minAccessLevel={1}
-            component={TimeTracking}
+            path="/membros"
+            component={Members}
           />
+
+          <RestrictedRoute
+            minAccessLevel={1}
+            path="/cargos"
+            component={Roles}
+          />
+
+          <RestrictedRoute
+            minAccessLevel={1}
+            path="/acompanhamento"
+            component={HourFollowing}
+          />
+
           <RestrictedRoute
             path="/atualizarnoticias"
             minAccessLevel={1}
