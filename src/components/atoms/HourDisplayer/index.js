@@ -12,7 +12,7 @@ const HourDisplayer = ({
   if (text || hour) {
     return (
       <HourDisplayerContainer color={hourColor} {...props}>
-        {dateOrTime === "date" ? moment(hour).format("HH:mm") : hour}
+        {hour && dateOrTime === "date" ? moment(hour).format("HH:mm") : hour}
         {text}
       </HourDisplayerContainer>
     );
