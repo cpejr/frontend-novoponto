@@ -27,6 +27,7 @@ const INITIAL_ERRORS = {
 };
 
 function convertDurationToMilliseconds(time) {
+  
   return moment.duration(time.format("HH:mm")).asMilliseconds();
 }
 

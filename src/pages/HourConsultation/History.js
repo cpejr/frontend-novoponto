@@ -7,6 +7,7 @@ import { useLazyQuery } from "@apollo/client";
 import { HourDisplayer, InfoDisplayer } from "../../components/atoms";
 import { FetchCompiledForHC } from "../../graphql/Member";
 import { ThemeContext } from "../../context/ThemeProvider";
+import HomeOfficeTable from "../../components/molecules/HomeOfficeTable";
 
 const { RangePicker } = DatePicker;
 
@@ -27,6 +28,7 @@ const History = ({ memberId, ...props }) => {
 
   useEffect(() => {
     if (startDate && endDate && memberId)
+      
       loadCompiled({
         variables: {
           memberId,
@@ -75,10 +77,6 @@ const History = ({ memberId, ...props }) => {
             <div className="hoursSumAndTablesArea">
               <div className="sum">
                 <h3>Soma:</h3>
-                {console.log(
-                  "🚀 ~ file: History.js ~ line 80 ~ History ~ formatedTotal",
-                  formatedTotal
-                )}
                 <HourDisplayer
                   text={formatedTotal}
                   hourColor={themeColors.yellow}
@@ -123,42 +121,7 @@ const History = ({ memberId, ...props }) => {
               </table>
             </div>
 
-            <div className="justificationTablesArea">
-              <h3>Horários adicionais: </h3>
-
-              <table className="justificationTable">
-                <thead>
-                  <tr>
-                    <th className="dayColumn">Dia</th>
-                    <th className="typeArea">Tipo</th>
-                    <th className="timeArea">Tempo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {aditionalHours?.map((item, index) => (
-                    <tr key={index}>
-                      <td className="dayColumn">
-                        {moment(item.date).format("DD/MM/yy")}
-                      </td>
-                      <td className="typeArea">
-                        <InfoDisplayer
-                          info={getOperation(item.action).text}
-                          infoColor={
-                            themeColors[getOperation(item.action).color]
-                          }
-                        />
-                      </td>
-                      <td className="timeArea">
-                        <HourDisplayer
-                          hour={item.amount}
-                          hourColor={themeColors.yellow}
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <HomeOfficeTable aditionalHours={aditionalHours}/>
           </>
         )}
       </>
