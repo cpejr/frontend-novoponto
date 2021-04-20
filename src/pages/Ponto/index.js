@@ -15,9 +15,11 @@ import defaultNews from "../../assets/defaultNews.svg";
 import searchIcon from "../../assets/searchIcon.svg";
 
 import InputText from "../../components/atoms/InputText";
-import CommonButton from "../../components/atoms/CommonButton";
-import HourDisplayer from "../../components/atoms/HourDisplayer";
-import LogoutPointButton from "../../components/atoms/LogoutPointButton";
+import {
+  CommonButton,
+  HourDisplayer,
+  LogoutPointButton,
+} from "../../components/atoms";
 import LoggedMembers from "../../components/molecules/LoggedMembersSection";
 import ConfirmationModal from "../../components/molecules/Modal";
 import AutocompleteInput from "../../components/molecules/AutocompleteInput";
