@@ -10,7 +10,6 @@ import {
   HourConsultation,
   Ponto,
   StandBy,
-  TimeTracking,
   UpdateNews,
   MandatoryHours,
   Members,
@@ -47,11 +46,6 @@ const Routes = () => {
             component={HourFollowing}
           />
 
-          <RestrictedRoute
-            path="/acompanhamentodehoras"
-            minAccessLevel={1}
-            component={TimeTracking}
-          />
           <RestrictedRoute
             path="/atualizarnoticias"
             minAccessLevel={1}

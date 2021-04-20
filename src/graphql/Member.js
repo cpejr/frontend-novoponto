@@ -150,6 +150,7 @@ const FetchCompiledForHC = gql`
         amount
         action
         formatedAmount
+        description
       }
       total
       formatedTotal

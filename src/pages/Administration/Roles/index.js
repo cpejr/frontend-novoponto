@@ -177,6 +177,7 @@ const Roles = () => {
             {roles.length > 0 ? (
               roles.map((role) => (
                 <RoleRow
+                  key={role._id}
                   role={role}
                   onEdit={() => editOrCreateRole("edit", role)}
                   onDelete={() => handleOpenModal(role)}
