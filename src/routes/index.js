@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import SidebarMenu from "../components/organisms/Menu";
 import RestrictedRoute from "./RestrictedRoute";
