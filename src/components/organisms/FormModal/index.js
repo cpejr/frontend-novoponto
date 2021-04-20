@@ -29,10 +29,10 @@ const FormModal = ({
 }) => {
   //The current value of the object that will be returned
   const [currentValue, setCurrentValue] = useState({});
-  
+
   // Array representing reset flag for each field in the form
   const [reset, setReset] = useState([]);
-  
+
   // Array representing error object for each field in the form
   const [error, setError] = useState([]);
 
@@ -97,7 +97,7 @@ const FormModal = ({
         setError([...error]);
       }
     });
-  
+
     //If every validation is ok, we call the callback
     if (isOk) {
       callback(currentValue);
@@ -114,7 +114,7 @@ const FormModal = ({
           <>
             {field.label}
             <InputText
-              value={currentValue[field.key] }
+              value={currentValue[field.key]}
               onChange={(e) =>
                 handleChangeObject(field.key, index, e.target.value)
               }

@@ -6,6 +6,7 @@ import {
   HttpLink,
   InMemoryCache,
 } from "@apollo/client";
+
 import { ConfigProvider } from "antd";
 import ptBR from "antd/lib/locale/pt_BR";
 
@@ -16,7 +17,7 @@ import Routes from "./routes";
 import ThemeContextProvider from "./context/ThemeProvider";
 import SessionContextProvider from "./context/SessionProvider";
 import GlobalStyle from "./styles/GlobalStyle";
-import "./styles/compiled/antd.css"; // Tema do ant design
+
 import GlobalsContextProvider from "./context/GlobalsProvider";
 
 const httpLink = new HttpLink({
