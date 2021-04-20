@@ -28,7 +28,7 @@ const httpLink = new HttpLink({
 });
 
 const wsLink = new WebSocketLink({
-  uri: (process.env.REACT_APP_API || "ws://localhost:4000") + "/subscriptions",
+  uri: process.env.REACT_APP_SUB_API || "ws://localhost:4000/subscriptions",
   options: {
     reconnect: true,
   },
