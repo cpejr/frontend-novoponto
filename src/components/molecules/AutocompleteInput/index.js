@@ -4,55 +4,96 @@ import { AutocompleteInputContainer } from "./styles";
 const AutocompleteInput = ({
   options = [],
   callback,
-  resetAutocompleteField,
   initValue,
-  error=false,
-  errorMessage
+  error = false,
+  errorMessage,
+  ...props
 }) => {
-  const [activeSuggestion, setActiveSuggestion] = useState(0);
-  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [userInput, setUserInput] = useState(initValue ? initValue : "");
-  
+  const [data, setData] = useState({
+    activeSuggestion: 0,
+    filteredSuggestions: [],
+    showSuggestions: false,
+    userInput: initValue ? initValue : "",
+  });
+
+  const {
+    activeSuggestion,
+    filteredSuggestions,
+    showSuggestions,
+    userInput,
+  } = data;
+
   const onChange = (e) => {
-    const userInput = e.currentTarget.value;
-    
-    const filteredSuggestions = options.filter(
-      (suggestion) =>
-        suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-    );
-    setActiveSuggestion(0);
-    setFilteredSuggestions(filteredSuggestions);
-    setShowSuggestions(true);
-    setUserInput(e.currentTarget.value);
-    callback(e.currentTarget.value);
+    const value = e.currentTarget.value;
+
+    const filteredSuggestions = options.filter((suggestion) => {
+      return RegExp(value.trim(), "ig").test(suggestion);
+    });
+
+    setData({
+      activeSuggestion: 0,
+      filteredSuggestions: filteredSuggestions,
+      showSuggestions: true,
+      userInput: value,
+    });
+
+    props?.onChange && props.onChange(value);
   };
 
   const onClick = (e) => {
-    setActiveSuggestion(0);
-    setFilteredSuggestions([]);
-    setShowSuggestions(false);
-    setUserInput(e.currentTarget.innerText);
-    callback(e.currentTarget.innerText);
+    const value = e.currentTarget.innerText;
+    setData({
+      activeSuggestion: 0,
+      filteredSuggestions: [],
+      showSuggestions: false,
+      userInput: value,
+    });
+
+    props?.onChange && props.onChange(value);
   };
 
   const onKeyDown = (e) => {
-    if (e.keyCode === 13) {
-      setActiveSuggestion(0);
-      setShowSuggestions(false);
-      setUserInput(filteredSuggestions[activeSuggestion]);
-      callback(filteredSuggestions[activeSuggestion]);
-    } else if (e.keyCode === 38) {
-      if (activeSuggestion === 0) {
-        return;
-      }
-      setActiveSuggestion(activeSuggestion - 1);
-    } else if (e.keyCode === 40) {
-      if (activeSuggestion - 1 === filteredSuggestions.length) {
-        return;
-      }
+    props?.onKeyDown && props.onKeyDown(e);
 
-      setActiveSuggestion(activeSuggestion + 1);
+    switch (e.keyCode) {
+      case 13:
+        if (filteredSuggestions.length > 0) {
+          let value = data.filteredSuggestions[data.activeSuggestion];
+          props?.onChange && props.onChange(value);
+
+          return setData({
+            ...data,
+            activeSuggestion: 0,
+            filteredSuggestions: [],
+            showSuggestions: false,
+            userInput: value,
+          });
+        }
+        return;
+
+      // Arrow UP
+      case 38:
+        e.preventDefault();
+        if (data.activeSuggestion === 0) return;
+        else
+          return setData({
+            ...data,
+            activeSuggestion: data.activeSuggestion - 1,
+          });
+
+      // Arrow Down
+      case 40:
+        e.preventDefault();
+        if (data.activeSuggestion + 1 === data.filteredSuggestions.length)
+          return;
+        else
+          return setData({
+            ...data,
+            activeSuggestion: data.activeSuggestion + 1,
+          });
+
+      default:
+        break;
     }
   };
 
@@ -88,14 +129,13 @@ const AutocompleteInput = ({
   }
 
   useEffect(() => {
-    if (resetAutocompleteField) {
-      setUserInput("");
-    }
-  }, [resetAutocompleteField]);
+    setData({
+      ...data,
+      userInput: props.value,
+    });
 
-  useEffect(() => {
-    setUserInput(initValue ? initValue : "");
-  }, [initValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.value]);
 
   return (
     <AutocompleteInputContainer error={error}>
@@ -103,7 +143,7 @@ const AutocompleteInput = ({
         type="text"
         onChange={onChange}
         onKeyDown={onKeyDown}
-        value={userInput}
+        value={data.userInput || ""}
       />
       {suggestionsListComponent}
       {error && <span className="errorMessage">{errorMessage}</span>}
