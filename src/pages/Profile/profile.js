@@ -46,7 +46,7 @@ const Profile = () => {
       <div>
         <DefaultText>Assessor: {data?.member?.responsible?.name}</DefaultText>
       </div>
-      <DefaultText>Menssagem do acompanhamento:</DefaultText>
+      <DefaultText>Mensagem do acompanhamento:</DefaultText>
       <div className="message">
         <DefaultText>{data?.member?.message}</DefaultText>
       </div>
