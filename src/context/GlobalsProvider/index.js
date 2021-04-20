@@ -16,15 +16,6 @@ const GlobalsContextProvider = (props) => {
     data: membersData,
     refetch: refetchMembers,
   } = useQuery(Members);
-  console.log(
-    "🚀 ~ file: index.js ~ line 19 ~ GlobalsContextProvider ~ membersError",
-    membersError
-  );
-
-  console.log(
-    "🚀 ~ file: index.js ~ line 19 ~ GlobalsContextProvider ~ membersLoading",
-    membersLoading
-  );
 
   const [menuColapse, setMenuColapse] = useState(false);
 

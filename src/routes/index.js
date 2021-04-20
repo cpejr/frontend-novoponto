@@ -28,9 +28,24 @@ const Routes = () => {
           <Route path="/consultadehoras" component={HourConsultation} />
           <Route path="/profile" component={Profile} />
           <Route path="/standby" component={StandBy} />
-          <Route path="/membros" component={Members} />
-          <Route path="/cargos" component={Roles} />
-          <Route path="/acompanhamento" component={HourFollowing} />
+
+          <RestrictedRoute
+            minAccessLevel={1}
+            path="/membros"
+            component={Members}
+          />
+
+          <RestrictedRoute
+            minAccessLevel={1}
+            path="/cargos"
+            component={Roles}
+          />
+
+          <RestrictedRoute
+            minAccessLevel={1}
+            path="/acompanhamento"
+            component={HourFollowing}
+          />
 
           <RestrictedRoute
             path="/acompanhamentodehoras"

@@ -45,7 +45,10 @@ const Login = gql`
 const GetSessionData = gql`
   mutation GetSessionData {
     getSessionData {
-      ...DefaultSessionFields
+      member {
+        ...DefaultSessionFields
+      }
+      accessToken
     }
   }
   ${DefaultSessionFields}
