@@ -82,10 +82,6 @@ const Sessions = ({ members, ...props }) => {
     refetchLoggedMembers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionUpdateData]);
-  console.log(
-    "🚀 ~ file: Sessions.js ~ line 85 ~ Sessions ~ sessionUpdateData",
-    sessionUpdateData
-  );
 
   useEffect(() => {
     updateFilter();
