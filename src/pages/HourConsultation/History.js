@@ -26,7 +26,7 @@ const History = ({ memberId, ...props }) => {
   const { aditionalHours, sessions, formatedTotal } = data?.compiled || {};
 
   useEffect(() => {
-    if (startDate && endDate)
+    if (startDate && endDate && memberId)
       loadCompiled({
         variables: {
           memberId,
@@ -75,6 +75,10 @@ const History = ({ memberId, ...props }) => {
             <div className="hoursSumAndTablesArea">
               <div className="sum">
                 <h3>Soma:</h3>
+                {console.log(
+                  "🚀 ~ file: History.js ~ line 80 ~ History ~ formatedTotal",
+                  formatedTotal
+                )}
                 <HourDisplayer
                   text={formatedTotal}
                   hourColor={themeColors.yellow}
