@@ -25,7 +25,6 @@ import DurationDisplayer from "../../components/molecules/DurationDisplayer";
 
 import { GlobalsContext } from "../../context/GlobalsProvider";
 
-
 const Ponto = () => {
   const { themeColors } = useContext(ThemeContext);
   const {
@@ -105,9 +104,9 @@ const Ponto = () => {
 
   const handleLogoutAllMembers = () => {
     if (loggedMembers.loggedMembers.length > 0) {
-      loggedMembers.loggedMembers.forEach(member => {
+      loggedMembers.loggedMembers.forEach((member) => {
         handleLogoutMember(member);
-      })
+      });
     }
   };
 
@@ -128,7 +127,7 @@ const Ponto = () => {
     setMemberToLogoutMessage(`Deseja deslogar ${member.name}?`);
     setMemberToLogout(member);
     setShowLogoutMemberModal(true);
-  }
+  };
 
   const handleCancelLogoutMemberModal = () => {
     setShowLogoutMemberModal(false);
@@ -324,21 +323,25 @@ const Ponto = () => {
                         </td>
                         <td className="logoutButton">
                           <LogoutPointButton
-                            onClick={() => handleOpenModalToLogoutMember(item.member)}
+                            onClick={() =>
+                              handleOpenModalToLogoutMember(item.member)
+                            }
                           />
                         </td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <h1 style={{ color: "#fff", fontSize: "30px" }}>
-                        Trabalhe enquanto eles
-                        <span
-                          className="txt-rotate"
-                          data-period="2000"
-                          data-rotate='[ " dormem...", " comem (???)", " estudam rsrs", " dão migué B)", " ... isso não faz mais sentido" ]'
-                        ></span>
-                      </h1>
+                      <td colSpan="4">
+                        <h1 style={{ color: "#fff", fontSize: "30px" }}>
+                          Trabalhe enquanto eles
+                          <span
+                            className="txt-rotate"
+                            data-period="2000"
+                            data-rotate='[ " dormem...", " comem (???)", " estudam rsrs", " dão migué B)", " ... isso não faz mais sentido" ]'
+                          ></span>
+                        </h1>
+                      </td>
                     </tr>
                   )}
                 </tbody>
