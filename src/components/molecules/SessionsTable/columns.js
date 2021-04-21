@@ -1,4 +1,6 @@
 import { HourDisplayer, InfoDisplayer, DefaultText } from "../../atoms";
+import { FlexDiv } from "./styles";
+import moment from "moment";
 
 function getColumns(themeColors) {
   const columns = [
@@ -49,3 +51,5 @@ function getColumns(themeColors) {
   ];
   return columns;
 }
+
+export { getColumns };
