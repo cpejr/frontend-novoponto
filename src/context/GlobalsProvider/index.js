@@ -15,7 +15,7 @@ const GlobalsContextProvider = (props) => {
     error: membersError,
     data: membersData,
     refetch: refetchMembers,
-  } = useQuery(Members);
+  } = useQuery(Members, {variables: {accessArray: [0,1]}});
 
   const [menuColapse, setMenuColapse] = useState(false);
 
