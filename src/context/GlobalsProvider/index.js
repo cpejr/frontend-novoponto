@@ -19,6 +19,8 @@ const GlobalsContextProvider = (props) => {
 
   const [menuColapse, setMenuColapse] = useState(false);
 
+  const availableRoles = ["Sem Administrador", "Administrador", "Adm Oculto"];
+
   useEffect(() => {
     // Favor manter somente 2 iguais
     // eslint-disable-next-line eqeqeq
@@ -45,6 +47,7 @@ const GlobalsContextProvider = (props) => {
         refetchMembers,
         toggleMenu,
         menuColapse,
+        availableRoles
       }}
     >
       {!membersLoading && !membersError && props.children}
