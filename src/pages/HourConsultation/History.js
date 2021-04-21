@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { DatePicker, Spin, Space } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import { DatePicker, Space } from "antd";
 import moment from "moment";
 import { useLazyQuery } from "@apollo/client";
 
@@ -68,12 +67,7 @@ const History = ({ memberId, ...props }) => {
       </>
     );
   else
-    return (
-      <Spin
-        indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}
-        className="loadIcon"
-      />
-    );
+    return <></>;
 };
 
 export default History;
