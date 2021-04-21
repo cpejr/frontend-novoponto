@@ -18,9 +18,9 @@ const SidebarMenu = ({ children }) => {
           onClickOpenSidebar={toggleMenu}
           isSidebarColapsed={menuColapse}
         />
-        <Layout hasSider={true}>
+        <Layout hasSider={true} >
           <SideBar collapsed={menuColapse} />
-          <Layout>
+          <Layout style={{width: "auto"}}>
             <Content
               id="site-layout-background"
               style={{

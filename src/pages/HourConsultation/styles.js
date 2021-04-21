@@ -146,4 +146,8 @@ const HoursConsultationComponent = styled.div`
   }
 `;
 
-export { HoursConsultationComponent };
+const FlexDiv = styled.div`
+  display: flex;
+`;
+
+export { HoursConsultationComponent, FlexDiv };

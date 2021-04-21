@@ -67,8 +67,8 @@ const UpdateSelf = gql`
 `;
 
 const Members = gql`
-  query members {
-    members {
+  query Members($accessArray: [Int]) {
+    members(accessArray: $accessArray) {
       _id
       name
       role {

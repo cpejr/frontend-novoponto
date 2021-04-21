@@ -6,6 +6,7 @@ import {
   UPDATE_ROLE,
   CREATE_ROLE,
 } from "../../../graphql/Roles";
+import { GlobalsContext } from "../../../context/GlobalsProvider"
 import {  message, Skeleton } from "antd";
 import { RolesComponent } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
@@ -27,6 +28,8 @@ const Roles = () => {
   const [editOrCreateModalInfo, setEditOrCreateModalInfo] = useState({
     open: false,
   });
+  const { availableRoles } = useContext(GlobalsContext);
+
 
   const handleOpenModal = (role) => {
     setExcludeRole(role);
@@ -70,7 +73,7 @@ const Roles = () => {
         label: "Permissão",
         validator: validators.notEmpty,
 
-        options: ["Administrador", "Sem Adminstrador"],
+        options: availableRoles,
       },
     ];
     method === "edit"
@@ -83,7 +86,7 @@ const Roles = () => {
           originalObject: {
             _id: role._id,
             name: role.name,
-            access: role.access === 1 ? "Administrador" : "Sem Adminstrador",
+            access: availableRoles[role.access],
           },
         })
       : setEditOrCreateModalInfo({
@@ -97,7 +100,7 @@ const Roles = () => {
 
   const updateRole = async (updatedRole) => {
     const { _id, ...role } = updatedRole;
-    role.access = role.access === "Administrador" ? 1 : 0;
+    role.access = availableRoles.indexOf(role.access);
     var hide = message.loading("Atualizando");
     try {
       await updateRoleMutation({ variables: { roleId: _id, data: role } });
@@ -113,7 +116,7 @@ const Roles = () => {
   };
 
   const createRole = async (role) => {
-    role.access = role.access === "Administrador" ? 1 : 0;
+    role.access = availableRoles.indexOf(role.access);
     var hide = message.loading("Criando");
     try {
       await createRoleMutation({ variables: { data: role } });

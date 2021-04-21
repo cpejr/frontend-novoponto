@@ -15,9 +15,11 @@ const GlobalsContextProvider = (props) => {
     error: membersError,
     data: membersData,
     refetch: refetchMembers,
-  } = useQuery(Members);
+  } = useQuery(Members, {variables: {accessArray: [0,1]}});
 
   const [menuColapse, setMenuColapse] = useState(false);
+
+  const availableRoles = ["Sem Administrador", "Administrador", "Adm Oculto"];
 
   useEffect(() => {
     // Favor manter somente 2 iguais
@@ -45,6 +47,7 @@ const GlobalsContextProvider = (props) => {
         refetchMembers,
         toggleMenu,
         menuColapse,
+        availableRoles
       }}
     >
       {!membersLoading && !membersError && props.children}

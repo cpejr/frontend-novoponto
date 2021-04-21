@@ -247,9 +247,9 @@ const Members = () => {
         <tbody>
           {filteredMembers.length > 0 ? (
             filteredMembers.map((item) => (
-              <tr>
-                <td className="memberColumn">{item.name}</td>
-                <td className="roleColumn">{item.role.name}</td>
+              <tr key={item._id}>
+                <td className="memberColumn">{item?.name}</td>
+                <td className="roleColumn">{item?.role?.name}</td>
                 <td className="isAdmColumn">
                   {item.isAdm && (
                     <DefaultLabel
@@ -270,7 +270,7 @@ const Members = () => {
                 <td className="garbageColumn">
                   <Tooltip placement="topLeft" title={"Excluir"}>
                     <RestOutlined
-                      onClick={() => handleOpenModal(item.memberName)}
+                      onClick={() => handleOpenModal(item)}
                     />
                   </Tooltip>
                 </td>

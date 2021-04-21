@@ -1,17 +1,18 @@
 /* ATENÇÃO
- * nesse arquivo podemos alterar o tema padrão do ant design
- * como o ant design usa aquivos .less, temos que realizar alguns passos
+ * Nesse arquivo podemos alterar o tema padrão do ant design.
+ * Como o ant design usa aquivos .less, temos que realizar alguns passos
  * para que as mudanças realizadas aqui PERSISTAM.
  *
  * 1) Instalar less
  *    yarn add less -g
  *
  * 2) Rodar o segunte comando
- *    npx lessc "./src/styles/main.less" "./src/styles/compiled/antd.css" --js
+ *    npx lessc "./src/styles/mainDark.less" "./src/styles/compiled/antdDark.css" --js
+ * 
+ * Para encontrar mais variáveis
+ * acesse: https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
  */
 
-// Para encontrar mais variáveis
-// acesse: https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
 
 @import "node_modules/antd/dist/antd.dark.less";
 
@@ -39,6 +40,8 @@
 @border-color-inverse: @black;
 @border-width-base: 1px; // width of the border for a component
 @border-style-base: solid; // style of a components border
+
+@table-row-hover-bg: unset;
 
 @input-bg: @component-background;
 @select-background: @component-background;
