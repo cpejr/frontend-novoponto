@@ -23,7 +23,6 @@ import FormModal from "../../../components/organisms/FormModal";
 import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";
 
 import validators from "../../../services/validators";
-import { isPunctuatorTokenKind } from "graphql/language/lexer";
 
 const Members = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -34,6 +33,7 @@ const Members = () => {
     refetchMembers,
   } = useContext(GlobalsContext);
   const { data: roles, error: errorRoles } = useQuery(GET_ROLES);
+  
   const [updateMemberMutation] = useMutation(UpdateMember);
   const [createMemberMutation] = useMutation(CreateMember);
   const [deleteMemberMutation] = useMutation(DeleteMember);

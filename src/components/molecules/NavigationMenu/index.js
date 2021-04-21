@@ -10,6 +10,7 @@ import SubMenu from "antd/lib/menu/SubMenu";
 import React, { useContext } from "react";
 import { useLocation } from "react-router";
 import { SessionContext } from "../../../context/SessionProvider";
+import { MemberAvatar } from "../../atoms";
 import MenuItem from "./MenuItem";
 
 const Menuu = ({ collapsed, ...props }) => {
@@ -30,17 +31,18 @@ const Menuu = ({ collapsed, ...props }) => {
     >
       <MenuItem key="/" route="/" icon={<BulbOutlined />} label="Ponto" />
       <MenuItem
+        key="/profile"
+        route="/profile"
+        icon={<UserOutlined />}
+        label={data?.member?.name || "Perfil"}
+      />
+      <MenuItem
         key="/consultadehoras"
         route="/consultadehoras"
         icon={<ClockCircleOutlined />}
         label="Consulta de horas"
       />
-      <MenuItem
-        key="/profile"
-        route="/profile"
-        icon={<UserOutlined />}
-        label="Perfil"
-      />
+
       <MenuItem
         key="/alteracaodehoras"
         route="/alteracaodehoras"
