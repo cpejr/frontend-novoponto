@@ -8,6 +8,7 @@ import { HourDisplayer, InfoDisplayer } from "../../components/atoms";
 import { FetchCompiledForHC } from "../../graphql/Member";
 import { ThemeContext } from "../../context/ThemeProvider";
 import HomeOfficeTable from "../../components/molecules/HomeOfficeTable";
+import SessionsTable from "../../components/molecules/SessionsTable";
 
 const { RangePicker } = DatePicker;
 
@@ -74,6 +75,7 @@ const History = ({ memberId, ...props }) => {
 
         {startDate && endDate && (
           <>
+            <SessionsTable sessions={sessions} formatedTotal={formatedTotal}/>
             <div className="hoursSumAndTablesArea">
               <div className="sum">
                 <h3>Soma:</h3>

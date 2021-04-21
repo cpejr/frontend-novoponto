@@ -270,7 +270,7 @@ const Members = () => {
                 <td className="garbageColumn">
                   <Tooltip placement="topLeft" title={"Excluir"}>
                     <RestOutlined
-                      onClick={() => handleOpenModal(item.memberName)}
+                      onClick={() => handleOpenModal(item)}
                     />
                   </Tooltip>
                 </td>

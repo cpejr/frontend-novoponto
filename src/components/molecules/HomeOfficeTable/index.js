@@ -1,14 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ThemeContext } from "../../../context/ThemeProvider";
-import { HourDisplayer, InfoDisplayer } from "../../atoms";
+import { SessionContext } from "../../../context/SessionProvider";
+import { HourDisplayer, InfoDisplayer, DefaultText } from "../../atoms";
 import moment from "moment";
 
-import { JustificationTablesArea } from "./styles";
-import { Popover } from "antd";
+import { AditionalHourTableArea, FlexDiv } from "./styles";
+import { Popover, Table, Collapse } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
 
 const HomeOfficeTable = ({ aditionalHours }) => {
   const { themeColors } = useContext(ThemeContext);
+  const { data } = useContext(SessionContext);
+
+  const [commentVisible, setCommentVisible] = useState(false);
+
+  useEffect(() => {
+    const visible =
+      data?.member?.role?.access > 0 ||
+      !!aditionalHours?.find((item) => !!item.description);
+    setCommentVisible(visible);
+  }, [aditionalHours]);
 
   function getOperation(op) {
     switch (op) {
@@ -21,48 +32,76 @@ const HomeOfficeTable = ({ aditionalHours }) => {
     }
   }
 
-  return (
-    <JustificationTablesArea>
-      <h3>Horários adicionais: </h3>
+  const columns = [
+    {
+      title: "Dia",
+      dataIndex: "date",
+      key: "date",
+      render: (text) => (
+        <DefaultText style={{ margin: 0 }}>
+          {" "}
+          {moment(text).format("DD/MM/yy")}
+        </DefaultText>
+      ),
+    },
+    {
+      title: "Tipo",
+      dataIndex: "action",
+      key: "action",
+      render: (action) => (
+        <FlexDiv>
+          <InfoDisplayer
+            info={getOperation(action).text}
+            infoColor={themeColors[getOperation(action).color]}
+          />
+        </FlexDiv>
+      ),
+    },
+    {
+      title: "Tempo",
+      dataIndex: "formatedAmount",
+      key: "formatedAmount",
+      render: (formatedAmount) => (
+        <FlexDiv>
+          <HourDisplayer
+            dateOrTime={"time"}
+            hour={formatedAmount}
+            hourColor={themeColors.yellow}
+          />
+        </FlexDiv>
+      ),
+    },
+    {
+      title: "O que fez",
+      dataIndex: "description",
+      key: "description",
+      render: (description) => (
+        <a>
+          {JSON.stringify(description)}
+          <Popover content={description} title="O que eu fiz">
+            <InfoCircleOutlined
+              style={{ fontSize: "2em", color: themeColors.yellow }}
+            />
+          </Popover>
+        </a>
+      ),
+    },
+  ];
 
-      <table className="justificationTable">
-        <thead>
-          <tr>
-            <th className="dayColumn">Dia</th>
-            <th className="typeArea">Tipo</th>
-            <th className="timeArea">Tempo</th>
-            <th className="timeArea">O que fez</th>
-          </tr>
-        </thead>
-        <tbody>
-          {aditionalHours?.map((item, index) => (
-            <tr key={index}>
-              <td className="dayColumn">
-                {moment(item.date).format("DD/MM/yy")}
-              </td>
-              <td className="typeArea">
-                <InfoDisplayer
-                  info={getOperation(item.action).text}
-                  infoColor={themeColors[getOperation(item.action).color]}
-                />
-              </td>
-              <td className="timeArea">
-                <HourDisplayer
-                  dateOrTime={"time"}
-                  hour={item.formatedAmount}
-                  hourColor={themeColors.yellow}
-                />
-              </td>
-              <td className="descriptionArea">
-                <Popover content={item.description} title="O que eu fiz">
-                  <InfoCircleOutlined style={{ fontSize: '2em', color: themeColors.yellow }}/>
-                </Popover>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </JustificationTablesArea>
+  return (
+    <AditionalHourTableArea>
+      <Collapse ghost defaultActiveKey={"1"}>
+        <Collapse.Panel header={<h3>Horas Adicionais: </h3>} key="1">
+          <Table
+            columns={columns}
+            dataSource={aditionalHours?.map((aditional) => ({
+              key: aditional._id,
+              ...aditional,
+            }))}
+          />
+        </Collapse.Panel>
+      </Collapse>
+    </AditionalHourTableArea>
   );
 };
 

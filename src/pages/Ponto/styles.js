@@ -69,6 +69,7 @@ const PontoComponent = styled.div`
           display: flex;
           flex-direction: row;
           justify-content: flex-start;
+          flex-wrap: wrap;
         }
       }
     }
@@ -181,7 +182,6 @@ const PontoComponent = styled.div`
 
       .subSectionLoggedMembers .memberColumn {
         width: auto;
-        min-width: 280px;
       }
     }
   }

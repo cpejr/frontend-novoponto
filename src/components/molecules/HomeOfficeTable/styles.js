@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-const JustificationTablesArea = styled.div`
-
+const AditionalHourTableArea = styled.div`
   width: 100%;
   margin-bottom: 24px;
 
@@ -24,12 +23,6 @@ const JustificationTablesArea = styled.div`
     border-bottom: 2px solid #1c1c1d;
   }
 
-  .justificationTable tr th, td{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   .justificationTable thead tr:first-child {
     height: 65px;
     background-color: #1d1d1d;
@@ -41,7 +34,6 @@ const JustificationTablesArea = styled.div`
   }
 
   .dayColumn {
-    width: 40%;
     min-width: 120px;
     display: flex;
     justify-content: flex-start;
@@ -62,9 +54,12 @@ const JustificationTablesArea = styled.div`
     margin-bottom: 48px;
   }
 
-  .descriptionArea{
-    align-items: center
+  .descriptionArea {
+    align-items: center;
   }
 `;
 
-export { JustificationTablesArea };
+const FlexDiv = styled.div`
+  display: flex;
+`;
+export { AditionalHourTableArea, FlexDiv };

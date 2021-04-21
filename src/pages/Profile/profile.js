@@ -11,10 +11,12 @@ import {
 } from "../../components/atoms";
 import { SessionContext } from "../../context/SessionProvider";
 import SaveButton from "../../components/molecules/SaveButton";
+import ConfirmationModal from "../../components/molecules/Modal";
 
 const Profile = () => {
   const { themeColors } = useContext(ThemeContext);
   const { data, logOut, updateSelf } = useContext(SessionContext);
+  const [isConfirmationVis, setIsConfirmationVis] = useState(false);
 
   const [status, setStatus] = useState(data?.member?.status || "");
 
@@ -24,6 +26,14 @@ const Profile = () => {
 
   function handleOnChange(e) {
     setStatus(e.target.value);
+  }
+
+  function handleLogOut() {
+    setIsConfirmationVis(true);
+  }
+
+  function handleCloseModal() {
+    setIsConfirmationVis(false);
   }
 
   const saved = status === data?.member?.status;
@@ -41,7 +51,7 @@ const Profile = () => {
             />
           )}
         </div>
-        <LogoutPointButton className="exitButton" onClick={logOut} />
+        <LogoutPointButton className="exitButton" onClick={handleLogOut} />
       </div>
       <div>
         <DefaultText>Assessor: {data?.member?.responsible?.name}</DefaultText>
@@ -60,6 +70,13 @@ const Profile = () => {
         />
         <SaveButton saved={saved} onClick={handleSave} />
       </div>
+      <ConfirmationModal
+        title="Log out"
+        content={`${data?.member?.name}, Você deseja mesmo fazer logout?`}
+        isVisible={isConfirmationVis}
+        handleOk={() => {logOut(); setIsConfirmationVis(false)}}
+        handleCancel={handleCloseModal}
+      /> 
     </>
   );
 };

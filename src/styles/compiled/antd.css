@@ -21191,7 +21191,7 @@ span.ant-radio + * {
   border-radius: 0;
 }
 .ant-table-tbody > tr.ant-table-row:hover > td {
-  background: #262626;
+  background: unset;
 }
 .ant-table-tbody > tr.ant-table-row-selected > td {
   background: #342d19;
