@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Space } from "antd";
-import { DatePicker } from "antd";
+import { DatePicker, Spin, Space } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { useLazyQuery } from "@apollo/client";
 
-import { HourDisplayer, InfoDisplayer } from "../../components/atoms";
 import { FetchCompiledForHC } from "../../graphql/Member";
 import { ThemeContext } from "../../context/ThemeProvider";
 import HomeOfficeTable from "../../components/molecules/HomeOfficeTable";
@@ -29,7 +28,6 @@ const History = ({ memberId, ...props }) => {
 
   useEffect(() => {
     if (startDate && endDate && memberId)
-      
       loadCompiled({
         variables: {
           memberId,
@@ -37,20 +35,8 @@ const History = ({ memberId, ...props }) => {
           endDate: endDate?.toISOString(),
         },
       });
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [memberId, rangeDate]);
-
-  function getOperation(op) {
-    switch (op) {
-      case "ADD":
-        return { text: "Adicionar", color: "green" };
-      case "REMOVE":
-        return { text: "Remover", color: "red" };
-      default:
-        return { text: "Erro...", color: "yellow" };
-    }
-  }
 
   function disabledDate(current) {
     // Can not select days after today
@@ -75,60 +61,19 @@ const History = ({ memberId, ...props }) => {
 
         {startDate && endDate && (
           <>
-            <SessionsTable sessions={sessions} formatedTotal={formatedTotal}/>
-            <div className="hoursSumAndTablesArea">
-              <div className="sum">
-                <h3>Soma:</h3>
-                <HourDisplayer
-                  text={formatedTotal}
-                  hourColor={themeColors.yellow}
-                />
-              </div>
-              <table className="hoursSumAndTable">
-                <thead>
-                  <tr>
-                    <th className="dayColumn">Dia</th>
-                    <th className="startTime">Chegada</th>
-                    <th className="finishTime">Saída</th>
-                    <th className="timeArea">Tempo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {sessions?.map((item, index) => (
-                    <tr key={index}>
-                      <td className="dayColumn">
-                        {moment(item.start).format("DD/MM/yy")}
-                      </td>
-                      <td className="startTime">
-                        <HourDisplayer
-                          hour={item.start}
-                          hourColor={themeColors.green}
-                        />
-                      </td>
-                      <td className="finishTime">
-                        <HourDisplayer
-                          hour={item.end}
-                          hourColor={themeColors.green}
-                        />
-                      </td>
-                      <td className="timeArea">
-                        <InfoDisplayer
-                          info={item.formatedDuration}
-                          infoColor={themeColors.yellow}
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <HomeOfficeTable aditionalHours={aditionalHours}/>
+            <SessionsTable sessions={sessions} formatedTotal={formatedTotal} />
+            <HomeOfficeTable aditionalHours={aditionalHours} />
           </>
         )}
       </>
     );
-  else return <> </>;
+  else
+    return (
+      <Spin
+        indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}
+        className="loadIcon"
+      />
+    );
 };
 
 export default History;

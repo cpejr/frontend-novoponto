@@ -1,23 +1,23 @@
-import React, { useContext } from 'react';
-import { MandatoryHoursComponent } from './styles';
-import { ThemeContext } from '../../../context/ThemeProvider';
+import React, { useContext } from "react";
+import { MandatoryHoursComponent } from "./styles";
+import { ThemeContext } from "../../../context/ThemeProvider";
 
 import Lottie from "react-lottie";
 import buildingLottie from "../../../assets/lotties/building.json";
 import { DefaultText } from "../../../components/atoms";
 
 const MandatoryHours = () => {
-    const { themeColors } = useContext(ThemeContext);
-    const defaultOptions = {
-        loop: true,
-        autoplay: true,
-        rendererSettings: {
-          preserveAspectRatio: "xMidYMid slice",
-        },
-      };
+  const { themeColors } = useContext(ThemeContext);
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
-    return (
-        <div
+  return (
+    <div
       style={{
         display: "flex",
         flexDirection: "column",
@@ -41,7 +41,7 @@ const MandatoryHours = () => {
         (isso pode levar um tempo)
       </DefaultText>
     </div>
-    );
-}
+  );
+};
 
 export default MandatoryHours;

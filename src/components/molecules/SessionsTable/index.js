@@ -1,61 +1,16 @@
 import react from "react";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { ThemeContext } from "../../../context/ThemeProvider";
-import moment from "moment";
+import { getColumns } from "./columns";
+import { HourDisplayer } from "../../atoms"
 
-import { HoursSumAndTablesArea, FlexDiv } from "./styles";
-import { HourDisplayer, InfoDisplayer, DefaultText } from "../../atoms";
+import { HoursSumAndTablesArea } from "./styles";
+
 import { Collapse, Table } from "antd";
 
 const SessionsTable = ({ sessions, formatedTotal }) => {
   const { themeColors } = useContext(ThemeContext);
-
-  const columns = [
-    {
-      title: "Dia",
-      dataIndex: "start",
-      key: "start",
-      render: (start) => (
-        <DefaultText style={{ margin: 0 }}>
-          {" "}
-          {moment(start).format("DD/MM/yy")}
-        </DefaultText>
-      ),
-    },
-    {
-      title: "Chegada",
-      dataIndex: "start",
-      key: "start",
-      render: (start) => (
-        <FlexDiv>
-          <HourDisplayer hour={start} hourColor={themeColors.green} />
-        </FlexDiv>
-      ),
-    },
-    {
-      title: "Saída",
-      dataIndex: "end",
-      key: "end",
-      render: (end) => (
-        <FlexDiv>
-          <HourDisplayer hour={end} hourColor={themeColors.green} />
-        </FlexDiv>
-      ),
-    },
-    {
-      title: "Tempo",
-      dataIndex: "formatedDuration",
-      key: "formatedDuration",
-      render: (formatedDuration) => (
-        <FlexDiv>
-          <InfoDisplayer
-            info={formatedDuration}
-            infoColor={themeColors.yellow}
-          />
-        </FlexDiv>
-      ),
-    },
-  ];
+  const columns = getColumns(themeColors);
 
   return (
     <HoursSumAndTablesArea>
