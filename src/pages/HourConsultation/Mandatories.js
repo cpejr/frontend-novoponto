@@ -1,7 +1,16 @@
 import { Collapse } from "antd";
 import React, { useContext } from "react";
-import { HourDisplayer } from "../../components/atoms";
+import {
+  HourDisplayer,
+  InfoDisplayer,
+  DefaultText,
+} from "../../components/atoms";
 import { ThemeContext } from "../../context/ThemeProvider";
+
+import { Table } from "antd";
+import moment from "moment";
+
+import { FlexDiv } from "./styles";
 
 function getWeekDay(daynumber) {
   const days = [
@@ -19,38 +28,48 @@ function getWeekDay(daynumber) {
 const Mandatories = ({ mandatories, ...props }) => {
   const { themeColors } = useContext(ThemeContext);
 
+  const columns = [
+    {
+      title: "Dia",
+      dataIndex: "weekDay",
+      key: "weekDay",
+      render: (weekDay) => (
+        <DefaultText style={{ margin: 0 }}>{getWeekDay(weekDay)}</DefaultText>
+      ),
+    },
+    {
+      title: "Inicio",
+      dataIndex: "startAt",
+      key: "startAt",
+      render: (startAt) => (
+        <FlexDiv>
+          <HourDisplayer hour={startAt} hourColor={themeColors.green} />
+        </FlexDiv>
+      ),
+    },
+    {
+      title: "Fim",
+      dataIndex: "endAt",
+      key: "endAt",
+      render: (endAt) => (
+        <FlexDiv>
+          <HourDisplayer hour={endAt} hourColor={themeColors.yellow} />
+        </FlexDiv>
+      ),
+    },
+  ];
+
   if (mandatories)
     return (
       <Collapse ghost>
         <Collapse.Panel header={<h3>Horários Obrigatórios</h3>} key="1">
-          <table className="mandatoryHoursTable">
-            <thead>
-              <tr>
-                <th className="dayColumn">Dia</th>
-                <th className="startTime">Início</th>
-                <th className="finishTime">Fim</th>
-              </tr>
-            </thead>
-            <tbody>
-              {mandatories?.map((item, index) => (
-                <tr key={index}>
-                  <td className="dayColumn">{getWeekDay(item.weekDay)}</td>
-                  <td className="startTime">
-                    <HourDisplayer
-                      hour={item.startAt}
-                      hourColor={themeColors.green}
-                    />
-                  </td>
-                  <td className="finishTime">
-                    <HourDisplayer
-                      hour={item.endAt}
-                      hourColor={themeColors.yellow}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <Table
+            columns={columns}
+            dataSource={mandatories?.map((mandatory) => ({
+              key: mandatory._id,
+              ...mandatory,
+            }))}
+          />
         </Collapse.Panel>
       </Collapse>
     );
