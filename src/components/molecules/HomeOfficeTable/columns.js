@@ -3,8 +3,6 @@ import { HourDisplayer, InfoDisplayer, DefaultText } from "../../atoms";
 import moment from "moment";
 
 import { FlexDiv } from "./styles";
-import { Popover } from "antd";
-import { InfoCircleOutlined } from "@ant-design/icons";
 
 function getOperation(op) {
   switch (op) {

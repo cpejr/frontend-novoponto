@@ -1,5 +1,8 @@
 import { createGlobalStyle } from "styled-components";
-import "./compiled/antd.css"; // Tema do ant design
+
+// Tema do ant design
+if (true) require("./compiled/antdDark.css");
+else require("./compiled/antdLight.css");
 
 const GlobalStyle = createGlobalStyle`
  * {
