@@ -1,12 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
-import { ThemeContext } from "../../../context/ThemeProvider";
-import { SessionContext } from "../../../context/SessionProvider";
+import React from "react";
 import { HourDisplayer, InfoDisplayer, DefaultText } from "../../atoms";
 import moment from "moment";
 
-import { AditionalHourTableArea, FlexDiv } from "./styles";
-import { Popover, Table, Collapse } from "antd";
-import { InfoCircleOutlined } from "@ant-design/icons";
+import { FlexDiv } from "./styles";
 
 function getOperation(op) {
   switch (op) {
@@ -61,23 +57,14 @@ function getColumns(themeColors, hasComment) {
     },
   ];
 
-//   if (hasComment)
-//     columns.push({
-//       title: "O que fez",
-//       dataIndex: "description",
-//       key: "description",
-//       render: (description) => (
-//         <a>
-//           {JSON.stringify(description)}
-//           <Popover content={description} title="O que eu fiz">
-//             <InfoCircleOutlined
-//               style={{ fontSize: "2em", color: themeColors.yellow }}
-//             />
-//           </Popover>
-//         </a>
-//       ),
-//     });
+  if (hasComment)
+    columns.push({
+      title: "O que fez",
+      dataIndex: "description",
+      key: "description",
+      render: (description) => <DefaultText>{description}</DefaultText>,
+    });
   return columns;
 }
 
-export default { getColumns };
+export { getColumns };

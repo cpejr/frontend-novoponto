@@ -7,7 +7,7 @@
  *    yarn add less -g
  *
  * 2) Rodar o segunte comando
- *    npx lessc "./src/styles/main.less" "./src/styles/compiled/antd.css" --js
+ *    npx lessc "./src/styles/mainDark.less" "./src/styles/compiled/antdDark.css" --js
  */
 /* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
 /* stylelint-disable no-duplicate-selectors */
