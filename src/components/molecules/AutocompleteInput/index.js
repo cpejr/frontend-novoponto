@@ -3,7 +3,6 @@ import { AutocompleteInputContainer } from "./styles";
 
 const AutocompleteInput = ({
   options = [],
-  callback,
   initValue,
   error = false,
   errorMessage,

@@ -9,17 +9,21 @@ import { Members } from "../../graphql/Member";
 
 export const GlobalsContext = createContext();
 
+const availableRoles = ["Sem Administrador", "Administrador", "Adm Oculto"];
+
 const GlobalsContextProvider = (props) => {
   const {
     loading: membersLoading,
     error: membersError,
     data: membersData,
     refetch: refetchMembers,
-  } = useQuery(Members, {variables: {accessArray: [0,1]}});
+  } = useQuery(Members, { variables: { accessArray: [0, 1] } });
 
   const [menuColapse, setMenuColapse] = useState(false);
 
-  const availableRoles = ["Sem Administrador", "Administrador", "Adm Oculto"];
+  const [width, setWidth] = useState(window.innerWidth);
+  const breakpoint = 640;
+  const isMobile = width < breakpoint;
 
   useEffect(() => {
     // Favor manter somente 2 iguais
@@ -27,6 +31,11 @@ const GlobalsContextProvider = (props) => {
     const toggle = localStorage.getItem("menuColapse") == "true";
 
     if (toggle) setMenuColapse(toggle);
+
+    const handleWindowResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
   function toggleMenu() {
@@ -47,7 +56,9 @@ const GlobalsContextProvider = (props) => {
         refetchMembers,
         toggleMenu,
         menuColapse,
-        availableRoles
+        availableRoles,
+        width,
+        isMobile
       }}
     >
       {!membersLoading && !membersError && props.children}

@@ -23,7 +23,6 @@ import FormModal from "../../../components/organisms/FormModal";
 import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";
 
 import validators from "../../../services/validators";
-import { isPunctuatorTokenKind } from "graphql/language/lexer";
 
 const Members = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -34,6 +33,7 @@ const Members = () => {
     refetchMembers,
   } = useContext(GlobalsContext);
   const { data: roles, error: errorRoles } = useQuery(GET_ROLES);
+
   const [updateMemberMutation] = useMutation(UpdateMember);
   const [createMemberMutation] = useMutation(CreateMember);
   const [deleteMemberMutation] = useMutation(DeleteMember);
@@ -41,14 +41,18 @@ const Members = () => {
   const [openModalExcludeMember, setOpenModalExcludeMember] = useState(false);
   const [filteredMembers, setFilteredMembers] = useState([]);
   const [excludeMember, setExcludeMember] = useState({});
-
-  ///////////////////////////////////////////////////////////////////////
-  // EDIT OR CREATE MEMBER HANDLING BEGIN //
-  ///////////////////////////////////////////////////////////////////////
-
   const [editOrCreateModalInfo, setEditOrCreateModalInfo] = useState({
     open: false,
   });
+
+  const handleOpenModal = (member) => {
+    setExcludeMember(member);
+    setOpenModalExcludeMember(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModalExcludeMember(false);
+  };
 
   const handleCloseEditOrCreate = () => {
     setEditOrCreateModalInfo({ open: false });
@@ -152,19 +156,6 @@ const Members = () => {
     handleCloseEditOrCreate();
   };
 
-  ///////////////////////////////////////////////////////////////////////
-  // EDIT OR CREATE MEMBER HANDLING END //
-  ///////////////////////////////////////////////////////////////////////
-
-  const handleOpenModal = (member) => {
-    setExcludeMember(member);
-    setOpenModalExcludeMember(true);
-  };
-
-  const handleCloseModal = () => {
-    setOpenModalExcludeMember(false);
-  };
-
   const handleExcludeMember = async (memberId) => {
     var hide = message.loading("Excluindo membro...");
     try {
@@ -216,7 +207,6 @@ const Members = () => {
     return <h1>Erro, recarregue a pagina</h1>;
   }
 
-  console.log(filteredMembers);
   return (
     <MembersComponent theme={themeColors}>
       <div className="iconWithTitle">
@@ -269,9 +259,7 @@ const Members = () => {
                 </td>
                 <td className="garbageColumn">
                   <Tooltip placement="topLeft" title={"Excluir"}>
-                    <RestOutlined
-                      onClick={() => handleOpenModal(item)}
-                    />
+                    <RestOutlined onClick={() => handleOpenModal(item)} />
                   </Tooltip>
                 </td>
               </tr>

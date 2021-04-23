@@ -85,6 +85,8 @@ const FormModal = ({
 
     //Validate each field using its validator. If its a autocomplete, we need to check if the value exists in option array. The validator returns "ok" or an error message
     fields.forEach((field, index) => {
+      console.log(currentValue)
+      
       if (field.type === "autoComplete")
         validation = field.validator(currentValue[field.key], field.options);
       if (field.type === "text" || field.type === "select")
@@ -130,7 +132,7 @@ const FormModal = ({
             {field.label}
             <AutoCompleteInput
               options={field.options}
-              callback={(value) => handleChangeObject(field.key, index, value)}
+              onChange={(value) => handleChangeObject(field.key, index, value)}
               resetAutocompleteField={reset[index]}
               initValue={originalObject ? originalObject[field.key] : ""}
               error={error[index] ? error[index].error : false}

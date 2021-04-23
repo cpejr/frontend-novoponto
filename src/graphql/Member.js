@@ -80,6 +80,7 @@ const Members = gql`
         _id
         name
       }
+      message
     }
   }
 `;

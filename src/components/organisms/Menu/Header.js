@@ -1,19 +1,28 @@
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import {
+  MenuFoldOutlined,
+  MenuOutlined,
+  MenuUnfoldOutlined,
+} from "@ant-design/icons";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Layout } from "antd";
 
 import logoMenu from "../../../assets/logoMenu.svg";
 
-const Header = ({ onClickOpenSidebar, isSidebarColapsed, ...props }) => {
+const Header = ({ isMobile, onClickToggle, isSidebarColapsed, ...props }) => {
+  function getDesktopIcon() {
+    if (isSidebarColapsed)
+      return <MenuUnfoldOutlined onClick={onClickToggle} />;
+    return <MenuFoldOutlined onClick={onClickToggle} />;
+  }
+
+  let style = {};
+  //if (isMobile) style = { position: "fixed", zIndex: 1, width: "100%" };
+
   return (
-    <Layout.Header className="header">
+    <Layout.Header className="header" style={style}>
       <div className="logo">
-        {isSidebarColapsed ? (
-          <MenuUnfoldOutlined onClick={onClickOpenSidebar} />
-        ) : (
-          <MenuFoldOutlined onClick={onClickOpenSidebar} />
-        )}
+        {isMobile ? <MenuOutlined onClick={onClickToggle} /> : getDesktopIcon()}
         <Link to="/">
           <img src={logoMenu} alt="Consultoria e Projetos Elétricos Junior" />
         </Link>

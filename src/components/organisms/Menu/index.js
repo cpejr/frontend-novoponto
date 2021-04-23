@@ -1,26 +1,38 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Layout } from "antd";
 
 import Header from "./Header";
 import SideBar from "./SideBar";
 import { SidebarMenuContainer } from "./styles";
 import { GlobalsContext } from "../../../context/GlobalsProvider";
+import Drawer from "./Drawer";
 
 const SidebarMenu = ({ children }) => {
   const { Content } = Layout;
 
-  const { menuColapse, toggleMenu } = useContext(GlobalsContext);
+  const { menuColapse, toggleMenu, isMobile } = useContext(GlobalsContext);
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  function handleOnClickToggle() {
+    if (!isMobile) toggleMenu();
+    else setDrawerOpen(!drawerOpen);
+  }
 
   return (
     <SidebarMenuContainer>
       <Layout>
         <Header
-          onClickOpenSidebar={toggleMenu}
+          onClickToggle={handleOnClickToggle}
           isSidebarColapsed={menuColapse}
+          isMobile={isMobile}
         />
-        <Layout hasSider={true} >
-          <SideBar collapsed={menuColapse} />
-          <Layout style={{width: "auto"}}>
+        <Layout hasSider={true}>
+          {isMobile && (
+            <Drawer visible={drawerOpen} onClose={handleOnClickToggle} />
+          )}
+          {!isMobile && <SideBar collapsed={menuColapse} />}
+          <Layout style={{ width: "auto" }}>
             <Content
               id="site-layout-background"
               style={{
