@@ -111,7 +111,7 @@ const Sessions = ({ members, ...props }) => {
         />
 
         <div className="loginAndItsValidateSection">
-          <div className="loginSection">
+          <form className="loginSection">
             <AutocompleteMemberInput
               onChange={setMemberTextToLogin}
               value={memberTextToLogin}
@@ -121,7 +121,7 @@ const Sessions = ({ members, ...props }) => {
             <Button width="84px" onClick={handleLogin}>
               Login
             </Button>
-          </div>
+          </form>
         </div>
       </div>
 

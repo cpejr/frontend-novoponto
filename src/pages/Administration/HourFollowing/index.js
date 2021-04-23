@@ -37,8 +37,8 @@ const HourFollowing = () => {
   } = useContext(GlobalsContext);
 
   const selectMember = (memberSelected) => {
-    var index = members.map((member) => member.name).indexOf(memberSelected);
-    setSelected(members[index]);
+    var index = membersData.members.map((member) => member.name).indexOf(memberSelected);
+    setSelected(membersData.members[index]);
   };
 
   const saveData = async (newMessage) => {
@@ -84,11 +84,10 @@ const HourFollowing = () => {
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
   } else if (membersData) {
-    var members = membersData.members;
     return (
       <HourFollowingContainer>
         <SelectInput
-          options={members.map((member) => member.name)}
+          options={membersData.members.map((member) => member.name)}
           callback={selectMember}
         />
         {selected && (
