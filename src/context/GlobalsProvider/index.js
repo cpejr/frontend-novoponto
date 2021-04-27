@@ -9,15 +9,25 @@ import { Members } from "../../graphql/Member";
 
 export const GlobalsContext = createContext();
 
-const availableRoles = ["Sem Administrador", "Administrador", "Adm Oculto"];
+const availableRoles = [
+  { label: "Sem Administrador", value: 0 },
+  { label: "Administrador", value: 1 },
+  { label: "Adm Oculto", value: 2 },
+];
 
 const GlobalsContextProvider = (props) => {
   const {
     loading: membersLoading,
     error: membersError,
-    data: membersData,
+    data: allMembersData,
     refetch: refetchMembers,
-  } = useQuery(Members, { variables: { accessArray: [0, 1] } });
+  } = useQuery(Members);
+
+  const accessArray = [0, 1];
+  const membersData = {};
+  membersData.members = allMembersData?.members?.filter((member) =>
+    accessArray.includes(member.role.access)
+  );
 
   const [menuColapse, setMenuColapse] = useState(false);
 
@@ -58,7 +68,8 @@ const GlobalsContextProvider = (props) => {
         menuColapse,
         availableRoles,
         width,
-        isMobile
+        isMobile,
+        allMembersData,
       }}
     >
       {!membersLoading && !membersError && props.children}

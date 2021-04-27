@@ -2,8 +2,6 @@ import styled from "styled-components";
 
 const ModalContainer = styled.div`
   height: auto;
-  padding: 30px 20px;
-
   display: flex;
   flex-direction: column;
   align-items: center;

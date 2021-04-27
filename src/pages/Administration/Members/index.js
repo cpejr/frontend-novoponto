@@ -7,8 +7,8 @@ import {
   DeleteMember,
   CreateMember,
 } from "../../../graphql/Member";
-import { Tooltip, message, Skeleton } from "antd";
-import { MembersComponent } from "./styles";
+import { Tooltip, message, Skeleton, Table } from "antd";
+import { MembersComponent, ActionsDiv } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
 
 import {
@@ -24,14 +24,17 @@ import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";
 
 import validators from "../../../services/validators";
 
+const { Column, ColumnGroup } = Table;
+
 const Members = () => {
   const { themeColors } = useContext(ThemeContext);
   const {
     membersLoading,
     membersError,
-    membersData,
+    allMembersData,
     refetchMembers,
   } = useContext(GlobalsContext);
+
   const { data: roles, error: errorRoles } = useQuery(GET_ROLES);
 
   const [updateMemberMutation] = useMutation(UpdateMember);
@@ -59,100 +62,126 @@ const Members = () => {
   };
 
   const editOrCreateMember = (method, member) => {
+    const withInitialValue = method === "edit";
+    const memberOptions = allMembersData.members.map((member) => ({
+      value: member._id,
+      label: member.name,
+    }));
+
     var fields = [
       {
         key: "name",
         type: "text",
         label: "Nome",
-        validator: validators.notEmpty,
+        rules: [validators.antdRequired()],
+
+        placeholder: "Escreva o nome do membro",
+        initialValue: withInitialValue ? member.name : undefined,
       },
       {
         key: "role",
-        type: "autoComplete",
+        type: "select",
         label: "Cargo",
-        validator: validators.notEmptyAndInsideArray,
+        placeholder: "Escolha o cargo",
+        rules: [validators.antdRequired()],
 
-        options: [...roles.roles.map((role) => role.name)],
+        options: roles.roles.map((role) => ({
+          value: role._id,
+          label: role.name,
+        })),
+
+        initialValue: withInitialValue ? member?.role?._id : undefined,
       },
       {
         key: "responsible",
         type: "autoComplete",
         label: "Assessor",
-        validator: validators.notEmptyAndInsideArray,
+        placeholder: "Escolha o membro",
+        rules: [
+          validators.antdRequired(),
+          validators.antdInsideOptions(memberOptions),
+        ],
 
-        options: [...membersData.members.map((member) => member.name)],
+        options: memberOptions,
+
+        initialValue: withInitialValue
+          ? {
+              text: member?.responsible?.name,
+              selectedOption: {
+                label: member?.responsible?.name,
+                value: member?.responsible?._id,
+              },
+            }
+          : undefined,
       },
     ];
-    method === "edit"
-      ? setEditOrCreateModalInfo({
-          title: "Editar Membro",
-          fields: fields,
-          callback: updateMember,
-          open: true,
-          cancel: handleCloseEditOrCreate,
-          originalObject: {
-            name: member.name,
-            responsible: member.responsible ? member.responsible.name : "",
-            role: member.role ? member.role.name : "",
-            _id: member._id,
-          },
-        })
-      : setEditOrCreateModalInfo({
-          title: "Criar Membro",
-          fields: fields,
-          callback: createMember,
-          open: true,
-          cancel: handleCloseEditOrCreate,
-        });
+
+    const modalData = {
+      title: "",
+      fields: fields,
+
+      open: true,
+      cancel: handleCloseEditOrCreate,
+    };
+
+    if (method === "edit") {
+      modalData.title = "Editar Membro";
+      modalData.onSubmit = updateMember(member._id);
+    } else {
+      modalData.title = "Criar Membro";
+      modalData.onSubmit = createMember;
+    }
+
+    setEditOrCreateModalInfo(modalData);
   };
 
   const createMember = async (member) => {
     var hide = message.loading("Criando...");
+
+    const { Nome, Cargo, Assessor } = member;
     try {
-      var indexResponsible = membersData.members
-        .map((member) => member.name)
-        .indexOf(member.responsible);
-      var indexRole = roles.roles.map((role) => role.name).indexOf(member.role);
       const newMember = {
-        name: member.name,
-        responsibleId: membersData.members[indexResponsible]._id,
-        roleId: roles.roles[indexRole]._id,
+        name: Nome,
+        roleId: Cargo,
+        responsibleId: Assessor.selectedOption.value,
       };
       await createMemberMutation({ variables: { data: newMember } });
       hide();
       message.success("Criado com sucesso", 2.5);
+      refetchMembers();
     } catch (err) {
       console.error(err);
       hide();
       message.error("Houve um problema, tente novamente", 2.5);
     }
-    refetchMembers();
+
     handleCloseEditOrCreate();
   };
 
-  const updateMember = async (member) => {
+  const updateMember = (memberId) => async (member) => {
     var hide = message.loading("Atualizando dados do membro...");
+
+    const { Nome, Cargo, Assessor } = member;
+
     try {
-      var indexResponsible = membersData.members
-        .map((member) => member.name)
-        .indexOf(member.responsible);
-      var indexRole = roles.roles.map((role) => role.name).indexOf(member.role);
       const newMember = {
-        name: member.name,
-        responsibleId: membersData.members[indexResponsible]._id,
-        roleId: roles.roles[indexRole]._id,
+        name: Nome,
+        roleId: Cargo,
+        responsibleId: Assessor.selectedOption.value,
       };
+
       await updateMemberMutation({
-        variables: { memberId: member._id, data: newMember },
+        variables: { memberId, data: newMember },
       });
+
       hide();
       message.success("Atualizado com sucesso", 2.5);
+      refetchMembers();
     } catch (err) {
       console.error(err);
       hide();
       message.error("Houve um problema, tente novamente", 2.5);
     }
-    refetchMembers();
     handleCloseEditOrCreate();
   };
 
@@ -173,20 +202,21 @@ const Members = () => {
 
   const handleSearchMembers = (e) => {
     if (e.target.value !== "") {
-      const filteredMembersAfterForEach = membersData.members.filter((item) => {
-        if (item.memberName.toLowerCase().includes(e.target.value)) {
-          return item;
+      const filteredMembersAfterForEach = allMembersData.members.filter(
+        (item) => {
+          return item.name.toLowerCase().includes(e.target.value.toLowerCase());
         }
-      });
+      );
+
       setFilteredMembers(filteredMembersAfterForEach);
     } else {
-      setFilteredMembers([...membersData.members]);
+      setFilteredMembers([...allMembersData.members]);
     }
   };
 
   useEffect(() => {
-    if (membersData) setFilteredMembers([...membersData.members]);
-  }, [membersData]);
+    if (allMembersData) setFilteredMembers([...allMembersData.members]);
+  }, [allMembersData]);
 
   if (membersLoading)
     return (
@@ -227,48 +257,41 @@ const Members = () => {
         />
       </div>
 
-      <table className="roleTable">
-        <thead>
-          <tr>
-            <th className="memberColumn">Nome</th>
-            <th className="roleColumn">Cargo</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredMembers.length > 0 ? (
-            filteredMembers.map((item) => (
-              <tr key={item._id}>
-                <td className="memberColumn">{item?.name}</td>
-                <td className="roleColumn">{item?.role?.name}</td>
-                <td className="isAdmColumn">
-                  {item.isAdm && (
-                    <DefaultLabel
-                      labelText="Administrador"
-                      labelColor="#FFD100"
-                    />
-                  )}
-                </td>
-                <td className="editColumn">
-                  <Tooltip
-                    placement="topLeft"
-                    title={"Editar"}
-                    onClick={() => editOrCreateMember("edit", item)}
-                  >
-                    <EditOutlined />
-                  </Tooltip>
-                </td>
-                <td className="garbageColumn">
-                  <Tooltip placement="topLeft" title={"Excluir"}>
-                    <RestOutlined onClick={() => handleOpenModal(item)} />
-                  </Tooltip>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>Nenhum cargo cadastrado</tr>
+      <Table dataSource={filteredMembers} pagination={false}>
+        <Column title="Name" dataIndex="name" key="name" />
+        <Column
+          title="Cargo"
+          dataIndex="role"
+          key="role"
+          width={200}
+          render={(role) => <DefaultLabel labelText={role.name} />}
+        />
+        <Column
+          title="Assessor"
+          dataIndex="responsible"
+          key="responsible"
+          render={(responsible) => responsible.name}
+        />
+        <Column
+          key="action"
+          width={120}
+          render={(data) => (
+            <ActionsDiv>
+              <Tooltip
+                placement="topLeft"
+                title={"Editar"}
+                onClick={() => editOrCreateMember("edit", data)}
+              >
+                <EditOutlined />
+              </Tooltip>
+
+              <Tooltip placement="topLeft" title={"Excluir"}>
+                <RestOutlined onClick={() => handleOpenModal(data)} />
+              </Tooltip>
+            </ActionsDiv>
           )}
-        </tbody>
-      </table>
+        />
+      </Table>
       <ConfirmationModal
         title="Apagar membro"
         content={`Deseja mesmo apagar o membro "${excludeMember.name}"?`}
@@ -276,14 +299,7 @@ const Members = () => {
         handleOk={() => handleExcludeMember(excludeMember._id)}
         handleCancel={handleCloseModal}
       />
-      <FormModal
-        title={editOrCreateModalInfo.title}
-        fields={editOrCreateModalInfo.fields}
-        callback={editOrCreateModalInfo.callback}
-        open={editOrCreateModalInfo.open}
-        cancel={editOrCreateModalInfo.cancel}
-        originalObject={editOrCreateModalInfo.originalObject}
-      />
+      <FormModal {...editOrCreateModalInfo} />
     </MembersComponent>
   );
 };

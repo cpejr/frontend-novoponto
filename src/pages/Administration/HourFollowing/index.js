@@ -5,12 +5,12 @@ import { UpdateMember } from "../../../graphql/Member";
 import { AditionalHours } from "../../../graphql/AditionalHour";
 import moment from "moment";
 
-import { SelectInput } from "../../../components/atoms";
 import MemberDataADM from "../../../components/organisms/MemberDataADM";
 
 import { message, Skeleton, DatePicker } from "antd";
 import { HourFollowingContainer } from "./styles";
 import HomeOfficeTable from "../../../components/molecules/HomeOfficeTable";
+import MembersSelectBox from "../../../components/molecules/MembersSelectBox";
 
 const { RangePicker } = DatePicker;
 
@@ -36,9 +36,12 @@ const HourFollowing = () => {
     refetchMembers,
   } = useContext(GlobalsContext);
 
-  const selectMember = (memberSelected) => {
-    var index = membersData.members.map((member) => member.name).indexOf(memberSelected);
-    setSelected(membersData.members[index]);
+  const selectMember = (memberId) => {
+    const member = membersData.members.find(
+      (member) => member._id === memberId
+    );
+
+    setSelected(member);
   };
 
   const saveData = async (newMessage) => {
@@ -58,7 +61,6 @@ const HourFollowing = () => {
 
   useEffect(() => {
     if (startDate && endDate && selected)
-      
       loadAditional({
         variables: {
           memberId: selected._id,
@@ -86,10 +88,7 @@ const HourFollowing = () => {
   } else if (membersData) {
     return (
       <HourFollowingContainer>
-        <SelectInput
-          options={membersData.members.map((member) => member.name)}
-          callback={selectMember}
-        />
+        <MembersSelectBox onChange={selectMember} />
         {selected && (
           <>
             <MemberDataADM
@@ -107,10 +106,10 @@ const HourFollowing = () => {
               value={rangeDate}
               placeholder={["Inicio", "Fim"]}
             />
-            <HomeOfficeTable aditionalHours={aditionalHours}/>
+            <HomeOfficeTable aditionalHours={aditionalHours} />
           </>
         )}
-      </HourFollowingContainer >
+      </HourFollowingContainer>
     );
   }
 };

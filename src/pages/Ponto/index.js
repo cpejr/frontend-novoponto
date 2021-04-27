@@ -16,7 +16,6 @@ const Ponto = () => {
           <div className="news">
             <img src={defaultNews} alt="Confira as novidades" />
           </div>
-
           <div className="news">
             <img src={defaultNews} alt="Confira as novidades" />
           </div>

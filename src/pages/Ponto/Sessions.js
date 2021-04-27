@@ -16,7 +16,7 @@ import AutocompleteMemberInput from "../../components/organisms/AutoCompleteMemb
 import { SESSION_SUBSCRIPTION } from "../../graphql/Subscription";
 
 const Sessions = ({ members, ...props }) => {
-  const [memberTextToLogin, setMemberTextToLogin] = useState("");
+  const [memberTextToLogin, setMemberTextToLogin] = useState({});
   const [memberToLogout, setMemberToLogout] = useState();
   const [filteredSessions, setFilteredSessions] = useState([]);
   const [showLogoutAllMembers, setShowLogoutAllMembers] = useState(false);
@@ -73,7 +73,7 @@ const Sessions = ({ members, ...props }) => {
         message.warn(err.message, 2.5);
       } finally {
         memberToLogin.current = undefined;
-        setMemberTextToLogin();
+        setMemberTextToLogin({ text: "" });
       }
     }
   }
@@ -89,12 +89,14 @@ const Sessions = ({ members, ...props }) => {
   }, [loggedMembers]);
 
   function updateFilter() {
-    const value = filterMemberField.current.value;
+    const value = filterMemberField?.current?.input.value;
 
-    if (!value || value !== "" || value.trim() !== "")
+    if (value && value.trim() !== "")
       setFilteredSessions(
         loggedMembers?.filter((session) =>
-          RegExp(value.trim(), "ig").test(session.member.name)
+          session.member.name
+            ?.toLowerCase()
+            .includes(value?.toLowerCase().trim())
         )
       );
     else setFilteredSessions(loggedMembers);
@@ -109,14 +111,18 @@ const Sessions = ({ members, ...props }) => {
           placeholder="Pesquisar membros"
           onChange={updateFilter}
         />
-
         <div className="loginAndItsValidateSection">
           <form className="loginSection">
             <AutocompleteMemberInput
               onChange={setMemberTextToLogin}
               value={memberTextToLogin}
               onMemberChange={(member) => (memberToLogin.current = member)}
-              onKeyDown={(e) => e.keyCode === 13 && handleLogin()}
+              onKeyDown={(e) => {
+                if (e.keyCode === 13) {
+                  e.preventDefault();
+                  handleLogin();
+                }
+              }}
             />
             <Button width="84px" onClick={handleLogin}>
               Login

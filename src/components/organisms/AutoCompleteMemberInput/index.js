@@ -6,7 +6,9 @@ const AutocompleteMemberInput = ({ onMemberChange, onChange, ...props }) => {
   const { membersData } = useContext(GlobalsContext);
 
   function handleChange(value) {
-    const member = membersData.members.find((member) => member.name === value);
+    const member = membersData.members.find(
+      (member) => member._id === value?.selectedOption?.value
+    );
 
     onMemberChange && onMemberChange(member);
     onChange && onChange(value);
@@ -14,7 +16,10 @@ const AutocompleteMemberInput = ({ onMemberChange, onChange, ...props }) => {
 
   return (
     <AutocompleteInput
-      options={membersData?.members?.map((member) => member.name)}
+      options={membersData?.members?.map((member) => ({
+        value: member._id,
+        label: member.name,
+      }))}
       {...props}
       onChange={handleChange}
     />

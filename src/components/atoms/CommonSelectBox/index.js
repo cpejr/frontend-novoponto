@@ -9,8 +9,9 @@ const CommonSelectBox = ({ optionsList = [], ...props }) => {
     <CommonSelectBoxContainer>
       <Select size="default" style={{ width: "100%" }} {...props}>
         {optionsList.map((item) => (
-          //To do: renomear item.value para item.key
-          <Option key={item.value}>{item.label}</Option>
+          <Option key={item.value} value={item.value}>
+            {item.label}
+          </Option>
         ))}
       </Select>
     </CommonSelectBoxContainer>

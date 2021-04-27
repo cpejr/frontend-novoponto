@@ -23,6 +23,31 @@ const GlobalStyle = createGlobalStyle`
   h1, h2, h3, h4{
     margin: 0;
   }
+
+  .autoComplete {
+
+    .ant-dropdown-menu {
+      max-height: 250px;
+      overflow: auto;
+    }
+
+    ::-webkit-scrollbar {
+      width: 15px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px grey;
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      width: 5px;
+      background: #fff;
+      border-radius: 10px;
+    }      
+  }
 `;
 
 export default GlobalStyle;

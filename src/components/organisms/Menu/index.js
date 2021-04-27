@@ -32,7 +32,7 @@ const SidebarMenu = ({ children }) => {
             <Drawer visible={drawerOpen} onClose={handleOnClickToggle} />
           )}
           {!isMobile && <SideBar collapsed={menuColapse} />}
-          <Layout style={{ width: "auto" }}>
+          <Layout>
             <Content
               id="site-layout-background"
               style={{
