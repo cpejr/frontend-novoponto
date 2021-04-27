@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const AutocompleteInputContainer = styled.div`
-  width: 230px;
-
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

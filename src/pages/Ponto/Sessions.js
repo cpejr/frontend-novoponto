@@ -89,11 +89,15 @@ const Sessions = ({ members, ...props }) => {
   }, [loggedMembers]);
 
   function updateFilter() {
-    const value = filterMemberField.current.value;
+    const value = filterMemberField?.current?.input.value;
 
-    if (!value || value !== "" || value.trim() !== "")
+    if (value && value.trim() !== "")
       setFilteredSessions(
-        loggedMembers?.filter((session) => session.includes(value.trim()))
+        loggedMembers?.filter((session) =>
+          session.member.name
+            ?.toLowerCase()
+            .includes(value?.toLowerCase().trim())
+        )
       );
     else setFilteredSessions(loggedMembers);
   }
@@ -107,14 +111,18 @@ const Sessions = ({ members, ...props }) => {
           placeholder="Pesquisar membros"
           onChange={updateFilter}
         />
-
         <div className="loginAndItsValidateSection">
           <form className="loginSection">
             <AutocompleteMemberInput
-              onChange={setMemberTextToLogin}
+              onTextChange={setMemberTextToLogin}
               value={memberTextToLogin}
               onMemberChange={(member) => (memberToLogin.current = member)}
-              onKeyDown={(e) => e.keyCode === 13 && handleLogin()}
+              onKeyDown={(e) => {
+                if (e.keyCode === 13) {
+                  e.preventDefault();
+                  handleLogin();
+                }
+              }}
             />
             <Button width="84px" onClick={handleLogin}>
               Login

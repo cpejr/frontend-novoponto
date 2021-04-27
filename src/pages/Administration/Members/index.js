@@ -66,16 +66,19 @@ const Members = () => {
         type: "text",
         label: "Nome",
         validator: validators.notEmpty,
-        placeholder: "Escolha o membro",
+        placeholder: "Escreva o nome do membro",
       },
       {
         key: "role",
-        type: "autoComplete",
+        type: "select",
         label: "Cargo",
         placeholder: "Escolha o cargo",
         validator: validators.notEmptyAndInsideArray,
 
-        options: [...roles.roles.map((role) => role.name)],
+        options: roles.roles.map((role) => ({
+          value: role._id,
+          label: role.name,
+        })),
       },
       {
         key: "responsible",
@@ -84,7 +87,10 @@ const Members = () => {
         placeholder: "Escolha o membro",
         validator: validators.notEmptyAndInsideArray,
 
-        options: [...allMembersData.members.map((member) => member.name)],
+        options: allMembersData.members.map((member) => ({
+          value: member._id,
+          label: member.name,
+        })),
       },
     ];
     method === "edit"
@@ -270,7 +276,11 @@ const Members = () => {
               </td>
             </tr>
           ))}
-          {filteredMembers.length === 0 && <tr>Nenhum cargo cadastrado</tr>}
+          {filteredMembers.length === 0 && (
+            <tr>
+              <td colSpan={2}>Nenhum cargo cadastrado</td>
+            </tr>
+          )}
         </tbody>
       </table>
       <ConfirmationModal

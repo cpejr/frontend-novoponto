@@ -72,7 +72,10 @@ const Roles = () => {
         label: "Permissão",
         validator: validators.notEmpty,
 
-        options: availableRoles,
+        options: availableRoles.map((role) => ({
+          label: role,
+          value: role,
+        })),
       },
     ];
     method === "edit"

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FormContainer, InputGroup } from "./styles";
 import Modal from "../../molecules/Modal";
 import AutoCompleteInput from "../../molecules/AutocompleteInput";
-import { DefaultText, InputText, SelectInput } from "../../atoms";
+import { CommonSelectBox, DefaultText, InputText } from "../../atoms";
 
 // This Modal recieves an array of fields and deals with each one of them, including its type and validation
 // It can be used to create or edit any object, since the object has only simple keys (no arrays or objects inside it)
@@ -71,12 +71,20 @@ const FormModal = ({
 
   //Seting the value of the object that will be returned when select confirm
   const handleChangeObject = (key, index, value) => {
-    reset[index] = true;
-    setReset([...reset]);
-    currentValue[key] = value;
-    setCurrentValue({ ...currentValue });
-    error[index] = { error: false, errorMessage: "" };
-    setError([...error]);
+    const newReset = [...reset];
+
+    newReset[index] = true;
+    setReset(newReset);
+
+    const newCurrentValue = { ...currentValue };
+
+    newCurrentValue[key] = value;
+    setCurrentValue(newCurrentValue);
+
+    const newError = [...error];
+    newError[index] = { error: false, errorMessage: "" };
+    
+    setError(newError);
   };
 
   const handleConfirm = () => {
@@ -85,8 +93,6 @@ const FormModal = ({
 
     //Validate each field using its validator. If its a autocomplete, we need to check if the value exists in option array. The validator returns "ok" or an error message
     fields.forEach((field, index) => {
-      console.log(currentValue);
-
       if (field.type === "autoComplete")
         validation = field.validator(currentValue[field.key], field.options);
       if (field.type === "text" || field.type === "select")
@@ -119,7 +125,7 @@ const FormModal = ({
           inputField = (
             <AutoCompleteInput
               options={options}
-              onChange={(value) => handleChangeObject(key, index, value)}
+              onTextChange={(value) => handleChangeObject(key, index, value)}
               resetAutocompleteField={reset[index]}
               initValue={originalObject ? originalObject[key] : ""}
               error={inputError}
@@ -130,15 +136,16 @@ const FormModal = ({
           break;
         case "select":
           inputField = (
-            <SelectInput
-              options={options}
-              callback={(value) => handleChangeObject(key, index, value)}
-              value={originalObject && originalObject[key]}
+            <CommonSelectBox
+              optionsList={options}
+              onChange={(value) => handleChangeObject(key, index, value)}
+              value={currentValue[key]}
               error={inputError}
               errorMessage={errorMessage}
               placeholder={placeholder}
             />
           );
+          break;
 
         default:
         case "text":
@@ -155,7 +162,7 @@ const FormModal = ({
       }
 
       return (
-        <InputGroup>
+        <InputGroup key={index}>
           <DefaultText error={inputError}>{label}</DefaultText>
           {inputField}
         </InputGroup>

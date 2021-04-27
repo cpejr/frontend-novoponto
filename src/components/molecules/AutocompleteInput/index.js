@@ -8,6 +8,7 @@ const AutocompleteInput = ({
   initValue,
   error = false,
   errorMessage,
+  onTextChange,
   ...props
 }) => {
   const [data, setData] = useState({
@@ -25,10 +26,10 @@ const AutocompleteInput = ({
   } = data;
 
   const onChange = (e) => {
-    const value = e.currentTarget.value;
+    const value = e.target.value;
 
     const filteredSuggestions = options.filter((suggestion) =>
-      suggestion.includes(value.trim())
+      suggestion.label.toLowerCase().includes(value.trim().toLowerCase())
     );
 
     setData({
@@ -38,64 +39,72 @@ const AutocompleteInput = ({
       userInput: value,
     });
 
-    props?.onChange && props.onChange(value);
+    onTextChange && onTextChange(value);
+    props?.onChange && props.onChange(options[data.activeSuggestion].value);
   };
 
   const onClick = (e) => {
-    const value = e.currentTarget.innerText;
+    const index = e.target.getAttribute("data-index");
+
+    const { label, value } = filteredSuggestions[index];
+
     setData({
       activeSuggestion: 0,
       filteredSuggestions: [],
       showSuggestions: false,
-      userInput: value,
+      userInput: label,
     });
 
+    onTextChange && onTextChange(label);
     props?.onChange && props.onChange(value);
   };
 
   const onKeyDown = (e) => {
-    props?.onKeyDown && props.onKeyDown(e);
-
     switch (e.keyCode) {
       case 13:
         if (filteredSuggestions.length > 0) {
-          let value = data.filteredSuggestions[data.activeSuggestion];
-          props?.onChange && props.onChange(value);
+          e.preventDefault();
+          let option = data.filteredSuggestions[data.activeSuggestion];
+
+          onTextChange && onTextChange(option.label);
+          props?.onChange && props.onChange(option.value);
 
           return setData({
             ...data,
             activeSuggestion: 0,
             filteredSuggestions: [],
             showSuggestions: false,
-            userInput: value,
+            userInput: option.label,
           });
         }
-        return;
+        break;
 
       // Arrow UP
       case 38:
         e.preventDefault();
         if (data.activeSuggestion === 0) return;
         else
-          return setData({
+          setData({
             ...data,
             activeSuggestion: data.activeSuggestion - 1,
           });
+        break;
 
       // Arrow Down
       case 40:
         e.preventDefault();
-        if (data.activeSuggestion + 1 === data.filteredSuggestions.length)
-          return;
-        else
+        if (data.activeSuggestion + 1 !== data.filteredSuggestions.length)
           return setData({
             ...data,
             activeSuggestion: data.activeSuggestion + 1,
           });
+        break;
 
       default:
         break;
     }
+
+    props?.onKeyDown && props.onKeyDown(e);
   };
 
   let suggestionsListComponent;
@@ -104,7 +113,7 @@ const AutocompleteInput = ({
     if (filteredSuggestions.length) {
       suggestionsListComponent = (
         <ul className="suggestions">
-          {filteredSuggestions.map((suggestion, index) => {
+          {filteredSuggestions.map(({ value, label }, index) => {
             let className;
 
             // Flag the active suggestion with a class
@@ -113,8 +122,14 @@ const AutocompleteInput = ({
             }
 
             return (
-              <li className={className} key={suggestion} onClick={onClick}>
-                {suggestion}
+              <li
+                className={className}
+                key={index}
+                value={value}
+                data-index={index}
+                onClick={onClick}
+              >
+                {label}
               </li>
             );
           })}

@@ -1,13 +1,6 @@
 import styled from "styled-components";
 
 const PontoComponent = styled.div`
-  width: 100%;
-  min-height: 100vh;
-
-  margin: 0 auto;
-  padding: 30px 0px;
-
-  background-color: ${(props) => props.theme.primary};
 
   .fullContentPagePoint {
     width: 90%;
@@ -92,7 +85,6 @@ const PontoComponent = styled.div`
 
       .HeaderTablePointMembers tr {
         height: 80px;
-        background-color: #141414;
         padding: 0px 20px;
 
         display: flex;

@@ -1,18 +1,19 @@
+import { Input } from "antd";
 import React, { forwardRef } from "react";
-import { InputTextContainer, ErrorMessage } from "./styles";
+import { DefaultText } from "..";
+import { InputTextContainer } from "./styles";
 
 const InputText = forwardRef(
   ({ icon, error = false, errorMessage, ...props }, ref) => {
+    const prefix = icon ? (
+      <img src={icon} alt={props.placeholder} />
+    ) : undefined;
+
     return (
-      <>
-        <InputTextContainer error={error}>
-          {icon && <img src={icon} alt={props.placeholder} />}
-          <input type="text" {...props} ref={ref} />
-        </InputTextContainer>
-        {error && (
-          <ErrorMessage className="errorMessage">{errorMessage}</ErrorMessage>
-        )}
-      </>
+      <InputTextContainer error={error}>
+        <Input type="text" prefix={prefix} {...props} ref={ref} />
+        {error && <DefaultText error={error}>{errorMessage}</DefaultText>}
+      </InputTextContainer>
     );
   }
 );

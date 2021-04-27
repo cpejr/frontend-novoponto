@@ -5,12 +5,14 @@ const validators = {
     }
     return "ok";
   },
-  notEmptyAndInsideArray(value, array) {
+  notEmptyAndInsideArray(value, options) {
     if (value === "") {
       return "Não deixe o campo vazio";
     }
-    var index = array.indexOf(value);
-    if (index === -1) {
+
+    let valid = options?.find((option) => option.label === value);
+
+    if (!valid) {
       return "Esse valor não existe entre as opções";
     }
     return "ok";

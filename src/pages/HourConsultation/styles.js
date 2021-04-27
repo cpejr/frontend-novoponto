@@ -6,8 +6,6 @@ const HoursConsultationComponent = styled.div`
 
   padding: 20px;
 
-  background-color: ${(props) => props.theme.appBackground};
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -70,79 +68,9 @@ const HoursConsultationComponent = styled.div`
     margin-bottom: 48px;
   }
 
-  .mandatoryHoursTable,
-  .hoursSumAndTable,
-  .justificationTable {
-    width: 100%;
-  }
-
-  .mandatoryHoursTable tr,
-  .hoursSumAndTable tr,
-  .justificationTable tr {
-    height: 80px;
-    background-color: #141414;
-    padding: 0px 20px;
-
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    border-bottom: 2px solid #1c1c1d;
-  }
-
-  .mandatoryHoursTable thead tr:first-child,
-  .hoursSumAndTable thead tr:first-child,
-  .justificationTable thead tr:first-child {
-    height: 65px;
-    background-color: #1d1d1d;
-
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    border-radius: 5px;
-  }
-
-  .dayColumn {
-    width: 40%;
-    min-width: 120px;
-    display: flex;
-    justify-content: flex-start;
-    color: #ffffff;
-  }
-
-  .startTime,
-  .finishTime,
-  .timeArea,
-  .typeArea {
-    width: 30%;
-    min-width: 120px;
-    display: flex;
-    justify-content: flex-start;
-    color: #ffffff;
-  }
-
   .pointHistoric {
     max-width: 300px;
     margin-bottom: 48px;
-  }
-
-  .hoursSumAndTablesArea,
-  .justificationTablesArea {
-    width: 100%;
-    margin-bottom: 24px;
-
-    .hoursSumAndTable {
-      width: 100%;
-    }
-  }
-
-  .hoursSumAndTablesArea,
-  .justificationTablesArea {
-    width: 100%;
-    margin-bottom: 48px;
-
-    .hoursSumAndTable {
-      width: 100%;
-    }
   }
 `;
 
