@@ -27,14 +27,18 @@ const validators = {
 
   antdInsideOptions: (options) => (form) => ({
     validator(_, value) {
-      console.log("🚀 ~ file: validators.js ~ line 30 ~ validator ~ value", value)
-      let valid = options?.find(
-        (option) => option?.value === value?.selectedOption?.value
-      );
+      if (value && value?.text.trim() !== "") {
+        let valid = options?.find(
+          (option) => option?.value === value?.selectedOption?.value
+        );
 
-      if (valid) return Promise.resolve();
+        if (valid) return Promise.resolve();
 
-      return Promise.reject(new Error("Esse valor não existe entre as opções"));
+        return Promise.reject(
+          new Error("Esse valor não existe entre as opções")
+        );
+      }
+      return Promise.resolve();
     },
   }),
 };

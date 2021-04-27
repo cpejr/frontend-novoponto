@@ -97,10 +97,7 @@ const Members = () => {
         type: "autoComplete",
         label: "Assessor",
         placeholder: "Escolha o membro",
-        rules: [
-          validators.antdRequired(),
-          validators.antdInsideOptions(memberOptions),
-        ],
+        rules: [validators.antdInsideOptions(memberOptions)],
 
         options: memberOptions,
 
@@ -143,7 +140,7 @@ const Members = () => {
       const newMember = {
         name: Nome,
         roleId: Cargo,
-        responsibleId: Assessor.selectedOption.value,
+        responsibleId: Assessor?.selectedOption?.value,
       };
       await createMemberMutation({ variables: { data: newMember } });
       hide();
@@ -167,7 +164,7 @@ const Members = () => {
       const newMember = {
         name: Nome,
         roleId: Cargo,
-        responsibleId: Assessor.selectedOption.value,
+        responsibleId: Assessor?.selectedOption?.value || null,
       };
 
       await updateMemberMutation({
@@ -269,8 +266,8 @@ const Members = () => {
         <Column
           title="Assessor"
           dataIndex="responsible"
-          key="responsible"
-          render={(responsible) => responsible.name}
+          key="responsible.name"
+          render={(responsible) => responsible?.name}
         />
         <Column
           key="action"

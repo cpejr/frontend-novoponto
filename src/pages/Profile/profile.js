@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { ThemeContext } from "../../context/ThemeProvider";
 import {
@@ -14,8 +14,9 @@ import SaveButton from "../../components/molecules/SaveButton";
 import ConfirmationModal from "../../components/molecules/Modal";
 
 const Profile = () => {
-  const { themeColors } = useContext(ThemeContext);
-  const { data, logOut, updateSelf } = useContext(SessionContext);
+  const { data, logOut, updateSelf, getSessionData } = useContext(
+    SessionContext
+  );
   const [isConfirmationVis, setIsConfirmationVis] = useState(false);
 
   const [status, setStatus] = useState(data?.member?.status || "");
@@ -35,6 +36,10 @@ const Profile = () => {
   function handleCloseModal() {
     setIsConfirmationVis(false);
   }
+
+  useEffect(() => {
+    getSessionData();
+  }, []);
 
   const saved = status === data?.member?.status;
 
@@ -74,9 +79,12 @@ const Profile = () => {
         title="Log out"
         content={`${data?.member?.name}, Você deseja mesmo fazer logout?`}
         isVisible={isConfirmationVis}
-        handleOk={() => {logOut(); setIsConfirmationVis(false)}}
+        handleOk={() => {
+          logOut();
+          setIsConfirmationVis(false);
+        }}
         handleCancel={handleCloseModal}
-      /> 
+      />
     </>
   );
 };

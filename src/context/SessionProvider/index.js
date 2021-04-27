@@ -97,6 +97,7 @@ const SessionContextProvider = (props) => {
         login,
         logOut,
         updateSelf,
+        getSessionData,
       }}
     >
       {props.children}

@@ -1,9 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { GoogleOutlined } from "@ant-design/icons";
-import {
-  CommonButton,
-  DefaultText,
-} from "../../components/atoms";
+import { CommonButton, DefaultText } from "../../components/atoms";
 import { GoogleLogin } from "react-google-login";
 import { Skeleton } from "antd";
 import { SessionContext } from "../../context/SessionProvider";
