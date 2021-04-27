@@ -1,4 +1,6 @@
+import { Input } from "antd";
 import React, { useEffect, useState } from "react";
+import { DefaultText } from "../../atoms";
 import { AutocompleteInputContainer } from "./styles";
 
 const AutocompleteInput = ({
@@ -25,9 +27,9 @@ const AutocompleteInput = ({
   const onChange = (e) => {
     const value = e.currentTarget.value;
 
-    const filteredSuggestions = options.filter((suggestion) => {
-      return RegExp(value.trim(), "ig").test(suggestion);
-    });
+    const filteredSuggestions = options.filter((suggestion) =>
+      suggestion.includes(value.trim())
+    );
 
     setData({
       activeSuggestion: 0,
@@ -138,14 +140,15 @@ const AutocompleteInput = ({
 
   return (
     <AutocompleteInputContainer error={error}>
-      <input
+      <Input
+        {...props}
         type="text"
         onChange={onChange}
         onKeyDown={onKeyDown}
         value={data.userInput || ""}
       />
       {suggestionsListComponent}
-      {error && <span className="errorMessage">{errorMessage}</span>}
+      {error && <DefaultText error={error}>{errorMessage}</DefaultText>}
     </AutocompleteInputContainer>
   );
 };

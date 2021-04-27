@@ -1,25 +1,15 @@
 import styled from "styled-components";
 
 export const AutocompleteInputContainer = styled.div`
-  background-color: #1d1d1d;
   width: 230px;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
   border-radius: 2px;
 
   input {
     border: ${(props) => (props.error ? "0.7px solid red" : "none")};
-    width: 100%;
-    height: 32px;
-    background-color: #1d1d1d;
-    outline: none;
-    padding: 3px 8px;
-    font-size: 14px;
-    line-height: 17px;
-    color: #fff;
   }
 
   .no-suggestions {

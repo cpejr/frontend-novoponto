@@ -29,9 +29,10 @@ const Members = () => {
   const {
     membersLoading,
     membersError,
-    membersData,
+    allMembersData,
     refetchMembers,
   } = useContext(GlobalsContext);
+
   const { data: roles, error: errorRoles } = useQuery(GET_ROLES);
 
   const [updateMemberMutation] = useMutation(UpdateMember);
@@ -65,11 +66,13 @@ const Members = () => {
         type: "text",
         label: "Nome",
         validator: validators.notEmpty,
+        placeholder: "Escolha o membro",
       },
       {
         key: "role",
         type: "autoComplete",
         label: "Cargo",
+        placeholder: "Escolha o cargo",
         validator: validators.notEmptyAndInsideArray,
 
         options: [...roles.roles.map((role) => role.name)],
@@ -78,9 +81,10 @@ const Members = () => {
         key: "responsible",
         type: "autoComplete",
         label: "Assessor",
+        placeholder: "Escolha o membro",
         validator: validators.notEmptyAndInsideArray,
 
-        options: [...membersData.members.map((member) => member.name)],
+        options: [...allMembersData.members.map((member) => member.name)],
       },
     ];
     method === "edit"
@@ -109,37 +113,39 @@ const Members = () => {
   const createMember = async (member) => {
     var hide = message.loading("Criando...");
     try {
-      var indexResponsible = membersData.members
+      var indexResponsible = allMembersData.members
         .map((member) => member.name)
         .indexOf(member.responsible);
+
       var indexRole = roles.roles.map((role) => role.name).indexOf(member.role);
       const newMember = {
         name: member.name,
-        responsibleId: membersData.members[indexResponsible]._id,
+        responsibleId: allMembersData.members[indexResponsible]._id,
         roleId: roles.roles[indexRole]._id,
       };
       await createMemberMutation({ variables: { data: newMember } });
       hide();
       message.success("Criado com sucesso", 2.5);
+      refetchMembers();
     } catch (err) {
       console.error(err);
       hide();
       message.error("Houve um problema, tente novamente", 2.5);
     }
-    refetchMembers();
+
     handleCloseEditOrCreate();
   };
 
   const updateMember = async (member) => {
     var hide = message.loading("Atualizando dados do membro...");
     try {
-      var indexResponsible = membersData.members
+      var indexResponsible = allMembersData.members
         .map((member) => member.name)
         .indexOf(member.responsible);
       var indexRole = roles.roles.map((role) => role.name).indexOf(member.role);
       const newMember = {
         name: member.name,
-        responsibleId: membersData.members[indexResponsible]._id,
+        responsibleId: allMembersData.members[indexResponsible]._id,
         roleId: roles.roles[indexRole]._id,
       };
       await updateMemberMutation({
@@ -147,12 +153,12 @@ const Members = () => {
       });
       hide();
       message.success("Atualizado com sucesso", 2.5);
+      refetchMembers();
     } catch (err) {
       console.error(err);
       hide();
       message.error("Houve um problema, tente novamente", 2.5);
     }
-    refetchMembers();
     handleCloseEditOrCreate();
   };
 
@@ -173,20 +179,21 @@ const Members = () => {
 
   const handleSearchMembers = (e) => {
     if (e.target.value !== "") {
-      const filteredMembersAfterForEach = membersData.members.filter((item) => {
-        if (item.memberName.toLowerCase().includes(e.target.value)) {
-          return item;
+      const filteredMembersAfterForEach = allMembersData.members.filter(
+        (item) => {
+          return item.name.toLowerCase().includes(e.target.value.toLowerCase());
         }
-      });
+      );
+
       setFilteredMembers(filteredMembersAfterForEach);
     } else {
-      setFilteredMembers([...membersData.members]);
+      setFilteredMembers([...allMembersData.members]);
     }
   };
 
   useEffect(() => {
-    if (membersData) setFilteredMembers([...membersData.members]);
-  }, [membersData]);
+    if (allMembersData) setFilteredMembers([...allMembersData.members]);
+  }, [allMembersData]);
 
   if (membersLoading)
     return (
@@ -235,38 +242,35 @@ const Members = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredMembers.length > 0 ? (
-            filteredMembers.map((item) => (
-              <tr key={item._id}>
-                <td className="memberColumn">{item?.name}</td>
-                <td className="roleColumn">{item?.role?.name}</td>
-                <td className="isAdmColumn">
-                  {item.isAdm && (
-                    <DefaultLabel
-                      labelText="Administrador"
-                      labelColor="#FFD100"
-                    />
-                  )}
-                </td>
-                <td className="editColumn">
-                  <Tooltip
-                    placement="topLeft"
-                    title={"Editar"}
-                    onClick={() => editOrCreateMember("edit", item)}
-                  >
-                    <EditOutlined />
-                  </Tooltip>
-                </td>
-                <td className="garbageColumn">
-                  <Tooltip placement="topLeft" title={"Excluir"}>
-                    <RestOutlined onClick={() => handleOpenModal(item)} />
-                  </Tooltip>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>Nenhum cargo cadastrado</tr>
-          )}
+          {filteredMembers?.map((item) => (
+            <tr key={item._id}>
+              <td className="memberColumn">{item?.name}</td>
+              <td className="roleColumn">{item?.role?.name}</td>
+              <td className="isAdmColumn">
+                {item.isAdm && (
+                  <DefaultLabel
+                    labelText="Administrador"
+                    labelColor="#FFD100"
+                  />
+                )}
+              </td>
+              <td className="editColumn">
+                <Tooltip
+                  placement="topLeft"
+                  title={"Editar"}
+                  onClick={() => editOrCreateMember("edit", item)}
+                >
+                  <EditOutlined />
+                </Tooltip>
+              </td>
+              <td className="garbageColumn">
+                <Tooltip placement="topLeft" title={"Excluir"}>
+                  <RestOutlined onClick={() => handleOpenModal(item)} />
+                </Tooltip>
+              </td>
+            </tr>
+          ))}
+          {filteredMembers.length === 0 && <tr>Nenhum cargo cadastrado</tr>}
         </tbody>
       </table>
       <ConfirmationModal

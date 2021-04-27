@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { FormContainer } from "./styles";
+import { FormContainer, InputGroup } from "./styles";
 import Modal from "../../molecules/Modal";
 import AutoCompleteInput from "../../molecules/AutocompleteInput";
-import { InputText, SelectInput } from "../../atoms";
+import { DefaultText, InputText, SelectInput } from "../../atoms";
 
 // This Modal recieves an array of fields and deals with each one of them, including its type and validation
 // It can be used to create or edit any object, since the object has only simple keys (no arrays or objects inside it)
@@ -85,8 +85,8 @@ const FormModal = ({
 
     //Validate each field using its validator. If its a autocomplete, we need to check if the value exists in option array. The validator returns "ok" or an error message
     fields.forEach((field, index) => {
-      console.log(currentValue)
-      
+      console.log(currentValue);
+
       if (field.type === "autoComplete")
         validation = field.validator(currentValue[field.key], field.options);
       if (field.type === "text" || field.type === "select")
@@ -110,52 +110,56 @@ const FormModal = ({
   var showingFields =
     fields &&
     fields.map((field, index) => {
-      var returnField;
-      if (field.type === "text") {
-        returnField = (
-          <>
-            {field.label}
-            <InputText
-              value={currentValue[field.key]}
-              onChange={(e) =>
-                handleChangeObject(field.key, index, e.target.value)
-              }
-              error={error[index] ? error[index].error : false}
-              errorMessage={error[index] ? error[index].errorMessage : false}
-            />
-          </>
-        );
-      }
-      if (field.type === "autoComplete") {
-        returnField = (
-          <>
-            {field.label}
+      const { type, key, label, options, placeholder } = field;
+      const { error: inputError, errorMessage } = error[index] || {};
+
+      let inputField;
+      switch (type) {
+        case "autoComplete":
+          inputField = (
             <AutoCompleteInput
-              options={field.options}
-              onChange={(value) => handleChangeObject(field.key, index, value)}
+              options={options}
+              onChange={(value) => handleChangeObject(key, index, value)}
               resetAutocompleteField={reset[index]}
-              initValue={originalObject ? originalObject[field.key] : ""}
-              error={error[index] ? error[index].error : false}
-              errorMessage={error[index] ? error[index].errorMessage : false}
+              initValue={originalObject ? originalObject[key] : ""}
+              error={inputError}
+              errorMessage={errorMessage}
+              placeholder={placeholder}
             />
-          </>
-        );
-      }
-      if (field.type === "select") {
-        returnField = (
-          <>
-            {field.label}
+          );
+          break;
+        case "select":
+          inputField = (
             <SelectInput
-              options={field.options}
-              callback={(value) => handleChangeObject(field.key, index, value)}
-              value={originalObject && originalObject[field.key]}
-              error={error[index] ? error[index].error : false}
-              errorMessage={error[index] ? error[index].errorMessage : false}
+              options={options}
+              callback={(value) => handleChangeObject(key, index, value)}
+              value={originalObject && originalObject[key]}
+              error={inputError}
+              errorMessage={errorMessage}
+              placeholder={placeholder}
             />
-          </>
-        );
+          );
+
+        default:
+        case "text":
+          inputField = (
+            <InputText
+              value={currentValue[key]}
+              onChange={(e) => handleChangeObject(key, index, e.target.value)}
+              error={inputError}
+              errorMessage={errorMessage}
+              placeholder={placeholder}
+            />
+          );
+          break;
       }
-      return returnField;
+
+      return (
+        <InputGroup>
+          <DefaultText error={inputError}>{label}</DefaultText>
+          {inputField}
+        </InputGroup>
+      );
     });
 
   return (

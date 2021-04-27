@@ -15,9 +15,15 @@ const GlobalsContextProvider = (props) => {
   const {
     loading: membersLoading,
     error: membersError,
-    data: membersData,
+    data: allMembersData,
     refetch: refetchMembers,
-  } = useQuery(Members, { variables: { accessArray: [0, 1] } });
+  } = useQuery(Members);
+
+  const accessArray = [0, 1];
+  const membersData = {};
+  membersData.members = allMembersData?.members?.filter((member) =>
+    accessArray.includes(member.role.access)
+  );
 
   const [menuColapse, setMenuColapse] = useState(false);
 
@@ -58,7 +64,8 @@ const GlobalsContextProvider = (props) => {
         menuColapse,
         availableRoles,
         width,
-        isMobile
+        isMobile,
+        allMembersData,
       }}
     >
       {!membersLoading && !membersError && props.children}

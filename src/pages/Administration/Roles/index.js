@@ -6,8 +6,8 @@ import {
   UPDATE_ROLE,
   CREATE_ROLE,
 } from "../../../graphql/Roles";
-import { GlobalsContext } from "../../../context/GlobalsProvider"
-import {  message, Skeleton } from "antd";
+import { GlobalsContext } from "../../../context/GlobalsProvider";
+import { message, Skeleton } from "antd";
 import { RolesComponent } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
 
@@ -29,7 +29,6 @@ const Roles = () => {
     open: false,
   });
   const { availableRoles } = useContext(GlobalsContext);
-
 
   const handleOpenModal = (role) => {
     setExcludeRole(role);
@@ -187,7 +186,9 @@ const Roles = () => {
                 />
               ))
             ) : (
-              <tr>Nenhum cargo cadastrado</tr>
+              <tr>
+                <th>Nenhum cargo cadastrado</th>
+              </tr>
             )}
           </tbody>
         </table>

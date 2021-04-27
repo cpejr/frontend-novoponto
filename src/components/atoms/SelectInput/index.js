@@ -1,6 +1,7 @@
 import React from "react";
 import { Select } from "antd";
 import { InputContainer, ErrorMessage } from "./styles";
+import { DefaultText } from "..";
 
 const SelectInput = ({
   options,
@@ -19,15 +20,23 @@ const SelectInput = ({
           onChange={(value) => callback(value)}
           className="inputSelect"
         >
-          <Option value="" className="inputSelect">Escolha um membro</Option>
+          <Option value="" className="inputSelect">
+            Escolha um membro
+          </Option>
           {options.map((option) => {
-            return <Option value={option} className="inputSelect">{option}</Option>;
+            return (
+              <Option value={option} className="inputSelect">
+                {option}
+              </Option>
+            );
           })}
         </Select>
+        {error && (
+          <DefaultText error={error} class="errorMessage">
+            {errorMessage}
+          </DefaultText>
+        )}
       </InputContainer>
-      {error && (
-        <ErrorMessage class="errorMessage">{errorMessage}</ErrorMessage>
-      )}
     </>
   );
 };

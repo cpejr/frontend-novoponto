@@ -93,9 +93,7 @@ const Sessions = ({ members, ...props }) => {
 
     if (!value || value !== "" || value.trim() !== "")
       setFilteredSessions(
-        loggedMembers?.filter((session) =>
-          RegExp(value.trim(), "ig").test(session.member.name)
-        )
+        loggedMembers?.filter((session) => session.includes(value.trim()))
       );
     else setFilteredSessions(loggedMembers);
   }
