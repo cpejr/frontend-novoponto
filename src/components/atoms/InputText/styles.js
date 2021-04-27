@@ -5,7 +5,7 @@ const InputTextContainer = styled.div`
   flex-direction: column;
 
   input {
-    border: ${(props) => (props.error ? "0.7px solid red" : "none")};
+    border: ${(props) => props.error && "0.7px solid red"};
   }
 
   img {

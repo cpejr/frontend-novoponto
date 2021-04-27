@@ -1,6 +1,6 @@
 import { EditOutlined, RestOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
-import React,  { useContext } from "react";
+import React, { useContext } from "react";
 import { DefaultLabel } from "../../../components/atoms";
 import { GlobalsContext } from "../../../context/GlobalsProvider";
 
@@ -11,7 +11,14 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
       <td className="roleColumn">{role.name}</td>
       <td className="isAdmColumn">
         {role.access > 0 && (
-          <DefaultLabel labelText={availableRoles[role.access]} labelColor="#FFD100" />
+          <DefaultLabel
+            labelText={
+              availableRoles.find(
+                (availableRole) => availableRole.value === role.access
+              )?.label
+            }
+            labelColor="#FFD100"
+          />
         )}
       </td>
       <td className="editColumn">

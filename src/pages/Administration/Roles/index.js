@@ -59,53 +59,60 @@ const Roles = () => {
   };
 
   const editOrCreateRole = (method, role) => {
+    const withInitialValue = method === "edit";
+
     var fields = [
       {
         key: "name",
         type: "text",
         label: "Cargo",
-        validator: validators.notEmpty,
+        validator: validators.antdRequired,
+        initialValue: withInitialValue ? role.name : undefined,
       },
       {
         key: "access",
         type: "select",
         label: "Permissão",
-        validator: validators.notEmpty,
+        validator: validators.antdRequired,
+        initialValue: withInitialValue ? role.access : undefined,
 
-        options: availableRoles.map((role) => ({
-          label: role,
-          value: role,
-        })),
+        options: availableRoles,
       },
     ];
-    method === "edit"
-      ? setEditOrCreateModalInfo({
-          title: "Editar Cargo",
-          fields: fields,
-          callback: updateRole,
-          open: true,
-          cancel: handleCloseEditOrCreate,
-          originalObject: {
-            _id: role._id,
-            name: role.name,
-            access: availableRoles[role.access],
-          },
-        })
-      : setEditOrCreateModalInfo({
-          title: "Criar Cargo",
-          fields: fields,
-          callback: createRole,
-          open: true,
-          cancel: handleCloseEditOrCreate,
-        });
+
+    const modalData = {
+      title: "",
+      fields: fields,
+      open: true,
+      cancel: handleCloseEditOrCreate,
+    };
+
+    if (method === "edit") {
+      modalData.title = "Editar Cargo";
+      modalData.onSubmit = updateRole(role._id);
+    } else {
+      modalData.title = "Criar Cargo";
+      modalData.onSubmit = createRole;
+    }
+
+    setEditOrCreateModalInfo(modalData);
   };
 
-  const updateRole = async (updatedRole) => {
-    const { _id, ...role } = updatedRole;
-    role.access = availableRoles.indexOf(role.access);
+  const updateRole = (roleId) => async (updatedRole) => {
+    const { Cargo, Permissão } = updatedRole;
+    const newRole = {
+      access: Permissão,
+      name: Cargo,
+    };
+
+    console.log(
+      "🚀 ~ file: index.js ~ line 106 ~ updateRole ~ updatedRole",
+      updatedRole
+    );
+
     var hide = message.loading("Atualizando");
     try {
-      await updateRoleMutation({ variables: { roleId: _id, data: role } });
+      await updateRoleMutation({ variables: { roleId, data: newRole } });
       hide();
       message.success("Alterado com sucesso", 2.5);
       refetch();
@@ -118,10 +125,16 @@ const Roles = () => {
   };
 
   const createRole = async (role) => {
-    role.access = availableRoles.indexOf(role.access);
     var hide = message.loading("Criando");
+
+    const { Cargo, Permissão } = role;
+    const newRole = {
+      access: Permissão,
+      name: Cargo,
+    };
+
     try {
-      await createRoleMutation({ variables: { data: role } });
+      await createRoleMutation({ variables: { data: newRole } });
       hide();
       message.success("Criado com sucesso", 2.5);
     } catch (err) {
@@ -202,14 +215,7 @@ const Roles = () => {
           handleOk={() => handleExcludeRole(excludeRole)}
           handleCancel={handleCloseModal}
         />
-        <FormModal
-          title={editOrCreateModalInfo.title}
-          fields={editOrCreateModalInfo.fields}
-          callback={editOrCreateModalInfo.callback}
-          open={editOrCreateModalInfo.open}
-          cancel={editOrCreateModalInfo.cancel}
-          originalObject={editOrCreateModalInfo.originalObject}
-        />
+        <FormModal {...editOrCreateModalInfo} />
       </RolesComponent>
     );
   }

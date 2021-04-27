@@ -6,7 +6,9 @@ const AutocompleteMemberInput = ({ onMemberChange, onChange, ...props }) => {
   const { membersData } = useContext(GlobalsContext);
 
   function handleChange(value) {
-    const member = membersData.members.find((member) => member._id === value);
+    const member = membersData.members.find(
+      (member) => member._id === value?.selectedOption?.value
+    );
 
     onMemberChange && onMemberChange(member);
     onChange && onChange(value);

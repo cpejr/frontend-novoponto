@@ -9,7 +9,11 @@ import { Members } from "../../graphql/Member";
 
 export const GlobalsContext = createContext();
 
-const availableRoles = ["Sem Administrador", "Administrador", "Adm Oculto"];
+const availableRoles = [
+  { label: "Sem Administrador", value: 0 },
+  { label: "Administrador", value: 1 },
+  { label: "Adm Oculto", value: 2 },
+];
 
 const GlobalsContextProvider = (props) => {
   const {

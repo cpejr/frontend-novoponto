@@ -16,7 +16,7 @@ import AutocompleteMemberInput from "../../components/organisms/AutoCompleteMemb
 import { SESSION_SUBSCRIPTION } from "../../graphql/Subscription";
 
 const Sessions = ({ members, ...props }) => {
-  const [memberTextToLogin, setMemberTextToLogin] = useState("");
+  const [memberTextToLogin, setMemberTextToLogin] = useState({});
   const [memberToLogout, setMemberToLogout] = useState();
   const [filteredSessions, setFilteredSessions] = useState([]);
   const [showLogoutAllMembers, setShowLogoutAllMembers] = useState(false);
@@ -73,7 +73,7 @@ const Sessions = ({ members, ...props }) => {
         message.warn(err.message, 2.5);
       } finally {
         memberToLogin.current = undefined;
-        setMemberTextToLogin();
+        setMemberTextToLogin({ text: "" });
       }
     }
   }
@@ -114,7 +114,7 @@ const Sessions = ({ members, ...props }) => {
         <div className="loginAndItsValidateSection">
           <form className="loginSection">
             <AutocompleteMemberInput
-              onTextChange={setMemberTextToLogin}
+              onChange={setMemberTextToLogin}
               value={memberTextToLogin}
               onMemberChange={(member) => (memberToLogin.current = member)}
               onKeyDown={(e) => {

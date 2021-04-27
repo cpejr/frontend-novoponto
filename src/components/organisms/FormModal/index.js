@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { FormContainer, InputGroup } from "./styles";
+import React, { useEffect } from "react";
 import Modal from "../../molecules/Modal";
 import AutoCompleteInput from "../../molecules/AutocompleteInput";
-import { CommonSelectBox, DefaultText, InputText } from "../../atoms";
+import { CommonSelectBox, InputText } from "../../atoms";
+import { Form } from "antd";
 
 // This Modal recieves an array of fields and deals with each one of them, including its type and validation
 // It can be used to create or edit any object, since the object has only simple keys (no arrays or objects inside it)
@@ -15,168 +15,82 @@ import { CommonSelectBox, DefaultText, InputText } from "../../atoms";
 //   type: "text, select or autocomplete (further options can be developed)",
 //   label: "label for the input",
 //   validator: "function called on validation. Should return "ok" or an error message. For text or select, receives only the input value; for autocomplete, receives the value and an array of its options",
-
+//   placeholder: "the place holder of the field"
 //   options: "in case its an autocomplete or select, the possible options",
+//   initialValue: "the initial value of the field"
+//   rules: "array of antd's rule functions" https://ant.design/components/form/#components-form-demo-register
 // };
 
-const FormModal = ({
-  title,
-  fields,
-  callback,
-  open,
-  cancel,
-  originalObject,
-}) => {
-  //The current value of the object that will be returned
-  const [currentValue, setCurrentValue] = useState({});
-
-  // Array representing reset flag for each field in the form
-  const [reset, setReset] = useState([]);
-
-  // Array representing error object for each field in the form
-  const [error, setError] = useState([]);
+const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
+  const [form] = Form.useForm();
 
   // Setting up the information when the modal is open
   useEffect(() => {
-    // If the goal is to update one object, this will be its initial value
-    if (originalObject) setCurrentValue({ ...originalObject });
-    else setCurrentValue({});
     if (fields) {
-      //If the goal is to create a new object, we need to set the inputs to empty strings
-      if (!originalObject) {
-        fields.forEach((field) => {
-          currentValue[field.key] = "";
-        });
-
-        setCurrentValue({ ...currentValue });
-      }
-
-      //Setting the error object as false for each field
-      setError(
-        fields.map(() => {
-          return { error: false, errorMessage: "" };
-        })
-      );
-
-      //Setting the reset flag as false for each field
-      setReset(
-        fields &&
-          fields.map(() => {
-            return false;
-          })
-      );
+      form.resetFields();
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [originalObject, fields]);
+  }, [fields, open]);
 
-  //Seting the value of the object that will be returned when select confirm
-  const handleChangeObject = (key, index, value) => {
-    const newReset = [...reset];
+  const handleSubmit = async () => {
+    try {
+      const data = await form.validateFields();
 
-    newReset[index] = true;
-    setReset(newReset);
-
-    const newCurrentValue = { ...currentValue };
-
-    newCurrentValue[key] = value;
-    setCurrentValue(newCurrentValue);
-
-    const newError = [...error];
-    newError[index] = { error: false, errorMessage: "" };
-    
-    setError(newError);
-  };
-
-  const handleConfirm = () => {
-    var isOk = true;
-    var validation;
-
-    //Validate each field using its validator. If its a autocomplete, we need to check if the value exists in option array. The validator returns "ok" or an error message
-    fields.forEach((field, index) => {
-      if (field.type === "autoComplete")
-        validation = field.validator(currentValue[field.key], field.options);
-      if (field.type === "text" || field.type === "select")
-        validation = field.validator(currentValue[field.key]);
-
-      //In case a validation fails, we can't send the object yet, so we set an error in the field and prevent the callback
-      if (validation !== "ok") {
-        isOk = false;
-        error[index] = { error: true, errorMessage: validation };
-        setError([...error]);
-      }
-    });
-
-    //If every validation is ok, we call the callback
-    if (isOk) {
-      callback(currentValue);
-    }
+      onSubmit && onSubmit(data);
+    } catch (error) {}
   };
 
   //Setting up the form fields
-  var showingFields =
-    fields &&
-    fields.map((field, index) => {
-      const { type, key, label, options, placeholder } = field;
-      const { error: inputError, errorMessage } = error[index] || {};
+  var showingFields = fields?.map((field) => {
+    const { type, label, options, placeholder, initialValue, rules } = field;
 
-      let inputField;
-      switch (type) {
-        case "autoComplete":
-          inputField = (
-            <AutoCompleteInput
-              options={options}
-              onTextChange={(value) => handleChangeObject(key, index, value)}
-              resetAutocompleteField={reset[index]}
-              initValue={originalObject ? originalObject[key] : ""}
-              error={inputError}
-              errorMessage={errorMessage}
-              placeholder={placeholder}
-            />
-          );
-          break;
-        case "select":
-          inputField = (
-            <CommonSelectBox
-              optionsList={options}
-              onChange={(value) => handleChangeObject(key, index, value)}
-              value={currentValue[key]}
-              error={inputError}
-              errorMessage={errorMessage}
-              placeholder={placeholder}
-            />
-          );
-          break;
+    let inputField;
+    switch (type) {
+      case "autoComplete":
+        inputField = (
+          <AutoCompleteInput
+            options={options}
+            placeholder={placeholder}
+            initialValue={initialValue}
+          />
+        );
+        break;
+      case "select":
+        inputField = (
+          <CommonSelectBox optionsList={options} placeholder={placeholder} />
+        );
+        break;
 
-        default:
-        case "text":
-          inputField = (
-            <InputText
-              value={currentValue[key]}
-              onChange={(e) => handleChangeObject(key, index, e.target.value)}
-              error={inputError}
-              errorMessage={errorMessage}
-              placeholder={placeholder}
-            />
-          );
-          break;
-      }
+      default:
+      case "text":
+        inputField = <InputText placeholder={placeholder} />;
+        break;
+    }
 
-      return (
-        <InputGroup key={index}>
-          <DefaultText error={inputError}>{label}</DefaultText>
-          {inputField}
-        </InputGroup>
-      );
-    });
+    return (
+      <Form.Item
+        name={label}
+        label={label}
+        rules={rules}
+        hasFeedback
+        initialValue={initialValue}
+      >
+        {inputField}
+      </Form.Item>
+    );
+  });
 
   return (
     <Modal
       isVisible={open}
       handleCancel={cancel}
-      handleOk={handleConfirm}
+      handleOk={handleSubmit}
       title={title}
     >
-      <FormContainer>{showingFields}</FormContainer>
+      <Form layout="vertical" form={form}>
+        {showingFields}
+      </Form>
     </Modal>
   );
 };
