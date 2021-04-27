@@ -7,8 +7,8 @@ import {
   DeleteMember,
   CreateMember,
 } from "../../../graphql/Member";
-import { Tooltip, message, Skeleton } from "antd";
-import { MembersComponent } from "./styles";
+import { Tooltip, message, Skeleton, Table } from "antd";
+import { MembersComponent, ActionsDiv } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
 
 import {
@@ -23,6 +23,8 @@ import FormModal from "../../../components/organisms/FormModal";
 import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";
 
 import validators from "../../../services/validators";
+
+const { Column, ColumnGroup } = Table;
 
 const Members = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -255,48 +257,41 @@ const Members = () => {
         />
       </div>
 
-      <table className="roleTable">
-        <thead>
-          <tr>
-            <th className="memberColumn">Nome</th>
-            <th className="roleColumn">Cargo</th>
-            <th className="roleColumn">Responsável</th>
-            <th className="roleColumn"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredMembers?.map((item) => (
-            <tr key={item._id}>
-              <td className="memberColumn">{item?.name}</td>
-              <td className="roleColumn">
-                <DefaultLabel
-                  labelText={item?.role?.name}
-                  labelColor="#FFD100"
-                />
-              </td>
-              <td className="responsibleColum">{item?.responsible?.name}</td>
-              <td className="editColumn">
-                <Tooltip
-                  placement="topLeft"
-                  title={"Editar"}
-                  onClick={() => editOrCreateMember("edit", item)}
-                >
-                  <EditOutlined />
-                </Tooltip>
+      <Table dataSource={filteredMembers} pagination={false}>
+        <Column title="Name" dataIndex="name" key="name" />
+        <Column
+          title="Cargo"
+          dataIndex="role"
+          key="role"
+          width={200}
+          render={(role) => <DefaultLabel labelText={role.name} />}
+        />
+        <Column
+          title="Assessor"
+          dataIndex="responsible"
+          key="responsible"
+          render={(responsible) => responsible.name}
+        />
+        <Column
+          key="action"
+          width={120}
+          render={(data) => (
+            <ActionsDiv>
+              <Tooltip
+                placement="topLeft"
+                title={"Editar"}
+                onClick={() => editOrCreateMember("edit", data)}
+              >
+                <EditOutlined />
+              </Tooltip>
 
-                <Tooltip placement="topLeft" title={"Excluir"}>
-                  <RestOutlined onClick={() => handleOpenModal(item)} />
-                </Tooltip>
-              </td>
-            </tr>
-          ))}
-          {filteredMembers.length === 0 && (
-            <tr>
-              <td colSpan={2}>Nenhum cargo cadastrado</td>
-            </tr>
+              <Tooltip placement="topLeft" title={"Excluir"}>
+                <RestOutlined onClick={() => handleOpenModal(data)} />
+              </Tooltip>
+            </ActionsDiv>
           )}
-        </tbody>
-      </table>
+        />
+      </Table>
       <ConfirmationModal
         title="Apagar membro"
         content={`Deseja mesmo apagar o membro "${excludeMember.name}"?`}
