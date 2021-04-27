@@ -137,7 +137,7 @@ const AutocompleteInput = ({
   useEffect(() => {
     setData({
       ...data,
-      text: value.text,
+      text: value?.text,
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
