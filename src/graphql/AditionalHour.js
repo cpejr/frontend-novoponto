@@ -19,13 +19,24 @@ const SendAditionalHour = gql`
   ${DefaultHourFields}
 `;
 
+const DeleteAditionalHour = gql`
+  mutation DeleteAditionalHour($_id: ID!) {
+    deleteAditionalHour(_id: $_id)
+  }
+`;
+
 const AditionalHours = gql`
-  query AditionalHours($memberId: ID!, $startDate: DateScalar, $endDate: DateScalar){
-  aditionalHours(
-    memberId: $memberId
-    startDate: $startDate
-    endDate: $endDate
+  query AditionalHours(
+    $memberId: ID!
+    $startDate: DateScalar
+    $endDate: DateScalar
+  ) {
+    aditionalHours(
+      memberId: $memberId
+      startDate: $startDate
+      endDate: $endDate
     ) {
+      _id
       date
       amount
       action
@@ -40,6 +51,7 @@ export {
   DefaultHourFields,
   //Mutations
   SendAditionalHour,
+  DeleteAditionalHour,
   //Query
-  AditionalHours
+  AditionalHours,
 };

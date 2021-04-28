@@ -147,6 +147,7 @@ const FetchCompiledForHC = gql`
         formatedDuration
       }
       aditionalHours {
+        _id
         date
         amount
         action

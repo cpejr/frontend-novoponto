@@ -17,7 +17,9 @@ const { RangePicker } = DatePicker;
 const HourFollowing = () => {
   const [selected, setSelected] = useState();
 
-  const [loadAditional, { data }] = useLazyQuery(AditionalHours);
+  const [loadAdditional, { data }] = useLazyQuery(AditionalHours, {
+    fetchPolicy: "network-only",
+  });
 
   const aditionalHours = data?.aditionalHours || [];
 
@@ -59,15 +61,18 @@ const HourFollowing = () => {
     }
   };
 
+  function loadData() {
+    return loadAdditional({
+      variables: {
+        memberId: selected._id,
+        startDate: startDate?.toISOString(),
+        endDate: endDate?.toISOString(),
+      },
+    });
+  }
+
   useEffect(() => {
-    if (startDate && endDate && selected)
-      loadAditional({
-        variables: {
-          memberId: selected._id,
-          startDate: startDate?.toISOString(),
-          endDate: endDate?.toISOString(),
-        },
-      });
+    if (startDate && endDate && selected) loadData();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected, rangeDate]);
@@ -106,7 +111,10 @@ const HourFollowing = () => {
               value={rangeDate}
               placeholder={["Inicio", "Fim"]}
             />
-            <HomeOfficeTable aditionalHours={aditionalHours} />
+            <HomeOfficeTable
+              aditionalHours={aditionalHours}
+              onDelete={loadData}
+            />
           </>
         )}
       </HourFollowingContainer>

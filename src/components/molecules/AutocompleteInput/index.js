@@ -180,7 +180,7 @@ const AutocompleteInput = ({
           onChange={onChange}
           onKeyDown={onKeyDown}
           onBlur={onBlur}
-          autocomplete="off"
+          autoComplete="off"
         />
       </Dropdown>
 

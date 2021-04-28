@@ -6,7 +6,7 @@ import { AditionalHourTableArea } from "./styles";
 import { Table, Collapse } from "antd";
 import { getColumns } from "./columns";
 
-const HomeOfficeTable = ({ aditionalHours }) => {
+const HomeOfficeTable = ({ aditionalHours, onDelete }) => {
   const { themeColors } = useContext(ThemeContext);
   const { data } = useContext(SessionContext);
 
@@ -17,7 +17,7 @@ const HomeOfficeTable = ({ aditionalHours }) => {
       data?.member?.role?.access > 0 ||
       !!aditionalHours?.find((item) => !!item.description);
 
-    setColums(getColumns(themeColors, visible));
+    setColums(getColumns(themeColors, visible, onDelete));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [aditionalHours, themeColors]);

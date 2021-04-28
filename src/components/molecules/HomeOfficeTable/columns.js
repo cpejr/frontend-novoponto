@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { HourDisplayer, InfoDisplayer, DefaultText } from "../../atoms";
 import moment from "moment";
 
-import { FlexDiv } from "./styles";
+import { FlexDiv, ActionsDivContainer } from "./styles";
+import { message, Tooltip } from "antd";
+import { RestOutlined } from "@ant-design/icons";
+import { useMutation } from "@apollo/client";
+import { DeleteAditionalHour } from "../../../graphql/AditionalHour";
 
 function getOperation(op) {
   switch (op) {
@@ -15,7 +19,7 @@ function getOperation(op) {
   }
 }
 
-function getColumns(themeColors, hasComment) {
+function getColumns(themeColors, hasComment, onDelete) {
   const columns = [
     {
       title: "Dia",
@@ -57,14 +61,50 @@ function getColumns(themeColors, hasComment) {
     },
   ];
 
-  if (hasComment)
+  if (hasComment) {
     columns.push({
       title: "O que fez",
       dataIndex: "description",
       key: "description",
       render: (description) => <DefaultText>{description}</DefaultText>,
     });
+
+    columns.push({
+      key: "actions",
+      render: (data) => (
+        <ActionsDiv onDelete={onDelete} additionalHour={data} />
+      ),
+    });
+  }
   return columns;
+}
+
+function ActionsDiv({ additionalHour, onDelete, ...props }) {
+  const [deleteAdditionalHourMutation] = useMutation(DeleteAditionalHour);
+
+  async function handleDelete() {
+    const hide = message.loading("Deletando...");
+    try {
+      await deleteAdditionalHourMutation({
+        variables: { _id: additionalHour._id },
+      });
+      hide();
+
+      onDelete && onDelete(additionalHour._id);
+      message.success("Deletado com sucesso!");
+    } catch (error) {
+      hide();
+      message.error("Ocorreu um erro, tente novamente mais tarde.");
+    }
+  }
+
+  return (
+    <ActionsDivContainer>
+      <Tooltip placement="topLeft" title={"Excluir"}>
+        <RestOutlined onClick={handleDelete} />
+      </Tooltip>
+    </ActionsDivContainer>
+  );
 }
 
 export { getColumns };
