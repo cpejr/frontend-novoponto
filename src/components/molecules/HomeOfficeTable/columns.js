@@ -48,8 +48,7 @@ function getColumns(themeColors, hasComment) {
       render: (formatedAmount) => (
         <FlexDiv>
           <HourDisplayer
-            dateOrTime={"time"}
-            hour={formatedAmount}
+            text={formatedAmount}
             hourColor={themeColors.yellow}
           />
         </FlexDiv>

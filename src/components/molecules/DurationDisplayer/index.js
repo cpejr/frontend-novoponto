@@ -37,9 +37,8 @@ const DurationDisplayer = ({
   
   return (
       <HourDisplayer 
-        hour={durationTime}
-        hourColor={color} 
-        dateOrTime="time"
+        text={durationTime}
+        hourColor={color}
       />
   );
 };

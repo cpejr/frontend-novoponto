@@ -28,9 +28,8 @@ const SessionRow = ({ session, onLogout, ...props }) => {
       </td>
       <td className="startTime">
         <HourDisplayer
-          hour={session.start}
+          date={session.start}
           hourColor={themeColors.green}
-          dateOrTime={"date"}
         />
       </td>
       <td className="finishTime">

@@ -2,17 +2,20 @@ import React from "react";
 import HourDisplayerContainer from "./styles";
 import moment from "moment";
 
+/**
+ * Componente para exibir tempo
+ */
+
 const HourDisplayer = ({
   text,
-  hour,
+  date,
   hourColor,
-  dateOrTime = "date",
   ...props
 }) => {
-  if (text || hour) {
+  if (text || date) {
     return (
       <HourDisplayerContainer color={hourColor} {...props}>
-        {hour && dateOrTime === "date" ? moment(hour).format("HH:mm") : hour}
+        {date!=="" && moment(date).format("HH:mm")}
         {text}
       </HourDisplayerContainer>
     );

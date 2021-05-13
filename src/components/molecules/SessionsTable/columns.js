@@ -21,7 +21,7 @@ function getColumns(themeColors) {
       key: "start",
       render: (start) => (
         <FlexDiv>
-          <HourDisplayer hour={start} hourColor={themeColors.green} />
+          <HourDisplayer date={start} hourColor={themeColors.green} />
         </FlexDiv>
       ),
     },
@@ -31,7 +31,7 @@ function getColumns(themeColors) {
       key: "end",
       render: (end) => (
         <FlexDiv>
-          <HourDisplayer hour={end} hourColor={themeColors.green} />
+          <HourDisplayer text={end} hourColor={themeColors.green} />
         </FlexDiv>
       ),
     },
