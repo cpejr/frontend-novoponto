@@ -34,7 +34,7 @@ const UpdatedNews = () => {
   };
 
   const handleDeleteNewsBox = (whichNewsBoxIndex) => {
-    numberOfNewsBox.splice(whichNewsBoxIndex, 1);
+    numberOfNewsBox.splice(whichNewsBoxIndex - 1, 1);
     setNumberOfNewsBox([...numberOfNewsBox]);
   };
 
