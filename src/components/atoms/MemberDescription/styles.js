@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const MemberDescriptionContainer = styled.div`
     width: auto;
-    max-width: 200px;
     display: flex;
     text-align: center;
     color: #5C5C5C;

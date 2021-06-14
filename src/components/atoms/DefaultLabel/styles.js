@@ -13,6 +13,8 @@ const DefaultLabelContainer = styled.div`
   color: ${(props) => props.color || "red"};
   font-size: 12px;
   font-weight: normal;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 export default DefaultLabelContainer;
