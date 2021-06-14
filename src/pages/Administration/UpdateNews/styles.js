@@ -66,6 +66,12 @@ const UpdatedNewsComponent = styled.div`
     cursor: pointer;
   }
 
+  .buttonArea {
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
   @media (max-width: 720px) {
     .innerBoxNewsContainer {
       width: 100%;
@@ -96,6 +102,48 @@ const SingleNewsBox = styled.div`
 
   .titleAreaSingleNewsBox img {
     cursor: pointer;
+  }
+
+  .wrapperClassName {
+    min-height: 100px;
+    width: 100%;
+    color: #000;
+  }
+
+  .toolbarClassName a {
+    color: #000;
+  }
+  .editorClassName {
+    height: 250px;
+    overflow: auto;
+    width: 100%;
+    background: #fff;
+    color: #000;
+
+    padding: 0px 8px;
+  }
+
+  .editorClassName h1 {
+    color: #000;
+  }
+
+  .previewContainer {
+    width: 100%;
+    border: 1px solid #f4f4f4;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 8px;
+  }
+
+  .previewContainer > span {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 720px) {
+    & + & {
+      margin-top: 16px;
+    }
   }
 `;
 

@@ -7,6 +7,7 @@ import {
   InMemoryCache,
   split,
 } from "@apollo/client";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { WebSocketLink } from "@apollo/client/link/ws";
 
