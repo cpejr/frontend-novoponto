@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const PontoComponent = styled.div`
-
   .fullContentPagePoint {
     width: 90%;
     min-height: 100vh;
@@ -16,24 +15,33 @@ const PontoComponent = styled.div`
     justify-content: space-evenly;
     align-items: center;
 
-    padding: 0px 20px;
-
-    .news {
-      width: 500px;
-      height: 250px;
-      background-color: #000000;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 10px;
-
-      img {
-        max-height: 90%;
-      }
+    .carousel-root {
+      width: 100%;
     }
-    .news + .news {
-      margin-left: 30px;
+
+    .newsWrapper {
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      .news {
+        width: 250px;
+        height: 250px;
+        background-color: #000000;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+
+        img {
+          max-height: 90%;
+        }
+      }
+      .news + .news {
+        margin-left: 30px;
+      }
     }
   }
 
@@ -180,7 +188,7 @@ const PontoComponent = styled.div`
 
   td.logoutButton button {
     width: 100%;
-    background-color: #1D1D1D;
+    background-color: #1d1d1d;
   }
 `;
 

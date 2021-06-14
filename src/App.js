@@ -8,6 +8,7 @@ import {
   split,
 } from "@apollo/client";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { WebSocketLink } from "@apollo/client/link/ws";
 
