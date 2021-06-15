@@ -29,7 +29,7 @@ const MemberDataADM = ({
         <div className="roleSquare">
           <DefaultLabel
             labelText={role}
-            labelColor="#FFD100"
+            labelColor="#00a6c5"
           />
         </div>
         <TextArea value={message} onChange={(e) => setMessage(e.target.value)} />

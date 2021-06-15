@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { LeftOutlined } from '@ant-design/icons'; 
 import { StandByComponent } from './styles';
 import { ThemeContext } from '../../context/ThemeProvider';
-import logoCPE from '../../assets/logoCPE.png';
+import logo from '../../assets/logo.png';
 
 const StandBy = () => {
     const { themeColors } = useContext(ThemeContext);
@@ -23,7 +23,7 @@ const StandBy = () => {
             // INJECT CSS
             var css = document.createElement("style");
             // css.type = "text/css";
-            css.innerHTML = ".txt-rotate > .wrap { height: 100px; border-right: 0.18em solid #FFD100; border-radius: 5px 5px 5px 5px; }";
+            css.innerHTML = ".txt-rotate > .wrap { height: 100px; border-right: 0.18em solid #00a6c5; border-radius: 5px 5px 5px 5px; }";
             document.body.appendChild(css);
         };
         carregou();
@@ -74,7 +74,7 @@ const StandBy = () => {
 
     return (
         <StandByComponent theme={themeColors}>
-            <img src={logoCPE} alt="Consultoria e Projetos Elétricos Junior" />
+            <img src={logo} alt="Consultoria e Projetos Elétricos Junior" />
             <h1 style={{color: '#fff'}}>
                 Somos 
                 <span

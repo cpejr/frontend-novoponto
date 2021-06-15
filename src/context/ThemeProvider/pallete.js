@@ -1,14 +1,14 @@
 const palette = {
   orange400: "#F68D14",
 
-  greenMoss: "rgba(49, 216, 67, 0.5)",
-  greenMossHover: "rgba(49, 230, 67, 0.7)",
+  greenMoss: "#7F6FAE",
+  greenMossHover: "#7F6FAE",
 
   red300: "#CA191B",
   red300Hover: "#CA301B",
 
-  yellowCPEPrimary: "#FFD100",
-  yellowMustard: "#8A6B0E",
+  yellowCPEPrimary: "#00a6c5",
+  yellowMustard: "#007B92",
 
   blue400: "#227ECF",
   blueSky: "#0085FF",

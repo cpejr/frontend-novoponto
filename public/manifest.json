@@ -3,13 +3,13 @@
   "name": "Ponto CPE",
   "icons": [
     {
-      "src": "/logoCPE.png",
+      "src": "/logo.png",
       "sizes": "192x192",
       "type": "image/png"
     }
   ],
   "start_url": "/",
-  "theme_color": "#FFD100",
+  "theme_color": "#00a6c5",
   "background_color": "#1D1D1D",
   "display": "standalone",
   "scope": "/"

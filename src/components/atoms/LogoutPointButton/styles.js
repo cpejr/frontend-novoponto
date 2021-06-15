@@ -19,7 +19,7 @@ const LogoutPointButtonContainer = styled.div`
     transition: color 0.5s;
 
     &:hover {
-      color: #ffd100;
+      color: #00a6c5;
     }
   }
 

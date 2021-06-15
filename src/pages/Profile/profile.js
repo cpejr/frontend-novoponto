@@ -52,7 +52,7 @@ const Profile = () => {
           {data?.member?.role && (
             <DefaultLabel
               labelText={data?.member?.role?.name}
-              labelColor="#FFD100"
+              labelColor="#00a6c5"
             />
           )}
         </div>
