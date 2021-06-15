@@ -3,7 +3,6 @@ import styled from "styled-components";
 const MemberDescriptionContainer = styled.div`
   width: auto;
   display: flex;
-  text-align: center;
   color: #5c5c5c;
   font-size: 14px;
   font-weight: 400;

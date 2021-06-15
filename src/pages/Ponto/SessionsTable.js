@@ -7,16 +7,16 @@ const SessionsTable = ({ sessions, onLogout, ...props }) => {
     <table className="table table-borderless" {...props}>
       <thead>
         <tr className="customHeader">
-          <th scope="col-sm-6 d-flex ">
+          <th className="col-6">
             <p className="m-0 ms-4">Membro</p>
           </th>
-          <th scope="d-sm-none d-flex col-sm-2 justify-content-center flex-colum">
+          <th className="col-2 d-none d-sm-table-cell">
             <p className="m-0 text-center">Chegada</p>
           </th>
-          <th scope="d-sm-none d-flex col-sm-2 text-center">
+          <th className="col-3 col-sm-2 text-center">
             <p className="m-0 text-center">Tempo</p>
           </th>
-          <th scope="col-sm-2"></th>
+          <th scope="col-3 col-sm-2"></th>
         </tr>
       </thead>
       <tbody>

@@ -3,9 +3,10 @@ import MemberDescriptionContainer from "./styles";
 
 const MemberDescription = ({ description, ...props }) => {
   if (description) {
+    const text = `- "${description}"`;
     return (
-      <MemberDescriptionContainer {...props}>
-        - "{description}"
+      <MemberDescriptionContainer {...props} title={text}>
+        {text}
       </MemberDescriptionContainer>
     );
   } else {

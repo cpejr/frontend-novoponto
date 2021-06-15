@@ -32,37 +32,6 @@ const PontoComponent = styled.div`
     }
   }
 
-  .pointSection {
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .searchesSubsection {
-      width: 100%;
-      height: 60px;
-      /* padding: 0px 20px; */
-
-      display: flex;
-      justify-content: space-between;
-
-      .loginAndItsValidateSection {
-        .validateMessageLogin {
-          color: red;
-          font-size: 12px;
-        }
-
-        .loginSection {
-          display: flex;
-          flex-direction: row;
-          justify-content: flex-start;
-          flex-wrap: wrap;
-        }
-      }
-    }
-  }
-
   td.logoutButton button {
     width: 100%;
     background-color: #1d1d1d;

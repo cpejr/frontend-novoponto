@@ -104,31 +104,31 @@ const Sessions = ({ members, ...props }) => {
 
   return (
     <div className="pointSection">
-      <div className="searchesSubsection">
-        <InputText
-          ref={filterMemberField}
-          icon={searchIcon}
-          placeholder="Pesquisar membros"
-          onChange={updateFilter}
-        />
-        <div className="loginAndItsValidateSection">
-          <form className="loginSection">
-            <AutocompleteMemberInput
-              onChange={setMemberTextToLogin}
-              value={memberTextToLogin}
-              onMemberChange={(member) => (memberToLogin.current = member)}
-              onKeyDown={(e) => {
-                if (e.keyCode === 13) {
-                  e.preventDefault();
-                  handleLogin();
-                }
-              }}
-            />
-            <Button width="84px" onClick={handleLogin}>
-              Login
-            </Button>
-          </form>
+      <div className="d-flex flex-column-reverse flex-sm-row flex-grow justify-content-between my-3">
+        <div className="mt-sm-0 mt-3 col-sm-6 col-md-5 col-lg-4 col-xl-3">
+          <InputText
+            ref={filterMemberField}
+            icon={searchIcon}
+            placeholder="Pesquisar membros"
+            onChange={updateFilter}
+          />
         </div>
+        <form className="d-flex ms-0 ms-sm-3 col-sm-6 col-md-5 col-lg-4 col-xl-3 justify-content-end">
+          <AutocompleteMemberInput
+            onChange={setMemberTextToLogin}
+            value={memberTextToLogin}
+            onMemberChange={(member) => (memberToLogin.current = member)}
+            onKeyDown={(e) => {
+              if (e.keyCode === 13) {
+                e.preventDefault();
+                handleLogin();
+              }
+            }}
+          />
+          <Button width="84px" onClick={handleLogin}>
+            Login
+          </Button>
+        </form>
       </div>
 
       <div className="w-100 table-responsive">

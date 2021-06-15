@@ -11,14 +11,6 @@ const Ponto = () => {
 
   return (
     <PontoComponent theme={themeColors} className="m-0 m-lg-5">
-      <div className="newsSection">
-        <div className="news">
-          <img src={defaultNews} alt="Confira as novidades" />
-        </div>
-        <div className="news">
-          <img src={defaultNews} alt="Confira as novidades" />
-        </div>
-      </div>
       <Sessions />
     </PontoComponent>
   );
