@@ -10,18 +10,16 @@ const Ponto = () => {
   const { themeColors } = useContext(ThemeContext);
 
   return (
-    <PontoComponent theme={themeColors}>
-      <div className="fullContentPagePoint">
-        <div className="newsSection">
-          <div className="news">
-            <img src={defaultNews} alt="Confira as novidades" />
-          </div>
-          <div className="news">
-            <img src={defaultNews} alt="Confira as novidades" />
-          </div>
+    <PontoComponent theme={themeColors} className="m-0 m-lg-5">
+      <div className="newsSection">
+        <div className="news">
+          <img src={defaultNews} alt="Confira as novidades" />
         </div>
-        <Sessions />
+        <div className="news">
+          <img src={defaultNews} alt="Confira as novidades" />
+        </div>
       </div>
+      <Sessions />
     </PontoComponent>
   );
 };

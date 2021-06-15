@@ -1,10 +1,12 @@
 import React from "react";
 import MemberDescriptionContainer from "./styles";
 
-const MemberDescription = ({ description }) => {
+const MemberDescription = ({ description, ...props }) => {
   if (description) {
     return (
-      <MemberDescriptionContainer>- "{description}"</MemberDescriptionContainer>
+      <MemberDescriptionContainer {...props}>
+        - "{description}"
+      </MemberDescriptionContainer>
     );
   } else {
     return <MemberDescriptionContainer />;

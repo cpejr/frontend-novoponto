@@ -7,7 +7,7 @@ import {
   MemberDescription,
   MemberAvatar,
 } from "../../atoms";
-import { Col, Row } from "antd";
+import { Row, Col } from "react-bootstrap";
 
 const LoggedMembers = ({
   name,
@@ -17,28 +17,24 @@ const LoggedMembers = ({
   description,
 }) => {
   return (
-    <LoggedMembersContainer>
-      <Row gutter={[16, 0]} wrap={false}>
-        <Col>
+    <LoggedMembersContainer className="container">
+      <Row className="flex-nowrap">
+        <Col sm="auto" xs="auto">
           <MemberAvatar src={imageLink} />
         </Col>
         <Col>
-          <Row gutter={[8, 0]} wrap={false}>
-            <MemberName name={name} className="namePart" />
-            <MemberDescription description={description} />
+          <Row className="flex-nowrap">
+            <MemberName name={name} className="p-0" />
+            <MemberDescription description={description} className="ms-2 p-0 d-none d-lg-block"/>
           </Row>
-          <Row gutter={[8, 0]} wrap={false} style={{ marginTop: 8 }}>
-            <Col>
-              {role && <DefaultLabel labelText={role} labelColor="#FFD100" />}
-            </Col>
-            <Col>
-              {mandatoryHour && (
-                <DefaultLabel
-                  labelText="Horário obrigatório"
-                  labelColor="#0085FF"
-                />
-              )}
-            </Col>
+          <Row style={{ marginTop: 8 }}>
+            {role && <DefaultLabel labelText={role} labelColor="#FFD100" />}
+            {mandatoryHour && (
+              <DefaultLabel
+                labelText="Horário obrigatório"
+                labelColor="#0085FF"
+              />
+            )}
           </Row>
         </Col>
       </Row>

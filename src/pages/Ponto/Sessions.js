@@ -131,7 +131,7 @@ const Sessions = ({ members, ...props }) => {
         </div>
       </div>
 
-      <div className="subSectionLoggedMembers">
+      <div className="w-100 table-responsive">
         <SessionsTable
           sessions={filteredSessions}
           onLogout={({ member }) => setMemberToLogout(member)}
