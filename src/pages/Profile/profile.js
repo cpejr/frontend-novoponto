@@ -12,11 +12,11 @@ import {
 import { SessionContext } from "../../context/SessionProvider";
 import SaveButton from "../../components/molecules/SaveButton";
 import ConfirmationModal from "../../components/molecules/Modal";
+import { Row } from "antd";
 
 const Profile = () => {
-  const { data, logOut, updateSelf, getSessionData } = useContext(
-    SessionContext
-  );
+  const { data, logOut, updateSelf, getSessionData } =
+    useContext(SessionContext);
   const [isConfirmationVis, setIsConfirmationVis] = useState(false);
 
   const [status, setStatus] = useState(data?.member?.status || "");
@@ -45,18 +45,20 @@ const Profile = () => {
 
   return (
     <>
-      <div className="row">
-        <MemberAvatar src={data?.member?.imageLink} />
-        <div className="col-1">
-          <MemberName name={data?.member?.name} className="namePart" />
-          {data?.member?.role && (
-            <DefaultLabel
-              labelText={data?.member?.role?.name}
-              labelColor="#FFD100"
-            />
-          )}
-        </div>
-        <LogoutPointButton className="exitButton" onClick={handleLogOut} />
+      <div className="d-flex flex-column-reverse flex-sm-row mb-2 justify-content-between">
+        <Row>
+          <MemberAvatar src={data?.member?.imageLink} className="col-auto" />
+          <div className="d-flex flex-column justify-content-around ms-2">
+            <MemberName name={data?.member?.name} className="namePart" />
+            {data?.member?.role && (
+              <DefaultLabel
+                labelText={data?.member?.role?.name}
+                labelColor="#FFD100"
+              />
+            )}
+          </div>
+        </Row>
+        <LogoutPointButton className="col-12 col-sm-3 mb-3 mb-sm-0" onClick={handleLogOut} />
       </div>
       <div>
         <DefaultText>Assessor: {data?.member?.responsible?.name}</DefaultText>
