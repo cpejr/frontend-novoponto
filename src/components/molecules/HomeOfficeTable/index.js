@@ -25,7 +25,7 @@ const HomeOfficeTable = ({ aditionalHours, onDelete }) => {
   return (
     <AditionalHourTableArea>
       <Collapse ghost defaultActiveKey={"1"}>
-        <Collapse.Panel header={<h3>Horas Adicionais: </h3>} key="1">
+        <Collapse.Panel header={<h6>Horas Adicionais: </h6>} key="1">
           <Table
             columns={columns}
             dataSource={aditionalHours?.map((aditional) => ({

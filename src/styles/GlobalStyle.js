@@ -50,6 +50,10 @@ const GlobalStyle = createGlobalStyle`
       border-radius: 10px;
     }      
   }
+
+  .anticon {
+    vertical-align: 0;
+  }
 `;
 
 export default GlobalStyle;
