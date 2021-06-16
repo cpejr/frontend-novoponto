@@ -1,5 +1,5 @@
 import React from "react";
-import { LoggedMembersContainer, MemberDataSection } from "./styles";
+import { LoggedMembersContainer } from "./styles";
 
 import {
   DefaultLabel,

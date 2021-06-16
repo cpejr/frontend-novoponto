@@ -29,8 +29,6 @@ const Sessions = ({ members, ...props }) => {
   const memberToLogin = useRef();
 
   const {
-    loading: loadingLoggedMembers,
-    error: errorLoggedMembers,
     data: loggedData,
     refetch: refetchLoggedMembers,
   } = useQuery(LOGGED_MEMBERS);
@@ -138,7 +136,7 @@ const Sessions = ({ members, ...props }) => {
         />
       </div>
 
-      <div className="buttonLogouAllMembers">
+      <div className="d-flex justify-content-end">
         <Button onClick={() => setShowLogoutAllMembers(true)}>
           Deslogar todos os membros
         </Button>

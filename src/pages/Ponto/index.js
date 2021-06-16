@@ -2,8 +2,6 @@ import React, { useContext } from "react";
 import { PontoComponent } from "./styles";
 import { ThemeContext } from "../../context/ThemeProvider";
 
-import defaultNews from "../../assets/defaultNews.svg";
-
 import Sessions from "./Sessions";
 
 const Ponto = () => {
