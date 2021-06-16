@@ -52,7 +52,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .anticon {
-    vertical-align: 0;
+    vertical-align: 1px;
   }
 `;
 

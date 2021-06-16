@@ -11,7 +11,7 @@ import {
 import { InputText } from "../../components/atoms";
 import searchIcon from "../../assets/searchIcon.svg";
 import SessionsTable from "./SessionsTable";
-import ConfirmationModal from "../../components/molecules/Modal";
+import ConfirmationModal from "../../components/molecules/ConfirmationModal";
 import AutocompleteMemberInput from "../../components/organisms/AutoCompleteMemberInput";
 import { SESSION_SUBSCRIPTION } from "../../graphql/Subscription";
 

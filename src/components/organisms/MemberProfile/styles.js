@@ -36,6 +36,7 @@ const MemberProfileContainer = styled.div`
     flex-direction: column;
     flex-grow: 1;
     border-radius: 2px;
+    white-space: pre-line;
   }
 
   .message textarea {

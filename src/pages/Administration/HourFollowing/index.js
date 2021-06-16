@@ -25,11 +25,11 @@ const HourFollowing = () => {
     setSelected(member);
   };
 
-  const saveData = async (newMessage) => {
+  const saveData = async (newFields) => {
     var hide = message.loading("Salvando");
     try {
       await updateMember({
-        variables: { memberId: selected._id, data: { message: newMessage } },
+        variables: { memberId: selected._id, data: newFields },
       });
       hide();
       message.success("Salvo com sucesso", 2.5);
@@ -62,7 +62,11 @@ const HourFollowing = () => {
         {selected && (
           <>
             <OutlinedBox className="outlinedBox mt-4">
-              <MemberProfile member={selected} showAsAdministrator />
+              <MemberProfile
+                member={selected}
+                showAsAdministrator
+                onSave={saveData}
+              />
             </OutlinedBox>
             <div className="mt-4 d-flex flex-column">
               <MemberHistory memberId={selected?._id} />

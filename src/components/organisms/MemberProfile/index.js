@@ -9,7 +9,7 @@ import {
   TextArea,
 } from "../../atoms";
 import SaveButton from "../../molecules/SaveButton";
-import ConfirmationModal from "../../molecules/Modal";
+import ConfirmationModal from "../../molecules/ConfirmationModal";
 import { Row } from "antd";
 import { MemberProfileContainer } from "./styles";
 

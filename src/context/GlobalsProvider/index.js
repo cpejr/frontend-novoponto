@@ -6,6 +6,8 @@ import waitLottie from "../../assets/lotties/loading.json";
 import errorLottie from "../../assets/lotties/error-girl.json";
 import { DefaultText } from "../../components/atoms";
 import { Members } from "../../graphql/Member";
+import { Modal } from "antd";
+import { LastChangeLog } from "../../graphql/Changelog";
 
 export const GlobalsContext = createContext();
 
@@ -23,6 +25,8 @@ const GlobalsContextProvider = (props) => {
     refetch: refetchMembers,
   } = useQuery(Members);
 
+  const { data: currentVersionData } = useQuery(LastChangeLog);
+
   const accessArray = [0, 1];
   const membersData = {};
   membersData.members = allMembersData?.members?.filter((member) =>
@@ -30,6 +34,7 @@ const GlobalsContextProvider = (props) => {
   );
 
   const [menuColapse, setMenuColapse] = useState(false);
+  const [hasNewUpdate, setHasNewUpdate] = useState(false);
 
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 640;
@@ -48,10 +53,40 @@ const GlobalsContextProvider = (props) => {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
+  useEffect(() => {
+    if (currentVersionData) {
+      const { lastChangeLog } = currentVersionData;
+      const oldVersion = parseInt(localStorage.getItem("version"));
+      if (isNaN(oldVersion) || oldVersion < lastChangeLog.version)
+        setHasNewUpdate(true);
+    }
+  }, [currentVersionData]);
+
   function toggleMenu() {
     localStorage.setItem("menuColapse", !menuColapse);
 
     setMenuColapse(!menuColapse);
+  }
+
+  function showUpdateCatalog() {
+    Modal.info({
+      title: "Novidades de atualização",
+      content: (
+        <div style={{ whiteSpace: "pre-line" }}>
+          {currentVersionData?.lastChangeLog?.changeLogText}
+        </div>
+      ),
+      onOk() {
+        setHasNewUpdate(false);
+        localStorage.setItem(
+          "version",
+          currentVersionData?.lastChangeLog?.version
+        );
+
+        // Recurso técnico para remover a seleção do menu
+        window.location.reload();
+      },
+    });
   }
 
   const failedConnection =
@@ -70,6 +105,8 @@ const GlobalsContextProvider = (props) => {
         width,
         isMobile,
         allMembersData,
+        showUpdateCatalog,
+        hasNewUpdate,
       }}
     >
       {!membersLoading && !membersError && props.children}
