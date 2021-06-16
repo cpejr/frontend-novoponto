@@ -31,15 +31,15 @@ const LoggedMembers = ({
             />
           </Row>
           <Row style={{ marginTop: 8 }} className="d-none d-sm-flex">
-              {role && <DefaultLabel labelText={role} labelColor="#00a6c5" />}
+            {role && <DefaultLabel labelText={role} labelColor="#00a6c5" />}
             {mandatoryHour && (
               <DefaultLabel
                 labelText="Horário obrigatório"
                 labelColor="#0085FF"
-            )}
               />
-        </Col>
+            )}
           </Row>
+        </Col>
       </Row>
     </LoggedMembersContainer>
   );
