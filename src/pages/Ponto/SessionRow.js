@@ -17,8 +17,8 @@ const SessionRow = ({ session, onLogout, ...props }) => {
   }
 
   return (
-    <tr {...props}>
-      <td className="col-sm-6">
+    <tr {...props} className="d-flex">
+      <td className="col-6">
         <LoggedMembers
           name={member.name}
           imageLink={member.imageLink}
@@ -26,8 +26,8 @@ const SessionRow = ({ session, onLogout, ...props }) => {
           description={member.status}
         />
       </td>
-      <td className="col-2 d-none d-sm-table-cell align-middle">
-        <div className="d-flex justify-content-center">
+      <td className="col-2 d-none d-sm-flex align-items-center justify-content-center">
+        <div className="d-flex">
           <HourDisplayer
             hour={session.start}
             hourColor={themeColors.green}
@@ -35,15 +35,15 @@ const SessionRow = ({ session, onLogout, ...props }) => {
           />
         </div>
       </td>
-      <td className="col-3 col-sm-2 align-middle">
-        <div className="d-flex justify-content-center">
+      <td className="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+        <div className="d-flex">
           <DurationDisplayer
             startTime={session.start}
             color={themeColors.yellow}
           />
         </div>
       </td>
-      <td className="col-3 col-sm-2 align-middle">
+      <td className="col-3 col-sm-2 d-flex align-items-center justify-content-center">
         <Button
           className="w-100"
           icon={<img src={logoutPointIcon} alt="Deslogar" />}

@@ -6,11 +6,11 @@ const SessionsTable = ({ sessions, onLogout, ...props }) => {
   return (
     <table className="table table-borderless" {...props}>
       <thead>
-        <tr className="customHeader">
+        <tr className="customHeader d-flex">
           <th className="col-6">
             <p className="m-0 ms-4">Membro</p>
           </th>
-          <th className="col-2 d-none d-sm-table-cell">
+          <th className="col-2 d-none d-sm-block">
             <p className="m-0 text-center">Chegada</p>
           </th>
           <th className="col-3 col-sm-2 text-center">
