@@ -1,10 +1,12 @@
 import { createGlobalStyle } from "styled-components";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // Tema do ant design
 if (true) require("./compiled/antdDark.css");
 else require("./compiled/antdLight.css");
 
 const GlobalStyle = createGlobalStyle`
+
  * {
     box-sizing: border-box;
   }
@@ -47,6 +49,10 @@ const GlobalStyle = createGlobalStyle`
       background: #fff;
       border-radius: 10px;
     }      
+  }
+
+  .anticon {
+    vertical-align: 0;
   }
 `;
 

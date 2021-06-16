@@ -48,7 +48,7 @@ const History = ({ memberId, ...props }) => {
     return (
       <>
         <div className="pointHistoric">
-          <h3>Histórico Ponto</h3>
+          <h5>Histórico Ponto</h5>
 
           <Space direction="vertical" size={12}>
             <RangePicker

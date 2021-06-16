@@ -15,11 +15,11 @@ const SessionsTable = ({ sessions, formatedTotal }) => {
   return (
     <HoursSumAndTablesArea>
       <div className="sum">
-        <h3>Soma:</h3>
+        <h6 className="m-0 me-2">Soma:</h6>
         <HourDisplayer text={formatedTotal} hourColor={themeColors.yellow} />
       </div>
       <Collapse ghost defaultActiveKey={"1"}>
-        <Collapse.Panel header={<h3>Sessões: </h3>} key="1">
+        <Collapse.Panel header={<h6>Sessões: </h6>} key="1">
           <Table
             columns={columns}
             dataSource={sessions?.map((session) => ({

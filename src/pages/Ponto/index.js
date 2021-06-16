@@ -10,10 +10,8 @@ const Ponto = () => {
   const { themeColors } = useContext(ThemeContext);
 
   return (
-    <PontoComponent theme={themeColors}>
-      <div className="fullContentPagePoint">
-        <Sessions />
-      </div>
+    <PontoComponent theme={themeColors} className="m-0 m-lg-5">
+      <Sessions />
     </PontoComponent>
   );
 };

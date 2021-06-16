@@ -24,24 +24,6 @@ const ProfileComponent = styled.div`
     min-height: 590px;
   }
 
-  .row {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin-bottom: 16px;
-  }
-
-  .col-1 {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    margin-left: 16px;
-  }
-
-  .exitButton {
-    margin-left: auto;
-  }
-
   .message {
     background-color: #1d1d1d;
     width: 100%;

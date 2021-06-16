@@ -108,7 +108,7 @@ const HourChanges = () => {
 
   return (
     <HourChangesComponent theme={themeColors}>
-      <OutlinedBox className="outlinedBox">
+      <OutlinedBox className="outlinedBox mx-auto mx-md-0">
         <div className="inputGroup">
           <DefaultText className="title">
             Formulário para adicionar ou remover horas

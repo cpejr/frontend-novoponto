@@ -12,8 +12,8 @@ const CardView = () => {
   const { data } = useContext(SessionContext);
 
   return (
-    <ProfileComponent theme={themeColors}>
-      <OutlinedBox className="outlinedBox">
+    <ProfileComponent theme={themeColors} className="">
+      <OutlinedBox className="outlinedBox mx-auto mx-md-0">
         {!!!data ? <Login /> : <Profile />}
       </OutlinedBox>
     </ProfileComponent>
