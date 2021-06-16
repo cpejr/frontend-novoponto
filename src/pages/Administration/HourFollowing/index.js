@@ -1,42 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { GlobalsContext } from "../../../context/GlobalsProvider";
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { UpdateMember } from "../../../graphql/Member";
-import { AditionalHours } from "../../../graphql/AditionalHour";
-import moment from "moment";
 
-import MemberDataADM from "../../../components/organisms/MemberDataADM";
-
-import { message, Skeleton, DatePicker } from "antd";
+import { message, Skeleton } from "antd";
 import { HourFollowingContainer } from "./styles";
-import HomeOfficeTable from "../../../components/molecules/HomeOfficeTable";
 import MembersSelectBox from "../../../components/molecules/MembersSelectBox";
-
-const { RangePicker } = DatePicker;
+import MemberProfile from "../../../components/organisms/MemberProfile";
+import { OutlinedBox } from "../../../components/atoms";
+import MemberHistory from "../../../components/organisms/MemberHistory";
 
 const HourFollowing = () => {
   const [selected, setSelected] = useState();
 
-  const [loadAdditional, { data }] = useLazyQuery(AditionalHours, {
-    fetchPolicy: "network-only",
-  });
-
-  const aditionalHours = data?.aditionalHours || [];
-
-  const [rangeDate, setRangeDate] = useState([
-    moment().startOf("isoWeek"),
-    moment(),
-  ]);
-  const startDate = rangeDate && rangeDate[0];
-  const endDate = rangeDate && rangeDate[1];
-
   const [updateMember] = useMutation(UpdateMember);
-  const {
-    membersLoading,
-    membersError,
-    membersData,
-    refetchMembers,
-  } = useContext(GlobalsContext);
+  const { membersLoading, membersError, membersData, refetchMembers } =
+    useContext(GlobalsContext);
 
   const selectMember = (memberId) => {
     const member = membersData.members.find(
@@ -61,22 +40,6 @@ const HourFollowing = () => {
     }
   };
 
-  function loadData() {
-    return loadAdditional({
-      variables: {
-        memberId: selected._id,
-        startDate: startDate?.toISOString(),
-        endDate: endDate?.toISOString(),
-      },
-    });
-  }
-
-  useEffect(() => {
-    if (startDate && endDate && selected) loadData();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected, rangeDate]);
-
   if (membersLoading)
     return (
       <Skeleton
@@ -92,29 +55,18 @@ const HourFollowing = () => {
     return <h1>Erro, recarregue a pagina</h1>;
   } else if (membersData) {
     return (
-      <HourFollowingContainer>
-        <MembersSelectBox onChange={selectMember} />
+      <HourFollowingContainer className="container">
+        <div className="select">
+          <MembersSelectBox onChange={selectMember} />
+        </div>
         {selected && (
           <>
-            <MemberDataADM
-              name={selected.name}
-              responsable={
-                selected.responsible ? selected.responsible.name : "Indefinido"
-              }
-              role={selected.role ? selected.role.name : "Indefinido"}
-              initMessage={selected.message}
-              callback={saveData}
-            />
-            <RangePicker
-              format="DD-MM-yyyy"
-              onChange={setRangeDate}
-              value={rangeDate}
-              placeholder={["Inicio", "Fim"]}
-            />
-            <HomeOfficeTable
-              aditionalHours={aditionalHours}
-              onDelete={loadData}
-            />
+            <OutlinedBox className="outlinedBox mt-4">
+              <MemberProfile member={selected} showAsAdministrator />
+            </OutlinedBox>
+            <div className="mt-4 d-flex flex-column">
+              <MemberHistory memberId={selected?._id} />
+            </div>
           </>
         )}
       </HourFollowingContainer>
