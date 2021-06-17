@@ -35,7 +35,7 @@ const Ponto = () => {
   }
 
   return (
-    <PontoComponent theme={themeColors}>
+    <PontoComponent theme={themeColors} className="m-0 m-lg-5">
       <div className="newsSection">
         <Carousel infiniteLoop showStatus={false}>
           {newsWrapper}

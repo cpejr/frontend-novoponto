@@ -55,7 +55,7 @@ const HourFollowing = () => {
     return <h1>Erro, recarregue a pagina</h1>;
   } else if (membersData) {
     return (
-      <HourFollowingContainer className="container">
+      <HourFollowingContainer className="m-0 m-lg-5">
         <div className="select">
           <MembersSelectBox onChange={selectMember} />
         </div>
