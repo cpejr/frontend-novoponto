@@ -5,7 +5,6 @@ const PontoComponent = styled.div`
 
   .newsSection {
     width: 100%;
-    height: 300px;
 
     display: flex;
     justify-content: space-evenly;
@@ -22,7 +21,8 @@ const PontoComponent = styled.div`
       align-items: center;
 
       .news {
-        width: 250px;
+        width: 100%;
+        max-width: 700px;
         height: 250px;
         background-color: #000000;
 
@@ -31,8 +31,9 @@ const PontoComponent = styled.div`
         align-items: center;
         border-radius: 10px;
 
-        img {
-          max-height: 90%;
+        .defaultNews {
+          max-width: 226px;
+          max-height: 171px;
         }
       }
       .news + .news {

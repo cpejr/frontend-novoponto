@@ -54,16 +54,18 @@ const GlobalStyle = createGlobalStyle`
   }
 
   ::-webkit-scrollbar-track {
-    background-color: #F4F4F4;
-}
-::-webkit-scrollbar {
-    width: 12px;
-    background: #F4F4F4;
-}
-::-webkit-scrollbar-thumb {
+    background-color: ${colors.statusBar};
+  }
+  
+  ::-webkit-scrollbar {
+    width: 5px;
+    background: ${colors.statusBar};
+  }
+  
+  ::-webkit-scrollbar-thumb {
     background: ${colors.yellowCPE};
     border-radius: 20px;
-}
+  }
 
   .anticon {
     vertical-align: 1px;
