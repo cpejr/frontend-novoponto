@@ -5,7 +5,6 @@ const DefaultSessionFields = gql`
     _id
     name
     status
-    message
     imageLink
     responsible {
       _id
@@ -80,7 +79,6 @@ const Members = gql`
         _id
         name
       }
-      message
     }
   }
 `;
