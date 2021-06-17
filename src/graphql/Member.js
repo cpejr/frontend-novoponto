@@ -74,6 +74,8 @@ const Members = gql`
     members(accessArray: $accessArray) {
       _id
       name
+      imageLink
+      status
       role {
         _id
         name

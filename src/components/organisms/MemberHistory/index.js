@@ -3,13 +3,13 @@ import { DatePicker, Space } from "antd";
 import moment from "moment";
 import { useLazyQuery } from "@apollo/client";
 
-import { FetchCompiledForHC } from "../../graphql/Member";
-import HomeOfficeTable from "../../components/molecules/HomeOfficeTable";
-import SessionsTable from "../../components/molecules/SessionsTable";
-
+import { FetchCompiledForHC } from "../../../graphql/Member";
+import HomeOfficeTable from "../../molecules/HomeOfficeTable";
+import SessionsTable from "../../molecules/SessionsTable";
+import { MemberHistoyContainer } from "./styles";
 const { RangePicker } = DatePicker;
 
-const History = ({ memberId, ...props }) => {
+const MemberHistory = ({ memberId, ...props }) => {
   const [rangeDate, setRangeDate] = useState([
     moment().startOf("isoWeek"),
     moment(),
@@ -46,33 +46,29 @@ const History = ({ memberId, ...props }) => {
 
   if (memberId && !loading)
     return (
-      <>
-        <div className="pointHistoric">
-          <h3>Histórico Ponto</h3>
+      <MemberHistoyContainer>
+        <h5>Histórico Ponto</h5>
 
-          <Space direction="vertical" size={12}>
-            <RangePicker
-              format="DD-MM-yyyy"
-              disabledDate={disabledDate}
-              onChange={setRangeDate}
-              value={rangeDate}
-              placeholder={["Inicio", "Fim"]}
-            />
-          </Space>
-        </div>
+        <RangePicker
+          format="DD-MM-yyyy"
+          disabledDate={disabledDate}
+          onChange={setRangeDate}
+          value={rangeDate}
+          placeholder={["Inicio", "Fim"]}
+        />
 
         {startDate && endDate && (
-          <>
+          <div className="mt-4">
             <SessionsTable sessions={sessions} formatedTotal={formatedTotal} />
             <HomeOfficeTable
               aditionalHours={aditionalHours}
               onDelete={loadData}
             />
-          </>
+          </div>
         )}
-      </>
+      </MemberHistoyContainer>
     );
   else return <></>;
 };
 
-export default History;
+export default MemberHistory;

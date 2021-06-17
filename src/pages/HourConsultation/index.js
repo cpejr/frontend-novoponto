@@ -9,7 +9,7 @@ import { FetchMemberForHC } from "../../graphql/Member";
 
 import MembersSelectBox from "../../components/molecules/MembersSelectBox";
 import LoggedMembers from "../../components/molecules/LoggedMembersSection";
-import History from "./History";
+import MemberHistory from "../../components/organisms/MemberHistory";
 import Mandatories from "./Mandatories";
 
 const HoursConsultation = () => {
@@ -48,7 +48,7 @@ const HoursConsultation = () => {
         </div>
       )}
       <Mandatories mandatories={member?.mandatories} />
-      <History memberId={member?._id} />
+      <MemberHistory memberId={member?._id} />
     </HoursConsultationComponent>
   );
 };
