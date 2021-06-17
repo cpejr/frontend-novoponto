@@ -3,42 +3,36 @@ import styled from "styled-components";
 const PontoComponent = styled.div`
   min-height: 100vh;
 
-  .newsSection {
-    width: 100%;
+  .newsRadio {
+    max-height: 342px;
+  }
 
+  .newsRow {
     display: flex;
-    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
     align-items: center;
+    justify-content: space-around;
 
-    .carousel-root {
+    .news {
+      display: flex;
       width: 100%;
+      max-width: 608px;
+
+      height: 100%;
+      background-color: #000000;
+
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+    }
+    .news + .news {
+      margin-left: 16px;
     }
 
-    .newsWrapper {
-      width: 100%;
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-
-      .news {
-        width: 100%;
-        max-width: 700px;
-        height: 250px;
-        background-color: #000000;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 10px;
-
-        .defaultNews {
-          max-width: 226px;
-          max-height: 171px;
-        }
-      }
-      .news + .news {
-        margin-left: 30px;
-      }
+    .defaultNews {
+      max-width: 226px;
+      max-height: 171px;
     }
   }
 

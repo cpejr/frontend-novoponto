@@ -10095,6 +10095,13 @@ react-property@1.0.1:
   resolved "https://registry.yarnpkg.com/react-property/-/react-property-1.0.1.tgz#4ae4211557d0a0ae050a71aa8ad288c074bea4e6"
   integrity sha512-1tKOwxFn3dXVomH6pM9IkLkq2Y8oh+fh/lYW3MJ/B03URswUTqttgckOlbxY2XHF3vPG6uanSc4dVsLW/wk3wQ==
 
+react-ratio@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/react-ratio/-/react-ratio-0.1.5.tgz#32660a0e2d02ad7f507dc30f5039461c4fedbe46"
+  integrity sha512-4NMc1+bShMiNJTehEUqK5Obw2WQog4by3xtYM8bjcBkAJnyOWorrpgPW6LIEK/k75r9WVM7skcOCWEqt7uqnTQ==
+  dependencies:
+    prop-types "^15.6.0"
+
 react-refresh@^0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"

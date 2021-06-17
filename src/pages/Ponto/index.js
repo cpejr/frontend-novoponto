@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Carousel } from "react-responsive-carousel";
+import Ratio from "react-ratio";
 
 import { PontoComponent } from "./styles";
 import { ThemeContext } from "../../context/ThemeProvider";
@@ -31,16 +32,22 @@ const Ponto = () => {
       if (element) newsGroup[j] = <div className="news">{element}</div>;
     }
 
-    newsWrapper.push(<div className="newsWrapper">{newsGroup}</div>);
+    newsWrapper.push(
+      <Ratio
+        ratio={(16 * newsPerSlide) / 9}
+        className="newsRadio"
+        contentClassName="newsRadio"
+      >
+        <div className="newsRow">{newsGroup}</div>
+      </Ratio>
+    );
   }
 
   return (
-    <PontoComponent theme={themeColors} className="m-0 m-lg-5">
-      <div className="newsSection">
-        <Carousel infiniteLoop showStatus={false}>
-          {newsWrapper}
-        </Carousel>
-      </div>
+    <PontoComponent theme={themeColors} className="m-0 mt-lg-3 m-lg-5">
+      <Carousel infiniteLoop showStatus={false}>
+        {newsWrapper}
+      </Carousel>
       <Sessions />
     </PontoComponent>
   );
