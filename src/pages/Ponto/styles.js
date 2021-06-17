@@ -11,24 +11,33 @@ const PontoComponent = styled.div`
     justify-content: space-evenly;
     align-items: center;
 
-    padding: 0px 20px;
-
-    .news {
-      width: 500px;
-      height: 250px;
-      background-color: #000000;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 10px;
-
-      img {
-        max-height: 90%;
-      }
+    .carousel-root {
+      width: 100%;
     }
-    .news + .news {
-      margin-left: 30px;
+
+    .newsWrapper {
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      .news {
+        width: 250px;
+        height: 250px;
+        background-color: #000000;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+
+        img {
+          max-height: 90%;
+        }
+      }
+      .news + .news {
+        margin-left: 30px;
+      }
     }
   }
 

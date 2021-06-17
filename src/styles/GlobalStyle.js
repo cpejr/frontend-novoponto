@@ -1,6 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import { colors } from "../context/ThemeProvider/pallete";
+
 // Tema do ant design
 if (true) require("./compiled/antdDark.css");
 else require("./compiled/antdLight.css");
@@ -46,10 +48,22 @@ const GlobalStyle = createGlobalStyle`
     /* Handle */
     ::-webkit-scrollbar-thumb {
       width: 5px;
-      background: #fff;
+      background: ${colors.white};
       border-radius: 10px;
     }      
   }
+
+  ::-webkit-scrollbar-track {
+    background-color: #F4F4F4;
+}
+::-webkit-scrollbar {
+    width: 12px;
+    background: #F4F4F4;
+}
+::-webkit-scrollbar-thumb {
+    background: ${colors.yellowCPE};
+    border-radius: 20px;
+}
 
   .anticon {
     vertical-align: 1px;
