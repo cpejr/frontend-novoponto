@@ -29,7 +29,10 @@ const HourFollowing = () => {
     var hide = message.loading("Salvando");
     try {
       await updateMember({
-        variables: { memberId: selected._id, data: newFields },
+        variables: {
+          memberId: selected._id,
+          data: { message: { message: newMessage, read: false } },
+        },
       });
       hide();
       message.success("Salvo com sucesso", 2.5);
