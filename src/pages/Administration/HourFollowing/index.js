@@ -31,13 +31,14 @@ const HourFollowing = () => {
       await updateMember({
         variables: {
           memberId: selected._id,
-          data: { message: { message: newMessage, read: false } },
+          data: newFields,
         },
       });
       hide();
       message.success("Salvo com sucesso", 2.5);
       refetchMembers();
     } catch (err) {
+      hide();
       console.log(err);
       message.error("Houve um problema, tente novamente", 2.5);
     }

@@ -27,7 +27,6 @@ const UpdatedNewsComponent = styled.div`
   }
 
   .outerBoxNewsContainer {
-    max-width: 1200px;
     width: 100%;
     margin: 0 auto;
     margin-top: 40px;
@@ -52,9 +51,8 @@ const UpdatedNewsComponent = styled.div`
     justify-items: center;
     row-gap: 60px;
     column-gap: 80px;
-
-    padding: 90px 80px 50px 80px;
-
+    padding: 32px;
+    
     border: 2px solid #454545;
     border-radius: 5px;
   }
@@ -75,7 +73,6 @@ const UpdatedNewsComponent = styled.div`
   @media (max-width: 720px) {
     .innerBoxNewsContainer {
       width: 100%;
-      padding: 80px 30px 50px 30px;
       grid-template-columns: 1fr;
       row-gap: 30px;
     }
@@ -147,4 +144,16 @@ const SingleNewsBox = styled.div`
   }
 `;
 
-export { UpdatedNewsComponent, SingleNewsBox };
+const NewsAdd = styled.div`
+  max-width: 500px;
+  min-height: 670px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 2px solid #454545;
+  border-radius: 5px;
+`;
+
+export { UpdatedNewsComponent, SingleNewsBox, NewsAdd };

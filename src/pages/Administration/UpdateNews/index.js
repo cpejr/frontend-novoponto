@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UpdatedNewsComponent, SingleNewsBox } from "./styles";
+import { UpdatedNewsComponent, SingleNewsBox, NewsAdd } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
 import {
   EditorState,
@@ -16,6 +16,11 @@ import assignmentIcon from "../../../assets/assignmentIcon.svg";
 import addCircleIcon from "../../../assets/addCircleIcon.svg";
 import deleteIcon from "../../../assets/deleteIcon.svg";
 import CommonButton from "../../../components/atoms/CommonButton";
+import { Button } from "antd";
+import { DefaultText, NewsItem } from "../../../components/atoms";
+import Ratio from "react-ratio/lib/Ratio";
+import NewsCarousel from "../../../components/molecules/NewsCarousel";
+import { CaretLeftOutlined, CaretRightOutlined } from "@ant-design/icons";
 
 const NewsBox = ({ index, allData, infoNews, handleDelete }) => {
   const [richTextContent, setRichTextContent] = useState(
@@ -99,7 +104,21 @@ const NewsBox = ({ index, allData, infoNews, handleDelete }) => {
 
       <div className="previewContainer">
         <span>Preview</span>
-        {parse(draftToHtml(convertToRaw(richTextContent.getCurrentContent())))}
+        <Ratio ratio={16 / 9}>
+          <NewsItem>
+            {parse(
+              draftToHtml(convertToRaw(richTextContent.getCurrentContent()))
+            )}
+          </NewsItem>
+        </Ratio>
+      </div>
+      <div className="d-flex w-100">
+        <Button block>
+          <CaretLeftOutlined />
+        </Button>
+        <Button block>
+          <CaretRightOutlined />
+        </Button>
       </div>
     </SingleNewsBox>
   );
@@ -149,15 +168,13 @@ const UpdatedNews = () => {
         <img src={assignmentIcon} alt="Atualizar Notícias" />
         <h1>Atualizar notícias</h1>
       </div>
-
+      <div className="d-flex justify-content-center align-center mt-3">
+        <h4>Preview</h4>
+      </div>
+      <NewsCarousel />
       <div className="outerBoxNewsContainer">
         <span>Bloco de notícia</span>
         <div className="innerBoxNewsContainer">
-          <img
-            src={addCircleIcon}
-            alt="Adicionar notícia"
-            onClick={() => handleAddNewsBox()}
-          />
           {infoComponentArray.map((item, index) => (
             <NewsBox
               index={index}
@@ -166,6 +183,14 @@ const UpdatedNews = () => {
               handleDelete={handleDeleteNewsBox}
             />
           ))}
+          <NewsAdd>
+            <DefaultText>Adicionar nova notícia</DefaultText>
+            <img
+              src={addCircleIcon}
+              alt="Adicionar notícia"
+              onClick={() => handleAddNewsBox()}
+            />
+          </NewsAdd>
         </div>
       </div>
 

@@ -89,9 +89,6 @@ const GlobalsContextProvider = (props) => {
     });
   }
 
-  const failedConnection =
-    membersError && membersError.message === "Failed to fetch";
-
   return (
     <GlobalsContext.Provider
       value={{
@@ -111,7 +108,7 @@ const GlobalsContextProvider = (props) => {
     >
       {!membersLoading && !membersError && props.children}
       {membersLoading && <Loading />}
-      {failedConnection && <Error />}
+      {membersError && <Error message={membersError.message} />}
     </GlobalsContext.Provider>
   );
 };
@@ -153,7 +150,7 @@ const Loading = () => {
   );
 };
 
-const Error = () => {
+const Error = ({ message }) => {
   return (
     <div
       style={{
@@ -173,10 +170,13 @@ const Error = () => {
         width={300}
       />
       <DefaultText style={{ fontSize: 30, marginTop: 16, marginBottom: 8 }}>
-        Aparentemente não conseguimos conectar com o back-end
+        Aparentemente algo deu errado no back-end
       </DefaultText>
       <DefaultText style={{ opacity: 0.5 }}>
         Acho que alguém vai ter que dar uma olhada no Heroku rsrs...
+      </DefaultText>
+      <DefaultText style={{ marginTop: 32, opacity: 0.2 }}>
+        {message}
       </DefaultText>
     </div>
   );

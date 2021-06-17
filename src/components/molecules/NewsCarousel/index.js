@@ -27,11 +27,13 @@ const NewsCarousel = ({ ...props }) => {
     for (let j = 0; j < newsPerSlide; j++) {
       const element = news[j + i];
 
-      if (element) newsGroup[j] = <NewsItem>{element}</NewsItem>;
+      if (element)
+        newsGroup[j] = <NewsItem key={`ni-${i + j}`}>{element}</NewsItem>;
     }
 
     newsWrapper.push(
       <Ratio
+        key={`n-${i}`}
         ratio={(16 * newsPerSlide) / 9}
         className="newsRadio"
         contentClassName="newsRadio"
@@ -43,7 +45,7 @@ const NewsCarousel = ({ ...props }) => {
 
   return (
     <NewsCarouselContainer {...props}>
-      <Carousel infiniteLoop showStatus={false}>
+      <Carousel infiniteLoop showStatus={false} showThumbs={false}>
         {newsWrapper}
       </Carousel>
     </NewsCarouselContainer>

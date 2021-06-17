@@ -23,13 +23,13 @@ const MemberProfile = ({
 
   const [newData, setNewData] = useState({
     status: member?.status || "",
-    message: member?.message || "",
+    message: member?.message || { text: "", read: true },
   });
 
   useEffect(() => {
     setNewData({
       status: member?.status || "",
-      message: member?.message || "",
+      message: member?.message || { text: "", read: true },
     });
   }, [member]);
 
@@ -39,9 +39,8 @@ const MemberProfile = ({
     onSave(newData);
   }
 
-  function handleOnChange(e, field) {
-    const value = e.target.value;
-    setNewData({ ...newData, [field]: value });
+  function handleOnChange(field) {
+    setNewData({ ...newData, ...field });
   }
 
   function handleLogOutRequest() {
@@ -50,10 +49,6 @@ const MemberProfile = ({
 
   function handleCloseModal() {
     setIsConfirmationVis(false);
-  }
-
-  function getIsSaved(field) {
-    return newData[field] === member[field];
   }
 
   return (
@@ -84,16 +79,23 @@ const MemberProfile = ({
       <div className="message">
         <DefaultText>Mensagem do acompanhamento:</DefaultText>
         {!isAdm ? (
-          <div className="messageBox">{member?.message}</div>
+          <div className="messageBox">{member?.message?.text}</div>
         ) : (
           <>
             <TextArea
               resize={true}
               maxLength={50}
-              onChange={(e) => handleOnChange(e, "message")}
-              value={newData?.message}
+              onChange={(e) =>
+                handleOnChange({
+                  message: { text: e.target.value, read: false },
+                })
+              }
+              value={newData?.message?.text}
             />
-            <SaveButton saved={getIsSaved("message")} onClick={handleSave} />
+            <SaveButton
+              saved={newData?.message?.text === member?.message?.text}
+              onClick={handleSave}
+            />
           </>
         )}
       </div>
@@ -102,10 +104,13 @@ const MemberProfile = ({
         <TextArea
           maxLength={50}
           resize={"none"}
-          onChange={(e) => handleOnChange(e, "status")}
+          onChange={(e) => handleOnChange({ status: e.target.value })}
           value={newData?.status}
         />
-        <SaveButton saved={getIsSaved("status")} onClick={handleSave} />
+        <SaveButton
+          saved={newData?.status === member?.status}
+          onClick={handleSave}
+        />
       </div>
       <ConfirmationModal
         title="Log out"

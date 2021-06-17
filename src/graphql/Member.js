@@ -7,7 +7,7 @@ const DefaultSessionFields = gql`
     status
     message {
       read
-      message
+      text
     }
     imageLink
     responsible {
@@ -84,6 +84,10 @@ const Members = gql`
       responsible {
         _id
         name
+      }
+      message {
+        text
+        read
       }
     }
   }
