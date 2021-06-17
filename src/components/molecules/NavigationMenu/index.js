@@ -5,9 +5,9 @@ import {
   LockOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Menu as AntdMenu } from "antd";
+import { Menu as AntdMenu, Badge } from "antd";
 import SubMenu from "antd/lib/menu/SubMenu";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { SessionContext } from "../../../context/SessionProvider";
 import { MemberAvatar } from "../../atoms";
@@ -33,7 +33,11 @@ const Menuu = ({ collapsed, ...props }) => {
       <MenuItem
         key="/profile"
         route="/profile"
-        icon={<UserOutlined />}
+        icon={
+          <Badge dot={!data?.member?.message?.read}>
+            <UserOutlined />
+          </Badge>
+        }
         label={data?.member?.name || "Perfil"}
       />
       <MenuItem

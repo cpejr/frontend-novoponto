@@ -31,12 +31,8 @@ const HourFollowing = () => {
   const endDate = rangeDate && rangeDate[1];
 
   const [updateMember] = useMutation(UpdateMember);
-  const {
-    membersLoading,
-    membersError,
-    membersData,
-    refetchMembers,
-  } = useContext(GlobalsContext);
+  const { membersLoading, membersError, membersData, refetchMembers } =
+    useContext(GlobalsContext);
 
   const selectMember = (memberId) => {
     const member = membersData.members.find(
@@ -50,7 +46,10 @@ const HourFollowing = () => {
     var hide = message.loading("Salvando");
     try {
       await updateMember({
-        variables: { memberId: selected._id, data: { message: newMessage } },
+        variables: {
+          memberId: selected._id,
+          data: { message: { message: newMessage, read: false } },
+        },
       });
       hide();
       message.success("Salvo com sucesso", 2.5);

@@ -14,9 +14,8 @@ import SaveButton from "../../components/molecules/SaveButton";
 import ConfirmationModal from "../../components/molecules/Modal";
 
 const Profile = () => {
-  const { data, logOut, updateSelf, getSessionData } = useContext(
-    SessionContext
-  );
+  const { data, logOut, updateSelf, getSessionData } =
+    useContext(SessionContext);
   const [isConfirmationVis, setIsConfirmationVis] = useState(false);
 
   const [status, setStatus] = useState(data?.member?.status || "");
@@ -39,6 +38,11 @@ const Profile = () => {
 
   useEffect(() => {
     getSessionData();
+    if (data?.member?.message?.read === false) {
+      updateSelf({
+        message: { read: true, message: data.member.message.message },
+      });
+    }
   }, []);
 
   const saved = status === data?.member?.status;
@@ -63,7 +67,7 @@ const Profile = () => {
       </div>
       <DefaultText>Mensagem do acompanhamento:</DefaultText>
       <div className="message">
-        <DefaultText>{data?.member?.message}</DefaultText>
+        <DefaultText>{data?.member?.message?.message}</DefaultText>
       </div>
       <div className="quote">
         <DefaultText>Frase:</DefaultText>
