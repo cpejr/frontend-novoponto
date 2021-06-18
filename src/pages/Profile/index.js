@@ -14,7 +14,11 @@ const CardView = () => {
 
   useEffect(() => {
     if (!!data) getSessionData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (!data?.member?.message?.read)
+      updateSelf({
+        message: { read: true, text: data?.member?.message?.text },
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -23,7 +27,11 @@ const CardView = () => {
         {!data ? (
           <Login />
         ) : (
-          <MemberProfile onLogOut={logOut} onSave={updateSelf} member={data?.member} />
+          <MemberProfile
+            onLogOut={logOut}
+            onSave={updateSelf}
+            member={data?.member}
+          />
         )}
       </OutlinedBox>
     </ProfileComponent>

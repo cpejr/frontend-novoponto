@@ -50,8 +50,14 @@ const Menuu = ({ collapsed, ...props }) => {
         key="/profile"
         route="/profile"
         icon={
-          <Badge dot={!data?.member?.message?.read}>
-            <UserOutlined />
+          <Badge
+            dot={!data?.member?.message?.read}
+            style={{
+              top: collapsed ? 11 : -2,
+              right: collapsed ? 0 : -4,
+            }}
+          >
+            <UserOutlined style={{ margin: 0 }} />
           </Badge>
         }
         label={data?.member?.name || "Perfil"}

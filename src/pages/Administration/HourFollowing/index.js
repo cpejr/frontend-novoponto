@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GlobalsContext } from "../../../context/GlobalsProvider";
 import { useMutation } from "@apollo/client";
 import { UpdateMember } from "../../../graphql/Member";
@@ -16,6 +16,11 @@ const HourFollowing = () => {
   const [updateMember] = useMutation(UpdateMember);
   const { membersLoading, membersError, membersData, refetchMembers } =
     useContext(GlobalsContext);
+
+  useEffect(() => {
+    if (selected) selectMember(selected?._id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [membersData]);
 
   const selectMember = (memberId) => {
     const member = membersData.members.find(
@@ -36,7 +41,7 @@ const HourFollowing = () => {
       });
       hide();
       message.success("Salvo com sucesso", 2.5);
-      refetchMembers();
+      await refetchMembers();
     } catch (err) {
       hide();
       console.log(err);
