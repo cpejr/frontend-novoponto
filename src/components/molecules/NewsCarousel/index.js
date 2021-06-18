@@ -10,7 +10,7 @@ import parse from "html-react-parser";
 const NewsCarousel = ({ news, ...props }) => {
   const { width, newsData } = useContext(GlobalsContext);
 
-  const showNews = news || newsData.news;
+  const showNews = news || newsData?.news || [];
 
   const newsPerSlide = width > 1400 ? 2 : 1;
 
