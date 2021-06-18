@@ -14,7 +14,7 @@ const CardView = () => {
 
   useEffect(() => {
     if (!!data) getSessionData();
-    if (!data?.member?.message?.read)
+    if (data && !data?.member?.message?.read)
       updateSelf({
         message: { read: true, text: data?.member?.message?.text },
       });
