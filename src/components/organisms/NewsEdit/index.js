@@ -15,9 +15,11 @@ import { Editor } from "react-draft-wysiwyg";
 import parse from "html-react-parser";
 import Ratio from "react-ratio/lib/Ratio";
 import draftToHtml from "draftjs-to-html";
+import { useMutation } from "@apollo/client";
 
 import { CommonButton, DefaultText, NewsItem } from "../../../components/atoms";
 import { EditNewsContainer } from "./styles";
+import { UploadImage } from "../../../graphql/News";
 
 const NewsEdit = ({
   news,
@@ -29,6 +31,8 @@ const NewsEdit = ({
   const contentState = convertToRaw(
     ContentState.createFromBlockArray(convertFromHTML(news.html))
   );
+
+  const [sendImage] = useMutation(UploadImage);
 
   return (
     <EditNewsContainer>
@@ -70,7 +74,16 @@ const NewsEdit = ({
             urlEnabled: true,
             uploadEnabled: true,
             alignmentEnabled: true,
-            uploadCallback: () => {},
+            uploadCallback: async (file) => {
+              const result = await sendImage({
+                variables: { file: file, numberId: news.numberId },
+              });
+              console.log(
+                "🚀 ~ file: index.js ~ line 81 ~ uploadCallback: ~ result",
+                result
+              );
+              return { data: { link: result.sendImage } };
+            },
             inputAccept: "image/gif,image/jpeg,image/jpg,image/png,image/svg",
             alt: { present: false, mandatory: false },
             previewImage: true,

@@ -39,4 +39,10 @@ const ReplaceNews = gql`
   }
 `;
 
-export { News, ReplaceNews, DeleteNews, CreateNews };
+const UploadImage = gql`
+  mutation UploadImage($file: Upload!, $numberId: Int!) {
+    uploadImage(file: $file, numberId: $numberId)
+  }
+`;
+
+export { News, ReplaceNews, DeleteNews, CreateNews, UploadImage };

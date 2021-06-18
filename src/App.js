@@ -11,6 +11,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { WebSocketLink } from "@apollo/client/link/ws";
+import { createUploadLink } from "apollo-upload-client";
 
 import { ConfigProvider } from "antd";
 import ptBR from "antd/lib/locale/pt_BR";
@@ -25,7 +26,7 @@ import GlobalStyle from "./styles/GlobalStyle";
 
 import GlobalsContextProvider from "./context/GlobalsProvider";
 
-const httpLink = new HttpLink({
+const httpLink = createUploadLink({
   uri: process.env.REACT_APP_API || "http://localhost:4000/",
 });
 

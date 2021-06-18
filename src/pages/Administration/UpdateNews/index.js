@@ -38,7 +38,7 @@ const UpdateNews = () => {
     setNewsList([
       ...newsList,
       {
-        numberId: newsList.length,
+        numberId: new Date().getTime(),
         html: "",
         index: newsList.length,
       },
