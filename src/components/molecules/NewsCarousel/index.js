@@ -3,32 +3,28 @@ import { Carousel } from "react-responsive-carousel";
 import Ratio from "react-ratio/lib/Ratio";
 
 import { NewsCarouselContainer } from "./styles";
-import defaultNews from "../../../assets/defaultNews.svg";
 import { NewsItem } from "../../atoms";
 import { GlobalsContext } from "../../../context/GlobalsProvider";
+import parse from "html-react-parser";
 
-const news = [
-  <img src={defaultNews} className="defaultNews" alt="Confira as novidades" />,
-  <img src={defaultNews} className="defaultNews" alt="Confira as novidades" />,
-  <img src={defaultNews} className="defaultNews" alt="Confira as novidades" />,
-  <img src={defaultNews} className="defaultNews" alt="Confira as novidades" />,
-];
+const NewsCarousel = ({ news, ...props }) => {
+  const { width, newsData } = useContext(GlobalsContext);
 
-const NewsCarousel = ({ ...props }) => {
-  const { width } = useContext(GlobalsContext);
+  const showNews = news || newsData.news;
 
   const newsPerSlide = width > 1400 ? 2 : 1;
 
   const newsWrapper = [];
 
-  for (let i = 0; i < news.length; i += newsPerSlide) {
+  for (let i = 0; i < showNews.length; i += newsPerSlide) {
     const newsGroup = [];
 
     for (let j = 0; j < newsPerSlide; j++) {
-      const element = news[j + i];
-
+      const element = showNews[j + i];
       if (element)
-        newsGroup[j] = <NewsItem key={`ni-${i + j}`}>{element}</NewsItem>;
+        newsGroup[j] = (
+          <NewsItem key={`ni-${i + j}`}>{parse(element.html)}</NewsItem>
+        );
     }
 
     newsWrapper.push(

@@ -6,6 +6,7 @@ import waitLottie from "../../assets/lotties/loading.json";
 import errorLottie from "../../assets/lotties/error-girl.json";
 import { DefaultText } from "../../components/atoms";
 import { Members } from "../../graphql/Member";
+import { News } from "../../graphql/News";
 import { Modal } from "antd";
 import { LastChangeLog } from "../../graphql/Changelog";
 
@@ -24,6 +25,13 @@ const GlobalsContextProvider = (props) => {
     data: allMembersData,
     refetch: refetchMembers,
   } = useQuery(Members);
+
+  const {
+    loading: newsLoading,
+    error: newsError,
+    data: newsData,
+    refetch: refetchNews,
+  } = useQuery(News);
 
   const { data: currentVersionData } = useQuery(LastChangeLog);
 
@@ -104,6 +112,10 @@ const GlobalsContextProvider = (props) => {
         allMembersData,
         showUpdateCatalog,
         hasNewUpdate,
+        newsLoading,
+        newsError,
+        newsData,
+        refetchNews,
       }}
     >
       {!membersLoading && !membersError && props.children}

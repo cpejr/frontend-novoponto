@@ -17,6 +17,11 @@ const NewsCarouselContainer = styled.div`
     max-width: 226px;
     max-height: 171px;
   }
+
+  .carousel .slide iframe {
+    width: unset;
+    margin: unset;
+  }
 `;
 
 export { NewsCarouselContainer };

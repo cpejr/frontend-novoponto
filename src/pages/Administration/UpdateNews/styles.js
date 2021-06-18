@@ -64,12 +64,6 @@ const UpdatedNewsComponent = styled.div`
     cursor: pointer;
   }
 
-  .buttonArea {
-    margin-top: 16px;
-    display: flex;
-    justify-content: flex-end;
-  }
-
   @media (max-width: 720px) {
     .innerBoxNewsContainer {
       width: 100%;
