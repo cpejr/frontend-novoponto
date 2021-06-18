@@ -2,13 +2,11 @@ import { Collapse } from "antd";
 import React, { useContext } from "react";
 import {
   HourDisplayer,
-  InfoDisplayer,
   DefaultText,
 } from "../../components/atoms";
 import { ThemeContext } from "../../context/ThemeProvider";
 
 import { Table } from "antd";
-import moment from "moment";
 
 import { FlexDiv } from "./styles";
 

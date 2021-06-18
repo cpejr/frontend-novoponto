@@ -5,7 +5,10 @@ const DefaultSessionFields = gql`
     _id
     name
     status
-    message
+    message {
+      read
+      text
+    }
     imageLink
     responsible {
       _id
@@ -71,6 +74,8 @@ const Members = gql`
     members(accessArray: $accessArray) {
       _id
       name
+      imageLink
+      status
       role {
         _id
         name
@@ -80,7 +85,10 @@ const Members = gql`
         _id
         name
       }
-      message
+      message {
+        text
+        read
+      }
     }
   }
 `;
@@ -88,6 +96,7 @@ const Members = gql`
 const UpdateMember = gql`
   mutation UpdateMember($memberId: ID!, $data: MemberUpdate!) {
     updateMember(memberId: $memberId, data: $data) {
+      status
       _id
       name
       responsible {

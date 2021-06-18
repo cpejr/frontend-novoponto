@@ -11,7 +11,7 @@ import {
 import { InputText } from "../../components/atoms";
 import searchIcon from "../../assets/searchIcon.svg";
 import SessionsTable from "./SessionsTable";
-import ConfirmationModal from "../../components/molecules/Modal";
+import ConfirmationModal from "../../components/molecules/ConfirmationModal";
 import AutocompleteMemberInput from "../../components/organisms/AutoCompleteMemberInput";
 import { SESSION_SUBSCRIPTION } from "../../graphql/Subscription";
 
@@ -29,8 +29,6 @@ const Sessions = ({ members, ...props }) => {
   const memberToLogin = useRef();
 
   const {
-    loading: loadingLoggedMembers,
-    error: errorLoggedMembers,
     data: loggedData,
     refetch: refetchLoggedMembers,
   } = useQuery(LOGGED_MEMBERS);
@@ -138,7 +136,7 @@ const Sessions = ({ members, ...props }) => {
         />
       </div>
 
-      <div className="buttonLogouAllMembers">
+      <div className="d-flex justify-content-end">
         <Button onClick={() => setShowLogoutAllMembers(true)}>
           Deslogar todos os membros
         </Button>

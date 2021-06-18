@@ -17,7 +17,7 @@ import {
   InputText,
 } from "../../../components/atoms";
 import searchIcon from "../../../assets/searchIcon.svg";
-import ConfirmationModal from "../../../components/molecules/Modal";
+import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
 import FormModal from "../../../components/organisms/FormModal";
 
 import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";

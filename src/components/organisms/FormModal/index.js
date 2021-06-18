@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Modal from "../../molecules/Modal";
+import Modal from "../../molecules/ConfirmationModal";
 import AutoCompleteInput from "../../molecules/AutocompleteInput";
 import { CommonSelectBox, InputText } from "../../atoms";
 import { Form } from "antd";

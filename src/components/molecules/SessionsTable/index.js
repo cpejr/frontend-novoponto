@@ -1,4 +1,3 @@
-import react from "react";
 import React, { useContext } from "react";
 import { ThemeContext } from "../../../context/ThemeProvider";
 import { getColumns } from "./columns";

@@ -42,7 +42,7 @@ export const colors = {
   blue: palette.blueSky,
   blueOk: palette.blue400,
 
-  yellowCPE: palette.yellowMustard,
+  yellowCPE: palette.yellowCPEPrimary,
   yellow: palette.yellowMustard,
 
   red: palette.red300,
