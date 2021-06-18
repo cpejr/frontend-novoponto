@@ -37,10 +37,10 @@ const NewsEdit = ({
   return (
     <EditNewsContainer>
       <div className="d-flex w-100 justify-content-between mb-1">
-        <DefaultText className="m-0">{`Notícia #${news.numberId}`}</DefaultText>
+        <DefaultText className="m-0">{`Notícia #${news.newsId}`}</DefaultText>
         <CommonButton
           icon={<DeleteFilled />}
-          onClick={() => onDelete(news.numberId)}
+          onClick={() => onDelete(news.newsId)}
         />
       </div>
       <Editor
@@ -76,13 +76,13 @@ const NewsEdit = ({
             alignmentEnabled: true,
             uploadCallback: async (file) => {
               const result = await sendImage({
-                variables: { file: file, numberId: news.numberId },
+                variables: { file: file, newsId: news.newsId },
               });
               console.log(
                 "🚀 ~ file: index.js ~ line 81 ~ uploadCallback: ~ result",
                 result
               );
-              return { data: { link: result.sendImage } };
+              return { data: { link: result.data.uploadImage } };
             },
             inputAccept: "image/gif,image/jpeg,image/jpg,image/png,image/svg",
             alt: { present: false, mandatory: false },
@@ -103,13 +103,13 @@ const NewsEdit = ({
       </div>
       <div className="d-flex w-100">
         {news.index > 0 && numberOfNews > 1 && (
-          <Button block onClick={() => onChangeIndex(news.numberId, -1)}>
+          <Button block onClick={() => onChangeIndex(news.newsId, -1)}>
             <CaretLeftOutlined />
           </Button>
         )}
 
         {news.index !== numberOfNews - 1 && (
-          <Button block onClick={() => onChangeIndex(news.numberId, +1)}>
+          <Button block onClick={() => onChangeIndex(news.newsId, +1)}>
             <CaretRightOutlined />
           </Button>
         )}

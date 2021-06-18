@@ -6,7 +6,7 @@ const News = gql`
       _id
       html
       index
-      numberId
+      newsId
     }
   }
 `;
@@ -23,7 +23,7 @@ const CreateNews = gql`
       _id
       html
       index
-      numberId
+      newsId
     }
   }
 `;
@@ -34,14 +34,14 @@ const ReplaceNews = gql`
       _id
       html
       index
-      numberId
+      newsId
     }
   }
 `;
 
 const UploadImage = gql`
-  mutation UploadImage($file: Upload!, $numberId: Int!) {
-    uploadImage(file: $file, numberId: $numberId)
+  mutation UploadImage($file: Upload!, $newsId: ID!) {
+    uploadImage(file: $file, newsId: $newsId)
   }
 `;
 

@@ -38,7 +38,7 @@ const UpdateNews = () => {
     setNewsList([
       ...newsList,
       {
-        numberId: new Date().getTime(),
+        newsId: new Date().getTime(),
         html: "",
         index: newsList.length,
       },
@@ -51,10 +51,10 @@ const UpdateNews = () => {
       try {
         await replaceNews({
           variables: {
-            data: newsList.map(({ html, index, numberId }) => ({
+            data: newsList.map(({ html, index, newsId }) => ({
               html,
               index,
-              numberId,
+              newsId,
             })),
           },
         });
@@ -72,7 +72,7 @@ const UpdateNews = () => {
   function updateNews(newNews) {
     const newNewslist = [...newsList];
     const index = newNewslist.findIndex(
-      (value) => value.numberId === newNews.numberId
+      (value) => value.newsId === newNews.newsId
     );
 
     newNewslist[index] = newNews;
@@ -80,10 +80,10 @@ const UpdateNews = () => {
     setNewsList(newNewslist);
   }
 
-  function handleChangeIndex(numberId, deltaPosition) {
+  function handleChangeIndex(newsId, deltaPosition) {
     let newNewslist = [...newsList];
 
-    const index = newNewslist.findIndex((value) => value.numberId === numberId);
+    const index = newNewslist.findIndex((value) => value.newsId === newsId);
 
     const a = newNewslist[index];
     const b = newNewslist[index + deltaPosition];
@@ -99,10 +99,10 @@ const UpdateNews = () => {
     setNewsList(newNewslist);
   }
 
-  function handleOnDelete(numberId) {
+  function handleOnDelete(newsId) {
     let newNewslist = [...newsList];
 
-    const index = newNewslist.findIndex((value) => value.numberId === numberId);
+    const index = newNewslist.findIndex((value) => value.newsId === newsId);
 
     newNewslist.splice(index, 1);
     setNewsList(newNewslist);
@@ -128,7 +128,7 @@ const UpdateNews = () => {
         <div className="innerBoxNewsContainer">
           {newsList.map((news) => (
             <NewsEdit
-              key={news.numberId}
+              key={news.newsId}
               news={news}
               numberOfNews={newsList.length}
               onDelete={handleOnDelete}
