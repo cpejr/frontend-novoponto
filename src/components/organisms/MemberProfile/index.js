@@ -23,15 +23,19 @@ const MemberProfile = ({
 
   const [newData, setNewData] = useState({
     status: member?.status || "",
-    message: member?.message || { text: "", read: true },
   });
 
   useEffect(() => {
-    setNewData({
-      status: member?.status || "",
-      message: member?.message || { text: "", read: true },
-    });
-  }, [member]);
+    if (showAsAdministrator)
+      setNewData({
+        status: member?.status || "",
+        message: member?.message || { text: "", read: true },
+      });
+    else
+      setNewData({
+        status: member?.status || "",
+      });
+  }, [member, showAsAdministrator]);
 
   const isAdm = showAsAdministrator;
 
