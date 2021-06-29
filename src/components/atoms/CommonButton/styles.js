@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 const CommonButtonContainer = styled.button`
-  width: ${(props) => props.width || "50px"};
+  width: ${(props) => props.width || "auto"};
   height: 32px;
   background-color: ${(props) => props.color || "red"};
   border-radius: 4px;
   outline: none;
   border: none;
+  padding: 8px 24px;
 
   display: flex;
   justify-content: center;

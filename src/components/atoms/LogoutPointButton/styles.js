@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const LogoutPointButtonContainer = styled.div`
-  width: 68px;
   height: 38px;
   background-color: ${(props) => props.color || "red"};
   border-radius: 2px;

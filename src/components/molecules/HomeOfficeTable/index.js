@@ -6,16 +6,16 @@ import { AditionalHourTableArea } from "./styles";
 import { Table, Collapse } from "antd";
 import { getColumns } from "./columns";
 
-const HomeOfficeTable = ({ aditionalHours, onDelete }) => {
+const HomeOfficeTable = ({ aditionalHours, onDelete, ...props }) => {
   const { themeColors } = useContext(ThemeContext);
   const { data } = useContext(SessionContext);
 
   const [columns, setColums] = useState();
-
+ 
   useEffect(() => {
     const visible =
       data?.member?.role?.access > 0 ||
-      !!aditionalHours?.find((item) => !!item.description);
+      !!aditionalHours?.find((item) => item.description !== null);
 
     setColums(getColumns(themeColors, visible, onDelete));
 
@@ -23,9 +23,9 @@ const HomeOfficeTable = ({ aditionalHours, onDelete }) => {
   }, [aditionalHours, themeColors]);
 
   return (
-    <AditionalHourTableArea>
+    <AditionalHourTableArea {...props}>
       <Collapse ghost defaultActiveKey={"1"}>
-        <Collapse.Panel header={<h3>Horas Adicionais: </h3>} key="1">
+        <Collapse.Panel header={<h6>Horas Adicionais: </h6>} key="1">
           <Table
             columns={columns}
             dataSource={aditionalHours?.map((aditional) => ({

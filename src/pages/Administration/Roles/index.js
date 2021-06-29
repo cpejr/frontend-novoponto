@@ -12,7 +12,7 @@ import { RolesComponent } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
 
 import { CommonButton } from "../../../components/atoms";
-import ConfirmationModal from "../../../components/molecules/Modal";
+import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
 import FormModal from "../../../components/organisms/FormModal";
 
 import { RocketOutlined } from "@ant-design/icons";

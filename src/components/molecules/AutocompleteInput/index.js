@@ -181,6 +181,7 @@ const AutocompleteInput = ({
           onKeyDown={onKeyDown}
           onBlur={onBlur}
           autoComplete="off"
+          placeholder="Escreva seu nome para logar"
         />
       </Dropdown>
 

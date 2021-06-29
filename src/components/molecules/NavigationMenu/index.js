@@ -1,22 +1,35 @@
-import {
+import Icon, {
   BulbOutlined,
   CarryOutOutlined,
   ClockCircleOutlined,
+  InfoCircleOutlined,
   LockOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Menu as AntdMenu } from "antd";
+import { Menu as AntdMenu, Badge } from "antd";
 import SubMenu from "antd/lib/menu/SubMenu";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import Lottie from "react-lottie";
+
 import { SessionContext } from "../../../context/SessionProvider";
-import { MemberAvatar } from "../../atoms";
+import newsLottie from "../../../assets/lotties/news-lottie.json";
 import MenuItem from "./MenuItem";
+import { GlobalsContext } from "../../../context/GlobalsProvider";
+
+const defaultOptions = {
+  loop: true,
+  autoPlay: true,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice",
+  },
+};
 
 const Menuu = ({ collapsed, ...props }) => {
   const location = useLocation();
 
   const { data } = useContext(SessionContext);
+  const { showUpdateCatalog, hasNewUpdate } = useContext(GlobalsContext);
 
   const access = data?.member?.role?.access;
   const showAdm = access && access > 0;
@@ -28,12 +41,25 @@ const Menuu = ({ collapsed, ...props }) => {
       theme="light"
       style={{ height: "100%", borderRight: 0 }}
       inlineCollapsed={collapsed}
+      onSelect={({ key }) => {
+        key === "novidades" && showUpdateCatalog();
+      }}
     >
       <MenuItem key="/" route="/" icon={<BulbOutlined />} label="Ponto" />
       <MenuItem
         key="/profile"
         route="/profile"
-        icon={<UserOutlined />}
+        icon={
+          <Badge
+            dot={!data?.member?.message?.read}
+            style={{
+              top: collapsed ? 11 : -2,
+              right: collapsed ? 0 : -4,
+            }}
+          >
+            <UserOutlined style={{ margin: 0 }} />
+          </Badge>
+        }
         label={data?.member?.name || "Perfil"}
       />
       <MenuItem
@@ -86,6 +112,28 @@ const Menuu = ({ collapsed, ...props }) => {
           label="Cargos"
         />
       </SubMenu>
+
+      <MenuItem
+        key="novidades"
+        icon={
+          hasNewUpdate ? (
+            <span className="anticon">
+              <Lottie
+                options={{ ...defaultOptions, animationData: newsLottie }}
+                height={24}
+                width={15}
+                style={{ lineHeight: 2.4, overflow: "unset" }}
+              />
+            </span>
+          ) : (
+            <InfoCircleOutlined />
+          )
+        }
+        label="novidades"
+        className="mt-auto"
+      >
+        Novidades
+      </MenuItem>
     </AntdMenu>
   );
 };

@@ -1,5 +1,5 @@
-import React, { useState, useContext, useRef } from "react";
-import { Alert, DatePicker, message, TimePicker } from "antd";
+import React, { useState, useContext } from "react";
+import { DatePicker, message, TimePicker } from "antd";
 import moment from "moment";
 import { useMutation } from "@apollo/client";
 
@@ -27,15 +27,14 @@ const INITIAL_ERRORS = {
 };
 
 function convertDurationToMilliseconds(time) {
-  
   return moment.duration(time.format("HH:mm")).asMilliseconds();
 }
 
 const HourChanges = () => {
-  const [
-    submitAditionalHours,
-    { loading, error },
-  ] = useMutation(SendAditionalHour, { ignoreResults: true });
+  const [submitAditionalHours, { loading, error }] = useMutation(
+    SendAditionalHour,
+    { ignoreResults: true }
+  );
 
   const { themeColors } = useContext(ThemeContext);
 
@@ -48,16 +47,16 @@ const HourChanges = () => {
     const newErrors = {};
     const { hourAction, member, date, duration, comment } = formData;
 
-    if (!!!member) newErrors.member = true;
+    if (!member) newErrors.member = true;
 
-    if (!!!hourAction) newErrors.hourAction = true;
+    if (!hourAction) newErrors.hourAction = true;
 
-    if (!!!date || date === "") newErrors.date = true;
+    if (!date || date === "") newErrors.date = true;
 
-    if (!!!duration || convertDurationToMilliseconds(duration) < 1000)
+    if (!duration || convertDurationToMilliseconds(duration) < 1000)
       newErrors.duration = true;
 
-    if (needComment && (!!!comment || comment?.trim() === ""))
+    if (needComment && (!comment || comment?.trim() === ""))
       newErrors.comment = true;
 
     if (Object.keys(newErrors).length > 0) {
@@ -69,7 +68,9 @@ const HourChanges = () => {
     return true;
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
+
     if (!loading && validateFields()) {
       const { hourAction, member, date, comment } = formData;
       let { duration } = formData;
@@ -108,7 +109,7 @@ const HourChanges = () => {
 
   return (
     <HourChangesComponent theme={themeColors}>
-      <OutlinedBox className="outlinedBox">
+      <OutlinedBox className="outlinedBox mx-auto mx-md-0">
         <div className="inputGroup">
           <DefaultText className="title">
             Formulário para adicionar ou remover horas

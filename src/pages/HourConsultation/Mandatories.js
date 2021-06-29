@@ -2,13 +2,11 @@ import { Collapse } from "antd";
 import React, { useContext } from "react";
 import {
   HourDisplayer,
-  InfoDisplayer,
   DefaultText,
 } from "../../components/atoms";
 import { ThemeContext } from "../../context/ThemeProvider";
 
 import { Table } from "antd";
-import moment from "moment";
 
 import { FlexDiv } from "./styles";
 
@@ -62,7 +60,7 @@ const Mandatories = ({ mandatories, ...props }) => {
   if (mandatories)
     return (
       <Collapse ghost>
-        <Collapse.Panel header={<h3>Horários Obrigatórios</h3>} key="1">
+        <Collapse.Panel header={<h6>Horários Obrigatórios</h6>} key="1">
           <Table
             columns={columns}
             dataSource={mandatories?.map((mandatory) => ({
