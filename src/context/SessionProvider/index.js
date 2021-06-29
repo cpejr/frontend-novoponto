@@ -55,11 +55,6 @@ const SessionContextProvider = (props) => {
   const [_updateSelf] = useMutation(UpdateSelf, {
     update(_, { data }) {
       updateAccessToken(data.updateSelf.accessToken);
-      console.log(
-        "🚀 ~ file: index.js ~ line 60 ~ update ~ data.updateSelf",
-        data.updateSelf
-      );
-
       setStorage({
         ...storage,
         data: { ...data.updateSelf },
