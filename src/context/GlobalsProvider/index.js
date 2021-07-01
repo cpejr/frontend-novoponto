@@ -153,7 +153,7 @@ const Loading = () => {
         width={300}
       />
       <DefaultText style={{ fontSize: 30, marginBottom: 8 }}>
-        Aquencendo os motores...
+        Aquecendo os motores...
       </DefaultText>
       <DefaultText style={{ opacity: 0.5 }}>
         (isso pode levar um tempo)
