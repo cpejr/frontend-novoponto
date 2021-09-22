@@ -7,7 +7,12 @@ const { Option } = Select;
 const CommonSelectBox = ({ optionsList = [], ...props }) => {
   return (
     <CommonSelectBoxContainer>
-      <Select size="default" style={{ width: "100%" }} {...props}>
+      <Select 
+      size="default" 
+      style={{ width: "100%" }} 
+      showSearch 
+      optionFilterProp="children" 
+      {...props}>
         {optionsList.map((item) => (
           <Option key={item.value} value={item.value}>
             {item.label}
