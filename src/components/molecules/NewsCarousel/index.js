@@ -41,7 +41,7 @@ const NewsCarousel = ({ news, ...props }) => {
 
   return (
     <NewsCarouselContainer {...props}>
-      <Carousel infiniteLoop showStatus={false} showThumbs={false}>
+      <Carousel infiniteLoop showStatus={false} showThumbs={false} autoPlay interval={7000}>
         {newsWrapper}
       </Carousel>
     </NewsCarouselContainer>
