@@ -1,6 +1,6 @@
 # ⏲ [Frontend] Ponto CPE
 
-## 🔎 Sobre o projeto
+## 🔎 Sobre o Projeto
 
 ### **Descrição**
 
@@ -78,7 +78,7 @@ Inova Team (Arthur Braga, Arthur Lima, Diogo Almazan e João Prates).
 
   - Pasta que armazena os arquivos de estilos globais e de temas do projeto. Estes arquivos são utilizados por todo o sistema.
 
-## 📲 Como rodar
+## 📲 Como Rodar
 
 Primeiramente, será necessário instalar as dependências do projeto, com o comando
 
@@ -92,7 +92,7 @@ Após isso, digitar o comando abaixo. Dessa forma, uma aba abrirá no seu navega
 
 Como forma de organizar as pastas, foi utilizado uma padronização de design de sistemas, conhecida como [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/ "Atomic Design"). Nesse padrão, o projeto é organizado em átomos, moléculas, organismos, templates e páginas. Para mais informações, consultar a documentação.
 
-## 🔧 Ferramentas utilizadas
+## 🔧 Ferramentas Utilizadas
 
 - [ReactJs](https://pt-br.reactjs.org/docs/getting-started.html "ReactJs") -> Biblioteca Javascript para construção de interfaces de usuário.
 - [Firebase](https://firebase.google.com/docs/ "Firebase") -> Usado para a autenticação, apenas
@@ -116,4 +116,4 @@ Como forma de documentar os componentes criados, começou-se a utilizar o Storyb
 
 ---
 
-_<center>Consultoria e Projetos Elétricos Junior - CPE 💛 - 2021/2</center>_
+_<p style="text-align:center;">Consultoria e Projetos Elétricos Junior - CPE 💛 - 2021/2</p>_
