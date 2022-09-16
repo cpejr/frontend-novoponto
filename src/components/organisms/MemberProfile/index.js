@@ -88,7 +88,6 @@ const MemberProfile = ({
           <>
             <TextArea
               resize={true}
-              maxLength={50}
               onChange={(e) =>
                 handleOnChange({
                   message: { text: e.target.value, read: false },
