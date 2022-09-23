@@ -7,4 +7,5 @@ export { default as UpdateNews } from "./Administration/UpdateNews";
 export { default as MandatoryHours } from "./Administration/MandatoryHours";
 export { default as Members } from "./Administration/Members";
 export { default as Roles } from "./Administration/Roles";
+export { default as Tribes } from "./Administration/Tribes/index.js";
 export { default as HourFollowing } from "./Administration/HourFollowing";
