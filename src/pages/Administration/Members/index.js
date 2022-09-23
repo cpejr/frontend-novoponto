@@ -65,7 +65,17 @@ const Members = () => {
 			value: member._id,
 			label: member.name,
 		}));
+		const rolesOptions = roles.roles.map((role) => ({
+			value: role._id,
+			label: role.name,
+		}));
+		const tribesOptions = Object.assign([],  tribes?.tribes?.map((tribe) => ({
+			value: tribe?._id,
+			label: tribe?.name,
+		})));
 
+		if (withInitialValue) tribesOptions.push({ label: "", value: null });
+		
 		var fields = [
 			{
 				key: "name",
@@ -81,12 +91,8 @@ const Members = () => {
 				type: "select",
 				label: "Tribo",
 				placeholder: "Escolha a tribo",
-				rules: [validators.antdRequired()],
 
-				options: tribes?.tribes.map((tribe) => ({
-					value: tribe?._id,
-					label: tribe?.name,
-				})),
+				options: tribesOptions,
 
 				initialValue: withInitialValue ? member?.tribe?._id : undefined,
 			},
@@ -97,10 +103,7 @@ const Members = () => {
 				placeholder: "Escolha o cargo",
 				rules: [validators.antdRequired()],
 
-				options: roles.roles.map((role) => ({
-					value: role._id,
-					label: role.name,
-				})),
+				options: rolesOptions,
 
 				initialValue: withInitialValue ? member?.role?._id : undefined,
 			},
