@@ -61,7 +61,7 @@ const Members = () => {
 
 	const editOrCreateMember = (method, member) => {
 		const withInitialValue = method === "edit";
-		const memberOptions = allMembersData.members.map((member) => ({
+		const memberOptions = allMembersData?.members.map((member) => ({
 			value: member._id,
 			label: member.name,
 		}));
@@ -216,7 +216,7 @@ const Members = () => {
 
 	const handleSearchMembers = (e) => {
 		if (e.target.value !== "") {
-			const filteredMembersAfterForEach = allMembersData.members.filter(
+			const filteredMembersAfterForEach = allMembersData?.members.filter(
 				(item) => {
 					return item.name.toLowerCase().includes(e.target.value.toLowerCase());
 				}
@@ -224,12 +224,12 @@ const Members = () => {
 
 			setFilteredMembers(filteredMembersAfterForEach);
 		} else {
-			setFilteredMembers([...allMembersData.members]);
+			setFilteredMembers([...allMembersData?.members]);
 		}
 	};
 
 	useEffect(() => {
-		if (allMembersData) setFilteredMembers([...allMembersData.members]);
+		if (allMembersData) setFilteredMembers([...allMembersData?.members]);
 	}, [allMembersData]);
 
 	if (membersLoading)

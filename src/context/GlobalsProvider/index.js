@@ -38,7 +38,7 @@ const GlobalsContextProvider = (props) => {
 	const accessArray = [0, 1];
 	const membersData = {};
 	membersData.members = allMembersData?.members?.filter((member) =>
-		accessArray.includes(member.role.access)
+		accessArray.includes(member?.role?.access)
 	);
 
 	const [menuColapse, setMenuColapse] = useState(false);
