@@ -181,7 +181,7 @@ const AutocompleteInput = ({
           onKeyDown={onKeyDown}
           onBlur={onBlur}
           autoComplete="off"
-          placeholder="Escreva o nome do assessor"
+          placeholder="Escreva o nome do membro"
         />
       </Dropdown>
 
