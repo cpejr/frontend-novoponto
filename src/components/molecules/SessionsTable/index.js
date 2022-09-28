@@ -16,10 +16,11 @@ const SessionsTable = ({ sessions, formatedTotal, formatedPresentialTotal }) => 
       <div className="sum">
         <h6 className="m-0 me-2">Soma:</h6>
         <HourDisplayer text={formatedTotal} hourColor={themeColors.yellow} />
-        <h6 className="m-0 me-2">Soma presencial:</h6>
-        <HourDisplayer text={formatedPresentialTotal} hourColor={themeColors.yellow} />
       </div>
-      
+      <div className="sum">
+      <h6 className="m-0 me-2">Soma presencial:</h6>
+        <HourDisplayer text={formatedPresentialTotal} hourColor={themeColors.yellow} />
+        </div>
       <Collapse ghost defaultActiveKey={"1"}>
         <Collapse.Panel header={<h6>Sessões: </h6>} key="1">
           <Table
