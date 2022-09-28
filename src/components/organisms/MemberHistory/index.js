@@ -22,7 +22,9 @@ const MemberHistory = ({ memberId, ...props }) => {
     fetchPolicy: "network-only",
   });
 
-  const { aditionalHours, sessions, formatedTotal } = data?.compiled || {};
+  const { aditionalHours, sessions, formatedTotal, formatedPresentialTotal } = data?.compiled || {};
+
+  console.log(sessions)
 
   async function loadData() {
     return loadCompiled({
@@ -59,7 +61,7 @@ const MemberHistory = ({ memberId, ...props }) => {
 
         {startDate && endDate && (
           <div className="mt-4">
-            <SessionsTable sessions={sessions} formatedTotal={formatedTotal} />
+            <SessionsTable sessions={sessions} formatedTotal={formatedTotal} formatedPresentialTotal={formatedPresentialTotal} />
             <HomeOfficeTable
               aditionalHours={aditionalHours}
               onDelete={loadData}

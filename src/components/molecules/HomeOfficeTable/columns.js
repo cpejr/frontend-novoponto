@@ -59,6 +59,17 @@ function getColumns(themeColors, hasComment, onDelete) {
         </FlexDiv>
       ),
     },
+    {
+      title: "Modalidade",
+      dataIndex: "isPresential",
+      key: "isPresential",
+      render: (isPresential) => (
+        <DefaultText style={{ margin: 0, textAlign: "center" }}>
+        {" "}
+        {isPresential ? (<>Presencial</>) : (<>Remoto</>)}
+      </DefaultText>
+      ),
+    },
   ];
 
   if (hasComment) {

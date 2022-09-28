@@ -178,6 +178,7 @@ const FetchCompiledForHC = gql`
 				start
 				end
 				formatedDuration
+				isPresential
 			}
 			aditionalHours {
 				_id
@@ -186,9 +187,11 @@ const FetchCompiledForHC = gql`
 				action
 				formatedAmount
 				description
+				isPresential
 			}
 			total
 			formatedTotal
+			formatedPresentialTotal
 		}
 	}
 `;

@@ -7,6 +7,7 @@ const DefaultHourFields = gql`
     formatedAmount
     description
     action
+    isPresential
   }
 `;
 
@@ -42,6 +43,7 @@ const AditionalHours = gql`
       action
       formatedAmount
       description
+      isPresential
     }
   }
 `;
