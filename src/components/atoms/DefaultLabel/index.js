@@ -6,9 +6,11 @@ const DefaultLabel = ({
 	labelColor = "#ffd100",
 	labelWidth = "auto",
 	labelMargin = "0",
+	...props
 }) => {
 	return (
 		<DefaultLabelContainer
+			{...props}
 			color={labelColor}
 			width={labelWidth}
 			margin={labelMargin}

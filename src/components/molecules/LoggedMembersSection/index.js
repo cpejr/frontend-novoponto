@@ -32,8 +32,11 @@ const LoggedMembers = ({
 							className="ms-2 p-0 d-none d-lg-flex text-truncate flex-shrink-1 me-2"
 						/>
 					</Row>
-					<Row style={{ marginTop: 8 }} className="d-none d-sm-flex flex-nowrap">
-						{role && <DefaultLabel labelText={role} labelColor="#FFD100" />}
+					<Row
+						style={{ marginTop: 8 }}
+						className="d-none d-sm-flex flex-nowrap"
+					>
+						{role && <DefaultLabel labelText={role} />}
 						{/* {mandatoryHour && (
 							<DefaultLabel
 								labelText="Horário obrigatório"
@@ -43,8 +46,9 @@ const LoggedMembers = ({
 						{tribe && (
 							<DefaultLabel
 								labelText={tribe.name}
-								labelMargin="0 0 0 5px"
 								labelColor={tribe.color}
+								labelMargin="0 0 0 5px"
+								className="d-none d-md-flex"
 							/>
 						)}
 					</Row>
