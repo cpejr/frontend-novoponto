@@ -17,7 +17,6 @@ const LoggedMembers = ({
 	mandatoryHour = null,
 	description,
 }) => {
-	console.log(tribe);
 	return (
 		<LoggedMembersContainer className="container">
 			<Row className="flex-nowrap w-100 ">

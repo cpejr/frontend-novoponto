@@ -14,6 +14,7 @@ import SessionsTable from "./SessionsTable";
 import ConfirmationModal from "../../components/molecules/ConfirmationModal";
 import AutocompleteMemberInput from "../../components/organisms/AutoCompleteMemberInput";
 import { SESSION_SUBSCRIPTION } from "../../graphql/Subscription";
+import diacriticCaseInsensitiveMatch from "../../utils/diacriticCaseInsensitiveMatch";
 
 const Sessions = ({ members, ...props }) => {
 	const [memberTextToLogin, setMemberTextToLogin] = useState({});
@@ -34,7 +35,6 @@ const Sessions = ({ members, ...props }) => {
 	const { data: sessionUpdateData } = useSubscription(SESSION_SUBSCRIPTION);
 
 	const { loggedMembers } = loggedData || {};
-	console.log(loggedData);
 	async function handleLogoutMember(member) {
 		let hide = message.loading("Deslogado...");
 
@@ -89,10 +89,8 @@ const Sessions = ({ members, ...props }) => {
 
 		if (value && value.trim() !== "")
 			setFilteredSessions(
-				loggedMembers?.filter((session) =>
-					session.member.name
-						?.toLowerCase()
-						.includes(value?.toLowerCase().trim())
+				loggedMembers?.filter(({ member: { name } }) =>
+					diacriticCaseInsensitiveMatch(name, value)
 				)
 			);
 		else setFilteredSessions(loggedMembers);
