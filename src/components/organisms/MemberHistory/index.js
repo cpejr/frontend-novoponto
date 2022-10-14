@@ -23,7 +23,6 @@ const MemberHistory = ({ memberId }) => {
 	});
 
   const { aditionalHours, sessions, formatedTotal, formatedPresentialTotal } = data?.compiled || {};
-	const { aditionalHours, sessions, formatedTotal } = data?.compiled || {};
 	async function loadData() {
 		return loadCompiled({
 			variables: {
@@ -57,17 +56,9 @@ const MemberHistory = ({ memberId }) => {
 					placeholder={["Inicio", "Fim"]}
 				/>
 
-        <RangePicker
-          format="DD-MM-yyyy"
-          disabledDate={disabledDate}
-          onChange={setRangeDate}
-          value={rangeDate}
-          placeholder={["Inicio", "Fim"]}
-        />
-
         {startDate && endDate && (
           <div className="mt-4">
-            <SessionsTable sessions={sessions} formatedTotal={formatedTotal} />
+             <SessionsTable sessions={sessions} formatedTotal={formatedTotal} formatedPresentialTotal={formatedPresentialTotal} />
             <HomeOfficeTable
               aditionalHours={aditionalHours}
               onDelete={loadData}
