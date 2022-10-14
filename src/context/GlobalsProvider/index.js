@@ -45,7 +45,7 @@ const GlobalsContextProvider = (props) => {
 	const [hasNewUpdate, setHasNewUpdate] = useState(false);
 
 	const [width, setWidth] = useState(window.innerWidth);
-	const breakpoint = 640;
+	const breakpoint = 830;
 	const isMobile = width < breakpoint;
 
 	useEffect(() => {

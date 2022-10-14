@@ -24,6 +24,7 @@ import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";
 
 import validators from "../../../services/validators";
 import { GET_TRIBES } from "../../../graphql/Tribes";
+import diacriticCaseInsensitiveMatch from "../../../utils/diacriticCaseInsensitiveMatch";
 
 const { Column, ColumnGroup } = Table;
 
@@ -69,13 +70,16 @@ const Members = () => {
 			value: role._id,
 			label: role.name,
 		}));
-		const tribesOptions = Object.assign([],  tribes?.tribes?.map((tribe) => ({
-			value: tribe?._id,
-			label: tribe?.name,
-		})));
+		const tribesOptions = Object.assign(
+			[],
+			tribes?.tribes?.map((tribe) => ({
+				value: tribe?._id,
+				label: tribe?.name,
+			}))
+		);
 
 		if (withInitialValue) tribesOptions.push({ label: "", value: null });
-		
+
 		var fields = [
 			{
 				key: "name",
@@ -217,9 +221,7 @@ const Members = () => {
 	const handleSearchMembers = (e) => {
 		if (e.target.value !== "") {
 			const filteredMembersAfterForEach = allMembersData?.members.filter(
-				(item) => {
-					return item.name.toLowerCase().includes(e.target.value.toLowerCase());
-				}
+				({ name }) => diacriticCaseInsensitiveMatch(name, e.target.value)
 			);
 
 			setFilteredMembers(filteredMembersAfterForEach);
