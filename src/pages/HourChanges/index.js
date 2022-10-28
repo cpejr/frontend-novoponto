@@ -24,6 +24,7 @@ const INITIAL_ERRORS = {
   date: false,
   duration: false,
   comment: false,
+  isPresential: false,
 };
 
 function convertDurationToMilliseconds(time) {
@@ -45,7 +46,9 @@ const HourChanges = () => {
 
   function validateFields() {
     const newErrors = {};
-    const { hourAction, member, date, duration, comment } = formData;
+    const { hourAction, member, date, duration, comment, isPresential } = formData;
+
+    if (!isPresential) newErrors.isPresential = true;
 
     if (!member) newErrors.member = true;
 
@@ -72,7 +75,7 @@ const HourChanges = () => {
     e.preventDefault();
 
     if (!loading && validateFields()) {
-      const { hourAction, member, date, comment } = formData;
+      const { hourAction, member, date, comment, isPresential } = formData;
       let { duration } = formData;
 
       duration = convertDurationToMilliseconds(duration);
@@ -85,6 +88,7 @@ const HourChanges = () => {
             date: date.startOf("day").toISOString(),
             amount: duration,
             description: comment,
+            isPresential: isPresential,
           },
         },
       })
@@ -105,6 +109,7 @@ const HourChanges = () => {
 
   function handleChangeData(key, data) {
     setFormData({ ...formData, [key]: data });
+    console.log(formData);
   }
 
   return (
@@ -131,6 +136,26 @@ const HourChanges = () => {
             optionsList={hourActionOptions}
             onChange={(data) => handleChangeData("hourAction", data)}
             value={formData.hourAction}
+          />
+        </div>
+        <div className="inputGroup">
+          <DefaultText error={errors.hourAction}>
+            Modalidade? *
+          </DefaultText>
+          <CommonSelectBox
+            placeholder="Presencial/Remoto"
+            optionsList={[
+              {
+                  value: true,
+                  label: 'Presencial'
+              },
+              {
+                  value: false,
+                  label: 'Remoto'
+              },
+          ]}
+            onChange={(data) => handleChangeData("isPresential", data)}
+            value={formData.isPresential}
           />
         </div>
         <div className="inputGroup">

@@ -1,6 +1,7 @@
 import { HourDisplayer, InfoDisplayer, DefaultText } from "../../atoms";
 import { FlexDiv } from "./styles";
 import moment from "moment";
+import { Divider } from "antd";
 
 function getColumns(themeColors) {
   const columns = [
@@ -44,6 +45,19 @@ function getColumns(themeColors) {
           <InfoDisplayer
             info={formatedDuration}
             infoColor={themeColors.yellow}
+          />
+        </FlexDiv>
+      ),
+    },
+    {
+      title: "Modalidade",
+      dataIndex: "isPresential",
+      key: "isPresential",
+      render: (isPresential) => (
+        <FlexDiv>
+          <InfoDisplayer
+            info={isPresential ? "Presencial" : "Remoto"}
+            infoColor={themeColors.green}
           />
         </FlexDiv>
       ),

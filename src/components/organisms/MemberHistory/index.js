@@ -22,7 +22,7 @@ const MemberHistory = ({ memberId }) => {
 		fetchPolicy: "network-only",
 	});
 
-	const { aditionalHours, sessions, formatedTotal } = data?.compiled || {};
+  const { aditionalHours, sessions, formatedTotal, formatedPresentialTotal } = data?.compiled || {};
 	async function loadData() {
 		return loadCompiled({
 			variables: {
@@ -56,18 +56,18 @@ const MemberHistory = ({ memberId }) => {
 					placeholder={["Inicio", "Fim"]}
 				/>
 
-				{startDate && endDate && (
-					<div className="mt-4">
-						<SessionsTable sessions={sessions} formatedTotal={formatedTotal} />
-						<HomeOfficeTable
-							aditionalHours={aditionalHours}
-							onDelete={loadData}
-						/>
-					</div>
-				)}
-			</MemberHistoyContainer>
-		);
-	else return <></>;
+        {startDate && endDate && (
+          <div className="mt-4">
+             <SessionsTable sessions={sessions} formatedTotal={formatedTotal} formatedPresentialTotal={formatedPresentialTotal} />
+            <HomeOfficeTable
+              aditionalHours={aditionalHours}
+              onDelete={loadData}
+            />
+          </div>
+        )}
+      </MemberHistoyContainer>
+    );
+  else return <></>;
 };
 
 export default MemberHistory;
