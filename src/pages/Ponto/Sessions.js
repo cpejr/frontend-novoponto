@@ -58,14 +58,10 @@ const Sessions = () => {
 
 	async function handleLogin(modality) {
 
-		//memberToLogin.current.isPresential = modality; //isPresential do back tem q receber true ou false
-
-		if (loadingLoging || !memberToLogin.current) return;
-
 		const hide = message.loading("Fazendo Login...");
 		try {
 			await startSessionMutation({
-				variables: { memberId: memberToLogin.current._id },
+				variables: { memberId: memberToLogin.current._id , isPresential: modality},
 			});
 			hide();
 			message.success(`Bom trabalho ${memberToLogin.current.name}!`, 2.5);
@@ -164,8 +160,8 @@ const Sessions = () => {
 				isVisible={!!memberToLogin.current}
 					
 				//Conferir se era boolean mesmo e qual é true e qual é false
-				handleOk={() => handleLogin(1)}
-				handleCancel={() => handleLogin(0)}
+				handleOk={() => handleLogin(true)}
+				handleCancel={() => handleLogin(false)}
 			/>
 		</div>
 	);

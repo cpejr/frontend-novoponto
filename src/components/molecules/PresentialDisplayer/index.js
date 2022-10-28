@@ -2,18 +2,15 @@ import React from "react";
 import PresentialDisplayerContainer from "./styles";
 
 const PresentialDisplayer = ({
-  isPresential/* = "Presencial"*/, //puxar do back
+  isPresential,// = "Presencial", //puxar do back
   presentialColor,
   ...props
 }) => {
-  if (isPresential) {
-    return (
-      <PresentialDisplayerContainer color={presentialColor} {...props}>
-        {isPresential}
-      </PresentialDisplayerContainer>
-    );
-  }
-  return <></>;
+  return (
+    <PresentialDisplayerContainer color={presentialColor} {...props}>
+      {isPresential ? "Presencial" : "Online"}
+    </PresentialDisplayerContainer>
+  );
 };
 
 export default PresentialDisplayer;

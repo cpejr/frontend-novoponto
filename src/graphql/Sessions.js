@@ -11,14 +11,15 @@ const LOGGED_MEMBERS = gql`
 			end
 			duration
 			formatedDuration
+			isPresential
 		}
 	}
 	${DefaultSessionFields}
 `;
 
 const CREATE_SESSION = gql`
-	mutation StartSession($memberId: ID!) {
-		startSession(memberId: $memberId) {
+	mutation StartSession($memberId: ID!, $isPresential: Boolean!) {
+		startSession(memberId: $memberId, isPresential: $isPresential) {
 			start
 			member {
 				name
