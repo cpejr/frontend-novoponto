@@ -12,6 +12,7 @@ import { InputText } from "../../components/atoms";
 import searchIcon from "../../assets/searchIcon.svg";
 import SessionsTable from "./SessionsTable";
 import ConfirmationModal from "../../components/molecules/ConfirmationModal";
+import ModalityModal from "../../components/molecules/ModalityModal";
 import AutocompleteMemberInput from "../../components/organisms/AutoCompleteMemberInput";
 import { SESSION_SUBSCRIPTION } from "../../graphql/Subscription";
 import diacriticCaseInsensitiveMatch from "../../utils/diacriticCaseInsensitiveMatch";
@@ -35,6 +36,7 @@ const Sessions = () => {
 	const { data: sessionUpdateData } = useSubscription(SESSION_SUBSCRIPTION);
 
 	const { loggedMembers } = loggedData || {};
+
 	async function handleLogoutMember(member) {
 		let hide = message.loading("Deslogado...");
 
@@ -54,7 +56,10 @@ const Sessions = () => {
 		}
 	}
 
-	async function handleLogin() {
+	async function handleLogin(modality) {
+
+		//memberToLogin.current.isPresential = modality; //isPresential do back tem q receber true ou false
+
 		if (loadingLoging || !memberToLogin.current) return;
 
 		const hide = message.loading("Fazendo Login...");
@@ -152,6 +157,15 @@ const Sessions = () => {
 					setShowLogoutAllMembers(false);
 				}}
 				handleCancel={() => setShowLogoutAllMembers(false)}
+			/>
+			<ModalityModal
+				title="Confirmação de login"
+				content={`Como deseja logar ${memberToLogin.current?.name}?`}
+				isVisible={!!memberToLogin.current}
+					
+				//Conferir se era boolean mesmo e qual é true e qual é false
+				handleOk={() => handleLogin(1)}
+				handleCancel={() => handleLogin(0)}
 			/>
 		</div>
 	);

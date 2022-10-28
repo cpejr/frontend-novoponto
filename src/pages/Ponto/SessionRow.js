@@ -2,6 +2,7 @@ import { Button } from "antd";
 import React, { useContext } from "react";
 import { HourDisplayer } from "../../components/atoms";
 import DurationDisplayer from "../../components/molecules/DurationDisplayer";
+import PresentialDisplayer from "../../components/molecules/PresentialDisplayer";
 import LoggedMembers from "../../components/molecules/LoggedMembersSection";
 import { ThemeContext } from "../../context/ThemeProvider";
 
@@ -17,7 +18,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 
 	return (
 		<tr {...props} className="d-flex">
-			<td className="col-6">
+			<td className="col-4">
 				<LoggedMembers
 					name={member.name}
 					imageLink={member.imageLink}
@@ -26,6 +27,14 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 					description={member.status}
 				/>
 			</td>
+			<td className="col-2 d-none d-sm-flex align-items-center justify-content-center">
+			<div className="d-flex">
+			  <PresentialDisplayer
+				presential={member.isPresential}
+				presentialColor={themeColors.green}
+			  />
+			</div>
+		  </td>
 			<td className="col-2 d-none d-sm-flex align-items-center justify-content-center">
 				<div className="d-flex">
 					<HourDisplayer
