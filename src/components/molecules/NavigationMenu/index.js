@@ -45,10 +45,10 @@ const Menuu = ({ collapsed, ...props }) => {
 				key === "novidades" && showUpdateCatalog();
 			}}
 		>
-			<MenuItem key="/" route="/" icon={<BulbOutlined />} label="Ponto" />
+			<MenuItem key="/ponto" route="/ponto" icon={<BulbOutlined />} label="Ponto" />
 			<MenuItem
-				key="/profile"
-				route="/profile"
+				key="/ponto/profile"
+				route="/ponto/profile"
 				icon={
 					<Badge
 						dot={!data?.member?.message?.read}
@@ -63,15 +63,15 @@ const Menuu = ({ collapsed, ...props }) => {
 				label={data?.member?.name || "Perfil"}
 			/>
 			<MenuItem
-				key="/consultadehoras"
-				route="/consultadehoras"
+				key="/ponto/consultadehoras"
+				route="/ponto/consultadehoras"
 				icon={<ClockCircleOutlined />}
 				label="Consulta de horas"
 			/>
 
 			<MenuItem
-				key="/alteracaodehoras"
-				route="/alteracaodehoras"
+				key="/ponto/alteracaodehoras"
+				route="/ponto/alteracaodehoras"
 				icon={<CarryOutOutlined />}
 				label="Adicionar/Remover horas"
 			/>
@@ -83,38 +83,38 @@ const Menuu = ({ collapsed, ...props }) => {
 				style={{ display: showAdm ? "block" : "none" }}
 			>
 				<MenuItem
-					key="/acompanhamento"
-					route="/acompanhamento"
+					key="/ponto/acompanhamento"
+					route="/ponto/acompanhamento"
 					label="Acompanhamento"
 				/>
 				<MenuItem
 					disabled={!access || access === 0}
-					key="/atualizarnoticias"
-					route="/atualizarnoticias"
+					key="/ponto/atualizarnoticias"
+					route="/ponto/atualizarnoticias"
 					label="Atualizar Notícias"
 				/>
 				<MenuItem
 					disabled={!access || access === 0}
-					key="/horarioobrigatorio"
-					route="/horarioobrigatorio"
+					key="/ponto/horarioobrigatorio"
+					route="/ponto/horarioobrigatorio"
 					label="Horário Obrigatório"
 				/>
 				<MenuItem
 					disabled={!access || access === 0}
-					key="/membros"
-					route="/membros"
+					key="/ponto/membros"
+					route="/ponto/membros"
 					label="Membros"
 				/>
 				<MenuItem
 					disabled={!access || access === 0}
-					key="/cargos"
-					route="/cargos"
+					key="/ponto/cargos"
+					route="/ponto/cargos"
 					label="Cargos"
 				/>
 				<MenuItem
 					disabled={!access || access === 0}
-					key="/tribos"
-					route="/tribos"
+					key="/ponto/tribos"
+					route="/ponto/tribos"
 					label="Tribos"
 				/>
 			</SubMenu>
