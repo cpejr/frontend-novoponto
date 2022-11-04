@@ -1,6 +1,7 @@
 export { default as Profile } from "./Profile";
 export { default as HourChanges } from "./HourChanges";
 export { default as HourConsultation } from "./HourConsultation";
+export { default as Login } from "./Login"
 export { default as Ponto } from "./Ponto";
 export { default as StandBy } from "./StandBy";
 export { default as UpdateNews } from "./Administration/UpdateNews";
