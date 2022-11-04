@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
 import SidebarMenu from "../components/organisms/Menu";
 import RestrictedRoute from "./RestrictedRoute";
@@ -68,6 +68,9 @@ function Menu() {
 const Routes = () => {
 	return (
 		<BrowserRouter>
+			<Route exact path="/">
+				{<Redirect to="/ponto"/>}
+			</Route>
 			<Route path="/login" component={Login} />
 			<Route path="/ponto" component={Menu} />
 		</BrowserRouter>
