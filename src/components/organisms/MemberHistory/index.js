@@ -58,7 +58,7 @@ const MemberHistory = ({ memberId }) => {
 
         {startDate && endDate && (
           <div className="mt-4">
-             <SessionsTable sessions={sessions} formatedTotal={formatedTotal} formatedPresentialTotal={formatedPresentialTotal} />
+        	<SessionsTable sessions={sessions} formatedTotal={formatedTotal} formatedPresentialTotal={formatedPresentialTotal} />
             <HomeOfficeTable
               aditionalHours={aditionalHours}
               onDelete={loadData}

@@ -2,13 +2,13 @@ import React from "react";
 import PresentialDisplayerContainer from "./styles";
 
 const PresentialDisplayer = ({
-  isPresential,// = "Presencial", //puxar do back
+  isPresential,
   presentialColor,
   ...props
 }) => {
   return (
     <PresentialDisplayerContainer color={presentialColor} {...props}>
-      {isPresential ? "Presencial" : "Online"}
+      {isPresential ? "Presencial" : "Remoto"}
     </PresentialDisplayerContainer>
   );
 };

@@ -6,7 +6,8 @@ const ModalityModal = ({
   content,
   title,
   isVisible,
-  handleOk,
+  handlePresencialLogin,
+  handleOnlineLogin,
   handleCancel,
   children,
 }) => {
@@ -14,14 +15,13 @@ const ModalityModal = ({
     <Modal
       title={title}
       visible={isVisible}
-      onOk={handleOk}
       onCancel={handleCancel}
       bodyStyle={{ backgroundColor: "#141414" }}
       footer={[
-        <Button key="submit" type="primary" onClick={handleCancel}>
-          Online
+        <Button key="submit" type="primary" onClick={handleOnlineLogin}>
+          Remoto
         </Button>,
-        <Button key="submit" type="primary" onClick={handleOk}>
+        <Button key="submit" type="primary" onClick={handlePresencialLogin}>
           Presencial
         </Button>,
       ]}

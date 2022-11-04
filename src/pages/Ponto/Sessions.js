@@ -22,8 +22,9 @@ const Sessions = () => {
 	const [memberToLogout, setMemberToLogout] = useState();
 	const [filteredSessions, setFilteredSessions] = useState([]);
 	const [showLogoutAllMembers, setShowLogoutAllMembers] = useState(false);
+	const [modalityModalVisible, setModalityModalVisible] = useState(false);
 
-	const [startSessionMutation, { loading: loadingLoging }] = useMutation(CREATE_SESSION);
+	const [startSessionMutation] = useMutation(CREATE_SESSION);
 	const [endSessionMutation] = useMutation(FINISH_SESSION);
 	const [endAllSessions] = useMutation(END_ALL_SESSIONS);
 
@@ -74,6 +75,16 @@ const Sessions = () => {
 		}
 	}
 
+	const handlePresencialLogin = () => {
+		handleLogin(true);
+		setModalityModalVisible(false);
+	};
+
+	const handleOnlineLogin = () => {
+		handleLogin(false);
+		setModalityModalVisible(false);
+	}
+
 	useEffect(() => {
 		refetchLoggedMembers();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -119,7 +130,7 @@ const Sessions = () => {
 							}
 						}}
 					/>
-					<Button width="84px" onClick={handleLogin}>
+					<Button width="84px" onClick={() => setModalityModalVisible(true)}>
 						Login
 					</Button>
 				</form>
@@ -157,11 +168,10 @@ const Sessions = () => {
 			<ModalityModal
 				title="Confirmação de login"
 				content={`Como deseja logar ${memberToLogin.current?.name}?`}
-				isVisible={!!memberToLogin.current}
-					
-				//Conferir se era boolean mesmo e qual é true e qual é false
-				handleOk={() => handleLogin(true)}
-				handleCancel={() => handleLogin(false)}
+				isVisible={modalityModalVisible}	
+				handlePresencialLogin={handlePresencialLogin}
+				handleOnlineLogin={handleOnlineLogin}
+				handleCancel={() => setModalityModalVisible(false)}
 			/>
 		</div>
 	);

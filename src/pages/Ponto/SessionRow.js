@@ -31,7 +31,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 			<td className="col-2 d-none d-sm-flex align-items-center justify-content-center">
 			<div className="d-flex">
 			  <PresentialDisplayer
-				presential={session.isPresential}
+				isPresential={session.isPresential}
 				presentialColor={themeColors.green}
 			  />
 			</div>
