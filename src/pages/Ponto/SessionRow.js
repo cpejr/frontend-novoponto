@@ -15,7 +15,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 	function handleLogout() {
 		onLogout && onLogout(session);
 	}
-	console.log(session);
+
 	
 	return (
 		<tr {...props} className="d-flex">

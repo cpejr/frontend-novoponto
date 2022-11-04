@@ -21,6 +21,7 @@ const CREATE_SESSION = gql`
 	mutation StartSession($memberId: ID!, $isPresential: Boolean!) {
 		startSession(memberId: $memberId, isPresential: $isPresential) {
 			start
+			isPresential
 			member {
 				name
 			}
