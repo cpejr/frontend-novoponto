@@ -17,7 +17,6 @@ const LoggedMembers = ({
 	mandatoryHour = null,
 	description,
 }) => {
-	console.log(tribe);
 	return (
 		<LoggedMembersContainer className="container">
 			<Row className="flex-nowrap w-100 ">
@@ -32,8 +31,13 @@ const LoggedMembers = ({
 							className="ms-2 p-0 d-none d-lg-flex text-truncate flex-shrink-1 me-2"
 						/>
 					</Row>
-					<Row style={{ marginTop: 8 }} className="d-none d-sm-flex flex-nowrap">
-						{role && <DefaultLabel labelText={role} labelColor="#FFD100" />}
+					<Row
+						style={{ marginTop: 8 }}
+						className="d-none d-sm-flex flex-nowrap flex-column flex-md-row"
+					>
+						{role && (
+							<DefaultLabel labelText={role} className="align-self-start" />
+						)}
 						{/* {mandatoryHour && (
 							<DefaultLabel
 								labelText="Horário obrigatório"
@@ -43,8 +47,8 @@ const LoggedMembers = ({
 						{tribe && (
 							<DefaultLabel
 								labelText={tribe.name}
-								labelMargin="0 0 0 5px"
 								labelColor={tribe.color}
+								className="ms-md-1 mt-md-0 mt-2 align-self-start"
 							/>
 						)}
 					</Row>

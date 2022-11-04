@@ -14,14 +14,15 @@ import SessionsTable from "./SessionsTable";
 import ConfirmationModal from "../../components/molecules/ConfirmationModal";
 import AutocompleteMemberInput from "../../components/organisms/AutoCompleteMemberInput";
 import { SESSION_SUBSCRIPTION } from "../../graphql/Subscription";
+import diacriticCaseInsensitiveMatch from "../../utils/diacriticCaseInsensitiveMatch";
 
-const Sessions = ({ members, ...props }) => {
+const Sessions = () => {
 	const [memberTextToLogin, setMemberTextToLogin] = useState({});
 	const [memberToLogout, setMemberToLogout] = useState();
 	const [filteredSessions, setFilteredSessions] = useState([]);
 	const [showLogoutAllMembers, setShowLogoutAllMembers] = useState(false);
 
-	const [startSessionMutation] = useMutation(CREATE_SESSION);
+	const [startSessionMutation, { loading: loadingLoging }] = useMutation(CREATE_SESSION);
 	const [endSessionMutation] = useMutation(FINISH_SESSION);
 	const [endAllSessions] = useMutation(END_ALL_SESSIONS);
 
@@ -34,7 +35,6 @@ const Sessions = ({ members, ...props }) => {
 	const { data: sessionUpdateData } = useSubscription(SESSION_SUBSCRIPTION);
 
 	const { loggedMembers } = loggedData || {};
-	console.log(loggedData);
 	async function handleLogoutMember(member) {
 		let hide = message.loading("Deslogado...");
 
@@ -55,22 +55,21 @@ const Sessions = ({ members, ...props }) => {
 	}
 
 	async function handleLogin() {
-		if (memberToLogin.current) {
-			let hide = message.loading("Fazendo Login...");
+		if (loadingLoging || !memberToLogin.current) return;
 
-			try {
-				await startSessionMutation({
-					variables: { memberId: memberToLogin.current._id },
-				});
-				hide();
-				message.success(`Bom trabalho ${memberToLogin.current.name}!`, 2.5);
-			} catch (err) {
-				hide();
-				message.warn(err.message, 2.5);
-			} finally {
-				memberToLogin.current = undefined;
-				setMemberTextToLogin({ text: "" });
-			}
+		const hide = message.loading("Fazendo Login...");
+		try {
+			await startSessionMutation({
+				variables: { memberId: memberToLogin.current._id },
+			});
+			hide();
+			message.success(`Bom trabalho ${memberToLogin.current.name}!`, 2.5);
+		} catch (err) {
+			hide();
+			message.warn(err.message, 2.5);
+		} finally {
+			memberToLogin.current = undefined;
+			setMemberTextToLogin({ text: "" });
 		}
 	}
 
@@ -89,10 +88,8 @@ const Sessions = ({ members, ...props }) => {
 
 		if (value && value.trim() !== "")
 			setFilteredSessions(
-				loggedMembers?.filter((session) =>
-					session.member.name
-						?.toLowerCase()
-						.includes(value?.toLowerCase().trim())
+				loggedMembers?.filter(({ member: { name } }) =>
+					diacriticCaseInsensitiveMatch(name, value)
 				)
 			);
 		else setFilteredSessions(loggedMembers);
