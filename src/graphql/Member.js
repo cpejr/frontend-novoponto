@@ -171,6 +171,26 @@ const FetchMemberForHC = gql`
 	}
 `;
 
+const FetchAllMembersSessions = gql`
+	query AllMembersSessions(
+		$startDate: DateScalar
+		$endDate: DateScalar
+		$compileGroup: Int
+	) {
+		allMembersSessions(
+			startDate: $startDate
+			endDate: $endDate
+			compileGroup: $compileGroup
+		) {
+			total
+			formatedTotal
+			member {
+				name
+			}
+		}
+	}
+`;
+
 const FetchCompiledForHC = gql`
 	query compiled($memberId: ID!, $startDate: DateScalar, $endDate: DateScalar) {
 		compiled(memberId: $memberId, startDate: $startDate, endDate: $endDate) {
@@ -211,4 +231,5 @@ export {
 	Members,
 	FetchMemberForHC,
 	FetchCompiledForHC,
+	FetchAllMembersSessions,
 };
