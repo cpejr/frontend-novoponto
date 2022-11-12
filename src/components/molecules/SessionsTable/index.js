@@ -4,7 +4,6 @@ import { getColumns } from "./columns";
 import { HourDisplayer } from "../../atoms"
 
 import { HoursSumAndTablesArea } from "./styles";
-
 import { Collapse, Table } from "antd";
 
 const SessionsTable = ({ sessions, formatedTotal, formatedPresentialTotal }) => {
