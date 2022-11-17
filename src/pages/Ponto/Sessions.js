@@ -58,11 +58,13 @@ const Sessions = () => {
 	}
 
 	async function handleLogin(modality) {
-
 		const hide = message.loading("Fazendo Login...");
 		try {
 			await startSessionMutation({
-				variables: { memberId: memberToLogin.current._id , isPresential: modality},
+				variables: {
+					memberId: memberToLogin.current._id,
+					isPresential: modality,
+				},
 			});
 			hide();
 			message.success(`Bom trabalho ${memberToLogin.current.name}!`, 2.5);
@@ -83,7 +85,7 @@ const Sessions = () => {
 	const handleOnlineLogin = () => {
 		handleLogin(false);
 		setModalityModalVisible(false);
-	}
+	};
 
 	useEffect(() => {
 		refetchLoggedMembers();
@@ -126,7 +128,7 @@ const Sessions = () => {
 						onKeyDown={(e) => {
 							if (e.keyCode === 13) {
 								e.preventDefault();
-								handleLogin();
+								setModalityModalVisible(true);
 							}
 						}}
 					/>
@@ -168,7 +170,7 @@ const Sessions = () => {
 			<ModalityModal
 				title="Confirmação de login"
 				content={`Como deseja logar ${memberToLogin.current?.name}?`}
-				isVisible={modalityModalVisible}	
+				isVisible={modalityModalVisible}
 				handlePresencialLogin={handlePresencialLogin}
 				handleOnlineLogin={handleOnlineLogin}
 				handleCancel={() => setModalityModalVisible(false)}
