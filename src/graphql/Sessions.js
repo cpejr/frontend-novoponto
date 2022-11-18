@@ -18,10 +18,13 @@ const LOGGED_MEMBERS = gql`
 `;
 
 const CREATE_SESSION = gql`
-	mutation StartSession($memberId: ID!, $isPresential: Boolean!) {
-		startSession(memberId: $memberId, isPresential: $isPresential) {
+	mutation StartSession($memberId: ID!, $isPresential: Boolean!, $projectId: String, $taskId: String) {
+		startSession(memberId: $memberId, isPresential: $isPresential, projectId: $projectId, 
+			taskId: $taskId) {
 			start
 			isPresential
+			projectId
+			taskId
 			member {
 				name
 			}

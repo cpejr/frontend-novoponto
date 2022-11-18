@@ -60,12 +60,15 @@ const Sessions = () => {
 	async function handleLogin(modality) {
 		const hide = message.loading("Fazendo Login...");
 		try {
-			await startSessionMutation({
+			console.log(await startSessionMutation({
 				variables: {
 					memberId: memberToLogin.current._id,
 					isPresential: modality,
+					projectId: "pipipopo",
+					taskId: "popopipi",
 				},
-			});
+			}));
+			
 			hide();
 			message.success(`Bom trabalho ${memberToLogin.current.name}!`, 2.5);
 		} catch (err) {
