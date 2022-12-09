@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
@@ -11,11 +11,14 @@ import MembersSelectBox from "../../components/molecules/MembersSelectBox";
 import LoggedMembers from "../../components/molecules/LoggedMembersSection";
 import MemberHistory from "../../components/organisms/MemberHistory";
 import Mandatories from "./Mandatories";
+import ModalityModal from "../../components/molecules/ModalityModal";
 
 const HoursConsultation = () => {
 	const { themeColors } = useContext(ThemeContext);
 
 	const [loadMember, { loading, data }] = useLazyQuery(FetchMemberForHC);
+
+	const [modalVisible, setModalVisible] = useState(false);
 
 	function handleSelectMember(value) {
 		loadMember({
@@ -27,6 +30,14 @@ const HoursConsultation = () => {
 
 	return (
 		<HoursConsultationComponent theme={themeColors}>
+			<ModalityModal 
+				title="Confirmação de login"
+				content={`Como deseja logar ?`}
+				isVisible={modalVisible}
+				handlePresencialLogin={function(){}}
+				handleOnlineLogin={function(){}}
+				handleCancel={() => {}}
+			/>
 			<div className="selectMemberArea">
 				<MembersSelectBox onChange={handleSelectMember} />
 				{loading && (
@@ -49,7 +60,7 @@ const HoursConsultation = () => {
 				</div>
 			)}
 			<Mandatories mandatories={member?.mandatories} />
-			<MemberHistory memberId={member?._id} />
+			<MemberHistory memberId={member?._id} setModalVisible={setModalVisible} />
 		</HoursConsultationComponent>
 	);
 };

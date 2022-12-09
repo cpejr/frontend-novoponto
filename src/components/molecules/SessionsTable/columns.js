@@ -1,9 +1,10 @@
 import { HourDisplayer, InfoDisplayer, DefaultText } from "../../atoms";
 import { FlexDiv } from "./styles";
 import moment from "moment";
-import { Divider } from "antd";
+import { Divider, Tooltip } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 
-function getColumns(themeColors) {
+function getColumns(themeColors, setModalVisible) {
   const columns = [
     {
       title: "Dia",
@@ -62,8 +63,25 @@ function getColumns(themeColors) {
         </FlexDiv>
       ),
     },
+    {
+      title: "Editar",
+      key: "edit",
+      render: (data) => (
+        <EditDiv 
+        setModalVisible={setModalVisible}
+        />
+      ),
+    },
   ];
   return columns;
+}
+
+function EditDiv({setModalVisible}){
+  return (
+    <Tooltip placement="topLeft" title={"Editar"}>
+      <EditOutlined onClick={()=>setModalVisible(true)} />
+    </Tooltip>
+)
 }
 
 export { getColumns };

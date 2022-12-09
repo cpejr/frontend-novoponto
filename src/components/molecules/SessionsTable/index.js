@@ -4,11 +4,12 @@ import { getColumns } from "./columns";
 import { HourDisplayer } from "../../atoms"
 
 import { HoursSumAndTablesArea } from "./styles";
-import { Collapse, Table } from "antd";
+import { Collapse, Modal, Table } from "antd";
+import ModalityModal from "../ModalityModal";
 
-const SessionsTable = ({ sessions, formatedTotal, formatedPresentialTotal }) => {
+const SessionsTable = ({ sessions, formatedTotal, formatedPresentialTotal, setModalVisible }) => {
   const { themeColors } = useContext(ThemeContext);
-  const columns = getColumns(themeColors);
+  const columns = getColumns(themeColors,setModalVisible);
 
   return (
     <HoursSumAndTablesArea>

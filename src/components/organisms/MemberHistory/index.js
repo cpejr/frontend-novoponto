@@ -9,7 +9,7 @@ import SessionsTable from "../../molecules/SessionsTable";
 import { MemberHistoyContainer } from "./styles";
 const { RangePicker } = DatePicker;
 
-const MemberHistory = ({ memberId }) => {
+const MemberHistory = ({ memberId, setModalVisible }) => {
 	const [rangeDate, setRangeDate] = useState([
 		moment().startOf("isoWeek"),
 		moment().endOf("day"),
@@ -58,7 +58,7 @@ const MemberHistory = ({ memberId }) => {
 
         {startDate && endDate && (
           <div className="mt-4">
-        	<SessionsTable sessions={sessions} formatedTotal={formatedTotal} formatedPresentialTotal={formatedPresentialTotal} />
+        	<SessionsTable sessions={sessions} formatedTotal={formatedTotal} formatedPresentialTotal={formatedPresentialTotal} setModalVisible={setModalVisible} />
             <HomeOfficeTable
               aditionalHours={aditionalHours}
               onDelete={loadData}
