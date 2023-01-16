@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { COLORS } from "../IdGlobal/colors";
+
 
 const LogoutPointButtonContainer = styled.div`
   height: 38px;
@@ -18,7 +20,7 @@ const LogoutPointButtonContainer = styled.div`
     transition: color 0.5s;
 
     &:hover {
-      color: #ffd100;
+      color: ${COLORS.idcolor1};
     }
   }
 

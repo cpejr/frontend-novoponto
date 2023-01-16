@@ -1,6 +1,6 @@
 /* ATENÇÃO
- * nesse arquivo podemos alterar o tema padrão do ant design
- * como o ant design usa aquivos .less, temos que realizar alguns passos
+ * Nesse arquivo podemos alterar o tema padrão do ant design.
+ * Como o ant design usa aquivos .less, temos que realizar alguns passos
  * para que as mudanças realizadas aqui PERSISTAM.
  *
  * 1) Instalar less
@@ -8,6 +8,9 @@
  *
  * 2) Rodar o segunte comando
  *    npx lessc "./src/styles/mainDark.less" "./src/styles/compiled/antdDark.css" --js
+ * 
+ * Para encontrar mais variáveis
+ * acesse: https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
  */
 /* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
 /* stylelint-disable no-duplicate-selectors */
@@ -1743,6 +1746,11 @@ html {
   transform: translate(50%, -50%);
   transform-origin: 100% 0%;
 }
+.ant-badge-count.anticon-spin,
+.ant-badge-dot.anticon-spin,
+.ant-badge .ant-scroll-number-custom-component.anticon-spin {
+  animation: antBadgeLoadingCircle 1s infinite linear;
+}
 .ant-badge-status {
   line-height: inherit;
   vertical-align: baseline;
@@ -1923,6 +1931,15 @@ html {
   100% {
     transform: scale(0);
     opacity: 0;
+  }
+}
+@keyframes antBadgeLoadingCircle {
+  0% {
+    transform-origin: 50%;
+  }
+  100% {
+    transform: translate(50%, -50%) rotate(360deg);
+    transform-origin: 50%;
   }
 }
 .ant-ribbon-wrapper {
@@ -5270,6 +5287,12 @@ a.ant-btn-sm {
   line-height: unset;
   cursor: pointer;
 }
+.ant-checkbox-wrapper::after {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  content: '\a0';
+}
 .ant-checkbox-wrapper.ant-checkbox-wrapper-disabled {
   cursor: not-allowed;
 }
@@ -7955,15 +7978,18 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
   outline: 0;
   box-shadow: 0 0 0 2px rgba(217, 151, 21, 0.2);
 }
-.ant-form-item-has-warning .ant-input-disabled {
+.ant-form-item-has-warning .ant-input-disabled,
+.ant-form-item-has-warning .ant-input-disabled:hover {
   background-color: rgba(255, 255, 255, 0.08);
   border-color: #262626;
 }
-.ant-form-item-has-warning .ant-input-affix-wrapper-disabled {
+.ant-form-item-has-warning .ant-input-affix-wrapper-disabled,
+.ant-form-item-has-warning .ant-input-affix-wrapper-disabled:hover {
   background-color: rgba(255, 255, 255, 0.08);
   border-color: #262626;
 }
-.ant-form-item-has-warning .ant-input-affix-wrapper-disabled input:focus {
+.ant-form-item-has-warning .ant-input-affix-wrapper-disabled input:focus,
+.ant-form-item-has-warning .ant-input-affix-wrapper-disabled:hover input:focus {
   box-shadow: none !important;
 }
 .ant-form-item-has-warning .ant-calendar-picker-open .ant-calendar-picker-input {
@@ -8041,15 +8067,18 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
   outline: 0;
   box-shadow: 0 0 0 2px rgba(169, 32, 39, 0.2);
 }
-.ant-form-item-has-error .ant-input-disabled {
+.ant-form-item-has-error .ant-input-disabled,
+.ant-form-item-has-error .ant-input-disabled:hover {
   background-color: rgba(255, 255, 255, 0.08);
   border-color: #262626;
 }
-.ant-form-item-has-error .ant-input-affix-wrapper-disabled {
+.ant-form-item-has-error .ant-input-affix-wrapper-disabled,
+.ant-form-item-has-error .ant-input-affix-wrapper-disabled:hover {
   background-color: rgba(255, 255, 255, 0.08);
   border-color: #262626;
 }
-.ant-form-item-has-error .ant-input-affix-wrapper-disabled input:focus {
+.ant-form-item-has-error .ant-input-affix-wrapper-disabled input:focus,
+.ant-form-item-has-error .ant-input-affix-wrapper-disabled:hover input:focus {
   box-shadow: none !important;
 }
 .ant-form-item-has-error .ant-calendar-picker-open .ant-calendar-picker-input {
@@ -16032,6 +16061,7 @@ textarea.ant-mentions {
   height: 40px;
   line-height: 40px;
 }
+.ant-menu-vertical .ant-menu-item-group-list .ant-menu-submenu-title,
 .ant-menu-vertical .ant-menu-submenu-title {
   padding-right: 34px;
 }
@@ -16048,6 +16078,7 @@ textarea.ant-mentions {
 .ant-menu-inline .ant-menu-submenu-title {
   width: calc(100% + 1px);
 }
+.ant-menu-inline .ant-menu-item-group-list .ant-menu-submenu-title,
 .ant-menu-inline .ant-menu-submenu-title {
   padding-right: 34px;
 }
@@ -18269,6 +18300,12 @@ textarea.ant-pagination-options-quick-jumper input {
   align-items: baseline;
   margin-right: 8px;
   cursor: pointer;
+}
+.ant-radio-wrapper::after {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  content: '\a0';
 }
 .ant-radio {
   box-sizing: border-box;
@@ -21366,8 +21403,11 @@ td.ant-table-column-sort {
   background-color: #1f1f1f;
   border-top: 1px solid #0f0f0f;
 }
-.ant-table .ant-table-selection-col {
+.ant-table-selection-col {
   width: 32px;
+}
+.ant-table-bordered .ant-table-selection-col {
+  width: 50px;
 }
 table tr th.ant-table-selection-column,
 table tr td.ant-table-selection-column {
@@ -23216,9 +23256,6 @@ span.ant-transfer-list-search-action {
 .ant-transfer-list-footer {
   border-top: 1px solid #0f0f0f;
 }
-.ant-transfer-list-checkbox .ant-checkbox {
-  top: 0;
-}
 .ant-transfer-operation {
   display: flex;
   flex: none;
@@ -23457,6 +23494,12 @@ span.ant-transfer-list-search-action {
   align-items: baseline;
   line-height: unset;
   cursor: pointer;
+}
+.ant-tree-checkbox-wrapper::after {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  content: '\a0';
 }
 .ant-tree-checkbox-wrapper.ant-tree-checkbox-wrapper-disabled {
   cursor: not-allowed;
@@ -23874,6 +23917,12 @@ span.ant-transfer-list-search-action {
   align-items: baseline;
   line-height: unset;
   cursor: pointer;
+}
+.ant-select-tree-checkbox-wrapper::after {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  content: '\a0';
 }
 .ant-select-tree-checkbox-wrapper.ant-select-tree-checkbox-wrapper-disabled {
   cursor: not-allowed;

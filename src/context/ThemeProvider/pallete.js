@@ -1,3 +1,5 @@
+import { COLORS } from "../../components/atoms/IdGlobal/colors";
+
 const palette = {
   orange400: "#F68D14",
 
@@ -7,7 +9,7 @@ const palette = {
   red300: "#CA191B",
   red300Hover: "#CA301B",
 
-  yellowCPEPrimary: "#FFD100",
+  yellowCPEPrimary: COLORS.idcolor1,
   yellowMustard: "#8A6B0E",
 
   blue400: "#227ECF",

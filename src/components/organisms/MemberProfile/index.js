@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { COLORS } from "../../atoms/IdGlobal/colors";
+
 
 import {
   DefaultLabel,
@@ -65,7 +67,7 @@ const MemberProfile = ({
             {member?.role && (
               <DefaultLabel
                 labelText={member?.role?.name}
-                labelColor="#FFD100"
+                labelColor={COLORS.idcolor1}
               />
             )}
           </div>

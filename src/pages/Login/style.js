@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { COLORS } from "../../components/atoms/IdGlobal/colors";
+
 
 const LoginComponent = styled.div`
     .watermark {
@@ -10,7 +12,7 @@ const LoginComponent = styled.div`
 
     .loginBox {
         background: #1F1F1F;
-        border: 2px solid #FFD100;
+        border: 2px solid ${COLORS.idcolor1};
         border-radius: 10px;
         width: 480px;
         height: 450px;
@@ -42,7 +44,7 @@ const LoginComponent = styled.div`
         transform: translateX(-50%);
         top: 70%;
         text-decoration-line: underline;
-        color: #FFD100;
+        color: ${COLORS.idcolor1};
     }
 `;
 

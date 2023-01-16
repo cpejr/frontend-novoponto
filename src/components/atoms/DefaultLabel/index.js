@@ -1,9 +1,10 @@
 import React from "react";
 import DefaultLabelContainer from "./styles";
+import { COLORS } from "../IdGlobal/colors";
 
 const DefaultLabel = ({
 	labelText,
-	labelColor = "#ffd100",
+	labelColor = COLORS.idcolor1,
 	labelWidth = "auto",
 	labelMargin = "0",
 	className,

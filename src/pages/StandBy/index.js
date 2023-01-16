@@ -4,6 +4,8 @@ import { LeftOutlined } from '@ant-design/icons';
 import { StandByComponent } from './styles';
 import { ThemeContext } from '../../context/ThemeProvider';
 import logoCPE from '../../assets/logoCPE.png';
+import { COLORS } from '../../components/atoms/IdGlobal/colors';
+
 
 const StandBy = () => {
     const { themeColors } = useContext(ThemeContext);
@@ -23,7 +25,7 @@ const StandBy = () => {
             // INJECT CSS
             var css = document.createElement("style");
             // css.type = "text/css";
-            css.innerHTML = ".txt-rotate > .wrap { height: 100px; border-right: 0.18em solid #FFD100; border-radius: 5px 5px 5px 5px; }";
+            css.innerHTML = `.txt-rotate > .wrap { height: 100px; border-right: 0.18em solid ${COLORS.idcolor1}; border-radius: 5px 5px 5px 5px; }`;
             document.body.appendChild(css);
         };
         carregou();
