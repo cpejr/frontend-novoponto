@@ -11,6 +11,10 @@ const UpdatedNewsComponent = styled.div`
   display: flex;
   flex-direction: column;
 
+  @media (max-width: 720px) {
+      padding: 30px 16px;
+  }
+
   .titleArea {
     display: flex;
     justify-content: flex-start;
@@ -69,6 +73,7 @@ const UpdatedNewsComponent = styled.div`
       width: 100%;
       grid-template-columns: 1fr;
       row-gap: 30px;
+      padding: 16px;
     }
   }
 `;

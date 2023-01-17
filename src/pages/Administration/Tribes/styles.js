@@ -8,7 +8,7 @@ const TribesComponent = styled.div`
 
 	display: flex;
 	flex-direction: column;
-	padding: 30px 20px;
+	padding: 30px 16px;
 
 	.iconWithTitle {
 		width: 100%;

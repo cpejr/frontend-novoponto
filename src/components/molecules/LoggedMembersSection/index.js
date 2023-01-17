@@ -19,7 +19,7 @@ const LoggedMembers = ({
 }) => {
 	return (
 		<LoggedMembersContainer className="container">
-			<Row className="flex-nowrap w-100 ">
+			<Row className="flex-nowrap w-auto ">
 				<Col sm="auto" xs="auto" className="d-none d-sm-flex">
 					<MemberAvatar src={imageLink} />
 				</Col>
@@ -33,7 +33,7 @@ const LoggedMembers = ({
 					</Row>
 					<Row
 						style={{ marginTop: 8 }}
-						className="d-none d-sm-flex flex-nowrap flex-column flex-md-row"
+						className="d-sm-flex flex-nowrap flex-column flex-md-row"
 					>
 						{role && (
 							<DefaultLabel labelText={role} className="align-self-start" />
