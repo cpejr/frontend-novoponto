@@ -48,7 +48,7 @@ const HoursConsultation = () => {
 					/>
 				</div>
 			)}
-			<Mandatories mandatories={member?.mandatories} />
+			{/* <Mandatories mandatories={member?.mandatories} /> */}
 			<MemberHistory memberId={member?._id} />
 		</HoursConsultationComponent>
 	);

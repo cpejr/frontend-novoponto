@@ -54,11 +54,11 @@ function Menu() {
 					minAccessLevel={1}
 					component={UpdateNews}
 				/>
-				<RestrictedRoute
+				{/* <RestrictedRoute
 					path="/ponto/horarioobrigatorio"
 					minAccessLevel={1}
 					component={MandatoryHours}
-				/>
+				/> */}
 
 			</Switch>
 		</SidebarMenu>
