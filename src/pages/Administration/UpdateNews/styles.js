@@ -12,7 +12,10 @@ const UpdatedNewsComponent = styled.div`
   flex-direction: column;
 
   @media (max-width: 720px) {
-      padding: 30px 16px;
+      padding-top: 10px;
+      padding-bottom: 5px;
+      padding-right: 0px;
+      padding-left: 0px;
   }
 
   .titleArea {
@@ -73,7 +76,6 @@ const UpdatedNewsComponent = styled.div`
       width: 100%;
       grid-template-columns: 1fr;
       row-gap: 30px;
-      padding: 16px;
     }
   }
 `;

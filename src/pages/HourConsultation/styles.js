@@ -4,7 +4,8 @@ const HoursConsultationComponent = styled.div`
   width: 100%;
   min-height: 100vh;
 
-  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 5px;
 
   display: flex;
   flex-direction: column;
