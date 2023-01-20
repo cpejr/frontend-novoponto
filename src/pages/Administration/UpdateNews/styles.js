@@ -11,6 +11,13 @@ const UpdatedNewsComponent = styled.div`
   display: flex;
   flex-direction: column;
 
+  @media (max-width: 720px) {
+      padding-top: 10px;
+      padding-bottom: 5px;
+      padding-right: 0px;
+      padding-left: 0px;
+  }
+
   .titleArea {
     display: flex;
     justify-content: flex-start;

@@ -110,6 +110,12 @@ const TribesComponent = styled.div`
 			color: #c70000;
 		}
 	}
+	@media (max-width: 720px) {
+    padding-left:0px;
+    padding-right: 0px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    }
 `;
 
 export { TribesComponent };

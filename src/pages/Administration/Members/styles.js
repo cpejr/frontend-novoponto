@@ -66,6 +66,10 @@ const MembersComponent = styled.div`
       justify-content: space-between;
       align-items: flex-start;
     }
+    padding-left:0px;
+    padding-right: 0px;
+    padding-top: 10px;
+    padding-bottom: 5px;
   }
 `;
 const ActionsDiv = styled.div`
