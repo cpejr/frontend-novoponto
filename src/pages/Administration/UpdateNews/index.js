@@ -104,7 +104,8 @@ const UpdateNews = () => {
 		const index = newNewslist.findIndex((value) => value.newsId === newsId);
 
 		newNewslist.splice(index, 1);
-		setNewsList(newNewslist);
+
+		setNewsList(newNewslist.map((news, i) => ({ ...news, index: i })));
 	}
 
 	return (

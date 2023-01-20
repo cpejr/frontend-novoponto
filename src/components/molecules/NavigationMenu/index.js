@@ -93,12 +93,12 @@ const Menuu = ({ collapsed, ...props }) => {
 					route="/ponto/atualizarnoticias"
 					label="Atualizar Notícias"
 				/>
-				<MenuItem
+				{/* <MenuItem
 					disabled={!access || access === 0}
 					key="/ponto/horarioobrigatorio"
 					route="/ponto/horarioobrigatorio"
 					label="Horário Obrigatório"
-				/>
+				/> */}
 				<MenuItem
 					disabled={!access || access === 0}
 					key="/ponto/membros"
