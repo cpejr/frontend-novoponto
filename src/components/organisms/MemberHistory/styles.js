@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const MemberHistoyContainer = styled.div`
-
+  width: 100%;
   .sum {
     display: flex;
     margin-bottom: 16px;
@@ -39,6 +39,9 @@ const MemberHistoyContainer = styled.div`
   }
 
   .pointHistoric {
+  }
+  .ant-table{
+    overflow-x: scroll;
   }
 `;
 

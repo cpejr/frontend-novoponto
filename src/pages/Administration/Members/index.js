@@ -278,7 +278,7 @@ const Members = () => {
 				/>
 			</div>
 
-			<Table dataSource={filteredMembers} pagination={false}>
+			<Table style={{overflowX:"scroll"}} dataSource={filteredMembers} pagination={false}>
 				<Column title="Name" dataIndex="name" key="name" />
 				<Column
 					title="Tribo"

@@ -44,6 +44,8 @@ const RolesComponent = styled.div`
 
     .roleTable{
         width: 100%;
+        display: block;
+        overflow-x:scroll;
     }
 
     .roleTable tr{
