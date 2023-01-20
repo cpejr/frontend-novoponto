@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { LeftOutlined } from '@ant-design/icons'; 
 import { StandByComponent } from './styles';
 import { ThemeContext } from '../../context/ThemeProvider';
-import logoCPE from '../../assets/logoCPE.png';
+import logo from '../../assets/logo.png';
 import { COLORS } from '../../components/atoms/IdGlobal/colors';
 
 
@@ -76,7 +76,7 @@ const StandBy = () => {
 
     return (
         <StandByComponent theme={themeColors}>
-            <img src={logoCPE} alt="Consultoria e Projetos Elétricos Junior" />
+            <img src={logo} alt="Consultoria e Projetos Elétricos Junior" />
             <h1 style={{color: '#fff'}}>
                 Somos 
                 <span

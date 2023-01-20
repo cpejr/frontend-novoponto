@@ -1,3 +1,4 @@
 export const COLORS={
-    idcolor1: "#993399",
+    idcolor1: "#ffd100",
+    idcolor2: "#8A6B0E",
 }
