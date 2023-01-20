@@ -1,7 +1,6 @@
 import { createGlobalStyle } from "styled-components";
-import "bootstrap/dist/css/bootstrap.min.css";
-
 import { colors } from "../context/ThemeProvider/pallete";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // Tema do ant design
 if (true) require("./compiled/antdDark.css");

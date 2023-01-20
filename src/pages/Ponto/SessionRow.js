@@ -52,6 +52,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 					/>
 				</div>
 			</td>
+			<td className="col-1 d-block d-sm-none"></td>
 			<td className="col-3 col-sm-1 d-flex align-items-center justify-content-center">
 				<Button
 					className="w-100"

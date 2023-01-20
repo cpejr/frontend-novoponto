@@ -60,16 +60,26 @@ const Members = () => {
 		setEditOrCreateModalInfo({ open: false });
 	};
 
+	const filterMembersByRole = (membersArr, name) => {
+		const data = membersArr
+			.filter(({ role: { name: roleName } }) => {
+				return roleName === name;
+			})
+			.map(({ _id, name }) => ({ value: _id, label: name }));
+
+		return [...data, { label: "", value: null }];
+	};
 	const editOrCreateMember = (method, member) => {
 		const withInitialValue = method === "edit";
-		const memberOptions = allMembersData?.members.map((member) => ({
-			value: member._id,
-			label: member.name,
-		}));
+		const memberOptions = filterMembersByRole(
+			allMembersData?.members,
+			"Assessor(a) de Desenvolvimento"
+		);
 		const rolesOptions = roles.roles.map((role) => ({
 			value: role._id,
 			label: role.name,
 		}));
+
 		const tribesOptions = Object.assign(
 			[],
 			tribes?.tribes?.map((tribe) => ({
@@ -113,22 +123,12 @@ const Members = () => {
 			},
 			{
 				key: "responsible",
-				type: "autoComplete",
+				type: "select",
 				label: "Assessor",
 				placeholder: "Escolha o membro",
-				rules: [validators.antdInsideOptions(memberOptions)],
 
 				options: memberOptions,
-
-				initialValue: withInitialValue
-					? {
-							text: member?.responsible?.name,
-							selectedOption: {
-								label: member?.responsible?.name,
-								value: member?.responsible?._id,
-							},
-					  }
-					: undefined,
+				initialValue: withInitialValue ? member?.responsible?._id : undefined,
 			},
 		];
 
@@ -160,7 +160,7 @@ const Members = () => {
 				name: Nome,
 				roleId: Cargo,
 				tribeId: Tribo,
-				responsibleId: Assessor?.selectedOption?.value,
+				responsibleId: Assessor,
 			};
 			await createMemberMutation({ variables: { data: newMember } });
 			hide();
@@ -185,7 +185,7 @@ const Members = () => {
 				name: Nome,
 				roleId: Cargo,
 				tribeId: Tribo,
-				responsibleId: Assessor?.selectedOption?.value || null,
+				responsibleId: Assessor,
 			};
 
 			await updateMemberMutation({
@@ -278,7 +278,11 @@ const Members = () => {
 				/>
 			</div>
 
-			<Table dataSource={filteredMembers} pagination={false}>
+			<Table
+				dataSource={filteredMembers}
+				pagination={false}
+				scroll={{ x: true }}
+			>
 				<Column title="Name" dataIndex="name" key="name" />
 				<Column
 					title="Tribo"
@@ -301,7 +305,7 @@ const Members = () => {
 				<Column
 					title="Assessor"
 					dataIndex="responsible"
-					key="responsible.name"
+					key="responsible"
 					render={(responsible) => responsible?.name}
 				/>
 				<Column

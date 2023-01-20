@@ -4,7 +4,7 @@ import ReactRotatingText from "react-rotating-text";
 
 const SessionsTable = ({ sessions, onLogout, ...props }) => {
 	return (
-		<table className="table table-borderless overflow-auto" {...props}>
+		<table className="table table-borderless " {...props}>
 			<thead>
 				<tr className="customHeader d-flex">
 					<th className="col-5">
@@ -19,6 +19,7 @@ const SessionsTable = ({ sessions, onLogout, ...props }) => {
 					<th className="col-3 col-sm-2 text-center">
 						<p className="m-0 text-center">Tempo</p>
 					</th>
+					<th scope="col-1 d-block d-sm-none"></th>
 					<th scope="col-3 col-sm-1"></th>
 				</tr>
 			</thead>

@@ -45,7 +45,12 @@ const Menuu = ({ collapsed, ...props }) => {
 				key === "novidades" && showUpdateCatalog();
 			}}
 		>
-			<MenuItem key="/ponto" route="/ponto" icon={<BulbOutlined />} label="Ponto" />
+			<MenuItem
+				key="/ponto"
+				route="/ponto"
+				icon={<BulbOutlined />}
+				label="Ponto"
+			/>
 			<MenuItem
 				key="/ponto/profile"
 				route="/ponto/profile"
