@@ -13,6 +13,7 @@ const MandatoryHours = () => {
     autoplay: true,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
+
     },
   };
 
