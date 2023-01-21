@@ -138,7 +138,7 @@ const Sessions = () => {
 				</form>
 			</div>
 
-			<div className="w-100 table-responsive">
+			<div className="w-100 table-responsive mb-3">
 				<SessionsTable
 					sessions={filteredSessions}
 					onLogout={({ member }) => setMemberToLogout(member)}
