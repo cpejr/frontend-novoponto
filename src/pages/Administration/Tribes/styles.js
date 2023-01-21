@@ -47,6 +47,8 @@ const TribesComponent = styled.div`
 
 	.tribeTable {
 		width: 100%;
+		display: block;
+		overflow-x: scroll;
 	}
 
 	.tribeTable tr {
