@@ -18,7 +18,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 
 	return (
 		<tr {...props} className="d-flex">
-			<td className="col-5">
+			<td className="col-6 col-sm-5">
 				<LoggedMembers
 					name={member.name}
 					imageLink={member.imageLink}
@@ -52,7 +52,8 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 					/>
 				</div>
 			</td>
-			<td className="col-3 col-sm-1 d-flex align-items-center justify-content-center">
+			<td className="col-1 d-block d-sm-none"></td>
+			<td className="col-2 col-sm-1 d-flex align-items-center justify-content-center">
 				<Button
 					className="w-100"
 					icon={<img src={logoutPointIcon} alt="Deslogar" />}
