@@ -25,11 +25,11 @@ const LoggedMembers = ({
 				</Col>
 				<Col className="d-flex flex-column justify-content-center gap-1">
 					<Row className="flex-nowrap d-flex flex-column flex-lg-row me-0 text-truncate">
-						<MemberName name={name} className="text-nowrap p-0" />
+						<MemberName name={name} className="text-nowrap px-0 py-1" />
 						<MemberDescription
 							description={description}
 							responsive
-							className="ms-lg-2 p-0 text"
+							className="ms-lg-2 px-0 py-1"
 						/>
 					</Row>
 					<Row>
