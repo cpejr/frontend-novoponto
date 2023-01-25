@@ -1,93 +1,96 @@
-import { COLORS } from "../../components/atoms/IdGlobal/colors";
-
 const palette = {
-  orange400: "#F68D14",
+	orange400: "#F68D14",
 
-  greenMoss: "rgba(49, 216, 67, 0.5)",
-  greenMossHover: "rgba(49, 230, 67, 0.7)",
+	greenMoss: "rgba(49, 216, 67, 0.5)",
+	greenMossHover: "rgba(49, 230, 67, 0.7)",
 
-  red300: "#CA191B",
-  red300Hover: "#CA301B",
+	red300: "#CA191B",
+	red300Hover: "#CA301B",
 
-  IdColor1: COLORS.idcolor1,
-  IdColor2: COLORS.idcolor2,
+	yellowMustard: "#8A6B0E",
 
-  blue400: "#227ECF",
-  blueSky: "#0085FF",
+	blue400: "#227ECF",
+	blueSky: "#0085FF",
 
-  overlayDark: "rgba(0,0,0,0.5)",
-  overlayLight: "rgba(255,255,255,0.3)",
-  backDropLight: "rgba(255,255,255,0.1)",
+	overlayDark: "rgba(0,0,0,0.5)",
+	overlayLight: "rgba(255,255,255,0.3)",
+	backDropLight: "rgba(255,255,255,0.1)",
 
-  black: "#000",
-  gray900: "#141414",
-  gray800: "#1D1D1D",
-  grayDescription: "#5C5C5C",
-  white: "#fff",
+	black: "#000",
+	gray900: "#141414",
+	gray800: "#1D1D1D",
+	grayDescription: "#5C5C5C",
+	white: "#fff",
+};
+
+export const changeableColors = {
+	appPrimaryColor: "#FFD100",
+	timeColor: "#8A6B0E",
+	arrivedModalityColor: "rgba(49, 216, 67, 0.5)",
 };
 
 export const colors = {
-  white: palette.white,
-  black: palette.black,
+	timeColor: changeableColors.timeColor,
+	arrivedModalityColor: changeableColors.arrivedModalityColor,
 
-  primary: palette.gray900,
-  accent: palette.gray800,
+	white: palette.white,
+	black: palette.black,
 
-  header: palette.black,
-  statusBar: palette.gray800,
+	primary: palette.gray900,
+	accent: palette.gray800,
 
-  textHeader: palette.white,
-  text: palette.gray800,
-  textNote: palette.gray600,
-  error: palette.red400,
+	header: palette.black,
+	statusBar: palette.gray800,
 
-  blue: palette.blueSky,
-  blueOk: palette.blue400,
+	textHeader: palette.white,
+	text: palette.gray800,
+	textNote: palette.gray600,
+	error: palette.red400,
 
-  color1: palette.IdColor1,
-  yellow: palette.IdColor2,
+	blue: palette.blueSky,
+	blueOk: palette.blue400,
 
-  red: palette.red300,
-  redHover: palette.red300Hover,
+	red: palette.red300,
+	redHover: palette.red300Hover,
 
-  green: palette.greenMoss,
-  greenHover: palette.greenMossHover,
+	green: palette.greenMoss,
+	greenHover: palette.greenMossHover,
 };
 
 export const themedColors = {
-  light: {
-    ...colors,
-  },
-  dark: {
-    ...colors,
-    accent: palette.green400,
-    activeTintColor: palette.white,
+	light: {
+		...colors,
+	},
+	dark: {
+		...colors,
+		accent: palette.green400,
+		activeTintColor: palette.white,
 
-    appBackground: palette.black,
-    appSurface: palette.gray850,
+		appBackground: palette.black,
+		appSurface: palette.gray850,
 
-    header: palette.gray850,
-    statusBar: palette.gray900,
+		header: palette.gray850,
+		statusBar: palette.gray900,
 
-    text: palette.gray400,
-    textNote: palette.gray600,
+		text: palette.gray400,
+		textNote: palette.gray600,
 
-    blue: palette.blue700,
-    lightBlue: palette.blue900,
-    yellow: palette.yellow400,
-    lightYellow: palette.yellow900,
+		blue: palette.blue700,
+		lightBlue: palette.blue900,
+		yellow: palette.yellow400,
+		lightYellow: palette.yellow900,
 
-    chip: palette.gray800,
+		chip: palette.gray800,
 
-    darkPositive: palette.green700,
-    positiveColor: palette.green300,
+		darkPositive: palette.green700,
+		positiveColor: palette.green300,
 
-    darkNegative: palette.red700,
-    negativeColor: palette.red300,
+		darkNegative: palette.red700,
+		negativeColor: palette.red300,
 
-    overlayColor: palette.overlayDark,
-    backDrop: palette.backDropLight,
+		overlayColor: palette.overlayDark,
+		backDrop: palette.backDropLight,
 
-    shadow: palette.white,
-  },
+		shadow: palette.white,
+	},
 };
