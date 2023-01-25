@@ -19,6 +19,10 @@ const LoginComponent = styled.div`
 		left: 50vw;
 		top: 50vh;
 		transform: translate(-50%, -50%);
+
+		@media (max-width: 600px) {
+			width: 80%;
+		}
 	}
 
 	.logo {
@@ -27,6 +31,10 @@ const LoginComponent = styled.div`
 		left: 50%;
 		top: 25%;
 		transform: translateX(-50%);
+
+		@media (max-width: 350px) {
+			width: 90%;
+		}
 	}
 
 	.loginButton {
