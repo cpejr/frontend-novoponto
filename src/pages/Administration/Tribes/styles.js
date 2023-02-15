@@ -54,10 +54,9 @@ const TribesComponent = styled.div`
 	.tribeTable tr {
 		height: 80px;
 		background-color: #141414;
-		padding: 0px 20px;
 
 		display: flex;
-		justify-content: flex-start;
+		justify-content: center;
 		align-items: center;
 		border-bottom: 2px solid #1c1c1d;
 	}
@@ -67,17 +66,17 @@ const TribesComponent = styled.div`
 		background-color: #1d1d1d;
 
 		display: flex;
-		justify-content: flex-start;
+		justify-content: center;
 		align-items: center;
 		border-radius: 5px;
 	}
 
 	.tribeColumn {
-		width: 45%;
-		max-width: 50vw;
+		width: 53.3vh;
+		max-width: 53.3vw;
 		min-width: 160px;
 		display: flex;
-		justify-content: flex-start;
+		justify-content: center;
 		align-items: center;
 		color: #ffffff;
 	}
@@ -86,16 +85,16 @@ const TribesComponent = styled.div`
 		width: 35%;
 		min-width: 150px;
 		display: flex;
-		justify-content: flex-start;
+		justify-content: center;
 		align-items: center;
 	}
 
 	.editColumn,
 	.garbageColumn {
-		width: 12%;
-		min-width: 80px;
+		width: 15%;
+
 		display: flex;
-		justify-content: flex-start;
+		justify-content: center;
 		align-items: center;
 
 		svg {

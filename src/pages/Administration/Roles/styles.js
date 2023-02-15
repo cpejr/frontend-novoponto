@@ -51,7 +51,6 @@ const RolesComponent = styled.div`
     .roleTable tr{
         height: 80px;
         background-color: #141414;
-        padding: 0px 20px;
         
         display: flex;
         justify-content: flex-start;
@@ -66,17 +65,18 @@ const RolesComponent = styled.div`
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        border-radius: 5px;
+        border-radius: 5px;      
     }
 
     .roleColumn{
-        width: 45%;
-        max-width: 50vw;
+        width: 65vw;
+        max-width: 65vw;
         min-width: 160px;
         display: flex;
         justify-content: flex-start;
         align-items: center;
         color: #FFFFFF;
+        padding-left: 15%
     }
 
     .isAdmColumn{
@@ -88,8 +88,8 @@ const RolesComponent = styled.div`
     }
 
     .editColumn, .garbageColumn{
-        width: 12%;
-        min-width: 80px;
+        width: 15%;
+
         display: flex;
         justify-content: flex-start;
         align-items: center;
