@@ -10,3 +10,4 @@ export { default as Members } from "./Administration/Members";
 export { default as Roles } from "./Administration/Roles";
 export { default as Tribes } from "./Administration/Tribes";
 export { default as HourFollowing } from "./Administration/HourFollowing";
+export { default as Tasks } from "./Administration/Tasks";

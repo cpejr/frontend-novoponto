@@ -30,6 +30,11 @@ const Roles = () => {
   });
   const { availableRoles } = useContext(GlobalsContext);
 
+  const [deleteRoleMutation] = useMutation(DELETE_ROLE);
+  const [updateRoleMutation] = useMutation(UPDATE_ROLE);
+  const [createRoleMutation] = useMutation(CREATE_ROLE);
+  const { loading, error, data, refetch } = useQuery(GET_ROLES);
+
   const handleOpenModal = (role) => {
     setExcludeRole(role);
     setOpenModalExcludeRole(true);
@@ -146,10 +151,7 @@ const Roles = () => {
     handleCloseEditOrCreate();
   };
 
-  const [deleteRoleMutation] = useMutation(DELETE_ROLE);
-  const [updateRoleMutation] = useMutation(UPDATE_ROLE);
-  const [createRoleMutation] = useMutation(CREATE_ROLE);
-  const { loading, error, data, refetch } = useQuery(GET_ROLES);
+  
 
   if (loading)
     return (
