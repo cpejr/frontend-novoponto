@@ -16,6 +16,7 @@ import ModalityModal from "../../components/molecules/ModalityModal";
 import AutocompleteMemberInput from "../../components/organisms/AutoCompleteMemberInput";
 import { SESSION_SUBSCRIPTION } from "../../graphql/Subscription";
 import diacriticCaseInsensitiveMatch from "../../utils/diacriticCaseInsensitiveMatch";
+import LoginModal from "../../components/molecules/LoginModal";
 
 const Sessions = () => {
 	const [memberTextToLogin, setMemberTextToLogin] = useState({});
@@ -167,7 +168,7 @@ const Sessions = () => {
 				}}
 				handleCancel={() => setShowLogoutAllMembers(false)}
 			/>
-			<ModalityModal
+			<LoginModal
 				title="Confirmação de login"
 				content={`Como deseja logar ${memberToLogin.current?.name}?`}
 				isVisible={modalityModalVisible}
