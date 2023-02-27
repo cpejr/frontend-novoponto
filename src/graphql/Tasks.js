@@ -11,7 +11,7 @@ const CREATE_TASK = gql`
 `;
 
 const DELETE_TASK = gql`
-  mutation DeleteTask($tribeId: ID!) {
+  mutation DeleteTask($taskId: ID!) {
     deleteTask(taskId: $taskId) {
       _id
     }

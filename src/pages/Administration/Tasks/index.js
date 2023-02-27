@@ -29,7 +29,6 @@ const Tasks = () => {
   const [createTaskMutation] = useMutation(CREATE_TASK);
   const [deleteTaskMutation] = useMutation(DELETE_TASK);
   const { loading, error, data, refetch } = useQuery(GET_TASKS);
-  console.log(data);
 
   const [openModalExcludeTask, setOpenModalExcludeTask] = useState(false);
   const [filteredTasks, setFilteredTasks] = useState([]);
