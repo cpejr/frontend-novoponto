@@ -11,7 +11,6 @@ const Ponto = () => {
   return (
     <PontoComponent theme={themeColors} className="m-0 mt-lg-3 m-lg-5">
       <NewsCarousel />
-      oi
       <Sessions />
     </PontoComponent>
   );

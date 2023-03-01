@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Modal, Button } from "antd";
 import { ModalContainer, ModalContentSection } from "./styles";
 import { CommonSelectBox } from "../../atoms";
+import AutocompleteInput from "../AutocompleteInput";
 
 const LoginModal = ({
   content,
@@ -15,11 +16,11 @@ const LoginModal = ({
 
   let [tasks, setTasks] = useState([
     {
-      value: 0,
+      value: "0",
       label: "Reunião gerencial"
     },
     {
-      value: 1,
+      value: "1",
       label: "Solda de placas"
     }
   ]);
@@ -60,7 +61,7 @@ const LoginModal = ({
 
           {children}
 
-        <CommonSelectBox optionsList={tasks}/>
+        <AutocompleteInput options={tasks} placeholder="Escolha a tarefa"/>
         </ModalContentSection>
       </ModalContainer>
     </Modal>
