@@ -35,6 +35,14 @@ const TribesComponent = styled.div`
 		display: flex;
 		justify-content: flex-end;
 		margin-bottom: 48px;
+
+		@media (max-width: 826px) {
+			width: 80%;
+		}
+
+		@media (max-width: 594px) {
+			width: 100%;
+		}
 	}
 
 	table,
@@ -79,6 +87,46 @@ const TribesComponent = styled.div`
 		justify-content: center;
 		align-items: center;
 		color: #ffffff;
+
+		@media (max-width: 1201px) {
+			width: 45vh;
+		}
+
+		@media (max-width: 1100px) {
+            width:24vw;
+        }
+
+		@media (max-width: 1060px) {
+			justify-content: flex-start;
+			padding-left: 5%;
+        }
+
+		@media (max-width: 1040px) {
+			width: 35vh;
+		}
+
+		@media (max-width: 890px) {
+			width: 30vh;
+		}
+
+		@media (max-width: 586px) {
+			width: 25vh;
+		}
+
+		@media (max-width: 565px) {
+			min-width: 120px;
+		}
+
+		@media (max-width: 491px) {
+			min-width: 70px;
+			width: 22vh;
+		}
+
+		@media (max-width: 445px) {
+			width: 21vh;
+			max-width: 13vh;
+		}
+
 	}
 
 	.isAdmColumn {
@@ -97,6 +145,10 @@ const TribesComponent = styled.div`
 		justify-content: center;
 		align-items: center;
 
+		@media (max-width: 445px) {
+			margin-left: 40px;
+		}
+
 		svg {
 			font-size: 25px;
 			cursor: pointer;
@@ -107,6 +159,7 @@ const TribesComponent = styled.div`
 	}
 
 	.garbageColumn {
+		margin-left: 0px;
 		svg:hover {
 			color: #c70000;
 		}

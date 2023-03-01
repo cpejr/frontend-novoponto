@@ -35,6 +35,14 @@ const RolesComponent = styled.div`
         display: flex;
         justify-content: flex-end;
         margin-bottom: 48px;
+
+        @media (max-width: 830px) {
+            width: 80%;
+        }
+
+        @media (max-width: 471px) {
+            width: 100%;
+        }
     }
 
     table, th, tr, td{
@@ -76,8 +84,28 @@ const RolesComponent = styled.div`
         justify-content: flex-start;
         align-items: center;
         color: #FFFFFF;
-        padding-left: 15%
+        padding-left: 9%;
+
+        @media(max-width: 1150px) {
+            width: 60vw;
+        }
+
+        @media(max-width: 1040px) {
+            width: 45vw;
+        }
+
+        @media(max-width: 420px) {
+            width: 40vw;
+            padding-left: 3%;
+        }
+
+        @media(max-width: 346px) {
+            min-width: 120px;
+        }
+
     }
+
+    
 
     .isAdmColumn{
         width: 35%;
@@ -85,6 +113,14 @@ const RolesComponent = styled.div`
         display: flex;
         justify-content: flex-start;
         align-items: center;
+
+        @media(max-width: 420px) {
+            min-width: 130px;
+        }
+
+        @media(max-width: 376px) {
+            min-width: 100px;
+        }
     }
 
     .editColumn, .garbageColumn{
