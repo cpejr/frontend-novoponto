@@ -40,6 +40,7 @@ const LoggedMembers = ({
 								labelColor="#0085FF"
 							/>
 						)} */}
+		
 					</Row>
 					<Row>
 						{tribe && (

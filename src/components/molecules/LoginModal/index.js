@@ -25,6 +25,17 @@ const LoginModal = ({
     }
   ]);
 
+  let modalityOptions = [
+    {
+      value: true, // Precisa mesmo ser um objeto? Por que não uma lista simples de strings?
+      label: "Remoto"
+    },
+    {
+      value: false,
+      label: "Presencial"
+    }
+  ]
+
   let [isOnline, setIsOnline] = useState(false);
 
   return (
@@ -47,21 +58,16 @@ const LoginModal = ({
         <ModalContentSection>
           {content}
           <br/>
-          <CommonSelectBox optionsList={[{
-            value: true, // Precisa mesmo ser um objeto? Por que não uma lista simples de strings?
-            label: "Remoto"
-          },
-          {
-            value: false,
-            label: "Presencial"
-          }
-          ]} onChange={(isOnline) => setIsOnline(isOnline)}/>
+          <CommonSelectBox 
+          optionsList={modalityOptions} 
+          onChange={(isOnline) => setIsOnline(isOnline)}
+          className="mt-3 mb-3"/>
 
           O que pretende fazer nesse horário?
 
           {children}
 
-        <AutocompleteInput options={tasks} placeholder="Escolha a tarefa"/>
+        <AutocompleteInput options={tasks} placeholder="Escolha a tarefa" className="mt-3 mb-3" />
         </ModalContentSection>
       </ModalContainer>
     </Modal>
