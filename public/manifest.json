@@ -1,10 +1,10 @@
 {
   "short_name": "Ponto",
-  "name": "Ponto CPE",
+  "name": "Ponto EstatMG",
   "icons": [
     {
-      "src": "/logoCPE.png",
-      "sizes": "192x192",
+      "src": "/logoEstatMG.png",
+      "sizes": "136x136",
       "type": "image/png"
     }
   ],

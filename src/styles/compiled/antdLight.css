@@ -7047,6 +7047,7 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
 .ant-drawer-body {
   flex-grow: 1;
   padding: 24px;
+  margin-top: 25px;
   overflow: auto;
   font-size: 14px;
   line-height: 1.5715;
@@ -14850,11 +14851,14 @@ textarea.ant-input-number {
   position: relative;
   /* fix firefox can't set width smaller than content on flex item */
   min-width: 0;
-  background: #000;
+  color: #fff;
+  background-color: #fff;
   transition: all 0.2s;
 }
 .ant-layout-sider-children {
   height: 100%;
+  color: #fff;
+  background-color: #fff;
   margin-top: -0.1px;
   padding-top: 0.1px;
 }
@@ -15714,6 +15718,7 @@ textarea.ant-mentions {
   margin-right: 10px;
   font-size: 14px;
   transition: font-size 0.15s cubic-bezier(0.215, 0.61, 0.355, 1), margin 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), color 0.3s;
+  color: #000;
 }
 .ant-menu-item .ant-menu-item-icon + span,
 .ant-menu-submenu-title .ant-menu-item-icon + span,
