@@ -4,7 +4,7 @@ import { ModalContainer, ModalContentSection } from "./styles";
 import { CommonSelectBox } from "../../atoms";
 import AutocompleteInput from "../AutocompleteInput";
 
-const LoginModal = ({
+const EditSessionModal = ({
   content,
   title,
   isVisible,
@@ -13,16 +13,6 @@ const LoginModal = ({
   tasks,
   children,
 }) => {
-  const modalityOptions = [
-    {
-      value: true, // Precisa mesmo ser um objeto? Por que não uma lista simples de strings?
-      label: "Remoto",
-    },
-    {
-      value: false,
-      label: "Presencial",
-    },
-  ];
   const tasksOptions = tasks.map((task) => {
     return { value: task._id, label: task.name };
   });
@@ -53,13 +43,7 @@ const LoginModal = ({
       <ModalContainer>
         <ModalContentSection>
           {content}
-          <br />
-          <CommonSelectBox
-            optionsList={modalityOptions}
-            onChange={(isOnline) => setIsOnline(isOnline)}
-            className="mt-3 mb-3"
-          />
-          O que pretende fazer nesse horário?
+          <br />O que pretende fazer nesse horário?
           {children}
           <CommonSelectBox
             optionsList={tasksOptions}
@@ -72,4 +56,4 @@ const LoginModal = ({
   );
 };
 
-export default LoginModal;
+export default EditSessionModal;
