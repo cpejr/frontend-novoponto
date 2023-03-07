@@ -17,7 +17,7 @@ const palette = {
   overlayLight: "rgba(255,255,255,0.3)",
   backDropLight: "rgba(255,255,255,0.1)",
 
-  black: "#000",
+  black: "red",
   gray900: "#141414",
   gray800: "#1D1D1D",
   grayDescription: "#5C5C5C",
@@ -26,7 +26,7 @@ const palette = {
 
 export const colors = {
   white: palette.white,
-  black: palette.black,
+  black: palette.white,
 
   primary: palette.gray900,
   accent: palette.gray800,
@@ -61,7 +61,7 @@ export const themedColors = {
     accent: palette.green400,
     activeTintColor: palette.white,
 
-    appBackground: palette.black,
+    appBackground: "red",
     appSurface: palette.gray850,
 
     header: palette.gray850,
