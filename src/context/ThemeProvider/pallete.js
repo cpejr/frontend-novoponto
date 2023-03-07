@@ -3,6 +3,9 @@ const palette = {
 
   greenMoss: "rgba(49, 216, 67, 0.5)",
   greenMossHover: "rgba(49, 230, 67, 0.7)",
+  
+  estatColor: "rgb(79, 182, 167)",
+  estatPrimaryColor: "rgb(101, 33, 119)",
 
   red300: "#CA191B",
   red300Hover: "#CA301B",
@@ -50,6 +53,9 @@ export const colors = {
 
   green: palette.greenMoss,
   greenHover: palette.greenMossHover,
+
+  estatColor: palette.estatColor,
+  estatPrimaryColor: palette.estatPrimaryColor,
 };
 
 export const themedColors = {

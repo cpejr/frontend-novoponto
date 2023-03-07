@@ -7047,7 +7047,6 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
 .ant-drawer-body {
   flex-grow: 1;
   padding: 24px;
-  margin-top: 25px;
   overflow: auto;
   font-size: 14px;
   line-height: 1.5715;
@@ -14848,27 +14847,30 @@ textarea.ant-input-number {
   min-height: 0;
 }
 .ant-layout-sider {
+  color:#fff;
   position: relative;
   /* fix firefox can't set width smaller than content on flex item */
   min-width: 0;
-  color: #fff;
-  background-color: #fff;
+  background: #000;
   transition: all 0.2s;
 }
 .ant-layout-sider-children {
-  height: 100%;
   color: #fff;
-  background-color: #fff;
+  height: 100%;
   margin-top: -0.1px;
   padding-top: 0.1px;
+  background: #fff;
 }
 .ant-layout-sider-has-trigger {
+  color: #fff;
   padding-bottom: 48px;
 }
 .ant-layout-sider-right {
+  color: #fff;
   order: 1;
 }
 .ant-layout-sider-trigger {
+  color: #fff;
   position: fixed;
   bottom: 0;
   z-index: 1;
@@ -14876,7 +14878,7 @@ textarea.ant-input-number {
   color: #fff;
   line-height: 48px;
   text-align: center;
-  background: #002140;
+  background: #fff;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -14917,10 +14919,11 @@ textarea.ant-input-number {
   border-radius: 2px 0 0 2px;
 }
 .ant-layout-sider-light {
+  color: #fff;
   background: #fff;
 }
 .ant-layout-sider-light .ant-layout-sider-trigger {
-  color: rgba(0, 0, 0, 0.85);
+  color:#fff; 
   background: #fff;
 }
 .ant-layout-sider-light .ant-layout-sider-zero-width-trigger {
@@ -15714,11 +15717,11 @@ textarea.ant-mentions {
 .ant-menu-submenu-title .ant-menu-item-icon,
 .ant-menu-item .anticon,
 .ant-menu-submenu-title .anticon {
+  color:#000;
   min-width: 14px;
   margin-right: 10px;
   font-size: 14px;
   transition: font-size 0.15s cubic-bezier(0.215, 0.61, 0.355, 1), margin 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), color 0.3s;
-  color: #000;
 }
 .ant-menu-item .ant-menu-item-icon + span,
 .ant-menu-submenu-title .ant-menu-item-icon + span,
