@@ -8,6 +8,10 @@ const LOGGED_MEMBERS = gql`
       member {
         ...DefaultSessionFields
       }
+      task {
+        _id
+        name
+      }
       start
       end
       duration
@@ -28,6 +32,9 @@ const CREATE_SESSION = gql`
       start
       isPresential
       member {
+        name
+      }
+      task {
         name
       }
     }

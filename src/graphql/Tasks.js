@@ -1,12 +1,5 @@
 import gql from "graphql-tag";
 
-const DefaultTaskFields = gql`
-  fragment DefaultTaskFields on Task {
-    _id
-    name
-  }
-`;
-
 const CREATE_TASK = gql`
   mutation CreateTask($data: TaskInput!) {
     createTask(data: $data) {
@@ -43,4 +36,4 @@ const GET_TASKS = gql`
   }
 `;
 
-export { DefaultTaskFields, GET_TASKS, DELETE_TASK, UPDATE_TASK, CREATE_TASK };
+export { GET_TASKS, DELETE_TASK, UPDATE_TASK, CREATE_TASK };

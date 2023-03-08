@@ -39,6 +39,7 @@ const Sessions = () => {
   const { data: sessionUpdateData } = useSubscription(SESSION_SUBSCRIPTION);
 
   const { loggedMembers } = loggedData || {};
+  console.log(loggedMembers);
 
   async function handleLogoutMember(member) {
     let hide = message.loading("Deslogado...");
