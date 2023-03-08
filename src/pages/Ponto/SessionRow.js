@@ -1,5 +1,5 @@
-import { Button } from "antd";
-import React, { useContext } from "react";
+import { Button, message } from "antd";
+import React, { useContext, useState } from "react";
 import { HourDisplayer } from "../../components/atoms";
 import DurationDisplayer from "../../components/molecules/DurationDisplayer";
 import PresentialDisplayer from "../../components/molecules/PresentialDisplayer";
@@ -10,17 +10,51 @@ import { AiOutlineEye } from "react-icons/ai";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { HiOutlineLogout } from "react-icons/hi";
 import { Tooltip } from "antd";
+import EditSessionModal from "../../components/molecules/EditSessionModal";
+import { GET_TASKS } from "../../graphql/Tasks";
+import {
+  CREATE_SESSION,
+  FINISH_SESSION,
+} from "../../graphql/Sessions";
+import { useMutation, useQuery } from "@apollo/client";
 
 const SessionRow = ({ session, onLogout, ...props }) => {
   const { themeColors } = useContext(ThemeContext);
+  const { member, task } = session;
+  
+  const { data } = useContext(SessionContext);
+  const memberSession = data.member;
+  
+  const [EditSessionModalVisible, setEditSessionModalVisible] = useState(false);
+  const { data: tasksData } = useQuery(GET_TASKS);
+  const [startSessionMutation] = useMutation(CREATE_SESSION);
+  const [endSessionMutation] = useMutation(FINISH_SESSION);
 
-  const { member } = session;
+  async function handleEditTask(taskId) {
+    const hide = message.loading("Trocando tarefa...");
+    try {
+      await endSessionMutation({
+        variables: { memberId: member._id },
+      });
+      await startSessionMutation({
+        variables: {
+          memberId: member._id,
+          isPresential: session.isPresential,
+          taskId: taskId,
+        },
+      });
+      hide();
+      message.success(`Bom trabalho ${member.name}!`, 2.5);
+    } catch (err) {
+      hide();
+      message.warn(err.message, 2.5);
+    }
+    setEditSessionModalVisible(false);
+  }
+
   function handleLogout() {
     onLogout && onLogout(session);
   }
-
-  const { data } = useContext(SessionContext);
-  const memberSession = data.member;
 
   return (
     <tr {...props} className="d-flex">
@@ -60,7 +94,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
       </td>
 
       <td className="col-2 col-sm-1 d-flex align-items-center justify-content-between gap-1">
-        <Tooltip placement="top" title={"Treinamento com a Tesla"}>
+        <Tooltip placement="top" title={task.name}>
           <Button
             className="w-37 h-40 d-flex align-items-center justify-content-center"
             icon={
@@ -71,19 +105,26 @@ const SessionRow = ({ session, onLogout, ...props }) => {
               )
             }
             onClick={() => {
-              member.name === memberSession.name
-                ? console.log("Editar tarefa")
-                : console.log("Exibir tarefa");
+              member.name === memberSession.name && setEditSessionModalVisible(true)
             }}
           />
         </Tooltip>
 
         <Button
           className="w-37 h-40 d-flex align-items-center justify-content-center"
-          //icon={<img src={logoutPointIcon} alt="Deslogar" />}
           icon={<HiOutlineLogout size="1.2em" />}
           onClick={handleLogout}
         />
+
+          <EditSessionModal
+            title="Edição de tarefa"
+            content={`Qual sera a próxima tarefa?`}
+            isVisible={EditSessionModalVisible}
+            tasks={tasksData?.tasks}
+            handleEditTask={handleEditTask}
+            handleCancel={() => setEditSessionModalVisible(false)}
+          />
+
       </td>
     </tr>
   );

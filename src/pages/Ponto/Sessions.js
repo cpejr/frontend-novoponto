@@ -39,7 +39,6 @@ const Sessions = () => {
   const { data: sessionUpdateData } = useSubscription(SESSION_SUBSCRIPTION);
 
   const { loggedMembers } = loggedData || {};
-  console.log(loggedMembers);
 
   async function handleLogoutMember(member) {
     let hide = message.loading("Deslogado...");
@@ -94,7 +93,6 @@ const Sessions = () => {
 
   function updateFilter() {
     const value = filterMemberField?.current?.input.value;
-    console.log(loggedMembers);
     if (value && value.trim() !== "")
       setFilteredSessions(
         loggedMembers?.filter(({ member: { name } }) =>
@@ -162,16 +160,14 @@ const Sessions = () => {
         }}
         handleCancel={() => setShowLogoutAllMembers(false)}
       />
-      {tasksData && (
-        <LoginModal
-          title="Confirmação de login"
-          content={`Como deseja logar ${memberToLogin.current?.name}?`}
-          isVisible={loginModalVisible}
-          tasks={tasksData.tasks}
-          handleLogin={handleLogin}
-          handleCancel={() => setLoginModalVisible(false)}
-        />
-      )}
+      <LoginModal
+        title="Confirmação de login"
+        content={`Como deseja logar ${memberToLogin.current?.name}?`}
+        isVisible={loginModalVisible}
+        tasks={tasksData?.tasks}
+        handleLogin={handleLogin}
+        handleCancel={() => setLoginModalVisible(false)}
+      />
     </div>
   );
 };

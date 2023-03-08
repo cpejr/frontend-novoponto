@@ -23,7 +23,7 @@ const LoginModal = ({
       label: "Presencial",
     },
   ];
-  const tasksOptions = tasks.map((task) => {
+  const tasksOptions = tasks?.map((task) => {
     return { value: task._id, label: task.name };
   });
 
@@ -63,7 +63,7 @@ const LoginModal = ({
           {children}
           <CommonSelectBox
             optionsList={tasksOptions}
-            onChange={(isOnline) => setSelectedTask(isOnline)}
+            onChange={(selectedTask) => setSelectedTask(selectedTask)}
             className="mt-3 mb-3"
           />
         </ModalContentSection>

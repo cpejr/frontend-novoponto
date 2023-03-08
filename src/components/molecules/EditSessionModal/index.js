@@ -8,12 +8,12 @@ const EditSessionModal = ({
   content,
   title,
   isVisible,
-  handleLogin,
+  handleEditTask,
   handleCancel,
   tasks,
   children,
 }) => {
-  const tasksOptions = tasks.map((task) => {
+  const tasksOptions = tasks?.map((task) => {
     return { value: task._id, label: task.name };
   });
 
@@ -34,7 +34,7 @@ const EditSessionModal = ({
         <Button
           key="submit"
           type="primary"
-          onClick={() => handleLogin(isOnline, selectedTask)}
+          onClick={() => handleEditTask(selectedTask)}
         >
           Confirmar
         </Button>,
@@ -43,11 +43,9 @@ const EditSessionModal = ({
       <ModalContainer>
         <ModalContentSection>
           {content}
-          <br />O que pretende fazer nesse horário?
-          {children}
           <CommonSelectBox
             optionsList={tasksOptions}
-            onChange={(isOnline) => setSelectedTask(isOnline)}
+            onChange={(selectedTask) => setSelectedTask(selectedTask)}
             className="mt-3 mb-3"
           />
         </ModalContentSection>
