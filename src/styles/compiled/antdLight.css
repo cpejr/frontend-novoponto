@@ -157,7 +157,7 @@ sup {
   top: -0.5em;
 }
 a {
-  color: #ffd100;
+  color: #ffd208;
   text-decoration: none;
   background-color: transparent;
   outline: none;
@@ -15604,7 +15604,7 @@ textarea.ant-mentions {
   color: rgba(0, 0, 0, 0.85);
 }
 .ant-menu-item a:hover {
-  color: #ffd100;
+  color: #531dab;
 }
 .ant-menu-item a::before {
   position: absolute;

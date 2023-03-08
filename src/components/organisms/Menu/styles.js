@@ -15,8 +15,9 @@ const SidebarMenuContainer = styled.div`
   .logo > span svg {
     font-size: 25px;
     color: #ffffff;
-    margin-right: 30px;
+    margin-right: 22px;
     transition: color 0.2s;
+    margin-top: 17px;
   }
 `;
 

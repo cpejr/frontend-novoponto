@@ -3,7 +3,7 @@ import DefaultLabelContainer from "./styles";
 
 const DefaultLabel = ({
 	labelText,
-	labelColor = "#ffd100",
+	labelColor = "#4FB6A7",
 	labelWidth = "auto",
 	labelMargin = "0",
 	className,
