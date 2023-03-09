@@ -6,6 +6,7 @@ import {
 	MemberName,
 	MemberDescription,
 	MemberAvatar,
+	MemberRecognition,
 } from "../../atoms";
 import { Row, Col } from "react-bootstrap";
 
@@ -16,6 +17,7 @@ const LoggedMembers = ({
 	tribe,
 	mandatoryHour = null,
 	description,
+	recognition,
 }) => {
 	return (
 		<LoggedMembersContainer className="container">
@@ -26,6 +28,7 @@ const LoggedMembers = ({
 				<Col className="d-flex flex-column justify-content-center gap-1">
 					<Row className="flex-nowrap d-flex flex-column flex-lg-row me-0 text-truncate">
 						<MemberName name={name} className="text-nowrap p-0" />
+						<MemberRecognition src={recognition} />
 						<MemberDescription
 							description={description}
 							responsive

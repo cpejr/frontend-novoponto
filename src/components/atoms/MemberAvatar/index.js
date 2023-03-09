@@ -9,5 +9,3 @@ const MemberAvatar = ({ src = avatarDefault, ...props }) => {
 
   return <MemberAvatarContainer src={_src} {...props} />;
 };
-
-export default MemberAvatar;

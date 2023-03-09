@@ -25,6 +25,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 					tribe={member?.tribe}
 					role={member?.role?.name}
 					description={member.status}
+					recognition={member.recognition}
 				/>
 			</td>
 			<td className="col-2 d-none d-sm-flex align-items-center justify-content-center">
