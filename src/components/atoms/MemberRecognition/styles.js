@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 
 const MemberRecognitionContainer= styled.div`
-  width: ${(props) => props.size || "50px"};
-  height: ${(props) => props.size || "50px"};
-  border-radius: 50%;
+  display: flex;
+  padding: 0px;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  gap: 5px;
 `;
 
 export default MemberRecognitionContainer;
+
+

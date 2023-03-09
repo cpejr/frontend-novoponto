@@ -26,13 +26,13 @@ const LoggedMembers = ({
 					<MemberAvatar src={imageLink} />
 				</Col>
 				<Col className="d-flex flex-column justify-content-center gap-1">
-					<Row className="flex-nowrap d-flex flex-column flex-lg-row me-0 text-truncate">
+					<Row className="flex-nowrap d-flex flex-column flex-lg-row me-0 text-truncate gap-1">
 						<MemberName name={name} className="text-nowrap p-0" />
 						<MemberRecognition src={recognition} />
 						<MemberDescription
 							description={description}
 							responsive
-							className="ms-lg-2 p-0 text"
+							className="p-0 text"
 						/>
 					</Row>
 					<Row>
