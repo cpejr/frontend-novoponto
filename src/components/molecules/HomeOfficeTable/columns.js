@@ -40,7 +40,7 @@ function getColumns(themeColors, hasComment, onDelete) {
         <FlexDiv>
           <InfoDisplayer
             info={getOperation(action).text}
-            infoColor={themeColors[getOperation(action).color]}
+            infoColor={themeColors.estatPrimaryColor}
           />
         </FlexDiv>
       ),
@@ -54,7 +54,7 @@ function getColumns(themeColors, hasComment, onDelete) {
           <HourDisplayer
             dateOrTime={"time"}
             hour={formatedAmount}
-            hourColor={themeColors.yellow}
+            hourColor={themeColors.estatColor}
           />
         </FlexDiv>
       ),
@@ -67,7 +67,7 @@ function getColumns(themeColors, hasComment, onDelete) {
         <FlexDiv>
           <InfoDisplayer
             info={isPresential ? "Presencial" : "Remoto"}
-            infoColor={themeColors.green}
+            infoColor={themeColors.estatPrimaryColor}
           />
         </FlexDiv>
       ),

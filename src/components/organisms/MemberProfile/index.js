@@ -110,6 +110,7 @@ const MemberProfile = ({
           value={newData?.status}
         />
         <SaveButton
+          
           saved={newData?.status === member?.status}
           onClick={handleSave}
         />
