@@ -94,7 +94,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
       </td>
 
       <td className="col-2 col-sm-1 d-flex align-items-center justify-content-between gap-1">
-        <Tooltip placement="top" title={task.name}>
+        <Tooltip placement="top" title={task?.name}>
           <Button
             className="w-37 h-40 d-flex align-items-center justify-content-center"
             icon={
