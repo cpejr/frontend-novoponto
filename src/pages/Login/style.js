@@ -10,7 +10,7 @@ const LoginComponent = styled.div`
 
     .loginBox {
         background: #1F1F1F;
-        border: 2px solid #FFD100;
+        border: 2px solid #543471;
         border-radius: 10px;
         width: 480px;
         height: 450px;
@@ -27,7 +27,7 @@ const LoginComponent = styled.div`
         position: absolute;
         width: 250px;
         left: 50%;
-        top: 25%;
+        top: 5%;
         transform: translateX(-50%);
 
         @media(max-width: 350px){
@@ -49,7 +49,7 @@ const LoginComponent = styled.div`
         transform: translateX(-50%);
         top: 70%;
         text-decoration-line: underline;
-        color: #FFD100;
+        color: #543471;
     }`;
 
 export { LoginComponent };
