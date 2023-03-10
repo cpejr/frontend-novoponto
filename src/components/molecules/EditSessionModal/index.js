@@ -16,26 +16,30 @@ const EditSessionModal = ({
   const tasksOptions = tasks?.map((task) => {
     return { value: task._id, label: task.name };
   });
-
-  const [isOnline, setIsOnline] = useState(false);
   const [selectedTask, setSelectedTask] = useState();
+
+  function handleClose() {
+    setSelectedTask();
+    handleCancel();
+  }
+
+  function handleConfirm() {
+    setSelectedTask();
+    handleEditTask(selectedTask);
+  }
 
   return (
     <Modal
       title={title}
       visible={isVisible}
-      onCancel={handleCancel}
+      onCancel={handleClose}
       bodyStyle={{ backgroundColor: "#141414" }}
       footer={[
-        <Button type="secondary" onClick={handleCancel}>
+        <Button type="secondary" onClick={handleClose}>
           Cancelar
         </Button>,
 
-        <Button
-          key="submit"
-          type="primary"
-          onClick={() => handleEditTask(selectedTask)}
-        >
+        <Button key="submit" type="primary" onClick={handleConfirm}>
           Confirmar
         </Button>,
       ]}
@@ -44,8 +48,10 @@ const EditSessionModal = ({
         <ModalContentSection>
           {content}
           <CommonSelectBox
+            placeholder="Nova tarefa"
             optionsList={tasksOptions}
             onChange={(selectedTask) => setSelectedTask(selectedTask)}
+            value={selectedTask}
             className="mt-3 mb-3"
           />
         </ModalContentSection>
