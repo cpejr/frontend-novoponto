@@ -6,7 +6,6 @@ import { SessionContext } from "../../context/SessionProvider";
 import watermarkImg from '../../assets/watermark.png';
 import OutlinedBoxContainer from "../../components/atoms/OutlinedBox";
 import logoEstat from '../../assets/logoEstat.png';
-import logoAmarela from '../../assets/logoAmarela.png'; 
 import LoginButton from "./login"
 
 
@@ -17,7 +16,6 @@ const Login = () => {
     return (
         <LoginComponent>
             {!data ? (<>
-                <img className="watermark" src={watermarkImg}></img>
                 <OutlinedBoxContainer className="loginBox">
                     <img className="logo" src={logoEstat}></img>
                     <LoginButton />

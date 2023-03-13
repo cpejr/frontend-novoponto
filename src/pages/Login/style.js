@@ -1,12 +1,6 @@
 import styled from "styled-components";
 
 const LoginComponent = styled.div`
-    .watermark {
-        z-index: -1;
-        height: 100vh;
-        position: fixed;
-        left: 30%;
-    }
 
     .loginBox {
         background: #1F1F1F;

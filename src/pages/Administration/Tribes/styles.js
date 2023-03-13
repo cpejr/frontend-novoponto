@@ -103,7 +103,7 @@ const TribesComponent = styled.div`
 			cursor: pointer;
 		}
 		svg:hover {
-			color: rgb(255, 244, 41);
+			color: #543471;
 		}
 	}
 
