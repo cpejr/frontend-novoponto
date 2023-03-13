@@ -3,10 +3,10 @@ import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { LoginComponent } from "./style";
 import { SessionContext } from "../../context/SessionProvider";
-import watermarkImg from '../../assets/watermark.png';
+import watermarkMult from '../../assets/watermarkMult.png';
 import OutlinedBoxContainer from "../../components/atoms/OutlinedBox";
 import logoCPE from '../../assets/logoCPE.png';
-import logoAmarela from '../../assets/logoAmarela.png';
+import logoMult from '../../assets/logoMult.png';
 import LoginButton from "./login"
 
 
@@ -17,11 +17,11 @@ const Login = () => {
     return (
         <LoginComponent>
             {!data ? (<>
-                <img className="watermark" src={watermarkImg}></img>
+                <img className="watermark" src={watermarkMult}></img>
                 <OutlinedBoxContainer className="loginBox">
-                    <img className="logo" src={logoAmarela}></img>
+                    <img className="logo" src={logoMult}></img>
                     <LoginButton />
-                    <a className="text" href="http://cpejr.com.br">Ficou curioso? Saiba mais</a>
+                    <a className="text" href="https://consultoriamult.com.br/">Ficou curioso? Saiba mais</a>
                 </OutlinedBoxContainer>
             </>
             ) : (

@@ -3,14 +3,15 @@ import styled from "styled-components";
 const LoginComponent = styled.div`
     .watermark {
         z-index: -1;
-        height: 100vh;
+        margin-top: 80px;
+        height: 90%;
         position: fixed;
         left: 30%;
     }
 
     .loginBox {
         background: #1F1F1F;
-        border: 2px solid #FFD100;
+        border: 2px solid #9A9A9C;
         border-radius: 10px;
         width: 480px;
         height: 450px;
@@ -25,9 +26,9 @@ const LoginComponent = styled.div`
 
     .logo {
         position: absolute;
-        width: 250px;
+        width: 25%;
         left: 50%;
-        top: 25%;
+        top: 18%;
         transform: translateX(-50%);
 
         @media(max-width: 350px){
@@ -39,7 +40,7 @@ const LoginComponent = styled.div`
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: 60%;
+        top: 65%;
     }
 
     .text {
@@ -47,9 +48,9 @@ const LoginComponent = styled.div`
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: 70%;
+        top: 75%;
         text-decoration-line: underline;
-        color: #FFD100;
+        color: #9A9A9C;
     }`;
 
 export { LoginComponent };
