@@ -122,12 +122,12 @@ const Members = () => {
 
 				initialValue: withInitialValue
 					? {
-							text: member?.responsible?.name,
-							selectedOption: {
-								label: member?.responsible?.name,
-								value: member?.responsible?._id,
-							},
-					  }
+						text: member?.responsible?.name,
+						selectedOption: {
+							label: member?.responsible?.name,
+							value: member?.responsible?._id,
+						},
+					}
 					: undefined,
 			},
 		];
@@ -271,7 +271,7 @@ const Members = () => {
 				/>
 				<CommonButton
 					buttonLabel="Adicionar novo membro"
-					color={themeColors.estatPrimaryColor}
+					color={themeColors.multPrimaryColor}
 					nowrap
 					width="215px"
 					onClick={() => editOrCreateMember("new")}
@@ -313,17 +313,21 @@ const Members = () => {
 					width={120}
 					render={(data) => (
 						<ActionsDiv>
-							<Tooltip
-								placement="topLeft"
-								title={"Editar"}
-								onClick={() => editOrCreateMember("edit", data)}
-							>
-								<EditOutlined />
-							</Tooltip>
+							<td className="editColumn">
+								<Tooltip
+									placement="topLeft"
+									title={"Editar"}
+									onClick={() => editOrCreateMember("edit", data)}
+								>
+									<EditOutlined />
+								</Tooltip>
+							</td>
 
-							<Tooltip placement="topLeft" title={"Excluir"}>
-								<RestOutlined onClick={() => handleOpenModal(data)} />
-							</Tooltip>
+							<td className="garbageColumn">
+								<Tooltip placement="topLeft" title={"Excluir"}>
+									<RestOutlined onClick={() => handleOpenModal(data)} />
+								</Tooltip>
+							</td>
 						</ActionsDiv>
 					)}
 				/>

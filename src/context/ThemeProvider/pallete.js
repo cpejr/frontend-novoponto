@@ -4,14 +4,11 @@ const palette = {
   greenMoss: "rgba(49, 216, 67, 0.5)",
   greenMossHover: "rgba(49, 230, 67, 0.7)",
   
-  estatColor: "rgb(79, 182, 167)",
-  estatPrimaryColor: "rgb(101, 33, 119)",
+  multColor: "rgb(79, 182, 167)",
+  multPrimaryColor: "rgb(15, 76, 129)",
 
   red300: "#CA191B",
   red300Hover: "#CA301B",
-
-  yellowCPEPrimary: "#FFD100",
-  yellowMustard: "#8A6B0E",
 
   blue400: "#227ECF",
   blueSky: "#0085FF",
@@ -45,17 +42,14 @@ export const colors = {
   blue: palette.blueSky,
   blueOk: palette.blue400,
 
-  yellowCPE: palette.yellowCPEPrimary,
-  yellow: palette.yellowMustard,
-
   red: palette.red300,
   redHover: palette.red300Hover,
 
   green: palette.greenMoss,
   greenHover: palette.greenMossHover,
 
-  estatColor: palette.estatColor,
-  estatPrimaryColor: palette.estatPrimaryColor,
+  multColor: palette.multColor,
+  multPrimaryColor: palette.multPrimaryColor,
 };
 
 export const themedColors = {

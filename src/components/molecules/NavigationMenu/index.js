@@ -49,7 +49,7 @@ const Menuu = ({ collapsed, ...props }) => {
 			<MenuItem
 				key="/ponto/profile"
 				route="/ponto/profile"
-				icon={
+				member={
 					<Badge
 						dot={!data?.member?.message?.read}
 						style={{
@@ -61,6 +61,7 @@ const Menuu = ({ collapsed, ...props }) => {
 					</Badge>
 				}
 				label={data?.member?.name || "Perfil"}
+				icon = {<UserOutlined/>}
 			/>
 			<MenuItem
 				key="/ponto/consultadehoras"

@@ -195,7 +195,7 @@ const HourChanges = () => {
 				<div className="inputGroup">
 					<CommonButton
 						buttonLabel="Enviar"
-						color="#652177"
+						color="#0F4C81"
 						width="100%"
 						onClick={handleSubmit}
 						loading={loading}
