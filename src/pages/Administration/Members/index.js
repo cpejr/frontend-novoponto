@@ -90,6 +90,15 @@ const Members = () => {
 				placeholder: "Escreva o nome do membro",
 				initialValue: withInitialValue ? member.name : undefined,
 			},
+      {
+				key: "email",
+				type: "text",
+				label: "Email",
+				rules: [validators.antdRequired()],
+
+				placeholder: "Escreva o email do membro",
+				initialValue: withInitialValue ? member.email : undefined,
+			},
 			{
 				key: "tribe",
 				type: "select",
@@ -154,10 +163,11 @@ const Members = () => {
 	const createMember = async (member) => {
 		var hide = message.loading("Criando...");
 
-		const { Nome, Cargo, Assessor, Tribo } = member;
+		const { Nome, Email, Cargo, Assessor, Tribo } = member;
 		try {
 			const newMember = {
 				name: Nome,
+        email: Email,
 				roleId: Cargo,
 				tribeId: Tribo,
 				responsibleId: Assessor?.selectedOption?.value,
