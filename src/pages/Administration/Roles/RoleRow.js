@@ -3,6 +3,7 @@ import { Tooltip } from "antd";
 import React, { useContext } from "react";
 import { DefaultLabel } from "../../../components/atoms";
 import { GlobalsContext } from "../../../context/GlobalsProvider";
+import { changeableColors } from "../../../context/ThemeProvider/pallete";
 
 const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
 	const { availableRoles } = useContext(GlobalsContext);
@@ -17,7 +18,7 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
 								(availableRole) => availableRole.value === role.access
 							)?.label
 						}
-						labelColor="#FFD100"
+						labelColor={changeableColors.appPrimaryColor}
 					/>
 				)}
 			</td>

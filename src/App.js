@@ -1,11 +1,10 @@
 import React from "react";
 import {
-  ApolloClient,
-  ApolloLink,
-  ApolloProvider,
-  HttpLink,
-  InMemoryCache,
-  split,
+	ApolloClient,
+	ApolloLink,
+	ApolloProvider,
+	InMemoryCache,
+	split,
 } from "@apollo/client";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -27,29 +26,29 @@ import GlobalStyle from "./styles/GlobalStyle";
 import GlobalsContextProvider from "./context/GlobalsProvider";
 
 const httpLink = createUploadLink({
-  uri: process.env.REACT_APP_API || "http://localhost:4000/",
+	uri: process.env.REACT_APP_API || "http://localhost:4000/",
 });
 
 const wsLink = new WebSocketLink({
-  uri: process.env.REACT_APP_SUB_API || "ws://localhost:4000/subscriptions",
-  options: {
-    reconnect: true,
-  },
+	uri: process.env.REACT_APP_SUB_API || "ws://localhost:4000/subscriptions",
+	options: {
+		reconnect: true,
+	},
 });
 
 const authLink = new ApolloLink((operation, forward) => {
-  // add the authorization to the headers
-  const authToken = localStorage.getItem("accessToken");
+	// add the authorization to the headers
+	const authToken = localStorage.getItem("accessToken");
 
-  if (authToken) {
-    operation.setContext({
-      headers: {
-        authorization: `Bearer ${authToken}`,
-      },
-    });
-  }
+	if (authToken) {
+		operation.setContext({
+			headers: {
+				authorization: `Bearer ${authToken}`,
+			},
+		});
+	}
 
-  return forward(operation);
+	return forward(operation);
 });
 
 // The split function takes three parameters:
@@ -58,39 +57,39 @@ const authLink = new ApolloLink((operation, forward) => {
 // * The Link to use for an operation if the function returns a "truthy" value
 // * The Link to use for an operation if the function returns a "falsy" value
 const splitLink = split(
-  ({ query }) => {
-    const definition = getMainDefinition(query);
-    return (
-      definition.kind === "OperationDefinition" &&
-      definition.operation === "subscription"
-    );
-  },
-  wsLink,
-  authLink.concat(httpLink)
+	({ query }) => {
+		const definition = getMainDefinition(query);
+		return (
+			definition.kind === "OperationDefinition" &&
+			definition.operation === "subscription"
+		);
+	},
+	wsLink,
+	authLink.concat(httpLink)
 );
 
 const client = new ApolloClient({
-  link: splitLink,
-  cache: new InMemoryCache(),
+	link: splitLink,
+	cache: new InMemoryCache(),
 });
 
 moment.locale("pt-br");
 
 function App() {
-  return (
-    <ConfigProvider locale={ptBR}>
-      <ApolloProvider client={client}>
-        <ThemeContextProvider>
-          <SessionContextProvider>
-            <GlobalsContextProvider>
-              <GlobalStyle />
-              <Routes />
-            </GlobalsContextProvider>
-          </SessionContextProvider>
-        </ThemeContextProvider>
-      </ApolloProvider>
-    </ConfigProvider>
-  );
+	return (
+		<ConfigProvider locale={ptBR}>
+			<ApolloProvider client={client}>
+				<ThemeContextProvider>
+					<SessionContextProvider>
+						<GlobalsContextProvider>
+							<GlobalStyle />
+							<Routes />
+						</GlobalsContextProvider>
+					</SessionContextProvider>
+				</ThemeContextProvider>
+			</ApolloProvider>
+		</ConfigProvider>
+	);
 }
 
 export default App;

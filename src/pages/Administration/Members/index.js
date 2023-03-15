@@ -271,7 +271,7 @@ const Members = () => {
 				/>
 				<CommonButton
 					buttonLabel="Adicionar novo membro"
-					color={themeColors.green}
+					color={themeColors.arrivedModalityColor}
 					nowrap
 					width="215px"
 					onClick={() => editOrCreateMember("new")}

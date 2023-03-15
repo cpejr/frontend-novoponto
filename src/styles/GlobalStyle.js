@@ -1,14 +1,12 @@
 import { createGlobalStyle } from "styled-components";
+import { changeableColors, colors } from "../context/ThemeProvider/pallete";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-import { colors } from "../context/ThemeProvider/pallete";
 
 // Tema do ant design
 if (true) require("./compiled/antdDark.css");
 else require("./compiled/antdLight.css");
 
 const GlobalStyle = createGlobalStyle`
-
  * {
     box-sizing: border-box;
   }
@@ -63,7 +61,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   ::-webkit-scrollbar-thumb {
-    background: ${colors.yellowCPE};
+    background: ${changeableColors.appPrimaryColor};
     border-radius: 20px;
   }
 

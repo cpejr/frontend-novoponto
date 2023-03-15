@@ -1,9 +1,10 @@
 import React from "react";
 import DefaultLabelContainer from "./styles";
+import { changeableColors } from "../../../context/ThemeProvider/pallete";
 
 const DefaultLabel = ({
 	labelText,
-	labelColor = "#ffd100",
+	labelColor = changeableColors.appPrimaryColor,
 	labelWidth = "auto",
 	labelMargin = "0",
 	className,
