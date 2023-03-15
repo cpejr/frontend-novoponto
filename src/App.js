@@ -27,11 +27,12 @@ import GlobalStyle from "./styles/GlobalStyle";
 import GlobalsContextProvider from "./context/GlobalsProvider";
 
 const httpLink = createUploadLink({
-  uri: process.env.REACT_APP_API || "http://localhost:4000/",
+  uri: process.env.REACT_APP_API || "https://estatmg.onrender.com",
 });
 
 const wsLink = new WebSocketLink({
-  uri: process.env.REACT_APP_SUB_API || "ws://localhost:4000/subscriptions",
+  uri:
+    process.env.REACT_APP_SUB_API || "ws://estatmg.onrender.com/subscriptions",
   options: {
     reconnect: true,
   },
