@@ -4,7 +4,7 @@ const palette = {
   greenMoss: "rgba(49, 216, 67, 0.5)",
   greenMossHover: "rgba(49, 230, 67, 0.7)",
   
-  multColor: "rgb(79, 182, 167)",
+  multColor: "rgb(87, 90, 75)",
   multPrimaryColor: "rgb(15, 76, 129)",
 
   red300: "#CA191B",

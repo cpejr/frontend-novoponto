@@ -3,7 +3,7 @@ import styled from "styled-components";
 const SidebarMenuContainer = styled.div`
   .ant-layout-header {
     padding: 0 30px;
-    height: 100px;
+    height: 80px;
   }
 
   .logo {
@@ -16,7 +16,7 @@ const SidebarMenuContainer = styled.div`
     color: #ffffff;
     margin-right: 22px;
     transition: color 0.2s;
-    margin-top: 17px;
+    margin-top: 15px;
   }
 `;
 
