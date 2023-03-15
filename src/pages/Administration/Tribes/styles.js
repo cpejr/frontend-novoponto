@@ -74,7 +74,7 @@ const TribesComponent = styled.div`
 		background-color: #1d1d1d;
 
 		display: flex;
-		justify-content: center;
+		justify-content: flex-start;
 		align-items: center;
 		border-radius: 5px;
 	}
@@ -88,11 +88,23 @@ const TribesComponent = styled.div`
 		align-items: center;
 		color: #ffffff;
 
+		@media (max-width: 1310px) {
+			width: 50vh;
+		}
+
+		@media (max-width: 1251px) {
+			width: 47vh;
+		}
+
 		@media (max-width: 1201px) {
 			width: 45vh;
 		}
 
-		@media (max-width: 1100px) {
+		@media (max-width: 1162px) {
+			width: 25vw;
+		}
+
+		@media (max-width: 1105px) {
             width:24vw;
         }
 
@@ -105,11 +117,19 @@ const TribesComponent = styled.div`
 			width: 35vh;
 		}
 
-		@media (max-width: 890px) {
+		@media (max-width: 981px) {
+			width: 31vh;
+		}
+
+		@media (max-width: 895px) {
 			width: 30vh;
 		}
 
-		@media (max-width: 586px) {
+		@media (max-width: 885px) {
+			width: 27vh;
+		}
+
+		@media (max-width: 602px) {
 			width: 25vh;
 		}
 
@@ -117,14 +137,12 @@ const TribesComponent = styled.div`
 			min-width: 120px;
 		}
 
-		@media (max-width: 491px) {
-			min-width: 70px;
-			width: 22vh;
+		@media (max-width: 545px) {
+			width:140px;
 		}
 
-		@media (max-width: 445px) {
-			width: 21vh;
-			max-width: 13vh;
+		@media (max-width: 491px) {
+			width: 120px;
 		}
 
 	}
@@ -145,9 +163,6 @@ const TribesComponent = styled.div`
 		justify-content: center;
 		align-items: center;
 
-		@media (max-width: 445px) {
-			margin-left: 40px;
-		}
 
 		svg {
 			font-size: 25px;
