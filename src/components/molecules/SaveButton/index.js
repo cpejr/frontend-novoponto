@@ -10,9 +10,9 @@ const SaveButton = ({
   icon,
   ...props
 }) => {
-  const color = saved ? "#1D1D1D" : "#4FB6A7";
+  const color = saved ? "#1D1D1D" : "#543471";
   const _icon = saved ? (
-    <CheckOutlined style={{ color: "#4FB6A7" }} />
+    <CheckOutlined style={{ color: "#543471" }} />
   ) : (
     <SaveOutlined />
   );
