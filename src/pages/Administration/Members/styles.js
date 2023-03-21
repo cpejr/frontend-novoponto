@@ -51,7 +51,7 @@ const MembersComponent = styled.div`
       cursor: pointer;
     }
     svg:hover {
-      color: #543471;
+      color: #005D9E;
     }
   }
 

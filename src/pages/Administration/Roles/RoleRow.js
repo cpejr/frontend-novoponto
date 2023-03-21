@@ -17,7 +17,7 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
 								(availableRole) => availableRole.value === role.access
 							)?.label
 						}
-						labelColor="#4FB6A7"
+						labelColor="#FFFFFF"
 					/>
 				)}
 			</td>

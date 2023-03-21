@@ -3,7 +3,7 @@ import styled from "styled-components";
 const LoginComponent = styled.div`
   .loginBox {
     background: #1f1f1f;
-    border: 2px solid #543471;
+    border: 2px solid #005D9E;
     border-radius: 10px;
     width: 480px;
     height: 450px;
@@ -43,7 +43,7 @@ const LoginComponent = styled.div`
     transform: translateX(-50%);
     top: 70%;
     text-decoration-line: underline;
-    color: #543471;
+    color: #005D9E;
   }
 `;
 
