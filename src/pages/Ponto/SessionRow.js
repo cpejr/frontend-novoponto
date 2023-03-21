@@ -48,7 +48,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 				<div className="d-flex">
 					<DurationDisplayer
 						startTime={session.start}
-						color={themeColors.equiColor}
+						color={themeColors.equiGray}
 					/>
 				</div>
 			</td>
