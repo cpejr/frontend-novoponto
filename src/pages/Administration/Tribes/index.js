@@ -190,7 +190,7 @@ const Tribes = () => {
 				<div className="addNewTribeButtonArea">
 					<CommonButton
 						buttonLabel="Adicionar nova tribo"
-						color={themeColors.estatPrimaryColor}
+						color={themeColors.equiColor}
 						width="223px"
 						onClick={() => editOrCreateTribe("create")}
 					/>
