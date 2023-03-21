@@ -31,7 +31,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 				<div className="d-flex">
 					<PresentialDisplayer
 						isPresential={session.isPresential}
-						presentialColor={themeColors.estatPrimaryColor}
+						presentialColor={themeColors.equiColor}
 					/>
 				</div>
 			</td>
@@ -39,7 +39,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 				<div className="d-flex">
 					<HourDisplayer
 						hour={session.start}
-						hourColor={themeColors.estatPrimaryColor}
+						hourColor={themeColors.equiColor}
 						dateOrTime={"date"}
 					/>
 				</div>
@@ -48,7 +48,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 				<div className="d-flex">
 					<DurationDisplayer
 						startTime={session.start}
-						color={themeColors.estatColor}
+						color={themeColors.equiColor}
 					/>
 				</div>
 			</td>

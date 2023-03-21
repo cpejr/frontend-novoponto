@@ -7,7 +7,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Layout } from "antd";
 
-import logoEstatMG from "../../../assets/logoEstatMG.png";
+import logoEQ from "../../../assets/logoEQ.png";
 
 const Header = ({ isMobile, onClickToggle, isSidebarColapsed, ...props }) => {
   function getDesktopIcon() {
@@ -24,7 +24,7 @@ const Header = ({ isMobile, onClickToggle, isSidebarColapsed, ...props }) => {
       <div className="logo">
         {isMobile ? <MenuOutlined onClick={onClickToggle} /> : getDesktopIcon()}
         <Link to="/">
-          <img width={95} height={100} style ={{marginTop: "11px"}} src={logoEstatMG} alt="Consultoria e Projetos Elétricos Junior" />
+          <img width={224} height={63} style ={{marginTop: "11px"}} src={logoEQ} alt="Consultoria e Projetos Elétricos Junior" />
         </Link>
       </div>
     </Layout.Header>

@@ -5,7 +5,7 @@ import { LoginComponent } from "./style";
 import { SessionContext } from "../../context/SessionProvider";
 import watermarkImg from '../../assets/watermark.png';
 import OutlinedBoxContainer from "../../components/atoms/OutlinedBox";
-import logoEstat from '../../assets/logoEstat.png';
+import logoEQ from '../../assets/logoEQ.png';
 import LoginButton from "./login"
 
 
@@ -17,7 +17,7 @@ const Login = () => {
         <LoginComponent>
             {!data ? (<>
                 <OutlinedBoxContainer className="loginBox">
-                    <img className="logo" src={logoEstat}></img>
+                    <img className="logo" src={logoEQ}></img>
                     <LoginButton />
                     <a className="text" href="http://cpejr.com.br">Ficou curioso? Saiba mais</a>
                 </OutlinedBoxContainer>

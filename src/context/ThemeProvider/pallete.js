@@ -7,6 +7,8 @@ const palette = {
   estatColor: "rgb(79, 182, 167)",
   estatPrimaryColor: "rgb(101, 33, 119)",
 
+  equiColor: "rgb(0, 93, 158)",
+
   red300: "#CA191B",
   red300Hover: "#CA301B",
 
@@ -56,6 +58,8 @@ export const colors = {
 
   estatColor: palette.estatColor,
   estatPrimaryColor: palette.estatPrimaryColor,
+
+  equiColor: palette.equiColor,
 };
 
 export const themedColors = {

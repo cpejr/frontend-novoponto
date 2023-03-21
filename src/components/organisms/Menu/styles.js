@@ -3,13 +3,13 @@ import styled from "styled-components";
 const SidebarMenuContainer = styled.div`
   .ant-layout-header {
     padding: 0 30px;
-    height: 80px;
+    height: 70px;
   }
 
   .logo {
     display: flex;
     align-items: center;
-    margin-top: -20px;
+    margin-top: -10px;
   }
 
   .logo > span svg {
