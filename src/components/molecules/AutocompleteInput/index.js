@@ -11,6 +11,7 @@ const AutocompleteInput = ({
 	errorMessage,
 	onSelect,
 	value,
+	placeholder,
 	...props
 }) => {
 	const [data, setData] = useState({
@@ -180,7 +181,7 @@ const AutocompleteInput = ({
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
 					autoComplete="off"
-					placeholder="Escreva o nome do membro"
+					placeholder={placeholder}
 				/>
 			</Dropdown>
 
