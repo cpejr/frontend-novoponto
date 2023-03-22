@@ -3,7 +3,7 @@ const palette = {
 
   greenMoss: "rgba(49, 216, 67, 0.5)",
   greenMossHover: "rgba(49, 230, 67, 0.7)",
-  
+
   estatColor: "rgb(79, 182, 167)",
   estatPrimaryColor: "rgb(101, 33, 119)",
 
