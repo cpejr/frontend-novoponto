@@ -56,7 +56,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
   return (
     <>
       <tr {...props} className="d-flex">
-        <td className="col-6 col-sm-4">
+        <td className="col-5 col-sm-4">
           <LoggedMembers
             name={member.name}
             imageLink={member.imageLink}
@@ -91,18 +91,16 @@ const SessionRow = ({ session, onLogout, ...props }) => {
           </div>
         </td>
 
-        <td className="col-3 col-sm-2 d-flex align-items-center justify-content-end gap-2">
+        <td className="col-3 col-sm-2 d-flex align-items-center justify-content-around">
           <Tooltip placement="top" title={task?.name}>
             <Button
-              style={{
-                minWidth: "65px",
-              }}
-              className="w-100 h-40 d-flex align-items-center justify-content-center"
+              style={{ border: "none" }}
+              className="m-4 d-flex align-items-center justify-content-center"
               icon={
                 member.name === data.member.name ? (
-                  <HiOutlinePencilAlt size="1em" />
+                  <HiOutlinePencilAlt size="2em" />
                 ) : (
-                  <AiOutlineEye size="1em" />
+                  <AiOutlineEye size="2em" />
                 )
               }
               onClick={() => {
@@ -113,11 +111,9 @@ const SessionRow = ({ session, onLogout, ...props }) => {
           </Tooltip>
 
           <Button
-            style={{
-              minWidth: "65px",
-            }}
-            className="w-100 h-40 d-flex align-items-center justify-content-center"
-            icon={<HiOutlineLogout size="1.2em" />}
+            style={{ border: "none" }}
+            className="d-flex align-items-center justify-content-center"
+            icon={<HiOutlineLogout size="2em" />}
             onClick={handleLogout}
           />
         </td>
