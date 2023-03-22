@@ -190,7 +190,7 @@ const Tasks = () => {
         />
         <CommonButton
           buttonLabel="Adicionar nova tarefa"
-          color={themeColors.green}
+          color={themeColors.estatPrimaryColor}
           nowrap
           width="215px"
           onClick={() => editOrCreateTask("new")}

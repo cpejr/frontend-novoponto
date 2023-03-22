@@ -53,7 +53,12 @@ const LoginModal = ({
           Cancelar
         </Button>,
 
-        <Button key="submit" type="primary" onClick={handleConfirm}>
+        <Button
+          style={{ color: "white" }}
+          key="submit"
+          type="primary"
+          onClick={handleConfirm}
+        >
           Confirmar
         </Button>,
       ]}
