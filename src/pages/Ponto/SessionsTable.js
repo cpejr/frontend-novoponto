@@ -8,7 +8,7 @@ const SessionsTable = ({ sessions, onLogout, ...props }) => {
     <table className="table table-borderless" {...props}>
       <thead>
         <tr className="customHeader d-flex">
-          <th className="col-6 col-sm-4">
+          <th className="col-5 col-sm-4">
             <p className="m-0 ms-4">Membro</p>
           </th>
           <th className="col-2 text-center d-none d-sm-block">
