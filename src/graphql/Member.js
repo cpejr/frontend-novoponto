@@ -200,6 +200,11 @@ const FetchCompiledForHC = gql`
         end
         formatedDuration
         isPresential
+        task {
+          _id
+          name
+          active
+        }
       }
       aditionalHours {
         _id

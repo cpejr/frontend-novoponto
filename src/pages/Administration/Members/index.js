@@ -277,7 +277,6 @@ const Members = () => {
           onClick={() => editOrCreateMember("new")}
         />
       </div>
-
       <Table
         scroll={{ x: true }}
         dataSource={filteredMembers}
@@ -313,21 +312,17 @@ const Members = () => {
           width={120}
           render={(data) => (
             <ActionsDiv>
-              <td className="editColumn">
-                <Tooltip
-                  placement="topLeft"
-                  title={"Editar"}
-                  onClick={() => editOrCreateMember("edit", data)}
-                >
-                  <EditOutlined />
-                </Tooltip>
-              </td>
+              <Tooltip
+                placement="topLeft"
+                title={"Editar"}
+                onClick={() => editOrCreateMember("edit", data)}
+              >
+                <EditOutlined />
+              </Tooltip>
 
-              <td className="garbageColumn">
-                <Tooltip placement="topLeft" title={"Excluir"}>
-                  <RestOutlined onClick={() => handleOpenModal(data)} />
-                </Tooltip>
-              </td>
+              <Tooltip placement="topLeft" title={"Excluir"}>
+                <RestOutlined onClick={() => handleOpenModal(data)} />
+              </Tooltip>
             </ActionsDiv>
           )}
         />
