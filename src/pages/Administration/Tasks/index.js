@@ -58,7 +58,7 @@ const Tasks = () => {
         key: "task",
         type: "text",
         label: "Tarefa",
-        rules: [validators.antdRequired()],
+        rules: [validators.antdRequired(), validators.charLimit(45)],
 
         placeholder: "Escreva o nome da tarefa",
         initialValue: withInitialValue ? task.name : undefined,
