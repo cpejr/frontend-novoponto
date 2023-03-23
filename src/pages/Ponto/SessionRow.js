@@ -1,5 +1,5 @@
 import { Button, message } from "antd";
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { HourDisplayer } from "../../components/atoms";
 import DurationDisplayer from "../../components/molecules/DurationDisplayer";
 import PresentialDisplayer from "../../components/molecules/PresentialDisplayer";
@@ -53,6 +53,11 @@ const SessionRow = ({ session, onLogout, ...props }) => {
     onLogout && onLogout(session);
   }
 
+  const isLoggedMember = useMemo(
+    () => member.name === data.member.name,
+    [data.member.name, member.name]
+  );
+
   return (
     <>
       <tr {...props} className="d-flex">
@@ -94,18 +99,20 @@ const SessionRow = ({ session, onLogout, ...props }) => {
         <td className="col-3 col-sm-2 d-flex align-items-center justify-content-around">
           <Tooltip placement="top" title={task?.name}>
             <Button
-              style={{ border: "none" }}
+              style={{
+                border: "none",
+                cursor: `${isLoggedMember ? "pointer" : "unset"}`,
+              }}
               className="m-4 d-flex align-items-center justify-content-center"
               icon={
-                member.name === data.member.name ? (
+                isLoggedMember ? (
                   <HiOutlinePencilAlt size="2em" />
                 ) : (
                   <AiOutlineEye size="2em" />
                 )
               }
               onClick={() => {
-                member.name === memberSession.name &&
-                  setEditSessionModalVisible(true);
+                isLoggedMember && setEditSessionModalVisible(true);
               }}
             />
           </Tooltip>
