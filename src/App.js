@@ -3,10 +3,6 @@ import {
   ApolloClient,
   ApolloLink,
   ApolloProvider,
-<<<<<<< HEAD
-  HttpLink,
-=======
->>>>>>> RegraLogin
   InMemoryCache,
   split,
 } from "@apollo/client";
@@ -18,29 +14,14 @@ import { createUploadLink } from "apollo-upload-client";
 
 import { ConfigProvider } from "antd";
 import ptBR from "antd/lib/locale/pt_BR";
-<<<<<<< HEAD
-import moment from "moment";
-import "moment/locale/pt-br";
-=======
 
 import moment from "moment";
 import "moment/locale/pt-br";
 
->>>>>>> RegraLogin
 import Routes from "./routes";
 import ThemeContextProvider from "./context/ThemeProvider";
 import SessionContextProvider from "./context/SessionProvider";
 import GlobalStyle from "./styles/GlobalStyle";
-<<<<<<< HEAD
-import GlobalsContextProvider from "./context/GlobalsProvider";
-
-const httpLink = createUploadLink({
-  uri: process.env.REACT_APP_API || "http://localhost:4000", // "https://estatmg.onrender.com",
-});
-
-const wsLink = new WebSocketLink({
-  uri: process.env.REACT_APP_SUB_API || "ws://localhost:4000/subscriptions", // "wss://estatmg.onrender.com/subscriptions",
-=======
 
 import GlobalsContextProvider from "./context/GlobalsProvider";
 
@@ -50,7 +31,6 @@ const httpLink = createUploadLink({
 
 const wsLink = new WebSocketLink({
   uri: process.env.REACT_APP_SUB_API || "ws://localhost:4000/subscriptions",
->>>>>>> RegraLogin
   options: {
     reconnect: true,
   },
