@@ -197,7 +197,12 @@ const Tasks = () => {
         />
       </div>
 
-      <Table scroll={{ x: true }} dataSource={filteredTasks} pagination={false}>
+      <Table
+        scroll={{ x: true }}
+        dataSource={filteredTasks}
+        pagination={false}
+        rowKey="_id"
+      >
         <Column title="Tarefa" dataIndex="name" key="name" />
         <Column
           key="action"

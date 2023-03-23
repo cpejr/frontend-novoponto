@@ -63,12 +63,12 @@ const Members = () => {
   const editOrCreateMember = (method, member) => {
     const withInitialValue = method === "edit";
     const memberOptions = allMembersData?.members.map((member) => ({
-      value: member._id,
-      label: member.name,
+      value: member?._id,
+      label: member?.name,
     }));
     const rolesOptions = roles.roles.map((role) => ({
-      value: role._id,
-      label: role.name,
+      value: role?._id,
+      label: role?.name,
     }));
     const tribesOptions = Object.assign(
       [],
@@ -88,7 +88,7 @@ const Members = () => {
         rules: [validators.antdRequired()],
 
         placeholder: "Escreva o nome do membro",
-        initialValue: withInitialValue ? member.name : undefined,
+        initialValue: withInitialValue ? member?.name : undefined,
       },
       {
         key: "email",
@@ -97,7 +97,7 @@ const Members = () => {
         rules: [validators.antdRequired()],
 
         placeholder: "Escreva o email do membro",
-        initialValue: withInitialValue ? member.email : undefined,
+        initialValue: withInitialValue ? member?.email : undefined,
       },
       {
         key: "tribe",
@@ -151,7 +151,7 @@ const Members = () => {
 
     if (method === "edit") {
       modalData.title = "Editar Membro";
-      modalData.onSubmit = updateMember(member._id);
+      modalData.onSubmit = updateMember(member?._id);
     } else {
       modalData.title = "Criar Membro";
       modalData.onSubmit = createMember;
@@ -293,6 +293,7 @@ const Members = () => {
         scroll={{ x: true }}
         dataSource={filteredMembers}
         pagination={false}
+        rowKey="_id"
       >
         <Column title="Name" dataIndex="name" key="name" />
         <Column
@@ -302,7 +303,7 @@ const Members = () => {
           width={200}
           render={(tribe) =>
             tribe && (
-              <DefaultLabel labelColor={tribe.color} labelText={tribe.name} />
+              <DefaultLabel labelColor={tribe.color} labelText={tribe?.name} />
             )
           }
         />
@@ -311,7 +312,7 @@ const Members = () => {
           dataIndex="role"
           key="role"
           width={200}
-          render={(role) => <DefaultLabel labelText={role.name} />}
+          render={(role) => <DefaultLabel labelText={role?.name} />}
         />
         <Column
           title="Assessor"
@@ -341,9 +342,9 @@ const Members = () => {
       </Table>
       <ConfirmationModal
         title="Apagar membro"
-        content={`Deseja mesmo apagar o membro "${excludeMember.name}"?`}
+        content={`Deseja mesmo apagar o membro "${excludeMember?.name}"?`}
         isVisible={openModalExcludeMember}
-        handleOk={() => handleExcludeMember(excludeMember._id)}
+        handleOk={() => handleExcludeMember(excludeMember?._id)}
         handleCancel={handleCloseModal}
       />
       <FormModal {...editOrCreateModalInfo} />
