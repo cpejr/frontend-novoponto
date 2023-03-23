@@ -4,6 +4,7 @@ const DefaultSessionFields = gql`
   fragment DefaultSessionFields on Member {
     _id
     name
+    email
     status
     message {
       read
@@ -30,6 +31,7 @@ const DefaultMemberFields = gql`
   fragment DefaultMemberFields on Member {
     _id
     name
+    email
     status
     imageLink
     role {
@@ -82,6 +84,7 @@ const Members = gql`
     members(accessArray: $accessArray) {
       _id
       name
+      email
       imageLink
       status
       role {
@@ -113,6 +116,7 @@ const UpdateMember = gql`
       status
       _id
       name
+      email
       responsible {
         name
         _id
@@ -153,6 +157,7 @@ const FetchMemberForHC = gql`
     member(_id: $_id) {
       _id
       name
+      email
       status
       imageLink
       mandatories {

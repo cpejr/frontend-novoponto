@@ -91,6 +91,15 @@ const Members = () => {
         initialValue: withInitialValue ? member.name : undefined,
       },
       {
+        key: "email",
+        type: "text",
+        label: "Email",
+        rules: [validators.antdRequired()],
+
+        placeholder: "Escreva o email do membro",
+        initialValue: withInitialValue ? member.email : undefined,
+      },
+      {
         key: "tribe",
         type: "select",
         label: "Tribo",
@@ -154,10 +163,11 @@ const Members = () => {
   const createMember = async (member) => {
     var hide = message.loading("Criando...");
 
-    const { Nome, Cargo, Assessor, Tribo } = member;
+    const { Nome, Email, Cargo, Assessor, Tribo } = member;
     try {
       const newMember = {
         name: Nome,
+        email: Email,
         roleId: Cargo,
         tribeId: Tribo,
         responsibleId: Assessor?.selectedOption?.value,
@@ -178,11 +188,12 @@ const Members = () => {
   const updateMember = (memberId) => async (member) => {
     var hide = message.loading("Atualizando dados do membro...");
 
-    const { Nome, Cargo, Assessor, Tribo } = member;
+    const { Nome, Email, Cargo, Assessor, Tribo } = member;
 
     try {
       const newMember = {
         name: Nome,
+        email: Email,
         roleId: Cargo,
         tribeId: Tribo,
         responsibleId: Assessor?.selectedOption?.value || null,
@@ -277,6 +288,7 @@ const Members = () => {
           onClick={() => editOrCreateMember("new")}
         />
       </div>
+
       <Table
         scroll={{ x: true }}
         dataSource={filteredMembers}

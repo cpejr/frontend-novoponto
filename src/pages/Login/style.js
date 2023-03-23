@@ -20,9 +20,9 @@ const LoginComponent = styled.div`
         top: 50vh;
         transform: translate(-50%, -50%);
 
-        @media(max-width: 600px){
-            width: 80%;
-        }
+    @media (max-width: 600px) {
+      width: 80%;
+    }
 
     .logo {
         position: absolute;
@@ -31,9 +31,9 @@ const LoginComponent = styled.div`
         top: 18%;
         transform: translateX(-50%);
 
-        @media(max-width: 350px){
-            width: 90%;
-        }
+      @media (max-width: 350px) {
+        width: 90%;
+      }
     }
 
     .loginButton {
