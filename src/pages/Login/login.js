@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { GoogleOutlined } from "@ant-design/icons";
-import { CommonButton, DefaultText } from "../../components/atoms";
+import { CommonButton } from "../../components/atoms";
 import { GoogleLogin } from "react-google-login";
 import { SessionContext } from "../../context/SessionProvider";
 
@@ -9,9 +9,9 @@ const CLIENT_ID =
   "927681508740-6avqgv44im25umcj7ji2856o84fcrhje.apps.googleusercontent.com";
 
 const LoginButton = () => {
-  const { loading, error, data, login } = useContext(SessionContext);
+  const { loading, data, login } = useContext(SessionContext);
 
-  function handleLogin(googleData) {
+  async function handleLogin(googleData) {
     const { tokenId } = googleData;
     login(tokenId);
   }
@@ -36,11 +36,6 @@ const LoginButton = () => {
               />
             )}
           />
-          {error && (
-            <DefaultText className="errorText">
-              {error?.graphQLErrors[0]?.message}
-            </DefaultText>
-          )}
         </div>
       )}
     </>
