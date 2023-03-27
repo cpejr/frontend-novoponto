@@ -75,11 +75,12 @@ const BadgesComponent = styled.div`
 	.badgeColumn {
 		width: 45%;
 		max-width: 50vw;
-		min-width: 160px;
+		min-width: 140px;
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
 		color: #ffffff;
+    overflow: auto;
 	}
 
 	.isAdmColumn {

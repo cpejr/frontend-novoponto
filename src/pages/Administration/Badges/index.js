@@ -19,8 +19,6 @@ import { RocketOutlined } from "@ant-design/icons";
 import validators from "../../../services/validators";
 import BadgeRow from "./BadgeRow";
 
-import {} from "./styles";
-
 const Badges = () => {
   const { themeColors } = useContext(ThemeContext);
 	const { refetchMembers } = useContext(GlobalsContext);
@@ -82,7 +80,7 @@ const Badges = () => {
 			},
 			{
 				key: "url",
-				type: "text",
+				type: "file",
 				label: "Imagem",
         placeholder: "Escreva a url",
 				rules: [validators.antdRequired()],
@@ -109,16 +107,16 @@ const Badges = () => {
 	};
 
 	const updateBadge = (badgeId) => async (updatedBadge) => {
-		const { Nome, Descricao, url } = updatedBadge;
+		const { Reconhecimento , Descrição, Imagem } = updatedBadge;
 		const newBadge = {
-			name: Nome,
-			description: Descricao,
-			url: url,
+			name: Reconhecimento,
+			description: Descrição,
+			url: Imagem,
 		};
 
 		console.log(
 			"🚀 ~ file: index.js ~ line 106 ~ updateBadge ~ updatedBadge",
-			updatedBadge
+			newBadge
 		);
 
 		var hide = message.loading("Atualizando");
@@ -138,21 +136,23 @@ const Badges = () => {
 	const createBadge = async (badge) => {
 		var hide = message.loading("Criando");
 
-		const { Nome, Descricao , url } = badge;
+		const { Reconhecimento , Descrição, Imagem } = badge;
 		const newBadge = {
-			name: Nome,
-			description: Descricao,
-			url: url,
+			name: Reconhecimento,
+			description: Descrição,
+			url: Imagem,
 		};
 		console.log(badge);
 		try {
 			await createBadgeMutation({ variables: { data: newBadge } });
 			hide();
 			message.success("Criado com sucesso", 2.5);
+      refetch();
 		} catch (err) {
 			console.error(err);
 			hide();
 			message.error("Houve um problema, tente novamente", 2.5);
+      refetch();
 		}
 		refetch();
 		handleCloseEditOrCreate();
