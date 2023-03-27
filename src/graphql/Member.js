@@ -104,6 +104,11 @@ const Members = gql`
         color
         segment
       }
+      Badge {
+        _id
+        name
+        url
+      }
       message {
         text
         read
@@ -131,6 +136,11 @@ const UpdateMember = gql`
         name
         color
         segment
+      }
+      Badge {
+        _id
+        name
+        url
       }
     }
   }

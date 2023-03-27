@@ -3,8 +3,9 @@ import gql from "graphql-tag";
 const GET_BADGES = gql`
 	query GetBadges {
 		badges {
-			name
 			_id
+			name
+      description
 			url
 		}
 	}
@@ -23,6 +24,7 @@ const UPDATE_BADGES = gql`
 		updateBadge(badgeId: $badgeId, data: $data) {
 			_id
 			name
+      description
 			url
 		}
 	}
@@ -33,7 +35,8 @@ const CREATE_BADGES = gql`
 		createBadge(data: $data) {
 			_id
 			name
-			url
+      description
+      url
 		}
 	}
 `;

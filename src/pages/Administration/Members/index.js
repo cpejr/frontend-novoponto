@@ -276,6 +276,10 @@ const Members = () => {
     console.log(errorTribes);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
+  } else if (errorBadges) {
+    console.log(errorBadges);
+    message.error("Houve um problema, tente recarregar a pagina", 2.5);
+    return <h1>Erro, recarregue a pagina</h1>;
   }
 
   return (
