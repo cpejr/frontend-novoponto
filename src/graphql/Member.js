@@ -44,8 +44,8 @@ const DefaultMemberFields = gql`
 `;
 
 const Login = gql`
-  mutation Login($tokenId: ID!) {
-    login(tokenId: $tokenId) {
+  mutation Login($data: LoginInput!) {
+    login(data: $data) {
       accessToken
       member {
         ...DefaultSessionFields

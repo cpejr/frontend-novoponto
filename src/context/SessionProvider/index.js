@@ -35,6 +35,7 @@ const SessionContextProvider = (props) => {
   // Login
   const [_login] = useMutation(Login, {
     update(_, { data }) {
+      console.log(data);
       updateAccessToken(data.login.accessToken);
 
       setStorage({
@@ -46,9 +47,9 @@ const SessionContextProvider = (props) => {
     onError,
   });
 
-  function login(tokenId) {
+  function login(data) {
     setStorage({ ...storage, loading: true });
-    return _login({ variables: { tokenId } });
+    return _login({ variables: { data } });
   }
 
   // UpdateSelf
@@ -77,7 +78,7 @@ const SessionContextProvider = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function logOut() {
+  function logout() {
     updateAccessToken();
     setStorage({ ...storage, data: undefined });
   }
@@ -94,7 +95,7 @@ const SessionContextProvider = (props) => {
         error: storage.error,
         data: storage.data,
         login,
-        logOut,
+        logout,
         updateSelf,
         getSessionData,
       }}
