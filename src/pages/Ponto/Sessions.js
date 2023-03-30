@@ -25,7 +25,8 @@ const Sessions = () => {
   const [showLogoutAllMembers, setShowLogoutAllMembers] = useState(false);
   const [loginModalVisible, setLoginModalVisible] = useState(false);
 
-  const [startSessionMutation] = useMutation(CREATE_SESSION);
+  const [startSessionMutation, { loading: loadingStartSession }] =
+    useMutation(CREATE_SESSION);
   const [endSessionMutation] = useMutation(FINISH_SESSION);
   const [endAllSessions] = useMutation(END_ALL_SESSIONS);
 
@@ -125,7 +126,14 @@ const Sessions = () => {
               }
             }}
           />
-          <Button width="84px" onClick={() => setLoginModalVisible(true)}>
+          <Button
+            width="84px"
+            onClick={() => {
+              if (!memberToLogin.current?._id) {
+                message.error("Selecione um membro válido", 2.5);
+              } else setLoginModalVisible(true);
+            }}
+          >
             Login
           </Button>
         </form>
@@ -162,6 +170,7 @@ const Sessions = () => {
       />
       <LoginModal
         title="Confirmação de login"
+        loading={loadingStartSession}
         content={`Como deseja logar ${memberToLogin.current?.name}?`}
         isVisible={loginModalVisible}
         tasks={tasksData?.tasks}

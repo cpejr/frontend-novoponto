@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { GlobalsContext } from "../../../context/GlobalsProvider";
 import AutocompleteInput from "../../molecules/AutocompleteInput";
+import { message } from "antd";
 
 const AutocompleteMemberInput = ({ onMemberChange, onChange, ...props }) => {
   const { membersData } = useContext(GlobalsContext);
 
   function handleChange(value) {
-    const member = membersData.members.find(
+    const member = membersData?.members?.find(
       (member) => member._id === value?.selectedOption?.value
     );
 
@@ -22,7 +23,7 @@ const AutocompleteMemberInput = ({ onMemberChange, onChange, ...props }) => {
       }))}
       {...props}
       onChange={handleChange}
-      placeholder = "Escolha o nome do membro"
+      placeholder="Escolha o nome do membro"
     />
   );
 };

@@ -6,6 +6,7 @@ import { CommonSelectBox } from "../../atoms";
 const LoginModal = ({
   content,
   title,
+  loading,
   isVisible,
   handleLogin,
   handleCancel,
@@ -41,10 +42,11 @@ const LoginModal = ({
     setFormData({});
     handleLogin(formData.isOnline, formData.selectedTask);
   }
-
+  console.log(loading);
   return (
     <Modal
       title={title}
+      disabled={loading}
       visible={isVisible}
       onCancel={handleClose}
       bodyStyle={{ backgroundColor: "#141414" }}
@@ -54,6 +56,7 @@ const LoginModal = ({
         </Button>,
 
         <Button
+          disabled={loading}
           style={{ color: "white" }}
           key="submit"
           type="primary"
