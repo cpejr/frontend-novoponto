@@ -103,6 +103,12 @@ const Sessions = () => {
     else setFilteredSessions(loggedMembers);
   }
 
+  function handleLoginClick() {
+    if (!memberToLogin.current?._id) {
+      message.error("Selecione um membro válido", 2.5);
+    } else setLoginModalVisible(true);
+  }
+
   return (
     <div className="pointSection">
       <div className="d-flex flex-column-reverse flex-sm-row flex-grow justify-content-between my-3">
@@ -122,16 +128,14 @@ const Sessions = () => {
             onKeyDown={(e) => {
               if (e.keyCode === 13) {
                 e.preventDefault();
-                setLoginModalVisible(true);
+                handleLoginClick();
               }
             }}
           />
           <Button
             width="84px"
             onClick={() => {
-              if (!memberToLogin.current?._id) {
-                message.error("Selecione um membro válido", 2.5);
-              } else setLoginModalVisible(true);
+              handleLoginClick();
             }}
           >
             Login
