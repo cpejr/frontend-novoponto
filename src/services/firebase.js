@@ -9,13 +9,13 @@ import { useContext, useState } from "react";
 import { SessionContext } from "../context/SessionProvider";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBKtwwgDwt61uAu2vcqcAGmkQpHqGJtv-s",
-  authDomain: "doti-estatmg.firebaseapp.com",
-  projectId: "doti-estatmg",
-  storageBucket: "doti-estatmg.appspot.com",
-  messagingSenderId: "990622769094",
-  appId: "1:990622769094:web:5d0d6d396897d97daa1cc7",
-  measurementId: "G-ZN7Q2WXNDS",
+  apiKey: "AIzaSyAx_1dKxlOtqKX8BjE6ylKkFBMhWcoD-lA",
+  authDomain: "doti-mult.firebaseapp.com",
+  projectId: "doti-mult",
+  storageBucket: "doti-mult.appspot.com",
+  messagingSenderId: "198156251035",
+  appId: "1:198156251035:web:45608072744f1cd0093b3e",
+  measurementId: "G-B3T5QKTLMS",
 };
 
 export default function useGoogleAuth() {

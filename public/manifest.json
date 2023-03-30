@@ -1,9 +1,9 @@
 {
   "short_name": "Ponto",
-  "name": "Ponto EstatMG",
+  "name": "Ponto Mult",
   "icons": [
     {
-      "src": "/logoEstatMG.png",
+      "src": "/logoMult.png",
       "sizes": "136x136",
       "type": "image/png"
     }
