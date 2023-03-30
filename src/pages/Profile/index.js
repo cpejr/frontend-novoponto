@@ -1,16 +1,15 @@
 import React, { useContext, useEffect } from "react";
-
 import { ProfileComponent } from "./styles";
 import { ThemeContext } from "../../context/ThemeProvider";
 import { SessionContext } from "../../context/SessionProvider";
 import { OutlinedBox } from "../../components/atoms";
-import Login from "./login";
 import MemberProfile from "../../components/organisms/MemberProfile";
+import useGoogleAuth from "../../services/firebase";
 
 const CardView = () => {
   const { themeColors } = useContext(ThemeContext);
-  const { data, logOut, updateSelf, getSessionData } =
-    useContext(SessionContext);
+  const { data, updateSelf, getSessionData } = useContext(SessionContext);
+  const { googleLogout } = useGoogleAuth();
 
   useEffect(() => {
     if (!!data) getSessionData();
@@ -24,15 +23,11 @@ const CardView = () => {
   return (
     <ProfileComponent theme={themeColors} className="">
       <OutlinedBox className="outlinedBox mx-auto mx-md-0">
-        {!data ? (
-          <Login />
-        ) : (
-          <MemberProfile
-            onLogOut={logOut}
-            onSave={updateSelf}
-            member={data?.member}
-          />
-        )}
+        <MemberProfile
+          onLogOut={googleLogout}
+          onSave={updateSelf}
+          member={data?.member}
+        />
       </OutlinedBox>
     </ProfileComponent>
   );

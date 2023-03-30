@@ -14,11 +14,11 @@ const LoginModal = ({
 }) => {
   const modalityOptions = [
     {
-      value: true, // Precisa mesmo ser um objeto? Por que não uma lista simples de strings?
+      value: false, // Precisa mesmo ser um objeto? Por que não uma lista simples de strings?
       label: "Remoto",
     },
     {
-      value: false,
+      value: true,
       label: "Presencial",
     },
   ];

@@ -151,7 +151,12 @@ const UpdateNews = () => {
           </NewsAdd>
         </div>
         <div className="ms-auto py-2">
-          <Button type="primary" loading={loading} onClick={handleSaveNews}>
+          <Button
+            type="primary"
+            style={{ color: "white" }}
+            loading={loading}
+            onClick={handleSaveNews}
+          >
             Salvar
           </Button>
         </div>
