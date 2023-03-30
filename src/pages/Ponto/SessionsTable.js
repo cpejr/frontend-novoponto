@@ -25,11 +25,7 @@ const SessionsTable = ({ sessions, onLogout, ...props }) => {
       </thead>
       <tbody>
         {sessions?.map((session) => (
-          <SessionRow
-            key={session.member._id}
-            session={session}
-            onLogout={onLogout}
-          />
+          <SessionRow key={session._id} session={session} onLogout={onLogout} />
         ))}
 
         {(!sessions || sessions.length === 0) && (

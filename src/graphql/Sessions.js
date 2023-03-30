@@ -12,6 +12,7 @@ const LOGGED_MEMBERS = gql`
         _id
         name
       }
+      _id
       start
       end
       duration
