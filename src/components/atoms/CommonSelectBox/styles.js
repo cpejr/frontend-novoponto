@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
 const CommonSelectBoxContainer = styled.div`
-  width: 100%;
-  height: 35px;
-
-  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 2px;
+  flex-grow: 1;
 `;
+
 export default CommonSelectBoxContainer;

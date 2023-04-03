@@ -24,11 +24,7 @@ const Login = () => {
           <OutlinedBoxContainer className="loginBox">
             <img className="logo" src={logoAmarela} alt="logo da empresa"></img>
             <LoginButton />
-            <a
-              className="text"
-              href="http://cpejr.com.br"
-              style={{ display: "block" }}
-            >
+            <a className="text" href="http://cpejr.com.br">
               Ficou curioso? Saiba mais
             </a>
             {error && (

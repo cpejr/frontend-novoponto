@@ -22,6 +22,7 @@ const AutocompleteMemberInput = ({ onMemberChange, onChange, ...props }) => {
       }))}
       {...props}
       onChange={handleChange}
+      placeholder = "Escolha o nome do membro"
     />
   );
 };

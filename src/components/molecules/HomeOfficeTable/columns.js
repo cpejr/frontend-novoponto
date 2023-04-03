@@ -40,7 +40,7 @@ function getColumns(themeColors, hasComment, onDelete) {
         <FlexDiv>
           <InfoDisplayer
             info={getOperation(action).text}
-            infoColor={themeColors[getOperation(action).color]}
+            infoColor={themeColors.green}
           />
         </FlexDiv>
       ),

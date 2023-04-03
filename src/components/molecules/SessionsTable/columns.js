@@ -1,7 +1,6 @@
 import { HourDisplayer, InfoDisplayer, DefaultText } from "../../atoms";
 import { FlexDiv } from "./styles";
 import moment from "moment";
-import { Divider } from "antd";
 
 function getColumns(themeColors) {
   const columns = [
@@ -60,6 +59,23 @@ function getColumns(themeColors) {
             infoColor={themeColors.green}
           />
         </FlexDiv>
+      ),
+    },
+    {
+      title: "Tarefa",
+      dataIndex: "task",
+      key: "task",
+      render: (task) => (
+        <DefaultText
+          style={{
+            margin: 0,
+            maxWidth: "200px",
+            minWidth: "180px",
+            wordBreak: "break-word",
+          }}
+        >
+          {task.name}
+        </DefaultText>
       ),
     },
   ];
