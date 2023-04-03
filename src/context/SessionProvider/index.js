@@ -35,7 +35,6 @@ const SessionContextProvider = (props) => {
   // Login
   const [_login] = useMutation(Login, {
     update(_, { data }) {
-      console.log(data);
       updateAccessToken(data.login.accessToken);
 
       setStorage({
