@@ -20,7 +20,6 @@ const SessionRow = ({ session, onLogout, ...props }) => {
   const { member, task } = session;
 
   const { data } = useContext(SessionContext);
-  const memberSession = data.member;
 
   const [EditSessionModalVisible, setEditSessionModalVisible] = useState(false);
   const { data: tasksData } = useQuery(GET_TASKS);
