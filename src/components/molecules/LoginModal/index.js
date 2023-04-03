@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Modal, Button } from "antd";
 import { ModalContainer, ModalContentSection } from "./styles";
 import { CommonSelectBox } from "../../atoms";
+import { ThemeContext } from "styled-components";
 
 const LoginModal = ({
   content,
@@ -54,9 +55,9 @@ const LoginModal = ({
         </Button>,
 
         <Button
-          style={{ color: "white" }}
+          style={{ color: "white", background: "#8A6B0E" }}
           key="submit"
-          type="primary"
+          // type="primary"
           onClick={handleConfirm}
         >
           Confirmar

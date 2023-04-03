@@ -28,7 +28,7 @@ const SessionsTable = ({
         />
       </div>
       <Collapse ghost defaultActiveKey={"1"}>
-        <Collapse.Panel header={<h6>Sessões: </h6>} key="1">
+        <Collapse.Panel header={<h6>Sessões:</h6>} key="1">
           <Table
             columns={columns}
             dataSource={sessions?.map((session) => ({

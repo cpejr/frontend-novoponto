@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { HourDisplayer, InfoDisplayer, DefaultText } from "../../atoms";
 import moment from "moment";
 
@@ -40,7 +40,7 @@ function getColumns(themeColors, hasComment, onDelete) {
         <FlexDiv>
           <InfoDisplayer
             info={getOperation(action).text}
-            infoColor={themeColors.green}
+            infoColor={themeColors[getOperation(action).color]}
           />
         </FlexDiv>
       ),
