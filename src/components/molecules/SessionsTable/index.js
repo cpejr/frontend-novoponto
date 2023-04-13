@@ -18,13 +18,13 @@ const SessionsTable = ({
     <HoursSumAndTablesArea>
       <div className="sum">
         <h6 className="m-0 me-2">Soma total:</h6>
-        <HourDisplayer text={formatedTotal} hourColor={themeColors.yellow} />
+        <HourDisplayer text={formatedTotal} hourColor={themeColors.secondaryColor} />
       </div>
       <div className="sum">
         <h6 className="m-0 me-2">Soma presencial:</h6>
         <HourDisplayer
           text={formatedPresentialTotal}
-          hourColor={themeColors.yellow}
+          hourColor={themeColors.secondaryColor}
         />
       </div>
       <Collapse ghost defaultActiveKey={"1"}>

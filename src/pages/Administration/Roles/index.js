@@ -179,7 +179,7 @@ const Roles = () => {
         <div className="addNewRoleButtonArea">
           <CommonButton
             buttonLabel="Adicionar novo cargo"
-            color={themeColors.green}
+            color={themeColors.primaryColor}
             width="223px"
             onClick={() => editOrCreateRole("create")}
           />

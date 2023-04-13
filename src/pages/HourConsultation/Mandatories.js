@@ -38,7 +38,7 @@ const Mandatories = ({ mandatories, ...props }) => {
       key: "startAt",
       render: (startAt) => (
         <FlexDiv>
-          <HourDisplayer hour={startAt} hourColor={themeColors.green} />
+          <HourDisplayer hour={startAt} hourColor={themeColors.primaryColor} />
         </FlexDiv>
       ),
     },
@@ -48,7 +48,7 @@ const Mandatories = ({ mandatories, ...props }) => {
       key: "endAt",
       render: (endAt) => (
         <FlexDiv>
-          <HourDisplayer hour={endAt} hourColor={themeColors.yellow} />
+          <HourDisplayer hour={endAt} hourColor={themeColors.secondaryColor} />
         </FlexDiv>
       ),
     },

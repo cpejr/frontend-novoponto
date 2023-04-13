@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../../../context/ThemeProvider";
 import DefaultLabelContainer from "./styles";
 
 const DefaultLabel = ({
 	labelText,
-	labelColor = "#ffd100",
 	labelWidth = "auto",
 	labelMargin = "0",
 	className,
 }) => {
+	const { themeColors } = useContext(ThemeContext);
 	return (
 		<DefaultLabelContainer
 			className={className}
-			color={labelColor}
+			color={themeColors.secondaryColor}
 			width={labelWidth}
 			margin={labelMargin}
 		>

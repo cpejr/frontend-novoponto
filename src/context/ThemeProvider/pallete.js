@@ -7,8 +7,8 @@ const palette = {
   red300: "#CA191B",
   red300Hover: "#CA301B",
 
-  yellowCPEPrimary: "#FFD100",
-  yellowMustard: "#8A6B0E",
+  primaryColor: "#0000CD",
+  secondaryColor: "#FF00FF",
 
   blue400: "#227ECF",
   blueSky: "#0085FF",
@@ -42,8 +42,8 @@ export const colors = {
   blue: palette.blueSky,
   blueOk: palette.blue400,
 
-  yellowCPE: palette.yellowCPEPrimary,
-  yellow: palette.yellowMustard,
+  primaryColor: palette.primaryColor,
+  secondaryColor: palette.secondaryColor,
 
   red: palette.red300,
   redHover: palette.red300Hover,

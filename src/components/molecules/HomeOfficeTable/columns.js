@@ -11,11 +11,11 @@ import { DeleteAditionalHour } from "../../../graphql/AditionalHour";
 function getOperation(op) {
   switch (op) {
     case "ADD":
-      return { text: "Adicionar", color: "green" };
+      return { text: "Adicionar", color: "primaryColor" };
     case "REMOVE":
       return { text: "Remover", color: "red" };
     default:
-      return { text: "Erro...", color: "yellow" };
+      return { text: "Erro...", color: "secondaryColor" };
   }
 }
 
@@ -54,7 +54,7 @@ function getColumns(themeColors, hasComment, onDelete) {
           <HourDisplayer
             dateOrTime={"time"}
             hour={formatedAmount}
-            hourColor={themeColors.yellow}
+            hourColor={themeColors.secondaryColor}
           />
         </FlexDiv>
       ),
@@ -67,7 +67,7 @@ function getColumns(themeColors, hasComment, onDelete) {
         <FlexDiv>
           <InfoDisplayer
             info={isPresential ? "Presencial" : "Remoto"}
-            infoColor={themeColors.green}
+            infoColor={themeColors.primaryColor}
           />
         </FlexDiv>
       ),

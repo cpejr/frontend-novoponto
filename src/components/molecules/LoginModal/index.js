@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { Modal, Button } from "antd";
 import { ModalContainer, ModalContentSection } from "./styles";
 import { CommonSelectBox } from "../../atoms";
-import { ThemeContext } from "styled-components";
 
 const LoginModal = ({
   content,
@@ -26,7 +25,6 @@ const LoginModal = ({
   const tasksOptions = tasks?.map((task) => {
     return { value: task._id, label: task.name };
   });
-
   const [formData, setFormData] = useState({});
 
   function handleChangeData(key, data) {
@@ -57,7 +55,6 @@ const LoginModal = ({
         <Button
           style={{ color: "white", background: "#8A6B0E" }}
           key="submit"
-          // type="primary"
           onClick={handleConfirm}
         >
           Confirmar
