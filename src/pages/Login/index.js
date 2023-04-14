@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { LoginComponent } from "./style";
 import { SessionContext } from "../../context/SessionProvider";
-import watermarkImg from "../../assets/watermark.png";
 import OutlinedBoxContainer from "../../components/atoms/OutlinedBox";
 import logoEQLog from "../../assets/logoEQLog.png";
 import LoginButton from "./login";
@@ -16,11 +15,6 @@ const Login = () => {
     <LoginComponent>
       {!data ? (
         <>
-          <img
-            className="watermark"
-            src={watermarkImg}
-            alt="marca d'água da empresa"
-          />
           <OutlinedBoxContainer className="loginBox">
             <img className="logo" src={logoEQLog} alt="logo da empresa"></img>
             <LoginButton />
