@@ -1,46 +1,28 @@
 import React, { useContext } from "react";
 import { GoogleOutlined } from "@ant-design/icons";
-import { CommonButton, DefaultText } from "../../components/atoms";
-import { GoogleLogin } from "react-google-login";
+import { CommonButton } from "../../components/atoms";
 import { SessionContext } from "../../context/SessionProvider";
-
-const CLIENT_ID =
-  process.env.REACT_APP_CLIENT_ID ||
-  "927681508740-6avqgv44im25umcj7ji2856o84fcrhje.apps.googleusercontent.com";
+import useGoogleAuth from "../../services/firebase";
 
 const LoginButton = () => {
-  const { loading, error, data, login } = useContext(SessionContext);
-
-  function handleLogin(googleData) {
-    const { tokenId } = googleData;
-    login(tokenId);
-  }
+  const { loading, data } = useContext(SessionContext);
+  const { googleLogin, isLoading: loadingLogin } = useGoogleAuth();
 
   return (
     <>
       {!!!data && !loading && (
-        <div className="loginButton">
-          <GoogleLogin
-            clientId={CLIENT_ID}
-            buttonText="Login com google"
-            onSuccess={handleLogin}
-            onFailure={(res) => console.log(res)}
-            render={(renderProps) => (
-              <CommonButton
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-                buttonLabel="Login com google"
-                color="#454545"
-                width="200px"
-                icon={<GoogleOutlined />}
-              />
-            )}
+        <div
+          className="loginButton"
+          style={{ display: "flex", flexDirection: "column", gap: "15px" }}
+        >
+          <CommonButton
+            onClick={googleLogin}
+            disabled={loadingLogin}
+            buttonLabel="Login com google"
+            color="#454545"
+            width="200px"
+            icon={<GoogleOutlined />}
           />
-          {error && (
-            <DefaultText className="errorText">
-              {error?.graphQLErrors[0]?.message}
-            </DefaultText>
-          )}
         </div>
       )}
     </>

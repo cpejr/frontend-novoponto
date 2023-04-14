@@ -26,7 +26,7 @@ import validators from "../../../services/validators";
 import { GET_TRIBES } from "../../../graphql/Tribes";
 import diacriticCaseInsensitiveMatch from "../../../utils/diacriticCaseInsensitiveMatch";
 
-const { Column, ColumnGroup } = Table;
+const { Column } = Table;
 
 const Members = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -63,12 +63,12 @@ const Members = () => {
   const editOrCreateMember = (method, member) => {
     const withInitialValue = method === "edit";
     const memberOptions = allMembersData?.members.map((member) => ({
-      value: member._id,
-      label: member.name,
+      value: member?._id,
+      label: member?.name,
     }));
     const rolesOptions = roles.roles.map((role) => ({
-      value: role._id,
-      label: role.name,
+      value: role?._id,
+      label: role?.name,
     }));
     const tribesOptions = Object.assign(
       [],
@@ -88,7 +88,16 @@ const Members = () => {
         rules: [validators.antdRequired()],
 
         placeholder: "Escreva o nome do membro",
-        initialValue: withInitialValue ? member.name : undefined,
+        initialValue: withInitialValue ? member?.name : undefined,
+      },
+      {
+        key: "email",
+        type: "text",
+        label: "Email",
+        rules: [validators.antdRequired()],
+
+        placeholder: "Escreva o email do membro",
+        initialValue: withInitialValue ? member?.email : undefined,
       },
       {
         key: "tribe",
@@ -142,7 +151,7 @@ const Members = () => {
 
     if (method === "edit") {
       modalData.title = "Editar Membro";
-      modalData.onSubmit = updateMember(member._id);
+      modalData.onSubmit = updateMember(member?._id);
     } else {
       modalData.title = "Criar Membro";
       modalData.onSubmit = createMember;
@@ -154,10 +163,11 @@ const Members = () => {
   const createMember = async (member) => {
     var hide = message.loading("Criando...");
 
-    const { Nome, Cargo, Assessor, Tribo } = member;
+    const { Nome, Email, Cargo, Assessor, Tribo } = member;
     try {
       const newMember = {
         name: Nome,
+        email: Email,
         roleId: Cargo,
         tribeId: Tribo,
         responsibleId: Assessor?.selectedOption?.value,
@@ -178,11 +188,12 @@ const Members = () => {
   const updateMember = (memberId) => async (member) => {
     var hide = message.loading("Atualizando dados do membro...");
 
-    const { Nome, Cargo, Assessor, Tribo } = member;
+    const { Nome, Email, Cargo, Assessor, Tribo } = member;
 
     try {
       const newMember = {
         name: Nome,
+        email: Email,
         roleId: Cargo,
         tribeId: Tribo,
         responsibleId: Assessor?.selectedOption?.value || null,
@@ -282,6 +293,7 @@ const Members = () => {
         scroll={{ x: true }}
         dataSource={filteredMembers}
         pagination={false}
+        rowKey="_id"
       >
         <Column title="Name" dataIndex="name" key="name" />
         <Column
@@ -291,7 +303,7 @@ const Members = () => {
           width={200}
           render={(tribe) =>
             tribe && (
-              <DefaultLabel labelColor={tribe.color} labelText={tribe.name} />
+              <DefaultLabel labelColor={tribe.color} labelText={tribe?.name} />
             )
           }
         />
@@ -300,7 +312,7 @@ const Members = () => {
           dataIndex="role"
           key="role"
           width={200}
-          render={(role) => <DefaultLabel labelText={role.name} />}
+          render={(role) => <DefaultLabel labelText={role?.name} />}
         />
         <Column
           title="Assessor"
@@ -313,30 +325,26 @@ const Members = () => {
           width={120}
           render={(data) => (
             <ActionsDiv>
-              <td className="editColumn">
-                <Tooltip
-                  placement="topLeft"
-                  title={"Editar"}
-                  onClick={() => editOrCreateMember("edit", data)}
-                >
-                  <EditOutlined />
-                </Tooltip>
-              </td>
+              <Tooltip
+                placement="topLeft"
+                title={"Editar"}
+                onClick={() => editOrCreateMember("edit", data)}
+              >
+                <EditOutlined />
+              </Tooltip>
 
-              <td className="garbageColumn">
-                <Tooltip placement="topLeft" title={"Excluir"}>
-                  <RestOutlined onClick={() => handleOpenModal(data)} />
-                </Tooltip>
-              </td>
+              <Tooltip placement="topLeft" title={"Excluir"}>
+                <RestOutlined onClick={() => handleOpenModal(data)} />
+              </Tooltip>
             </ActionsDiv>
           )}
         />
       </Table>
       <ConfirmationModal
         title="Apagar membro"
-        content={`Deseja mesmo apagar o membro "${excludeMember.name}"?`}
+        content={`Deseja mesmo apagar o membro "${excludeMember?.name}"?`}
         isVisible={openModalExcludeMember}
-        handleOk={() => handleExcludeMember(excludeMember._id)}
+        handleOk={() => handleExcludeMember(excludeMember?._id)}
         handleCancel={handleCloseModal}
       />
       <FormModal {...editOrCreateModalInfo} />

@@ -1,7 +1,6 @@
 import { HourDisplayer, InfoDisplayer, DefaultText } from "../../atoms";
 import { FlexDiv } from "./styles";
 import moment from "moment";
-import { Divider } from "antd";
 
 function getColumns(themeColors) {
   const columns = [
@@ -22,7 +21,7 @@ function getColumns(themeColors) {
       key: "start",
       render: (start) => (
         <FlexDiv>
-          <HourDisplayer hour={start} hourColor={themeColors.estatPrimaryColor} />
+          <HourDisplayer hour={start} hourColor={themeColors.green} />
         </FlexDiv>
       ),
     },
@@ -32,7 +31,7 @@ function getColumns(themeColors) {
       key: "end",
       render: (end) => (
         <FlexDiv>
-          <HourDisplayer hour={end} hourColor={themeColors.estatPrimaryColor} />
+          <HourDisplayer hour={end} hourColor={themeColors.green} />
         </FlexDiv>
       ),
     },
@@ -44,7 +43,7 @@ function getColumns(themeColors) {
         <FlexDiv>
           <InfoDisplayer
             info={formatedDuration}
-            infoColor={themeColors.estatColor}
+            infoColor={themeColors.yellow}
           />
         </FlexDiv>
       ),
@@ -57,9 +56,26 @@ function getColumns(themeColors) {
         <FlexDiv>
           <InfoDisplayer
             info={isPresential ? "Presencial" : "Remoto"}
-            infoColor={themeColors.estatPrimaryColor}
+            infoColor={themeColors.green}
           />
         </FlexDiv>
+      ),
+    },
+    {
+      title: "Tarefa",
+      dataIndex: "task",
+      key: "task",
+      render: (task) => (
+        <DefaultText
+          style={{
+            margin: 0,
+            maxWidth: "200px",
+            minWidth: "180px",
+            wordBreak: "break-word",
+          }}
+        >
+          {task.name}
+        </DefaultText>
       ),
     },
   ];

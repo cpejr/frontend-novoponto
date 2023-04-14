@@ -16,8 +16,9 @@ import {
 	Roles,
 	HourFollowing,
 	Login,
+	Tasks,
+	Tribes,
 } from "../pages";
-import Tribes from "../pages/Administration/Tribes/index.js";
 
 function Menu() {
 	return(
@@ -53,6 +54,11 @@ function Menu() {
 					path="/ponto/atualizarnoticias"
 					minAccessLevel={1}
 					component={UpdateNews}
+				/>
+				<RestrictedRoute
+					path="/ponto/tarefas"
+					minAccessLevel={1}
+					component={Tasks}
 				/>
 				{/* <RestrictedRoute
 					path="/ponto/horarioobrigatorio"

@@ -118,6 +118,12 @@ const Menuu = ({ collapsed, ...props }) => {
 					route="/ponto/tribos"
 					label="Tribos"
 				/>
+				<MenuItem
+					disabled={!access || access === 0}
+					key="/ponto/tarefas"
+					route="/ponto/tarefas"
+					label="Tarefas"
+				/>
 			</SubMenu>
 
 			<MenuItem

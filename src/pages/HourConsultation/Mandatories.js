@@ -1,9 +1,6 @@
 import { Collapse } from "antd";
 import React, { useContext } from "react";
-import {
-  HourDisplayer,
-  DefaultText,
-} from "../../components/atoms";
+import { HourDisplayer, DefaultText } from "../../components/atoms";
 import { ThemeContext } from "../../context/ThemeProvider";
 
 import { Table } from "antd";

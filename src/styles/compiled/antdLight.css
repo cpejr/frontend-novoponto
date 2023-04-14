@@ -157,7 +157,7 @@ sup {
   top: -0.5em;
 }
 a {
-  color: #ffd208;
+  color: #ffd100;
   text-decoration: none;
   background-color: transparent;
   outline: none;
@@ -14847,7 +14847,6 @@ textarea.ant-input-number {
   min-height: 0;
 }
 .ant-layout-sider {
-  color:#fff;
   position: relative;
   /* fix firefox can't set width smaller than content on flex item */
   min-width: 0;
@@ -14855,22 +14854,17 @@ textarea.ant-input-number {
   transition: all 0.2s;
 }
 .ant-layout-sider-children {
-  color: #fff;
   height: 100%;
   margin-top: -0.1px;
   padding-top: 0.1px;
-  background: #fff;
 }
 .ant-layout-sider-has-trigger {
-  color: #fff;
   padding-bottom: 48px;
 }
 .ant-layout-sider-right {
-  color: #fff;
   order: 1;
 }
 .ant-layout-sider-trigger {
-  color: #fff;
   position: fixed;
   bottom: 0;
   z-index: 1;
@@ -14878,7 +14872,7 @@ textarea.ant-input-number {
   color: #fff;
   line-height: 48px;
   text-align: center;
-  background: #fff;
+  background: #002140;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -14919,11 +14913,10 @@ textarea.ant-input-number {
   border-radius: 2px 0 0 2px;
 }
 .ant-layout-sider-light {
-  color: #fff;
   background: #fff;
 }
 .ant-layout-sider-light .ant-layout-sider-trigger {
-  color:#fff; 
+  color: rgba(0, 0, 0, 0.85);
   background: #fff;
 }
 .ant-layout-sider-light .ant-layout-sider-zero-width-trigger {
@@ -15604,7 +15597,7 @@ textarea.ant-mentions {
   color: rgba(0, 0, 0, 0.85);
 }
 .ant-menu-item a:hover {
-  color: #531dab;
+  color: #ffd100;
 }
 .ant-menu-item a::before {
   position: absolute;
@@ -15717,7 +15710,6 @@ textarea.ant-mentions {
 .ant-menu-submenu-title .ant-menu-item-icon,
 .ant-menu-item .anticon,
 .ant-menu-submenu-title .anticon {
-  color:#000;
   min-width: 14px;
   margin-right: 10px;
   font-size: 14px;

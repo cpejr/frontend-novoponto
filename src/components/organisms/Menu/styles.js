@@ -5,18 +5,16 @@ const SidebarMenuContainer = styled.div`
     padding: 0 30px;
     height: 70px;
   }
-
   .logo {
     display: flex;
     align-items: center;
     margin-top: -10px;
   }
-
   .logo > span svg {
     font-size: 25px;
-    color: #ffffff;
+    color: #fff;
+    margin-right: 16px;
     transition: color 0.2s;
-    margin-top: 17px;
   }
 `;
 

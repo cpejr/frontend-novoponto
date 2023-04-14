@@ -65,6 +65,7 @@ const MemberProfile = ({
             {member?.role && (
               <DefaultLabel
                 labelText={member?.role?.name}
+                labelColor="#FFD100"
               />
             )}
           </div>
@@ -110,7 +111,6 @@ const MemberProfile = ({
           value={newData?.status}
         />
         <SaveButton
-          
           saved={newData?.status === member?.status}
           onClick={handleSave}
         />

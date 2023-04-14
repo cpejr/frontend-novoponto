@@ -3,9 +3,6 @@ const palette = {
 
   greenMoss: "rgba(49, 216, 67, 0.5)",
   greenMossHover: "rgba(49, 230, 67, 0.7)",
-  
-  estatColor: "rgb(79, 182, 167)",
-  estatPrimaryColor: "rgb(101, 33, 119)",
 
   equiColor: "rgb(0, 93, 158)",
   equiGray: "rgb(148, 148, 148)",
@@ -23,7 +20,7 @@ const palette = {
   overlayLight: "rgba(255,255,255,0.3)",
   backDropLight: "rgba(255,255,255,0.1)",
 
-  black: "red",
+  black: "#000",
   gray900: "#141414",
   gray800: "#1D1D1D",
   grayDescription: "#5C5C5C",
@@ -32,7 +29,7 @@ const palette = {
 
 export const colors = {
   white: palette.white,
-  black: palette.white,
+  black: palette.black,
 
   primary: palette.gray900,
   accent: palette.gray800,
@@ -57,9 +54,6 @@ export const colors = {
   green: palette.greenMoss,
   greenHover: palette.greenMossHover,
 
-  estatColor: palette.estatColor,
-  estatPrimaryColor: palette.estatPrimaryColor,
-
   equiColor: palette.equiColor,
   equiGray: palette.equiGray,
 };
@@ -73,7 +67,7 @@ export const themedColors = {
     accent: palette.green400,
     activeTintColor: palette.white,
 
-    appBackground: "red",
+    appBackground: palette.black,
     appSurface: palette.gray850,
 
     header: palette.gray850,

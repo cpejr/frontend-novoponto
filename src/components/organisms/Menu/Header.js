@@ -24,7 +24,13 @@ const Header = ({ isMobile, onClickToggle, isSidebarColapsed, ...props }) => {
       <div className="logo">
         {isMobile ? <MenuOutlined onClick={onClickToggle} /> : getDesktopIcon()}
         <Link to="/">
-          <img width={224} height={63} style ={{marginTop: "11px"}} src={logoEQ} alt="Consultoria e Projetos Elétricos Junior" />
+          <img
+            width={224}
+            height={63}
+            style={{ marginTop: "11px" }}
+            src={logoEQ}
+            alt="Consultoria e Projetos Elétricos Junior"
+          />
         </Link>
       </div>
     </Layout.Header>
