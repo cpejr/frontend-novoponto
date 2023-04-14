@@ -63,10 +63,7 @@ const MemberProfile = ({
           <div className="d-flex flex-column justify-content-around ms-2">
             <MemberName name={member?.name} className="namePart" />
             {member?.role && (
-              <DefaultLabel
-                labelText={member?.role?.name}
-                labelColor="#FFD100"
-              />
+              <DefaultLabel labelText={member?.role?.name} labelColor="#fff" />
             )}
           </div>
         </Row>
