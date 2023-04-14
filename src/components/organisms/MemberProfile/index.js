@@ -75,7 +75,9 @@ const MemberProfile = ({
         )}
       </div>
       <div>
-        <DefaultText>Assessor: {member?.responsible?.name}</DefaultText>
+        {!!member?.responsible?.name && (
+          <DefaultText>Assessor: {member?.responsible?.name}</DefaultText>
+        )}
       </div>
       <div className="message">
         <DefaultText>Mensagem do acompanhamento:</DefaultText>
