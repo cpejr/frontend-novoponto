@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Modal, Button } from "antd";
 import { ModalContainer, ModalContentSection } from "./styles";
 import { CommonSelectBox } from "../../atoms";
-import AutocompleteInput from "../AutocompleteInput";
 
 const EditSessionModal = ({
   content,
@@ -11,7 +10,7 @@ const EditSessionModal = ({
   handleEditTask,
   handleCancel,
   tasks,
-  children,
+  session,
 }) => {
   const tasksOptions = tasks?.map((task) => {
     return { value: task._id, label: task.name };
@@ -25,7 +24,7 @@ const EditSessionModal = ({
 
   function handleConfirm() {
     setSelectedTask();
-    handleEditTask(selectedTask);
+    handleEditTask(selectedTask, session);
   }
 
   return (
