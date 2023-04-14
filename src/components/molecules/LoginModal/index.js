@@ -55,7 +55,7 @@ const LoginModal = ({
         </Button>,
 
         <Button
-          style={{ color: "white", background: "#8A6B0E" }}
+          style={{ color: "white", background: "rgb(0, 93, 158)" }}
           key="submit"
           // type="primary"
           onClick={handleConfirm}
