@@ -83,7 +83,6 @@ const Badges = () => {
 				type: "file",
 				label: "Imagem",
         placeholder: "Escreva a url",
-				rules: [validators.antdRequired()],
 				initialValue: withInitialValue ? badge.url : undefined,
 			},
 		];
@@ -111,7 +110,7 @@ const Badges = () => {
 		const newBadge = {
 			name: Reconhecimento,
 			description: Descrição,
-			url: Imagem,
+			image: Imagem,
 		};
 
 		console.log(
@@ -135,12 +134,11 @@ const Badges = () => {
 
 	const createBadge = async (badge) => {
 		var hide = message.loading("Criando");
-
 		const { Reconhecimento , Descrição, Imagem } = badge;
 		const newBadge = {
 			name: Reconhecimento,
 			description: Descrição,
-			url: Imagem,
+			image: Imagem,
 		};
 		console.log(badge);
 		try {

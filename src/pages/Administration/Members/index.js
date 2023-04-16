@@ -198,14 +198,14 @@ const Members = () => {
 
   const updateMember = (memberId) => async (member) => {
     var hide = message.loading("Atualizando dados do membro...");
-
-    const { Nome, Cargo, Assessor, Tribo } = member;
+    const { Nome, Cargo, Assessor, Tribo, Reconhecimento } = member;
 
     try {
       const newMember = {
         name: Nome,
         roleId: Cargo,
         tribeId: Tribo,
+        badgeId: Reconhecimento,
         responsibleId: Assessor?.selectedOption?.value || null,
       };
 
