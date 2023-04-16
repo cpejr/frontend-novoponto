@@ -7,7 +7,7 @@ const BadgeRow = ({ badge, onEdit, onDelete, ...props }) => {
 		<tr {...props}>
 			<td className="badgeColumn">{badge.name}</td>
 			<td className="badgeColumn">{badge.description}</td>
-      <td className="badgeColumn">{badge.url}</td>
+      <td className="badgeColumn"><img src={badge.url} alt="Imagem do Reconhecimento" /></td>
 			<td className="editColumn">
 				<Tooltip placement="topLeft" title={"Editar"} onClick={onEdit}>
 					<EditOutlined />

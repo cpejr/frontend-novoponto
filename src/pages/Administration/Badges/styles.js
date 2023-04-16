@@ -43,6 +43,9 @@ const BadgesComponent = styled.div`
 	td {
 		margin: 0;
 		padding: 0;
+    img {
+      height: 35px;
+    }
 	}
 
 	.badgeTable {
