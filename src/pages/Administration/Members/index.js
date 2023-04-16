@@ -142,8 +142,7 @@ const Members = () => {
       },
       {
         key: "badges",
-        type: "select",
-        mode: "multiple",
+        type: "selectMultiple",
         label: "Reconhecimento",
         placeholder: "Escolha o reconhecimento",
 
@@ -175,12 +174,13 @@ const Members = () => {
   const createMember = async (member) => {
     var hide = message.loading("Criando...");
 
-    const { Nome, Cargo, Assessor, Tribo } = member;
+    const { Nome, Cargo, Assessor, Tribo, Reconhecimento } = member;
     try {
       const newMember = {
         name: Nome,
         roleId: Cargo,
         tribeId: Tribo,
+        badgeId: Reconhecimento,
         responsibleId: Assessor?.selectedOption?.value,
       };
       await createMemberMutation({ variables: { data: newMember } });
@@ -199,7 +199,6 @@ const Members = () => {
   const updateMember = (memberId) => async (member) => {
     var hide = message.loading("Atualizando dados do membro...");
     const { Nome, Cargo, Assessor, Tribo, Reconhecimento } = member;
-
     try {
       const newMember = {
         name: Nome,
@@ -208,7 +207,7 @@ const Members = () => {
         badgeId: Reconhecimento,
         responsibleId: Assessor?.selectedOption?.value || null,
       };
-
+      console.log(newMember);
       await updateMemberMutation({
         variables: { memberId, data: newMember },
       });
@@ -338,7 +337,7 @@ const Members = () => {
           dataIndex="badge"
           key="badge"
           width={200}
-          render={(badge) => badge && <DefaultLabel labelText={badge.name} />}
+          render={(Badge) => Badge && Badge.map((badgeItem) => (<img key={badgeItem.name} src={badgeItem.url} alt={badgeItem.name}/>))}
         />
         <Column
           key="action"

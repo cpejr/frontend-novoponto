@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Modal from "../../molecules/ConfirmationModal";
 import AutoCompleteInput from "../../molecules/AutocompleteInput";
 import BadgeInput from "../../molecules/BadgeInput";
+import SelectMultiple from "../../molecules/SelectMultiple";
 import { CommonSelectBox, InputText } from "../../atoms";
 import { Form } from "antd";
 
@@ -37,7 +38,6 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
   const handleSubmit = async () => {
     try {
       const data = await form.validateFields();
-      console.log("Data: ",data );
       onSubmit && onSubmit(data);
     } catch (error) {}
   };
@@ -60,6 +60,11 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
       case "select":
         inputField = (
           <CommonSelectBox optionsList={options} placeholder={placeholder} />
+        );
+        break;
+      case "selectMultiple":
+        inputField = (
+          <SelectMultiple optionsList={options} initialValue={initialValue} placeholder={placeholder} form={form} />
         );
         break;
       case "file":
