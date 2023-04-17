@@ -68,7 +68,7 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
         );
         break;
       case "file":
-        inputField =(<BadgeInput form={form}/>);
+        inputField =(<BadgeInput form={form} defaultValue={initialValue} />);
         break;
 
       default:

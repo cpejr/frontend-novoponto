@@ -5,6 +5,7 @@ function SelectMultiple({optionsList, placeholder, initialValue, form}){
   const handleChange = (value) => {
     form.setFieldsValue({ Reconhecimento: value });
   };
+  console.log(initialValue);
   return (
     <Space
       style={{
@@ -19,7 +20,6 @@ function SelectMultiple({optionsList, placeholder, initialValue, form}){
           width: '100%',
         }}
         placeholder={placeholder}
-        defaultValue={initialValue}
         onChange={handleChange}
         options={optionsList}
       />

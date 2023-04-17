@@ -148,7 +148,13 @@ const Members = () => {
 
         options: badgesOptions,
 
-        initialValue: withInitialValue ? member?.badge?._id : undefined,
+        initialValue: withInitialValue ? {
+          text: member?.Badge?.name,
+          selectedOption: {
+            label: member?.Badge?.name,
+            value: member?.Badge?._id,
+          }
+        } : undefined,
       },
     ];
 
@@ -334,10 +340,10 @@ const Members = () => {
         />
         <Column
           title="Reconhecimentos"
-          dataIndex="badge"
-          key="badge"
+          dataIndex="Badge"
+          key="Badge"
           width={200}
-          render={(Badge) => Badge && Badge.map((badgeItem) => (<img key={badgeItem.name} src={badgeItem.url} alt={badgeItem.name}/>))}
+          render={(Badge) => Badge && Badge.map((badgeItem) => (<img key={badgeItem.name} src={badgeItem.url} alt={badgeItem.name} style={{height:"35px"}}/>))}
         />
         <Column
           key="action"
