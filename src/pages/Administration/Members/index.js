@@ -288,7 +288,7 @@ const Members = () => {
           onClick={() => editOrCreateMember("new")}
         />
       </div>
-
+      {console.log(filteredMembers)}
       <Table
         scroll={{ x: true }}
         dataSource={filteredMembers}

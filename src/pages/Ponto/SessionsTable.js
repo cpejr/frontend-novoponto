@@ -67,7 +67,7 @@ const SessionsTable = ({ sessions, onLogout, ...props }) => {
         scroll={{ x: true }}
         dataSource={sessions}
         pagination={false}
-        rowKey="_id"
+        rowKey="member._id"
         rowClassName={"table-row"}
       >
         <Column

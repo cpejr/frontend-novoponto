@@ -130,7 +130,7 @@ const Sessions = () => {
           </Button>
         </form>
       </div>
-      {console.log(filteredSessions)}
+
       <SessionsTable
         sessions={filteredSessions}
         onLogout={({ member }) => setMemberToLogout(member)}
