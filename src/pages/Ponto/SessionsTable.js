@@ -90,6 +90,7 @@ const SessionsTable = ({ sessions, onLogout, ...props }) => {
           title="Modalidade"
           dataIndex="isPresential"
           key="isPresential"
+          responsive={["sm"]}
           render={(isPresential) => (
             <PresentialDisplayer
               isPresential={isPresential}
@@ -101,6 +102,7 @@ const SessionsTable = ({ sessions, onLogout, ...props }) => {
           title="Chegada"
           dataIndex="start"
           key="session.start"
+          responsive={["sm"]}
           render={(start) =>
             start && (
               <HourDisplayer
