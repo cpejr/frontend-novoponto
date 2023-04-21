@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const PontoComponent = styled.div`
+export const PontoComponent = styled.div`
   min-height: 100vh;
 
   td.logoutButton button {
@@ -18,11 +18,23 @@ const PontoComponent = styled.div`
   }
 `;
 
-const newsComponent = styled.div`
+export const newsComponent = styled.div`
   width: 100%;
   min-height: 100vh;
 
   background-color: ${(props) => props.theme.appBackground};
 `;
 
-export { PontoComponent, newsComponent };
+export const SessionsTableContainer = styled.div`
+  .ant-table {
+    background-color: transparent;
+  }
+  .ant-table-cell {
+    border: none;
+  }
+  .ant-table-thead {
+    .ant-table-cell {
+      font-weight: bold;
+    }
+  }
+`;

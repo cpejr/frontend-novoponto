@@ -15,6 +15,8 @@ import { HourDisplayer } from "../../components/atoms";
 import DurationDisplayer from "../../components/molecules/DurationDisplayer";
 import EditSessionModal from "../../components/molecules/EditSessionModal";
 
+import { SessionsTableContainer } from "./styles";
+
 const { Column } = Table;
 
 const SessionsTable = ({ sessions, onLogout, ...props }) => {
@@ -60,12 +62,13 @@ const SessionsTable = ({ sessions, onLogout, ...props }) => {
   }
 
   return (
-    <>
+    <SessionsTableContainer>
       <Table
         scroll={{ x: true }}
         dataSource={sessions}
         pagination={false}
         rowKey="_id"
+        rowClassName={"table-row"}
       >
         <Column
           title="Membro"
@@ -168,7 +171,7 @@ const SessionsTable = ({ sessions, onLogout, ...props }) => {
         handleEditTask={handleEditTask}
         handleCancel={() => setEditSessionModalVisible(false)}
       />
-    </>
+    </SessionsTableContainer>
   );
 };
 

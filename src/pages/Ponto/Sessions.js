@@ -130,15 +130,13 @@ const Sessions = () => {
           </Button>
         </form>
       </div>
+      {console.log(filteredSessions)}
+      <SessionsTable
+        sessions={filteredSessions}
+        onLogout={({ member }) => setMemberToLogout(member)}
+      />
 
-      <div className="w-100 table-responsive mb-3">
-        <SessionsTable
-          sessions={filteredSessions}
-          onLogout={({ member }) => setMemberToLogout(member)}
-        />
-      </div>
-
-      <div className="d-flex justify-content-end">
+      <div className="d-flex justify-content-end mt-3">
         <Button onClick={() => setShowLogoutAllMembers(true)}>
           Deslogar todos os membros
         </Button>
