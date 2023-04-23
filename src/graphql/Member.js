@@ -43,6 +43,11 @@ const DefaultMemberFields = gql`
     tribe {
       name
     }
+    Badge {
+      _id
+      name
+      url
+    }
   }
 `;
 
@@ -109,6 +114,7 @@ const Members = gql`
         name
         url
       }
+      badgeId
       message {
         text
         read
@@ -181,6 +187,11 @@ const FetchMemberForHC = gql`
       tribe {
         name
         color
+      }
+      Badge {
+        _id
+        name
+        url
       }
     }
   }

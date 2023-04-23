@@ -87,9 +87,10 @@ const Members = () => {
         label: badge?.name,
       }))
     );
+    
+    
 
     if (withInitialValue) tribesOptions.push({ label: "", value: null });
-
     var fields = [
       {
         key: "name",
@@ -148,13 +149,8 @@ const Members = () => {
 
         options: badgesOptions,
 
-        initialValue: withInitialValue ? {
-          text: member?.Badge?.name,
-          selectedOption: {
-            label: member?.Badge?.name,
-            value: member?.Badge?._id,
-          }
-        } : undefined,
+        initialValue: withInitialValue ? member?.badgeId : undefined,
+          
       },
     ];
 
@@ -213,7 +209,6 @@ const Members = () => {
         badgeId: Reconhecimento,
         responsibleId: Assessor?.selectedOption?.value || null,
       };
-      console.log(newMember);
       await updateMemberMutation({
         variables: { memberId, data: newMember },
       });

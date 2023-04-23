@@ -15,7 +15,6 @@ const SessionRow = ({ session, onLogout, ...props }) => {
   function handleLogout() {
     onLogout && onLogout(session);
   }
-
   return (
     <tr {...props} className="d-flex justify-content-between">
       <td className="col-6 col-sm-5 col-md-6">
@@ -25,7 +24,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
           tribe={member?.tribe}
           role={member?.role?.name}
           description={member.status}
-          recognition={member.recognition}
+          recognition={member.Badge}
         />
       </td>
       <td className="col-2 d-none d-sm-flex align-items-center justify-content-center">

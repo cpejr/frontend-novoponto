@@ -1,11 +1,11 @@
 import { Select, Space } from 'antd';
+import { useState } from 'react';
 
 
-function SelectMultiple({optionsList, placeholder, initialValue, form}){ 
+function SelectMultiple({optionsList, placeholder, initialValue, form}){
   const handleChange = (value) => {
     form.setFieldsValue({ Reconhecimento: value });
   };
-  console.log(initialValue);
   return (
     <Space
       style={{
@@ -22,6 +22,7 @@ function SelectMultiple({optionsList, placeholder, initialValue, form}){
         placeholder={placeholder}
         onChange={handleChange}
         options={optionsList}
+        defaultValue={initialValue}
       />
     </Space>
 );

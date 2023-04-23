@@ -28,7 +28,7 @@ const LoggedMembers = ({
 				<Col className="d-flex flex-column justify-content-center gap-1">
 					<Row className="flex-nowrap d-flex flex-column flex-lg-row me-0 text-truncate gap-1">
 						<MemberName name={name} className="text-nowrap p-0" />
-						<MemberRecognition src={recognition} />
+						<MemberRecognition recognition={recognition} />
 						<MemberDescription
 							description={description}
 							responsive
