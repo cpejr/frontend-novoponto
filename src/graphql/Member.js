@@ -27,6 +27,7 @@ const DefaultSessionFields = gql`
       _id
       name
       url
+      description
     }
   }
 `;
