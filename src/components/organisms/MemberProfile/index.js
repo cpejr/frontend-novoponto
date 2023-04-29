@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { colors } from "../../../context/ThemeProvider/pallete";
 
 import {
   DefaultLabel,
@@ -65,7 +66,7 @@ const MemberProfile = ({
             {member?.role && (
               <DefaultLabel
                 labelText={member?.role?.name}
-                labelColor="#FFD100"
+                labelColor={colors.primaryColor}
               />
             )}
           </div>

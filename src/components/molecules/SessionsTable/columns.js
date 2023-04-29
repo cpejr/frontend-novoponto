@@ -21,7 +21,7 @@ function getColumns(themeColors) {
       key: "start",
       render: (start) => (
         <FlexDiv>
-          <HourDisplayer hour={start} hourColor={themeColors.primaryColor} />
+          <HourDisplayer hour={start} hourColor={themeColors.secondaryColor} />
         </FlexDiv>
       ),
     },
@@ -31,7 +31,7 @@ function getColumns(themeColors) {
       key: "end",
       render: (end) => (
         <FlexDiv>
-          <HourDisplayer hour={end} hourColor={themeColors.primaryColor} />
+          <HourDisplayer hour={end} hourColor={themeColors.secondaryColor} />
         </FlexDiv>
       ),
     },
@@ -43,7 +43,7 @@ function getColumns(themeColors) {
         <FlexDiv>
           <InfoDisplayer
             info={formatedDuration}
-            infoColor={themeColors.secondaryColor}
+            infoColor={themeColors.primaryColor}
           />
         </FlexDiv>
       ),
@@ -56,7 +56,7 @@ function getColumns(themeColors) {
         <FlexDiv>
           <InfoDisplayer
             info={isPresential ? "Presencial" : "Remoto"}
-            infoColor={themeColors.primaryColor}
+            infoColor={themeColors.secondaryColor}
           />
         </FlexDiv>
       ),

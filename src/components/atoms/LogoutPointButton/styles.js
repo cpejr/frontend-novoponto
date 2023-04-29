@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../../../context/ThemeProvider/pallete";
 
 const LogoutPointButtonContainer = styled.div`
   height: 38px;
@@ -18,7 +19,7 @@ const LogoutPointButtonContainer = styled.div`
     transition: color 0.5s;
 
     &:hover {
-      color: #ffd100;
+      color:${colors.primaryColor};
     }
   }
 

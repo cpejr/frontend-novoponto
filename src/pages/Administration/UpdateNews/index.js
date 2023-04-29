@@ -9,6 +9,8 @@ import { Button, message } from "antd";
 import { GlobalsContext } from "../../../context/GlobalsProvider";
 import { useMutation } from "@apollo/client";
 import { ReplaceNews } from "../../../graphql/News";
+import { colors } from "../../../context/ThemeProvider/pallete";
+import {CommonButton} from "../../../components/atoms";
 
 function dynamicSort(property) {
 	var sortOrder = 1;
@@ -121,9 +123,13 @@ const UpdateNews = () => {
 			<div className="outerBoxNewsContainer">
 				<div className="d-flex w-100 justify-content-between py-2">
 					<span>Editor de noticias:</span>
-					<Button type="primary" loading={loading} onClick={handleSaveNews}>
-						Salvar
-					</Button>
+					<CommonButton 
+					type="primary" 
+					loading={loading} 
+					color={colors.secondaryColor}
+					onClick={handleSaveNews}
+					buttonLabel="Salvar"
+					/>
 				</div>
 				<div className="innerBoxNewsContainer">
 					{newsList.map((news) => (
@@ -146,9 +152,13 @@ const UpdateNews = () => {
 					</NewsAdd>
 				</div>
 				<div className="ms-auto py-2">
-					<Button type="primary" loading={loading} onClick={handleSaveNews}>
-						Salvar
-					</Button>
+					<CommonButton 
+					type="primary" 
+					loading={loading} 
+					color={colors.secondaryColor}
+					onClick={handleSaveNews}
+					buttonLabel="Salvar"
+					/>
 				</div>
 			</div>
 		</UpdatedNewsComponent>

@@ -12,7 +12,7 @@ const DefaultLabel = ({
 	return (
 		<DefaultLabelContainer
 			className={className}
-			color={themeColors.secondaryColor}
+			color={themeColors.primaryColor}
 			width={labelWidth}
 			margin={labelMargin}
 		>

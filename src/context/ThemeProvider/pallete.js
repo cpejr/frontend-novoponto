@@ -7,8 +7,8 @@ const palette = {
   red300: "#CA191B",
   red300Hover: "#CA301B",
 
-  primaryColor: "#0000CD",
-  secondaryColor: "#FF00FF",
+  primaryColor: "rgb(255, 244, 41);",
+  secondaryColor: "rgba(49, 216, 67, 0.5)",
 
   blue400: "#227ECF",
   blueSky: "#0085FF",

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../../../context/ThemeProvider/pallete";
 
 const TasksComponent = styled.div`
   width: 100%;
@@ -51,7 +52,7 @@ const TasksComponent = styled.div`
       cursor: pointer;
     }
     svg:hover {
-      color: rgb(255, 244, 41);
+      color: ${colors.primaryColor};
     }
   }
 
