@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ThemeContext } from "../../../context/ThemeProvider";
+import { SessionContext } from "../../../context/SessionProvider";
 import { getColumns } from "./columns";
 import { HourDisplayer } from "../../atoms";
+import EditSessionModal from "../EditSessionModal";
 
 import { HoursSumAndTablesArea } from "./styles";
 import { Collapse, Table } from "antd";
@@ -10,9 +12,18 @@ const SessionsTable = ({
   sessions,
   formatedTotal,
   formatedPresentialTotal,
+  memberId,
 }) => {
   const { themeColors } = useContext(ThemeContext);
-  const columns = getColumns(themeColors);
+  const { data } = useContext(SessionContext);
+  const [editSessionModal, setEditSessionModal] = useState(false);
+  const [selectedSessionId, setSelectedSessionId] = useState('');
+  const columns = getColumns(themeColors, data.member, memberId, handleOpenEditSessionModal);
+
+  function handleOpenEditSessionModal(sessionId) {
+    setSelectedSessionId(sessionId)
+    setEditSessionModal(true);
+  };
 
   return (
     <HoursSumAndTablesArea>
@@ -38,6 +49,9 @@ const SessionsTable = ({
           />
         </Collapse.Panel>
       </Collapse>
+      <EditSessionModal
+        isVisible={true}
+      />
     </HoursSumAndTablesArea>
   );
 };

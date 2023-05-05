@@ -10,7 +10,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { HiOutlineLogout } from "react-icons/hi";
 import { Tooltip } from "antd";
-import EditSessionModal from "../../components/molecules/EditSessionModal";
+import EditTaskModal from "../../components/molecules/EditTaskModal";
 import { GET_TASKS } from "../../graphql/Tasks";
 import { CREATE_SESSION, FINISH_SESSION } from "../../graphql/Sessions";
 import { useMutation, useQuery } from "@apollo/client";
@@ -21,7 +21,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 
   const { data } = useContext(SessionContext);
 
-  const [EditSessionModalVisible, setEditSessionModalVisible] = useState(false);
+  const [EditModalVisible, setEditTaskModalVisible] = useState(false);
   const { data: tasksData } = useQuery(GET_TASKS);
   const [startSessionMutation] = useMutation(CREATE_SESSION);
   const [endSessionMutation] = useMutation(FINISH_SESSION);
@@ -45,7 +45,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
       hide();
       message.warn(err.message, 2.5);
     }
-    setEditSessionModalVisible(false);
+    setEditTaskModalVisible(false);
   }
 
   function handleLogout() {
@@ -111,7 +111,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
                 )
               }
               onClick={() => {
-                isLoggedMember && setEditSessionModalVisible(true);
+                isLoggedMember && setEditTaskModalVisible(true);
               }}
             />
           </Tooltip>
@@ -124,13 +124,13 @@ const SessionRow = ({ session, onLogout, ...props }) => {
           />
         </td>
       </tr>
-      <EditSessionModal
+      <EditTaskModal
         title="Edição de tarefa"
         content={`Qual sera a próxima tarefa?`}
-        isVisible={EditSessionModalVisible}
+        isVisible={setEditTaskModalVisible}
         tasks={tasksData?.tasks}
         handleEditTask={handleEditTask}
-        handleCancel={() => setEditSessionModalVisible(false)}
+        handleCancel={() => setEditTaskModalVisible(false)}
       />
     </>
   );

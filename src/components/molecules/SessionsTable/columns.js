@@ -1,8 +1,10 @@
+
 import { HourDisplayer, InfoDisplayer, DefaultText } from "../../atoms";
 import { FlexDiv } from "./styles";
 import moment from "moment";
+import { HiOutlinePencilAlt } from "react-icons/hi";
 
-function getColumns(themeColors) {
+function getColumns(themeColors, userData, memberId, handleOpenEditSessionModal) {
   const columns = [
     {
       title: "Dia",
@@ -69,16 +71,25 @@ function getColumns(themeColors) {
         <DefaultText
           style={{
             margin: 0,
+            width: "max-content",
             maxWidth: "200px",
-            minWidth: "180px",
             wordBreak: "break-word",
           }}
         >
-          {task.name}
+          {task?.name}
         </DefaultText>
       ),
     },
   ];
+  if (userData._id === memberId) {
+    columns.push({
+      dataIndex: "._id",
+      key: "._id",
+      render: (_id) => (
+        <HiOutlinePencilAlt size="2em" onClick={() => handleOpenEditSessionModal(_id)}/>
+      ),
+    })
+  }
   return columns;
 }
 

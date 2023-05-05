@@ -63,6 +63,7 @@ const MemberHistory = ({ memberId }) => {
               sessions={sessions}
               formatedTotal={formatedTotal}
               formatedPresentialTotal={formatedPresentialTotal}
+              memberId={memberId}
             />
             <HomeOfficeTable
               aditionalHours={aditionalHours}
