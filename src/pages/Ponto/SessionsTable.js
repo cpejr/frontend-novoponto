@@ -32,16 +32,11 @@ const SessionsTable = ({ sessions, onLogout, ...props }) => {
           <tr>
             <td colSpan="4">
               <h1 style={{ color: "#fff", fontSize: "30px" }}>
-                Trabalhe enquanto eles{" "}
                 <ReactRotatingText
                   typingInterval={120}
                   deletingInterval={80}
                   items={[
-                    "dormem...",
-                    "comem (???)",
-                    "estudam rsrs",
-                    "dão migué B)",
-                    "... isso não faz mais sentido",
+                    "Tudo vazio por aqui...",
                   ]}
                 />
               </h1>
