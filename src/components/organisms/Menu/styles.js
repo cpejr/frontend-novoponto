@@ -4,12 +4,10 @@ const SidebarMenuContainer = styled.div`
   .ant-layout-header {
     padding: 0 30px;
   }
-
   .logo {
     display: flex;
     align-items: center;
   }
-
   .logo > span svg {
     font-size: 25px;
     color: #fff;

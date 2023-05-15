@@ -10,55 +10,60 @@ import { MemberHistoyContainer } from "./styles";
 const { RangePicker } = DatePicker;
 
 const MemberHistory = ({ memberId }) => {
-	const [rangeDate, setRangeDate] = useState([
-		moment().startOf("isoWeek"),
-		moment().endOf("day"),
-	]);
+  const [rangeDate, setRangeDate] = useState([
+    moment().startOf("isoWeek"),
+    moment().endOf("day"),
+  ]);
 
-	const startDate = rangeDate && rangeDate[0];
-	const endDate = rangeDate && rangeDate[1];
+  const startDate = rangeDate && rangeDate[0];
+  const endDate = rangeDate && rangeDate[1];
 
-	const [loadCompiled, { loading, data }] = useLazyQuery(FetchCompiledForHC, {
-		fetchPolicy: "network-only",
-	});
+  const [loadCompiled, { loading, data }] = useLazyQuery(FetchCompiledForHC, {
+    fetchPolicy: "network-only",
+  });
+  const { aditionalHours, sessions, formatedTotal, formatedPresentialTotal } =
+    data?.compiled || {};
 
-  const { aditionalHours, sessions, formatedTotal, formatedPresentialTotal } = data?.compiled || {};
-	async function loadData() {
-		return loadCompiled({
-			variables: {
-				memberId,
-				startDate: moment(startDate)?.startOf("day").toISOString(),
-				endDate: moment(endDate)?.endOf("day").toISOString(),
-			},
-		});
-	}
+  async function loadData() {
+    return loadCompiled({
+      variables: {
+        memberId,
+        startDate: moment(startDate)?.startOf("day").toISOString(),
+        endDate: moment(endDate)?.endOf("day").toISOString(),
+      },
+    });
+  }
 
-	useEffect(() => {
-		if (startDate && endDate && memberId) loadData();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [memberId, rangeDate]);
+  useEffect(() => {
+    if (startDate && endDate && memberId) loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [memberId, rangeDate]);
 
-	function disabledDate(current) {
-		// Can not select days after today
-		return current && current > moment().endOf("day");
-	}
+  function disabledDate(current) {
+    // Can not select days after today
+    return current && current > moment().endOf("day");
+  }
 
-	if (memberId && !loading)
-		return (
-			<MemberHistoyContainer>
-				<h5>Histórico Ponto</h5>
+  if (memberId && !loading)
+    return (
+      <MemberHistoyContainer>
+        <h5>Histórico Ponto</h5>
 
-				<RangePicker
-					format="DD-MM-yyyy"
-					disabledDate={disabledDate}
-					onChange={setRangeDate}
-					value={rangeDate}
-					placeholder={["Inicio", "Fim"]}
-				/>
+        <RangePicker
+          format="DD-MM-yyyy"
+          disabledDate={disabledDate}
+          onChange={setRangeDate}
+          value={rangeDate}
+          placeholder={["Inicio", "Fim"]}
+        />
 
         {startDate && endDate && (
           <div className="mt-4">
-        	<SessionsTable sessions={sessions} formatedTotal={formatedTotal} formatedPresentialTotal={formatedPresentialTotal} />
+            <SessionsTable
+              sessions={sessions}
+              formatedTotal={formatedTotal}
+              formatedPresentialTotal={formatedPresentialTotal}
+            />
             <HomeOfficeTable
               aditionalHours={aditionalHours}
               onDelete={loadData}

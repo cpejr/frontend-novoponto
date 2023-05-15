@@ -5,22 +5,21 @@ import SidebarMenu from "../components/organisms/Menu";
 import RestrictedRoute from "./RestrictedRoute";
 
 import {
-  Profile,
-  HourChanges,
-  HourConsultation,
-  Ponto,
-  StandBy,
-  UpdateNews,
-  MandatoryHours,
-  Members,
-  Tribes,
-  Badges,
-  Roles,
-  HourFollowing,
-  Login,
+	Profile,
+	HourChanges,
+	HourConsultation,
+	Ponto,
+	StandBy,
+	UpdateNews,
+	MandatoryHours,
+	Members,
+	Roles,
+	HourFollowing,
+	Login,
+	Tasks,
+	Tribes,
+    Badges,
 } from "../pages";
-//import Tribes from "../pages/Administration/Tribes/index.js";
-//import Badges from "../pages/Administration/Badges/index.js";
 
 function Menu() {
   return (
@@ -32,38 +31,41 @@ function Menu() {
         <Route path="/ponto/profile" component={Profile} />
         <Route path="/ponto/standby" component={StandBy} />
 
-        <RestrictedRoute
-          minAccessLevel={1}
-          path="/ponto/membros"
-          component={Members}
-        />
-        <RestrictedRoute
-          minAccessLevel={1}
-          path="/ponto/cargos"
-          component={Roles}
-        />
-        <RestrictedRoute
-          minAccessLevel={1}
-          path="/ponto/tribos"
-          component={Tribes}
-        />
-        <RestrictedRoute
-          minAccessLevel={1}
-          path="/ponto/reconhecimentos"
-          component={Badges}
-        />
-        <RestrictedRoute
-          minAccessLevel={1}
-          path="/ponto/acompanhamento"
-          component={HourFollowing}
-        />
-        <RestrictedRoute
-          path="/ponto/atualizarnoticias"
-          minAccessLevel={1}
-          component={UpdateNews}
-        />
-
-        {/* <RestrictedRoute
+				<RestrictedRoute
+					minAccessLevel={1}
+					path="/ponto/membros"
+					component={Members}
+				/>
+				<RestrictedRoute
+					minAccessLevel={1}
+					path="/ponto/cargos"
+					component={Roles}
+				/>
+				<RestrictedRoute
+					minAccessLevel={1}
+					path="/ponto/tribos"
+					component={Tribes}
+				/>
+				<RestrictedRoute
+					minAccessLevel={1}
+					path="/ponto/acompanhamento"
+					component={HourFollowing}
+				/>
+				<RestrictedRoute
+					path="/ponto/atualizarnoticias"
+					minAccessLevel={1}
+					component={UpdateNews}
+				/>
+				<RestrictedRoute
+					path="/ponto/tarefas"
+					minAccessLevel={1}
+					component={Tasks}
+				/>
+                <RestrictedRoute
+                    minAccessLevel={1}
+                    path="/ponto/reconhecimentos"
+                    component={Badges}
+                />
 					path="/ponto/horarioobrigatorio"
 					minAccessLevel={1}
 					component={MandatoryHours}

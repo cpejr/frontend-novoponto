@@ -28,7 +28,7 @@ import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";
 import validators from "../../../services/validators";
 import diacriticCaseInsensitiveMatch from "../../../utils/diacriticCaseInsensitiveMatch";
 
-const { Column, ColumnGroup } = Table;
+const { Column } = Table;
 
 const Members = () => {
   const { themeColors } = useContext(ThemeContext);

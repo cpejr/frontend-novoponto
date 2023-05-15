@@ -4,6 +4,7 @@ const DefaultSessionFields = gql`
   fragment DefaultSessionFields on Member {
     _id
     name
+    email
     status
     message {
       read
@@ -36,6 +37,7 @@ const DefaultMemberFields = gql`
   fragment DefaultMemberFields on Member {
     _id
     name
+    email
     status
     imageLink
     role {
@@ -53,8 +55,8 @@ const DefaultMemberFields = gql`
 `;
 
 const Login = gql`
-  mutation Login($tokenId: ID!) {
-    login(tokenId: $tokenId) {
+  mutation Login($data: LoginInput!) {
+    login(data: $data) {
       accessToken
       member {
         ...DefaultSessionFields
@@ -93,6 +95,7 @@ const Members = gql`
     members(accessArray: $accessArray) {
       _id
       name
+      email
       imageLink
       status
       role {
@@ -110,16 +113,16 @@ const Members = gql`
         color
         segment
       }
+      message {
+        text
+        read
+      }
       Badge {
         _id
         name
         url
       }
       badgeId
-      message {
-        text
-        read
-      }
     }
   }
 `;
@@ -130,6 +133,7 @@ const UpdateMember = gql`
       status
       _id
       name
+      email
       responsible {
         name
         _id
@@ -175,6 +179,7 @@ const FetchMemberForHC = gql`
     member(_id: $_id) {
       _id
       name
+      email
       status
       imageLink
       mandatories {
@@ -222,10 +227,16 @@ const FetchCompiledForHC = gql`
   query compiled($memberId: ID!, $startDate: DateScalar, $endDate: DateScalar) {
     compiled(memberId: $memberId, startDate: $startDate, endDate: $endDate) {
       sessions {
+        _id
         start
         end
         formatedDuration
         isPresential
+        task {
+          _id
+          name
+          active
+        }
       }
       aditionalHours {
         _id

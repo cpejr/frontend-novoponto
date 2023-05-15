@@ -43,20 +43,20 @@ const LoggedMembers = ({
 								labelColor="#0085FF"
 							/>
 						)} */}
-					</Row>
-					<Row>
-						{tribe && (
-							<DefaultLabel
-								labelText={tribe.name}
-								labelColor={tribe.color}
-								className="d-none d-lg-block"
-							/>
-						)}
-					</Row>
-				</Col>
-			</Row>
-		</LoggedMembersContainer>
-	);
+          </Row>
+          <Row>
+            {tribe && (
+              <DefaultLabel
+                labelText={tribe.name}
+                labelColor={tribe.color}
+                className="d-none d-lg-block"
+              />
+            )}
+          </Row>
+        </Col>
+      </Row>
+    </LoggedMembersContainer>
+  );
 };
 
 export default LoggedMembers;

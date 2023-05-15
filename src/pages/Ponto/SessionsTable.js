@@ -7,21 +7,20 @@ const SessionsTable = ({ sessions, onLogout, ...props }) => {
     // <div class="table-responsive">
     <table className="table table-borderless" {...props}>
       <thead>
-        <tr className="customHeader d-flex justify-content-between">
-          <th className="col-6 col-sm-5 col-md-6">
+        <tr className="customHeader d-flex">
+          <th className="col-5 col-sm-4">
             <p className="m-0 ms-4">Membro</p>
           </th>
           <th className="col-2 text-center d-none d-sm-block">
             <p className="m-0 text-center">Modalidade</p>
           </th>
-          <th className="col-1 col-sm-2 col-md-1 text-center d-none d-sm-block">
+          <th className="col-2 text-center d-none d-sm-block">
             <p className="m-0 text-center">Chegada</p>
           </th>
-          <th className="col-2 col-sm-2 col-md-1 text-center">
+          <th className="col-3 col-sm-2 text-center">
             <p className="m-0 text-center">Tempo</p>
           </th>
-          <th className="col-1 d-block d-sm-none"></th>
-          <th className="col-2 col-sm-1"></th>
+          <th scope="col-3 col-sm-2"></th>
         </tr>
       </thead>
       <tbody>
