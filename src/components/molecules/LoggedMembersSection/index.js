@@ -26,16 +26,18 @@ const LoggedMembers = ({
 					<MemberAvatar src={imageLink} />
 				</Col>
 				<Col className="d-flex flex-column justify-content-center gap-1">
-					<Row className="flex-nowrap d-flex flex-column flex-lg-row me-0 text-truncate gap-1">
+					<Row className="flex-nowrap d-flex flex-column flex-lg-row me-0 gap-1">
 						<MemberName name={name} className="text-nowrap p-0" />
-						<MemberRecognition recognition={recognition} />
-						<MemberDescription
-							description={description}
-							responsive
-							className="p-0 text"
-						/>
+            <MemberRecognition recognition={recognition} className="w-auto" />
 					</Row>
-					<Row>
+          <Row className="flex-nowrap d-flex flex-column flex-lg-row me-0 text-truncate gap-1">
+            <MemberDescription
+              description={description}
+              responsive
+              className="p-0 text text-truncate"
+            />
+          </Row>
+					<Row className="gap-2">
 						{role && <DefaultLabel labelText={role} />}
 						{/* {mandatoryHour && (
 							<DefaultLabel
@@ -43,8 +45,6 @@ const LoggedMembers = ({
 								labelColor="#0085FF"
 							/>
 						)} */}
-          </Row>
-          <Row>
             {tribe && (
               <DefaultLabel
                 labelText={tribe.name}
