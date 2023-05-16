@@ -7,6 +7,11 @@ const MemberRecognitionContainer= styled.div`
   width: 20px;
   height: 20px;
   gap: 5px;
+  .Hover {
+    :hover {
+      cursor: pointer;
+    }
+  }
 `;
 
 export default MemberRecognitionContainer;

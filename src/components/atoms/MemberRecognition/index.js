@@ -31,6 +31,7 @@ const MemberRecognition = ({ recognition, ...props }) => {
           }}
           content={e.name}
           trigger="hover"
+          className="Hover"
           open={hovered}
           onOpenChange={handleHoverChange}
         >
