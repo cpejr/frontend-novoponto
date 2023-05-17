@@ -18,17 +18,18 @@ import {
 	Login,
 	Tasks,
 	Tribes,
+    Badges,
 } from "../pages";
 
 function Menu() {
-	return(
-		<SidebarMenu>
-			<Switch>
-				<Route path="/ponto" exact component={Ponto} />
-				<Route path="/ponto/alteracaodehoras" component={HourChanges} />
-				<Route path="/ponto/consultadehoras" component={HourConsultation} />
-				<Route path="/ponto/profile" component={Profile} />
-				<Route path="/ponto/standby" component={StandBy} />
+  return (
+    <SidebarMenu>
+      <Switch>
+        <Route path="/ponto" exact component={Ponto} />
+        <Route path="/ponto/alteracaodehoras" component={HourChanges} />
+        <Route path="/ponto/consultadehoras" component={HourConsultation} />
+        <Route path="/ponto/profile" component={Profile} />
+        <Route path="/ponto/standby" component={StandBy} />
 
 				<RestrictedRoute
 					minAccessLevel={1}
@@ -60,27 +61,30 @@ function Menu() {
 					minAccessLevel={1}
 					component={Tasks}
 				/>
-				{/* <RestrictedRoute
+                <RestrictedRoute
+                    minAccessLevel={1}
+                    path="/ponto/reconhecimentos"
+                    component={Badges}
+                />
 					path="/ponto/horarioobrigatorio"
 					minAccessLevel={1}
 					component={MandatoryHours}
 				/> */}
-
-			</Switch>
-		</SidebarMenu>
-	)
+      </Switch>
+    </SidebarMenu>
+  );
 }
 
 const Routes = () => {
-	return (
-		<BrowserRouter>
-			<Route exact path="/">
-				{<Redirect to="/ponto"/>}
-			</Route>
-			<Route path="/login" component={Login} />
-			<Route path="/ponto" component={Menu} />
-		</BrowserRouter>
-	);
+  return (
+    <BrowserRouter>
+      <Route exact path="/">
+        {<Redirect to="/ponto" />}
+      </Route>
+      <Route path="/login" component={Login} />
+      <Route path="/ponto" component={Menu} />
+    </BrowserRouter>
+  );
 };
 
 export default Routes;
