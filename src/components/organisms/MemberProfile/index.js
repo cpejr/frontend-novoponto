@@ -66,7 +66,7 @@ const MemberProfile = ({
             {member?.role && (
               <DefaultLabel
                 labelText={member?.role?.name}
-                labelColor={colors.primaryColor}
+                labelColor={colors.contrastColor}
               />
             )}
           </div>

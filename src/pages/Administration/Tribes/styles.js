@@ -104,7 +104,7 @@ const TribesComponent = styled.div`
 			cursor: pointer;
 		}
 		svg:hover {
-			color:${colors.primaryColor};
+			color:${colors.contrastColor};
 		}
 	}
 

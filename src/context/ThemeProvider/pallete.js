@@ -7,8 +7,9 @@ const palette = {
   red300: "#CA191B",
   red300Hover: "#CA301B",
 
-  primaryColor: "rgb(255, 244, 41);",
-  secondaryColor: "rgba(49, 216, 67, 0.5)",
+  primaryColor: "#8A6B0E",
+  secondaryColor: "#31d84380",
+  contrastColor: "#FFD100",
 
   blue400: "#227ECF",
   blueSky: "#0085FF",
@@ -44,6 +45,7 @@ export const colors = {
 
   primaryColor: palette.primaryColor,
   secondaryColor: palette.secondaryColor,
+  contrastColor: palette.contrastColor,
 
   red: palette.red300,
   redHover: palette.red300Hover,

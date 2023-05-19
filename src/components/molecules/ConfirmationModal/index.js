@@ -1,4 +1,5 @@
 import React from "react";
+import { colors } from "../../../context/ThemeProvider/pallete";
 import { Modal, Button } from "antd";
 import { ModalContainer, ModalContentSection } from "./styles";
 
