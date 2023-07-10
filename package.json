@@ -2,6 +2,12 @@
   "name": "frontend-novoponto",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start --openssl-legacy-provider start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@ant-design/icons": "^4.5.0",
     "@apollo/client": "^3.3.13",
@@ -36,12 +42,6 @@
     "styled-components": "^5.2.1",
     "subscriptions-transport-ws": "^0.9.18",
     "web-vitals": "^1.0.1"
-  },
-  "scripts": {
-    "start": "react-scripts start --openssl-legacy-provider start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
