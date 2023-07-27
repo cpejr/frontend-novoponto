@@ -19,7 +19,7 @@ const LoginButton = () => {
             onClick={googleLogin}
             disabled={loadingLogin}
             buttonLabel="Login com google"
-            color="#454545"
+            color="#166D63"
             width="200px"
             icon={<GoogleOutlined />}
           />

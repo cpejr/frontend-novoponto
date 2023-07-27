@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const InfoDisplayerContainer = styled.div`
   height: 32px;
-  background-color: ${(props) => props.color || "red"};
+  background-color: ${(props) => props.color || "#bf9b21"};
   border-radius: 2px;
 
   display: flex;

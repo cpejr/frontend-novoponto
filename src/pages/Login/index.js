@@ -3,9 +3,9 @@ import { useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { LoginComponent } from "./style";
 import { SessionContext } from "../../context/SessionProvider";
-import watermarkImg from "../../assets/watermark.png";
+import watermarkImg from "../../assets/APICAL watermark.png";
 import OutlinedBoxContainer from "../../components/atoms/OutlinedBox";
-import logoAmarela from "../../assets/logoAmarela.png";
+import logoApical from "../../assets/APICAL.png";
 import LoginButton from "./login";
 import { DefaultText } from "../../components/atoms";
 
@@ -22,7 +22,7 @@ const Login = () => {
             alt="marca d'água da empresa"
           />
           <OutlinedBoxContainer className="loginBox">
-            <img className="logo" src={logoAmarela} alt="logo da empresa"></img>
+            <img className="logo" src={logoApical} alt="logo da empresa"></img>
             <LoginButton />
             <a className="text" href="http://cpejr.com.br">
               Ficou curioso? Saiba mais

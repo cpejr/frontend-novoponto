@@ -7,7 +7,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Layout } from "antd";
 
-import logoMenu from "../../../assets/logoMenu.svg";
+import logoMenu from "../../../assets/logoMenuApical.png";
 
 const Header = ({ isMobile, onClickToggle, isSidebarColapsed, ...props }) => {
   function getDesktopIcon() {
@@ -24,7 +24,7 @@ const Header = ({ isMobile, onClickToggle, isSidebarColapsed, ...props }) => {
       <div className="logo">
         {isMobile ? <MenuOutlined onClick={onClickToggle} /> : getDesktopIcon()}
         <Link to="/">
-          <img src={logoMenu} alt="Consultoria e Projetos Elétricos Junior" />
+          <img src={logoMenu} id="logo" alt="Apical - Consultoria Odontológica" />
         </Link>
       </div>
     </Layout.Header>

@@ -1,16 +1,16 @@
 {
   "short_name": "Ponto",
-  "name": "Ponto CPE",
+  "name": "Ponto Apical",
   "icons": [
     {
-      "src": "/logoCPE.png",
+      "src": "/Apical.png",
       "sizes": "192x192",
       "type": "image/png"
     }
   ],
   "start_url": "/",
-  "theme_color": "#FFD100",
-  "background_color": "#1D1D1D",
+  "theme_color": "#9fbfb9",
+  "background_color": "#0D0C0C",
   "display": "standalone",
   "scope": "/"
 }

@@ -5,11 +5,12 @@ const LoginComponent = styled.div`
     z-index: -1;
     height: 100vh;
     position: fixed;
-    left: 30%;
+    left: 50%;
+    opacity: 0.05;
   }
   .loginBox {
-    background: #1f1f1f;
-    border: 2px solid #ffd100;
+    background: #0D0C0C;
+    border: 2px solid #166D63;
     border-radius: 10px;
     width: 480px;
     height: 450px;
@@ -22,12 +23,12 @@ const LoginComponent = styled.div`
     }
     .logo {
       position: absolute;
-      width: 250px;
+      width: 160px;
       left: 50%;
-      top: 25%;
+      top: 8%;
       transform: translateX(-50%);
       @media (max-width: 350px) {
-        width: 90%;
+        width: 70%;
       }
     }
     .loginButton {
@@ -43,7 +44,7 @@ const LoginComponent = styled.div`
       transform: translateX(-50%);
       top: 70%;
       text-decoration-line: underline;
-      color: #ffd100;
+      color: #9fbfb9;
     }
   }
 `;

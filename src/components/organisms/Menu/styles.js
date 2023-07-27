@@ -8,12 +8,16 @@ const SidebarMenuContainer = styled.div`
     display: flex;
     align-items: center;
   }
+  #logo{
+    padding: 20px;
+    width: 120px;
+  }
   .logo > span svg {
     font-size: 25px;
     color: #fff;
     margin-right: 16px;
     transition: color 0.2s;
   }
-`;
+ `;
 
 export { SidebarMenuContainer };

@@ -48,14 +48,14 @@ const LoginModal = ({
       title={title}
       visible={isVisible}
       onCancel={handleClose}
-      bodyStyle={{ backgroundColor: "#141414" }}
+      bodyStyle={{ backgroundColor: "#0D0C0C" }}
       footer={[
         <Button type="secondary" onClick={handleClose}>
           Cancelar
         </Button>,
 
         <Button
-          style={{ color: "white", background: "#8A6B0E" }}
+          style={{ color: "white", background: "#166D63" }}
           key="submit"
           // type="primary"
           onClick={handleConfirm}
