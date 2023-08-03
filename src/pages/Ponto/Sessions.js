@@ -44,7 +44,7 @@ const Sessions = () => {
 
   const { loggedMembers } = loggedData || {};
 
-  async function handleLogoutMember(member) {
+  async function handleLogoutMember(member) {  
     let hide = message.loading("Deslogando...");
 
     try {
