@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 
 const Projects = () => {
   return <div>Teste</div>;
