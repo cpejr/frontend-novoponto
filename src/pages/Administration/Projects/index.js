@@ -23,13 +23,38 @@ const Projects = () => {
     );
 
   if (error) {
-    console.log(error);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
   }
-  const editOrCreateProject = (method, project) => {
-    console.log("Aqui vai a função de criar ou editar o projeto");
+
+  const createProject = () => {
+    console.log("Aqui vai o modal de criar o projeto");
   };
+  const editProject = (project) => {
+    console.log("Aqui vai o modal de editar o projeto", project);
+  };
+  const deleteProject = (project) => {
+    console.log("Aqui vai o modal de deletar o projeto", project);
+  };
+
+  const projects = [
+    //um array de objetos será enviado do backend
+    {
+      _id: 1,
+      name: "Doti",
+      area: "Sistemas web",
+    },
+    {
+      _id: 2,
+      name: "MVP Clínicas",
+      area: "Sistemas web",
+    },
+    {
+      _id: 3,
+      name: "Classroom",
+      area: "Aplicativos",
+    },
+  ];
   return (
     <ProjectsComponent>
       <div className="iconWithTitle">
@@ -41,7 +66,7 @@ const Projects = () => {
           buttonLabel="Novo projeto"
           color={themeColors.green}
           width="223px"
-          onClick={() => editOrCreateProject("create")}
+          onClick={() => createProject()}
         />
       </div>
       <table className="projectTable">
@@ -54,30 +79,20 @@ const Projects = () => {
           </tr>
         </thead>
         <tbody>
-          <ProjectRow
-            key={"123"}
-            project={{ name: "Doti", area: "Projetos" }}
-            onEdit={() => {
-              console.log("edit");
-            }}
-            onDelete={() => {
-              console.log("delete");
-            }}
-          />
-          {/* {badges.length > 0 ? (
-            badges.map((badge) => (
-              <BadgeRow
-                key={badge._id}
-                badge={badge}
-                onEdit={() => editOrCreateBadge("edit", badge)}
-                onDelete={() => handleOpenModal(badge)}
+          {projects.length > 0 ? (
+            projects.map((project) => (
+              <ProjectRow
+                key={project._id}
+                project={project}
+                onEdit={() => editProject(project)}
+                onDelete={() => deleteProject(project)}
               />
             ))
           ) : (
-          <tr>
-            <th>Nenhum projeto cadastrado</th>
-          </tr>
-           )} */}
+            <tr>
+              <th>Nenhum projeto cadastrado</th>
+            </tr>
+          )}
         </tbody>
       </table>
     </ProjectsComponent>
