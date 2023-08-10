@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useContext} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Button, message } from "antd";
 import { useMutation, useQuery, useSubscription } from "@apollo/client";
 
@@ -12,14 +12,13 @@ import { GET_TASKS } from "../../graphql/Tasks";
 import { InputText } from "../../components/atoms";
 import searchIcon from "../../assets/searchIcon.svg";
 import SessionsTable from "./SessionsTable";
-import { SessionContext } from "../../context/SessionProvider";
 import ConfirmationModal from "../../components/molecules/ConfirmationModal";
 import { SESSION_SUBSCRIPTION } from "../../graphql/Subscription";
 import diacriticCaseInsensitiveMatch from "../../utils/diacriticCaseInsensitiveMatch";
 import LoginModal from "../../components/molecules/LoginModal";
+import { SessionContext } from "../../context/SessionProvider";
 
 const Sessions = () => {
-
   const [memberToLogout, setMemberToLogout] = useState();
   const [filteredSessions, setFilteredSessions] = useState([]);
   const [showLogoutAllMembers, setShowLogoutAllMembers] = useState(false);
@@ -32,10 +31,8 @@ const Sessions = () => {
   const filterMemberField = useRef();
   const memberToLogin = useRef();
   const { data } = useContext(SessionContext);
-  
- memberToLogin.current=data.member;
- 
-  
+  memberToLogin.current = data.member
+
   const { data: loggedData, refetch: refetchLoggedMembers } =
     useQuery(LOGGED_MEMBERS);
   const { data: tasksData } = useQuery(GET_TASKS);
@@ -44,7 +41,7 @@ const Sessions = () => {
 
   const { loggedMembers } = loggedData || {};
 
-  async function handleLogoutMember(member) {  
+  async function handleLogoutMember(member) {
     let hide = message.loading("Deslogando...");
 
     try {
@@ -80,7 +77,6 @@ const Sessions = () => {
       message.warn(err.message, 2.5);
     } finally {
       memberToLogin.current = undefined;
-    
     }
     setLoginModalVisible(false);
   }
@@ -118,11 +114,9 @@ const Sessions = () => {
           />
         </div>
         <form className="d-flex ms-0 ms-sm-3 col-sm-6 col-md-5 col-lg-4 col-xl-3 justify-content-end">
-          <Button width="84px"
-           onClick={() =>{setLoginModalVisible(true)} } 
-           >
-            Fazer Login
-          </Button> 
+          <Button width="84px" onClick={() => setLoginModalVisible(true)}>
+            Login
+          </Button>
         </form>
       </div>
 
