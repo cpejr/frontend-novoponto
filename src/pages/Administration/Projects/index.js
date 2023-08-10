@@ -7,20 +7,60 @@ import { Skeleton, message } from "antd";
 import ProjectRow from "./ProjectRow";
 import FormModal from "../../../components/organisms/FormModal";
 import validators from "../../../services/validators";
+// import {
+//   GET_PROJECTS,
+//   DELETE_PROJECTS,
+//   UPDATE_PROJECTS,
+//   CREATE_PROJECTS
+// } from "../../../graphql/Projects";
+import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
+// import { useMutation, useQuery } from "@apollo/client";
+// import { GlobalsContext } from "../../../context/GlobalsProvider";
 
 const Projects = () => {
+  //const { refetchMembers } = useContext(GlobalsContext);
+  //const { loading, error, refetch } = useQuery(GET_PROJECTS); //adicionar "data" se precisar
   // não sei se vão continuar como usestates no futuro, tem que ver como que a linkagem será feita
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  console.log(loading);
+  console.log(error);
+  const [excludeProject, setExcludeProject] = useState({});
+  const [openModelExcludeProject, setOpenModalExcludeProject] = useState(false);
+
+  //const [deleteProjectMutation] = useMutation(DELETE_PROJECTS);
+	//const [updateProjectMutation] = useMutation(UPDATE_BADGES);
+	//const [createProjectMutation] = useMutation(CREATE_BADGES);
 
   const { themeColors } = useContext(ThemeContext);
   const [editOrCreateModalInfo, setEditOrCreateModalInfo] = useState({
     open: false,
   });
 
+	const handleCloseModal = () => {
+		setOpenModalExcludeProject(false);
+	};
+
   const handleCloseEditOrCreate = () => {
     setEditOrCreateModalInfo({ open: false });
   };
+
+  const handleExcludeProject = async (project) => {
+		var hide = message.loading("Excluindo");
+		try {
+			//await deleteProjectMutation({ variables: { projectId: project._id } });
+			hide();
+			message.success("Excluido com sucesso", 2.5);
+			// refetchMembers();
+			// refetch();
+      console.log("funcionou.");
+		} catch (err) {
+			console.error(err);
+			hide();
+			message.error("Houve um problema, tente novamente", 2.5);
+		}
+		setEditOrCreateModalInfo(false);
+	};
 
   const editOrCreateProject = (method, badge) => {
     const withInitialValue = method === "edit";
@@ -62,7 +102,8 @@ const Projects = () => {
     setEditOrCreateModalInfo(modalData);
   };
   const deleteProject = (project) => {
-    console.log("Aqui vai o modal de deletar o projeto", project);
+    setExcludeProject(project);
+	  setOpenModalExcludeProject(true);
   };
 
   //um array de objetos será enviado do backend
@@ -138,6 +179,13 @@ const Projects = () => {
           )}
         </tbody>
       </table>
+      <ConfirmationModal
+					title="Apagar Projeto"
+					content={`Deseja mesmo apagar o projeto? "${excludeProject.name}"?`}
+					isVisible={openModelExcludeProject}
+					handleOk={() => handleExcludeProject(excludeProject)}
+					handleCancel={handleCloseModal}
+			/>
       <FormModal {...editOrCreateModalInfo} />
     </ProjectsComponent>
   );
