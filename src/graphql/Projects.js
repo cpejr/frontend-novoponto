@@ -20,5 +20,22 @@ const CREATE_PROJECT = gql`
   }
 `;
 
-export { GET_PROJECTS, CREATE_PROJECT };
+const EDIT_PROJECT = gql`
+  mutation EditProject($id: ID!, $data: ProjectUpdate!) {
+    updateProject(_id: $id, data: $data){
+      name
+      area
+    }
+  }
+`;
+
+const DELETE_PROJECT = gql`
+  mutation DeleteProject($id: ID!){
+    deleteProject(_id: $id){
+      _id
+    }
+  }
+`;
+
+export { GET_PROJECTS, CREATE_PROJECT, EDIT_PROJECT, DELETE_PROJECT };
 

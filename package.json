@@ -5,6 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.5.0",
     "@apollo/client": "^3.3.13",
+    "@babel/plugin-proposal-async-generator-functions": "^7.20.7",
     "@react-oauth/google": "^0.9.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

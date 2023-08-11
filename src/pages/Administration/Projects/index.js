@@ -8,7 +8,7 @@ import { Skeleton, message } from "antd";
 import ProjectRow from "./ProjectRow";
 import FormModal from "../../../components/organisms/FormModal";
 import validators from "../../../services/validators";
-import { GET_PROJECTS, CREATE_PROJECT } from "../../../graphql/Projects";
+import { GET_PROJECTS, CREATE_PROJECT, EDIT_PROJECT, DELETE_PROJECT } from "../../../graphql/Projects";
 //import { GlobalsContext } from "../../../context/GlobalsProvider";
 import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
 
@@ -28,21 +28,7 @@ const Projects = () => {
     setEditOrCreateModalInfo({ open: false });
   };
 
-  const handleExcludeProject = async (project) => {
-    var hide = message.loading("Excluindo");
-    try {
-      hide();
-      message.success("Excluido com sucesso", 2.5);
-      console.log("funcionou.");
-    } catch (err) {
-      console.error(err);
-      hide();
-      message.error("Houve um problema, tente novamente", 2.5);
-    }
-    setEditOrCreateModalInfo(false);
-  };
-
-  const editOrCreateProject = (method, badge) => {
+  const editOrCreateProject = (method, project) => {
     const withInitialValue = method === "edit";
 
     var fields = [
@@ -52,7 +38,7 @@ const Projects = () => {
         label: "Projeto",
         placeholder: "Digite o nome do projeto",
         rules: [validators.antdRequired()],
-        initialValue: withInitialValue ? badge.name : undefined,
+        initialValue: withInitialValue ? project.name : undefined,
       },
       {
         key: "area",
@@ -60,7 +46,7 @@ const Projects = () => {
         label: "Área",
         placeholder: "Digite a área do projeto",
         rules: [validators.antdRequired()],
-        initialValue: withInitialValue ? badge.area : undefined,
+        initialValue: withInitialValue ? project.area : undefined,
       },
     ];
 
@@ -73,7 +59,7 @@ const Projects = () => {
 
     if (method === "edit") {
       modalData.title = "Editar Projeto";
-      //modalData.onSubmit = alert("Editar");
+      modalData.onSubmit = handleEditProject;
     } else {
       modalData.title = "Criar Projeto";
       modalData.onSubmit = createProject;
@@ -88,6 +74,8 @@ const Projects = () => {
 
   //linkagem
   const [createProjectMutation] = useMutation(CREATE_PROJECT);
+  const [editProjectMutation] = useMutation(EDIT_PROJECT);
+  const [deleteProjectMutation] = useMutation(DELETE_PROJECT);
   const { loading, error, data, refetch } = useQuery(GET_PROJECTS);
 
   const createProject = async (project) => {
@@ -112,6 +100,47 @@ const Projects = () => {
     refetch();
     handleCloseEditOrCreate();
   };
+
+  const handleExcludeProject = async (project) => {
+    var hide = message.loading("Excluindo");
+    try {
+      await deleteProjectMutation({ variables: { _id: project._id} })
+      hide();
+      message.success("Projeto excluido com sucesso", 2.5);
+      refetch();
+      console.log("funcionou.");
+    } catch (error) {
+      console.error(error);
+      hide();
+      message.error("Houve um problema, tente novamente.", 2.5);
+    }
+    refetch();
+    setOpenModalExcludeProject(true);
+  };
+
+  const handleEditProject = (id) => async (ProjectUpdate) => {
+    const { Nome, Area } = ProjectUpdate;
+    const novoProject = {
+      name: Nome,
+      area: Area,
+    };
+
+    var hide = message.loading("Atualizando");
+    try{
+      await editProjectMutation({ variables: { id, data: novoProject }});
+      hide();
+      message.success("Projeto atualizado com sucesso!", 2.5);
+      refetch();
+    } catch(err){
+      console.error(err);
+      hide();
+      message.error("Houve um problema, tente novamente.", 2.5);
+    }
+    refetch();
+    refetch();
+    handleCloseEditOrCreate();
+  }
+  
   if (loading)
     return (
       <Skeleton
@@ -179,4 +208,3 @@ const Projects = () => {
 };
 
 export default Projects;
-
