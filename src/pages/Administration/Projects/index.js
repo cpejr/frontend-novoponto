@@ -8,13 +8,8 @@ import { Skeleton, message } from "antd";
 import ProjectRow from "./ProjectRow";
 import FormModal from "../../../components/organisms/FormModal";
 import validators from "../../../services/validators";
-import {
-  GET_PROJECTS,
-  DELETE_PROJECT,
-  UPDATE_PROJECT,
-  CREATE_PROJECT,
-} from "../../../graphql/Projects";
-import { GlobalsContext } from "../../../context/GlobalsProvider";
+import { GET_PROJECTS, CREATE_PROJECT } from "../../../graphql/Projects";
+//import { GlobalsContext } from "../../../context/GlobalsProvider";
 import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
 
 const Projects = () => {
@@ -92,8 +87,6 @@ const Projects = () => {
   };
 
   //linkagem
-  const [deleteProjectMutation] = useMutation(DELETE_PROJECT);
-  const [updateProjectMutation] = useMutation(UPDATE_PROJECT);
   const [createProjectMutation] = useMutation(CREATE_PROJECT);
   const { loading, error, data, refetch } = useQuery(GET_PROJECTS);
 
@@ -115,6 +108,7 @@ const Projects = () => {
       hide();
       message.error("Houve um problema, tente novamente", 2.5);
     }
+    refetch();
     refetch();
     handleCloseEditOrCreate();
   };
