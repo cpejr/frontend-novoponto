@@ -1,44 +1,43 @@
 import gql from "graphql-tag";
 
 const GET_PROJECTS = gql`
-	query GetProjects {
-		projects {
-			_id
-			name
-      description
-			url
-		}
-	}
+  query GetProjects {
+    projects {
+      _id
+      name
+      area
+    }
+  }
 `;
 
-const DELETE_PROJECTS = gql`
-	mutation DeleteProjects($projectId: ID!) {
-		deleteProjects(projectId: $projectId) {
-			_id
-		}
-	}
+const DELETE_PROJECT = gql`
+  mutation DeleteProject($_id: ID!) {
+    deleteProject(_id: $_id) {
+      _id
+      name
+      area
+    }
+  }
 `;
 
-const UPDATE_PROJECTS = gql`
-	mutation UpdateProjects($projectId: ID!, $data: ProjectsUpdate) {
-		updateProjects(projectId: $projectId, data: $data) {
-			_id
-			name
-      description
-			url
-		}
-	}
+const UPDATE_PROJECT = gql`
+  mutation UpdateProject($id: ID!, $data: ProjectUpdate!) {
+    updateProject(_id: $id, data: $data) {
+      _id
+      name
+      area
+    }
+  }
 `;
 
-const CREATE_PROJECTS = gql`
-	mutation CreateProjects($data: ProjectsInput!) {
-		createProjects(data: $data) {
-			_id
-			name
-      description
-      url
-		}
-	}
+const CREATE_PROJECT = gql`
+  mutation CreateProject($data: ProjectInput!) {
+    createProject(data: $data) {
+      _id
+      name
+      area
+    }
+  }
 `;
 
-export { GET_PROJECTS, DELETE_PROJECTS, UPDATE_PROJECTS, CREATE_PROJECTS };
+export { GET_PROJECTS, CREATE_PROJECT, UPDATE_PROJECT, DELETE_PROJECT };

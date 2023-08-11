@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useQuery, useMutation } from "@apollo/client";
 import { ProjectsComponent } from "./styles";
 import { FundProjectionScreenOutlined } from "@ant-design/icons";
 import { CommonButton } from "../../../components/atoms";
@@ -7,60 +8,44 @@ import { Skeleton, message } from "antd";
 import ProjectRow from "./ProjectRow";
 import FormModal from "../../../components/organisms/FormModal";
 import validators from "../../../services/validators";
-// import {
-//   GET_PROJECTS,
-//   DELETE_PROJECTS,
-//   UPDATE_PROJECTS,
-//   CREATE_PROJECTS
-// } from "../../../graphql/Projects";
+import {
+  GET_PROJECTS,
+  DELETE_PROJECT,
+  UPDATE_PROJECT,
+  CREATE_PROJECT,
+} from "../../../graphql/Projects";
+import { GlobalsContext } from "../../../context/GlobalsProvider";
 import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
-// import { useMutation, useQuery } from "@apollo/client";
-// import { GlobalsContext } from "../../../context/GlobalsProvider";
 
 const Projects = () => {
-  //const { refetchMembers } = useContext(GlobalsContext);
-  //const { loading, error, refetch } = useQuery(GET_PROJECTS); //adicionar "data" se precisar
-  // não sei se vão continuar como usestates no futuro, tem que ver como que a linkagem será feita
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  console.log(loading);
-  console.log(error);
   const [excludeProject, setExcludeProject] = useState({});
   const [openModelExcludeProject, setOpenModalExcludeProject] = useState(false);
-
-  //const [deleteProjectMutation] = useMutation(DELETE_PROJECTS);
-	//const [updateProjectMutation] = useMutation(UPDATE_BADGES);
-	//const [createProjectMutation] = useMutation(CREATE_BADGES);
-
   const { themeColors } = useContext(ThemeContext);
   const [editOrCreateModalInfo, setEditOrCreateModalInfo] = useState({
     open: false,
   });
 
-	const handleCloseModal = () => {
-		setOpenModalExcludeProject(false);
-	};
+  const handleCloseModal = () => {
+    setOpenModalExcludeProject(false);
+  };
 
   const handleCloseEditOrCreate = () => {
     setEditOrCreateModalInfo({ open: false });
   };
 
   const handleExcludeProject = async (project) => {
-		var hide = message.loading("Excluindo");
-		try {
-			//await deleteProjectMutation({ variables: { projectId: project._id } });
-			hide();
-			message.success("Excluido com sucesso", 2.5);
-			// refetchMembers();
-			// refetch();
+    var hide = message.loading("Excluindo");
+    try {
+      hide();
+      message.success("Excluido com sucesso", 2.5);
       console.log("funcionou.");
-		} catch (err) {
-			console.error(err);
-			hide();
-			message.error("Houve um problema, tente novamente", 2.5);
-		}
-		setEditOrCreateModalInfo(false);
-	};
+    } catch (err) {
+      console.error(err);
+      hide();
+      message.error("Houve um problema, tente novamente", 2.5);
+    }
+    setEditOrCreateModalInfo(false);
+  };
 
   const editOrCreateProject = (method, badge) => {
     const withInitialValue = method === "edit";
@@ -96,35 +81,43 @@ const Projects = () => {
       //modalData.onSubmit = alert("Editar");
     } else {
       modalData.title = "Criar Projeto";
-      //modalData.onSubmit = alert("Criar");
+      modalData.onSubmit = createProject;
     }
 
     setEditOrCreateModalInfo(modalData);
   };
   const deleteProject = (project) => {
     setExcludeProject(project);
-	  setOpenModalExcludeProject(true);
+    setOpenModalExcludeProject(true);
   };
 
-  //um array de objetos será enviado do backend
-  const projects = [
-    {
-      _id: 1,
-      name: "Doti",
-      area: "Sistemas web",
-    },
-    {
-      _id: 2,
-      name: "MVP Clínicas",
-      area: "Sistemas web",
-    },
-    {
-      _id: 3,
-      name: "Classroom",
-      area: "Aplicativos",
-    },
-  ];
+  //linkagem
+  const [deleteProjectMutation] = useMutation(DELETE_PROJECT);
+  const [updateProjectMutation] = useMutation(UPDATE_PROJECT);
+  const [createProjectMutation] = useMutation(CREATE_PROJECT);
+  const { loading, error, data, refetch } = useQuery(GET_PROJECTS);
 
+  const createProject = async (project) => {
+    var hide = message.loading("Criando");
+
+    const { Projeto, Área } = project;
+    const newProject = {
+      name: Projeto,
+      area: Área,
+    };
+
+    try {
+      await createProjectMutation({ variables: { data: newProject } });
+      hide();
+      message.success("Criado com sucesso", 2.5);
+    } catch (err) {
+      console.error(err);
+      hide();
+      message.error("Houve um problema, tente novamente", 2.5);
+    }
+    refetch();
+    handleCloseEditOrCreate();
+  };
   if (loading)
     return (
       <Skeleton
@@ -163,8 +156,8 @@ const Projects = () => {
           </tr>
         </thead>
         <tbody>
-          {projects.length > 0 ? (
-            projects.map((project) => (
+          {!loading && data.projects.length > 0 ? (
+            data.projects.map((project) => (
               <ProjectRow
                 key={project._id}
                 project={project}
@@ -180,12 +173,12 @@ const Projects = () => {
         </tbody>
       </table>
       <ConfirmationModal
-					title="Apagar Projeto"
-					content={`Deseja mesmo apagar o projeto? "${excludeProject.name}"?`}
-					isVisible={openModelExcludeProject}
-					handleOk={() => handleExcludeProject(excludeProject)}
-					handleCancel={handleCloseModal}
-			/>
+        title="Apagar Projeto"
+        content={`Deseja mesmo apagar o projeto? "${excludeProject.name}"?`}
+        isVisible={openModelExcludeProject}
+        handleOk={() => handleExcludeProject(excludeProject)}
+        handleCancel={handleCloseModal}
+      />
       <FormModal {...editOrCreateModalInfo} />
     </ProjectsComponent>
   );
