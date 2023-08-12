@@ -108,7 +108,6 @@ const Projects = () => {
       hide();
       message.success("Projeto excluido com sucesso", 2.5);
       refetch();
-      console.log("funcionou.");
     } catch (error) {
       console.error(error);
       hide();
@@ -118,7 +117,7 @@ const Projects = () => {
     setOpenModalExcludeProject(true);
   };
 
-  const handleEditProject = (id) => async (ProjectUpdate) => {
+  const handleEditProject = (_id) => async (ProjectUpdate) => {
     const { Nome, Area } = ProjectUpdate;
     const novoProject = {
       name: Nome,
@@ -127,17 +126,15 @@ const Projects = () => {
 
     var hide = message.loading("Atualizando");
     try{
-      await editProjectMutation({ variables: { id, data: novoProject }});
+      await editProjectMutation({ variables: { _id, data: novoProject }});
       hide();
       message.success("Projeto atualizado com sucesso!", 2.5);
       refetch();
-    } catch(err){
-      console.error(err);
+    } catch(error){
+      console.error(error);
       hide();
       message.error("Houve um problema, tente novamente.", 2.5);
     }
-    refetch();
-    refetch();
     handleCloseEditOrCreate();
   }
   

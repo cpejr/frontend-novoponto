@@ -21,8 +21,8 @@ const CREATE_PROJECT = gql`
 `;
 
 const EDIT_PROJECT = gql`
-  mutation EditProject($id: ID!, $data: ProjectUpdate!) {
-    updateProject(_id: $id, data: $data){
+  mutation EditProject($_id: ID!, $data: ProjectUpdate!) {
+    updateProject(_id: $_id, data: $data){
       name
       area
     }
@@ -30,8 +30,8 @@ const EDIT_PROJECT = gql`
 `;
 
 const DELETE_PROJECT = gql`
-  mutation DeleteProject($id: ID!){
-    deleteProject(_id: $id){
+  mutation DeleteProject($_id: ID!){
+    deleteProject(_id: $_id){
       _id
     }
   }
