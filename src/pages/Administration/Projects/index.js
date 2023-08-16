@@ -69,10 +69,11 @@ const Projects = () => {
   };
 
   const handleEditProject = (_id) => async (ProjectUpdate) => {
-    const { Area, Nome } = ProjectUpdate;
+    console.log(ProjectUpdate)
+    const { Área, Projeto } = ProjectUpdate;
     const newProject = {
-      area: Area,
-      name: Nome,
+      area: Área,
+      name: Projeto,
     };
 
     var hide = message.loading("Atualizando");
@@ -137,7 +138,7 @@ const Projects = () => {
       message.error("Houve um problema, tente novamente.", 2.5);
     }
     refetch();
-    setOpenModalExcludeProject(true);
+    setOpenModalExcludeProject(false);
   };
   
   if (loading)
