@@ -9,7 +9,6 @@ import ProjectRow from "./ProjectRow";
 import FormModal from "../../../components/organisms/FormModal";
 import validators from "../../../services/validators";
 import { GET_PROJECTS, CREATE_PROJECT, EDIT_PROJECT, DELETE_PROJECT } from "../../../graphql/Projects";
-//import { GlobalsContext } from "../../../context/GlobalsProvider";
 import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
 
 const Projects = () => {
@@ -94,7 +93,6 @@ const Projects = () => {
     setOpenModalExcludeProject(true);
   };
 
-  //linkagem
   const [createProjectMutation] = useMutation(CREATE_PROJECT);
   const [editProjectMutation] = useMutation(EDIT_PROJECT);
   const [deleteProjectMutation] = useMutation(DELETE_PROJECT);
