@@ -69,7 +69,6 @@ const Projects = () => {
   };
 
   const handleEditProject = (_id) => async (ProjectUpdate) => {
-    console.log(ProjectUpdate)
     const { Área, Projeto } = ProjectUpdate;
     const newProject = {
       area: Área,
@@ -78,7 +77,6 @@ const Projects = () => {
 
     var hide = message.loading("Atualizando");
     try{
-      console.log(newProject);
       await editProjectMutation({ variables: { _id, data: newProject } });
       hide();
       message.success("Projeto atualizado com sucesso!", 2.5);
