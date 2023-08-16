@@ -26,7 +26,7 @@ const Projects = () => {
 
   const handleCloseEditOrCreate = () => {
     setEditOrCreateModalInfo({ open: false });
-  };
+  }; 
 
   const editOrCreateProject = (method, project) => {
     const withInitialValue = method === "edit";
@@ -59,7 +59,7 @@ const Projects = () => {
 
     if (method === "edit") {
       modalData.title = "Editar Projeto";
-      modalData.onSubmit = handleEditProject;
+      modalData.onSubmit = handleEditProject(project._id);
     } else {
       modalData.title = "Criar Projeto";
       modalData.onSubmit = createProject;
@@ -67,6 +67,29 @@ const Projects = () => {
 
     setEditOrCreateModalInfo(modalData);
   };
+
+  const handleEditProject = (_id) => async (ProjectUpdate) => {
+    const { Area, Nome } = ProjectUpdate;
+    const newProject = {
+      area: Area,
+      name: Nome,
+    };
+
+    var hide = message.loading("Atualizando");
+    try{
+      console.log(newProject);
+      await editProjectMutation({ variables: { _id, data: newProject } });
+      hide();
+      message.success("Projeto atualizado com sucesso!", 2.5);
+      refetch();
+    } catch(error){
+      console.error(error);
+      hide();
+      message.error("Houve um problema, tente novamente.", 2.5);
+    }
+    handleCloseEditOrCreate();
+  };
+
   const deleteProject = (project) => {
     setExcludeProject(project);
     setOpenModalExcludeProject(true);
@@ -116,27 +139,6 @@ const Projects = () => {
     refetch();
     setOpenModalExcludeProject(true);
   };
-
-  const handleEditProject = (_id) => async (ProjectUpdate) => {
-    const { Nome, Area } = ProjectUpdate;
-    const novoProject = {
-      name: Nome,
-      area: Area,
-    };
-
-    var hide = message.loading("Atualizando");
-    try{
-      await editProjectMutation({ variables: { _id, data: novoProject }});
-      hide();
-      message.success("Projeto atualizado com sucesso!", 2.5);
-      refetch();
-    } catch(error){
-      console.error(error);
-      hide();
-      message.error("Houve um problema, tente novamente.", 2.5);
-    }
-    handleCloseEditOrCreate();
-  }
   
   if (loading)
     return (
@@ -199,6 +201,7 @@ const Projects = () => {
         handleOk={() => handleExcludeProject(excludeProject)}
         handleCancel={handleCloseModal}
       />
+        
       <FormModal {...editOrCreateModalInfo} />
     </ProjectsComponent>
   );
