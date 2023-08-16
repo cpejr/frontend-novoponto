@@ -33,8 +33,8 @@ const Sessions = () => {
   const filterMemberField = useRef();
 
   const memberToLogin = useRef();
-  const {data} = useContext(SessionContext);
-  memberTextToLogin.current = data.member;
+  const { data } = useContext(SessionContext);
+  memberToLogin.current = data.member;
 
   const { data: loggedData, refetch: refetchLoggedMembers } =
     useQuery(LOGGED_MEMBERS);
