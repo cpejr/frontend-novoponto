@@ -121,7 +121,7 @@ const Sessions = () => {
           <Button width="84px"
            onClick={() =>{setLoginModalVisible(true)} } 
            >
-            Login
+            Fazer Login
           </Button> 
         </form>
       </div>
