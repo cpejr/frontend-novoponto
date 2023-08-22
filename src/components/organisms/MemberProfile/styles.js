@@ -9,7 +9,9 @@ const MemberProfileContainer = styled.div`
   }
 
   .quote textarea {
-    height: 100%;
+    width: 600px;
+    border-radius: 5px;
+    max-width: 70%;
   }
 
   .quote button {
@@ -24,18 +26,20 @@ const MemberProfileContainer = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
+    height: 200px;
+    margin-left: 5%;
   }
 
   .messageBox {
     background-color: #1d1d1d;
-    width: 100%;
+    width: 400px;
+    height: 200px;
     min-height: 80px;
-    border-radius: 2px;
+    border-radius: 5px;
     padding: 8px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    border-radius: 2px;
     white-space: pre-line;
   }
 
@@ -49,6 +53,33 @@ const MemberProfileContainer = styled.div`
     bottom: 0;
     margin-bottom: 8px;
     margin-right: 8px;
+  }
+
+  .messageAndFrase{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0;
+    gap: 15%;
+    margin-left: 5px;
+    margin-top: 2px;
+  }
+
+  .botaoSalvar{
+    margin-left: 89%;
+    margin-top: 1.25%;
+  }
+
+  .titulo1{
+    margin-left: 5.5%;
+    margin-top: 3%;
+  }
+
+  .imagemNomeCargo{
+    margin-left: 30%;
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
   }
 `;
 
