@@ -19,5 +19,12 @@ const ModalButtonSection = styled.div`
   align-items: center;
 `;
 
-export { ModalContainer, ModalContentSection, ModalButtonSection };
+const RequiredDot = styled.p`
+  padding: 0;
+  margin: 0;
+  color: red;
+  display: inline;
+`;
+
+export { ModalContainer, ModalContentSection, ModalButtonSection, RequiredDot };
 

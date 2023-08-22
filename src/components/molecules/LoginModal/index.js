@@ -1,7 +1,7 @@
 import React, { /*&useContext, */ useState } from "react";
 import { Modal, Button } from "antd";
-import { ModalContainer, ModalContentSection } from "./styles";
-import { CommonSelectBox, TextArea } from "../../atoms";
+import { ModalContainer, ModalContentSection, RequiredDot } from "./styles";
+import { CommonSelectBox, DefaultLabel, TextArea } from "../../atoms";
 //import { ThemeContext } from "styled-components";
 import { GET_PROJECTS } from "../../../graphql/Projects";
 import { useQuery } from "@apollo/client";
@@ -48,8 +48,9 @@ const LoginModal = ({
   }
 
   function handleConfirm() {
-    setFormData({});
-    handleLogin(formData.isOnline, formData.selectedTask);
+    setFormData({}); //isso aqui funciona??????
+    //handleLogin(formData.isOnline, formData.selectedTask);
+    console.log(formData);
   }
 
   return (
@@ -66,7 +67,6 @@ const LoginModal = ({
         <Button
           style={{ color: "white", background: "#8A6B0E" }}
           key="submit"
-          // type="primary"
           onClick={handleConfirm}
         >
           Confirmar
@@ -76,6 +76,7 @@ const LoginModal = ({
       <ModalContainer>
         <ModalContentSection>
           {content}
+          <RequiredDot> *</RequiredDot>
           <CommonSelectBox
             placeholder="Presencial/Remoto"
             optionsList={modalityOptions}
@@ -84,19 +85,18 @@ const LoginModal = ({
             className="mt-3 mb-3"
           />
           O que você pretende fazer neste horário? {children}
+          <RequiredDot> *</RequiredDot>
           <CommonSelectBox
             placeholder="Tarefa"
             optionsList={tasksOptions}
             onChange={(data) => handleChangeData("selectedTask", data)}
-            value={formData.selectedTask}
             className="mt-3 mb-3"
           />
           Você vai trabalhar em algum projeto?
           <CommonSelectBox
             placeholder="Projeto"
             optionsList={projectOptions}
-            onChange={(data) => handleChangeData("selectedTask", data)}
-            value={formData.selectedTask}
+            onChange={(data) => handleChangeData("selectedProject", data)}
             className="mt-3 mb-3"
           />
           Deseja descrever melhor o que irá fazer?
@@ -104,10 +104,10 @@ const LoginModal = ({
             placeholder="Descrição da atividade exercida"
             maxLength={150}
             className="mt-3 mb-3"
-            //autoSize={true}
-            //showCount
-            //onChange={(data) => handleChangeData("description", data)}
-            //value={formData.selectedTask}
+            autoSize={true}
+            onChange={(data) =>
+              handleChangeData("description", data.target.value)
+            }
           />
         </ModalContentSection>
       </ModalContainer>
