@@ -20,3 +20,4 @@ const ModalButtonSection = styled.div`
 `;
 
 export { ModalContainer, ModalContentSection, ModalButtonSection };
+

@@ -1,8 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { /*&useContext, */ useState } from "react";
 import { Modal, Button } from "antd";
 import { ModalContainer, ModalContentSection } from "./styles";
-import { CommonSelectBox } from "../../atoms";
-import { ThemeContext } from "styled-components";
+import { CommonSelectBox, TextArea } from "../../atoms";
+//import { ThemeContext } from "styled-components";
+import { GET_PROJECTS } from "../../../graphql/Projects";
+import { useQuery } from "@apollo/client";
 
 const LoginModal = ({
   content,
@@ -15,7 +17,7 @@ const LoginModal = ({
 }) => {
   const modalityOptions = [
     {
-      value: false, // Precisa mesmo ser um objeto? Por que não uma lista simples de strings?
+      value: false,
       label: "Remoto",
     },
     {
@@ -26,6 +28,13 @@ const LoginModal = ({
   const tasksOptions = tasks?.map((task) => {
     return { value: task._id, label: task.name };
   });
+
+  const { data: dataProjects, loading } = useQuery(GET_PROJECTS);
+  const projectOptions =
+    loading ||
+    dataProjects.projects.map((project) => {
+      return { value: project._id, label: project.name };
+    });
 
   const [formData, setFormData] = useState({});
 
@@ -67,7 +76,6 @@ const LoginModal = ({
       <ModalContainer>
         <ModalContentSection>
           {content}
-          <br />
           <CommonSelectBox
             placeholder="Presencial/Remoto"
             optionsList={modalityOptions}
@@ -75,14 +83,31 @@ const LoginModal = ({
             value={formData.isOnline}
             className="mt-3 mb-3"
           />
-          O que pretende fazer nesse horário?
-          {children}
+          O que você pretende fazer neste horário? {children}
           <CommonSelectBox
             placeholder="Tarefa"
             optionsList={tasksOptions}
             onChange={(data) => handleChangeData("selectedTask", data)}
             value={formData.selectedTask}
             className="mt-3 mb-3"
+          />
+          Você vai trabalhar em algum projeto?
+          <CommonSelectBox
+            placeholder="Projeto"
+            optionsList={projectOptions}
+            onChange={(data) => handleChangeData("selectedTask", data)}
+            value={formData.selectedTask}
+            className="mt-3 mb-3"
+          />
+          Deseja descrever melhor o que irá fazer?
+          <TextArea
+            placeholder="Descrição da atividade exercida"
+            maxLength={150}
+            className="mt-3 mb-3"
+            //autoSize={true}
+            //showCount
+            //onChange={(data) => handleChangeData("description", data)}
+            //value={formData.selectedTask}
           />
         </ModalContentSection>
       </ModalContainer>
