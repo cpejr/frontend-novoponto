@@ -16,7 +16,6 @@ import { SessionContext } from "../../context/SessionProvider";
 import ConfirmationModal from "../../components/molecules/ConfirmationModal";
 import { SESSION_SUBSCRIPTION } from "../../graphql/Subscription";
 import diacriticCaseInsensitiveMatch from "../../utils/diacriticCaseInsensitiveMatch";
-import LoginModal from "../../components/molecules/LoginModal";
 import FormModal from "../../components/organisms/FormModal";
 import validators from "../../services/validators";
 import { GET_PROJECTS } from "../../graphql/Projects";
@@ -25,7 +24,6 @@ const Sessions = () => {
   const [memberToLogout, setMemberToLogout] = useState();
   const [filteredSessions, setFilteredSessions] = useState([]);
   const [showLogoutAllMembers, setShowLogoutAllMembers] = useState(false);
-  const [loginModalVisible, setLoginModalVisible] = useState(false);
 
   const [startSessionMutation] = useMutation(CREATE_SESSION);
   const [endSessionMutation] = useMutation(FINISH_SESSION);
@@ -39,7 +37,6 @@ const Sessions = () => {
 
   const { data: loggedData, refetch: refetchLoggedMembers } =
     useQuery(LOGGED_MEMBERS);
-  const { data: tasksData } = useQuery(GET_TASKS); //
 
   const { data: sessionUpdateData } = useSubscription(SESSION_SUBSCRIPTION);
 
@@ -62,27 +59,6 @@ const Sessions = () => {
       console.error(err);
       message.error("Houve um problema, tente novamente", 2.5);
     }
-  }
-
-  async function handleLogin(modality, taskId) {
-    const hide = message.loading("Fazendo Login...");
-    try {
-      await startSessionMutation({
-        variables: {
-          memberId: memberToLogin.current._id,
-          isPresential: modality,
-          taskId: taskId,
-        },
-      });
-      hide();
-      message.success(`Bom trabalho ${memberToLogin.current.name}!`, 2.5);
-    } catch (err) {
-      hide();
-      message.warn(err.message, 2.5);
-    } finally {
-      memberToLogin.current = undefined;
-    }
-    setLoginModalVisible(false);
   }
 
   useEffect(() => {
@@ -214,7 +190,6 @@ const Sessions = () => {
           <Button
             width="84px"
             onClick={() => {
-              setLoginModalVisible(true);
               createSession();
             }}
           >
@@ -251,14 +226,6 @@ const Sessions = () => {
           setShowLogoutAllMembers(false);
         }}
         handleCancel={() => setShowLogoutAllMembers(false)}
-      />
-      <LoginModal
-        title="Confirmação de login"
-        content={`Como deseja logar ${memberToLogin.current?.name}?`}
-        isVisible={loginModalVisible}
-        tasks={tasksData?.tasks}
-        handleLogin={handleLogin}
-        handleCancel={() => setLoginModalVisible(false)}
       />
       <FormModal {...createSessionModal} />
     </div>
