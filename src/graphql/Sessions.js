@@ -17,17 +17,27 @@ const LOGGED_MEMBERS = gql`
       duration
       formatedDuration
       isPresential
+      description
+      projectId
     }
   }
   ${DefaultSessionFields}
 `;
 
 const CREATE_SESSION = gql`
-  mutation StartSession($memberId: ID!, $isPresential: Boolean!, $taskId: ID!) {
+  mutation StartSession(
+    $memberId: ID!
+    $isPresential: Boolean!
+    $taskId: ID!
+    $description: String
+    $projectId: ID!
+  ) {
     startSession(
       memberId: $memberId
       isPresential: $isPresential
       taskId: $taskId
+      description: $description
+      projectId: $projectId
     ) {
       start
       isPresential
@@ -37,6 +47,7 @@ const CREATE_SESSION = gql`
       task {
         name
       }
+      description
     }
   }
 `;
@@ -59,3 +70,4 @@ const END_ALL_SESSIONS = gql`
 `;
 
 export { LOGGED_MEMBERS, CREATE_SESSION, FINISH_SESSION, END_ALL_SESSIONS };
+

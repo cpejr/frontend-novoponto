@@ -70,7 +70,6 @@ const Sessions = () => {
     updateFilter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedMembers]);
-
   function updateFilter() {
     const value = filterMemberField?.current?.input.value;
     if (value && value.trim() !== "")
@@ -150,22 +149,21 @@ const Sessions = () => {
     };
     setCreateSessionModal(modalData);
   };
-
+  console.log(filteredSessions);
   const createSessionCall = async (modalData) => {
     const newSession = {
       isPresential:
         modalData[`Como deseja logar ${memberToLogin.current.name}?`],
       memberId: memberToLogin.current._id,
       taskId: modalData["O que você pretende fazer neste horário?"],
-      //projectId: modalData["Você vai trabalhar em algum projeto?"],
-      //description: modalData["Deseja descrever melhor o que irá fazer?"],
+      projectId: modalData["Você vai trabalhar em algum projeto?"],
+      description: modalData["Deseja descrever melhor o que irá fazer?"],
     };
 
-    console.log(newSession);
     handleCloseModal();
     var hide = message.loading("Atualizando");
     try {
-      await startSessionMutation({ variables: newSession });
+      const teste = await startSessionMutation({ variables: newSession });
       hide();
       message.success(`Bom trabalho ${memberToLogin.current.name}!`, 2.5);
     } catch (error) {

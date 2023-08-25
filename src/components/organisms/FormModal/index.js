@@ -36,7 +36,6 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
 
   const handleSubmit = async () => {
     try {
-      console.log(onSubmit);
       const data = await form.validateFields();
       onSubmit && onSubmit(data);
     } catch (error) {}
