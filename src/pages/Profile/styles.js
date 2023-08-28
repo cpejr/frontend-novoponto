@@ -22,7 +22,7 @@ const ProfileComponent = styled.div`
   .outlinedBox {
     width: 90%;
     max-width: 100%;
-    height: 420px;
+    height: auto;
   }
 `;
 

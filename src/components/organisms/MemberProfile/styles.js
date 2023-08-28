@@ -5,35 +5,40 @@ const MemberProfileContainer = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 120px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .custom_margin {
+    gap: 62%;
   }
 
   .quote textarea {
-    width: 600px;
+    width: 80%;
     border-radius: 5px;
-    max-width: 70%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .quote button {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    margin-bottom: 8px;
-    margin-right: 8px;
+    right: 8px;
+    bottom: 8px;
+    top: 50px;
   }
 
   .message {
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 200px;
-    margin-left: 5%;
+    height: auto;
+    margin: 10px 0;
+    width: 80%;
   }
 
   .messageBox {
     background-color: #1d1d1d;
-    width: 400px;
-    height: 200px;
+    width: 100%;
     min-height: 80px;
     border-radius: 5px;
     padding: 8px;
@@ -45,41 +50,51 @@ const MemberProfileContainer = styled.div`
 
   .message textarea {
     min-height: 80px;
+    width: 100%;
   }
 
   .message button {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    margin-bottom: 8px;
-    margin-right: 8px;
+    right: 8px;
+    bottom: 8px;
   }
 
-  .messageAndFrase{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin: 0;
-    gap: 15%;
-    margin-left: 5px;
-    margin-top: 2px;
-  }
-
-  .botaoSalvar{
-    margin-left: 89%;
-    margin-top: 1.25%;
-  }
-
-  .titulo1{
+  .titulo1 {
     margin-left: 5.5%;
     margin-top: 3%;
+    display: flex;
+    justify-content: start;
+    margin-left: 0px;
   }
 
-  .imagemNomeCargo{
+  .imagemNomeCargo {
     margin-left: 30%;
     display: flex;
     flex-direction: row;
     gap: 5%;
+    justify-content: start;
+    margin-left: 0px;
+  }
+
+  @media (max-width: 800px) {
+    .messageAndFrase {
+      flex-direction: column; 
+      gap: 20px;
+    }
+
+    .message,
+    .quote {
+      width: 100%; 
+    }
+
+    .quote textarea,
+    .message textarea {
+      max-width: 100%;
+    }
+
+    .messageBox{
+      width: 100%;
+    }
   }
 `;
 

@@ -58,7 +58,7 @@ const MemberProfile = ({
 
   return (
     <MemberProfileContainer>
-      <div className="d-flex flex-column-reverse flex-sm-row mb-2 justify-content-between">
+      <div className="d-flex flex-column-reverse flex-sm-row mb-2 custom_margin">
         <Row>
           <div className="imagemNomeCargo">
             <MemberAvatar src={member?.imageLink} className="col-auto" />
@@ -75,7 +75,7 @@ const MemberProfile = ({
         </Row>
         {!isAdm && (
           <LogoutPointButton
-            className="col-12 col-sm-3 mb-3 mb-sm-0"
+            className="col-md-12 col-sm-3 mb-3 mb-sm-0"
             onClick={handleLogOutRequest}
           />
         )}
@@ -84,44 +84,53 @@ const MemberProfile = ({
         <DefaultText>Assessor: {member?.responsible?.name}</DefaultText>
       </div>
       <div className="messageAndFrase">
-        <div className="message">
-          <DefaultSubTitle>Mensagem do acompanhamento:</DefaultSubTitle>
-          {!isAdm ? (
-            <div className="messageBox">{member?.message?.text}</div>
-          ) : (
-            <>
+        <div className="row">
+          <div className="col-md-6">
+            <div className="message">
+              <DefaultSubTitle>Mensagem do acompanhamento:</DefaultSubTitle>
+              {!isAdm ? (
+                <div className="messageBox">{member?.message?.text}</div>
+              ) : (
+                <>
+                  <TextArea
+                    resize={true}
+                    onChange={(e) =>
+                      handleOnChange({
+                        message: { text: e.target.value, read: false },
+                      })
+                    }
+                    value={newData?.message?.text}
+                  />
+                  <SaveButton
+                    saved={newData?.message?.text === member?.message?.text}
+                    onClick={handleSave}
+                  />
+                </>
+              )}
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="quote mt-2">
+              <DefaultSubTitle>Frase:</DefaultSubTitle>
               <TextArea
-                resize={true}
-                onChange={(e) =>
-                  handleOnChange({
-                    message: { text: e.target.value, read: false },
-                  })
-                }
-                value={newData?.message?.text}
-              />
-              <SaveButton
-                saved={newData?.message?.text === member?.message?.text}
-                onClick={handleSave}
-              />
-            </>
-          )}
+                maxLength={50}
+                resize={"none"}
+                onChange={(e) => handleOnChange({ status: e.target.value })}
+                value={newData?.status}
+              />  
+            </div>
+          </div>
         </div>
-        <div className="quote mt-2">
-          <DefaultSubTitle>Frase:</DefaultSubTitle>
-          <TextArea
-            maxLength={50}
-            resize={"none"}
-            onChange={(e) => handleOnChange({ status: e.target.value })}
-            value={newData?.status}
-          />  
-        </div>
-      </div>
-      <div className="botaoSalvar">
+        
+        
+        {/* <div className="botaoSalvar">
         <SaveButton
             saved={newData?.status === member?.status}
             onClick={handleSave}
         />
+        </div> */}
       </div>
+      
       <ConfirmationModal
         title="Log out"
         content={`${member?.name}, Você deseja mesmo fazer logout?`}
