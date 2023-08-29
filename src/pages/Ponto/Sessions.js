@@ -37,7 +37,7 @@ const Sessions = () => {
 
   const { data: loggedData, refetch: refetchLoggedMembers } =
     useQuery(LOGGED_MEMBERS);
-
+  console.log(loggedData?.loggedMembers[0]);
   const { data: sessionUpdateData } = useSubscription(SESSION_SUBSCRIPTION);
 
   const { loggedMembers } = loggedData || {};
@@ -149,7 +149,6 @@ const Sessions = () => {
     };
     setCreateSessionModal(modalData);
   };
-  console.log(filteredSessions);
   const createSessionCall = async (modalData) => {
     const newSession = {
       isPresential:
