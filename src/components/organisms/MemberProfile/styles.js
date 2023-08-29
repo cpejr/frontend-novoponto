@@ -24,7 +24,6 @@ const MemberProfileContainer = styled.div`
     position: absolute;
     right: 8px;
     bottom: 8px;
-    top: 50px;
   }
 
   .message {
@@ -33,7 +32,7 @@ const MemberProfileContainer = styled.div`
     position: relative;
     height: auto;
     margin: 10px 0;
-    width: 80%;
+    width: 70%;
   }
 
   .messageBox {
@@ -68,12 +67,18 @@ const MemberProfileContainer = styled.div`
   }
 
   .imagemNomeCargo {
-    margin-left: 30%;
     display: flex;
     flex-direction: row;
     gap: 5%;
     justify-content: start;
     margin-left: 0px;
+  }
+
+  .botaoLogOut{
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
   @media (max-width: 800px) {
@@ -94,6 +99,14 @@ const MemberProfileContainer = styled.div`
 
     .messageBox{
       width: 100%;
+    }
+  }
+
+  @media (max-width: 450px){
+    .botaoLogOut{
+      flex-direction: column-reverse;
+      gap: 10px;
+      margin-bottom: 10%;
     }
   }
 `;

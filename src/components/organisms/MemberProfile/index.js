@@ -59,26 +59,29 @@ const MemberProfile = ({
   return (
     <MemberProfileContainer>
       <div className="d-flex flex-column-reverse flex-sm-row mb-2 custom_margin">
-        <Row>
-          <div className="imagemNomeCargo">
-            <MemberAvatar src={member?.imageLink} className="col-auto" />
-            <div className="d-flex flex-column justify-content-around ms-2">
-              <MemberName name={member?.name} className="namePart" />
-              {member?.role && (
-                <DefaultLabel
-                  labelText={member?.role?.name}
-                  labelColor="#FFD100"
-                />
-              )}
+        <div className="botaoLogOut">
+          <Row>
+            <div className="imagemNomeCargo">
+              <MemberAvatar src={member?.imageLink} className="col-auto" />
+              <div className="d-flex flex-column justify-content-around ms-2">
+                <MemberName name={member?.name} className="namePart" />
+                {member?.role && (
+                  <DefaultLabel
+                    labelText={member?.role?.name}
+                    labelColor="#FFD100"
+                  />
+                )}
+              </div>
             </div>
-          </div>
-        </Row>
-        {!isAdm && (
-          <LogoutPointButton
-            className="col-md-12 col-sm-3 mb-3 mb-sm-0"
-            onClick={handleLogOutRequest}
-          />
-        )}
+          </Row>
+        
+          {!isAdm && (
+            <LogoutPointButton
+              className="col-md-12 col-sm-3 mb-3 mb-sm-0"
+              onClick={handleLogOutRequest}
+            />
+          )}
+        </div>
       </div>
       <div className="titulo1">
         <DefaultText>Assessor: {member?.responsible?.name}</DefaultText>
