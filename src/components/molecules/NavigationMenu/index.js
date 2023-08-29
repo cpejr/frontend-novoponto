@@ -63,12 +63,6 @@ const Menuu = ({ collapsed, ...props }) => {
 				label={data?.member?.name || "Perfil"}
 				icon = {<UserOutlined/>}
 			/>
-			<MenuItem
-				key="/ponto/consultadehoras"
-				route="/ponto/consultadehoras"
-				icon={<ClockCircleOutlined />}
-				label="Consulta de horas"
-			/>
 
 			<MenuItem
 				key="/ponto/alteracaodehoras"

@@ -62,16 +62,15 @@ const MemberProfileContainer = styled.div`
     margin-left: 5.5%;
     margin-top: 3%;
     display: flex;
-    justify-content: start;
-    margin-left: 0px;
+    margin-left: 7.5%;
   }
 
   .imagemNomeCargo {
     display: flex;
     flex-direction: row;
     gap: 5%;
-    justify-content: start;
-    margin-left: 0px;
+    //justify-content: start;
+    margin-left: 35%;
   }
 
   .botaoLogOut{
@@ -79,6 +78,11 @@ const MemberProfileContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-right: 10%;
+  }
+
+  .messageAndFrase{
+    margin-left: 7.5%;
   }
 
   @media (max-width: 800px) {
@@ -102,11 +106,30 @@ const MemberProfileContainer = styled.div`
     }
   }
 
-  @media (max-width: 450px){
+  @media (max-width: 1100px){
+    .imagemNomeCargo{
+      margin-left: 27.5%;
+    }
+  }
+
+  @media (max-width: 785px){
+    .imagemNomeCargo{
+      margin-left: 17.5%;
+    }
+  }
+
+  @media (max-width: 545px){
     .botaoLogOut{
       flex-direction: column-reverse;
       gap: 10px;
       margin-bottom: 10%;
+      margin-left: 10%;
+    }
+
+    .imagemNomeCargo{
+      display: flex;
+      justify-content: start;
+      margin-left: 0px;
     }
   }
 `;
