@@ -103,7 +103,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
             title={
               <>
                 <TooltipTitle>{task?.name}</TooltipTitle>{" "}
-                <TooltipTitle>{project?.name}</TooltipTitle>
+                <TooltipTitle>{project?.name ?? ""}</TooltipTitle>
                 <TooltipTitle>{description ?? ""}</TooltipTitle>
               </>
             }

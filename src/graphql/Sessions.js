@@ -32,7 +32,7 @@ const CREATE_SESSION = gql`
     $isPresential: Boolean!
     $taskId: ID!
     $description: String
-    $projectId: ID!
+    $projectId: ID
   ) {
     startSession(
       memberId: $memberId
