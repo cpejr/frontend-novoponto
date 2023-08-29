@@ -14,10 +14,11 @@ import EditSessionModal from "../../components/molecules/EditSessionModal";
 import { GET_TASKS } from "../../graphql/Tasks";
 import { CREATE_SESSION, FINISH_SESSION } from "../../graphql/Sessions";
 import { useMutation, useQuery } from "@apollo/client";
+import { TooltipTitle } from "./styles";
 
 const SessionRow = ({ session, onLogout, ...props }) => {
   const { themeColors } = useContext(ThemeContext);
-  const { member, task } = session;
+  const { member, task, project, description } = session;
 
   const { data } = useContext(SessionContext);
 
@@ -97,7 +98,16 @@ const SessionRow = ({ session, onLogout, ...props }) => {
         </td>
 
         <td className="col-3 col-sm-2 d-flex align-items-center justify-content-around">
-          <Tooltip placement="top" title={task?.name}>
+          <Tooltip
+            placement="top"
+            title={
+              <>
+                <TooltipTitle>{task?.name}</TooltipTitle>{" "}
+                <TooltipTitle>{project?.name}</TooltipTitle>
+                <TooltipTitle>{description ?? ""}</TooltipTitle>
+              </>
+            }
+          >
             <Button
               style={{
                 border: "none",
@@ -138,3 +148,4 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 };
 
 export default SessionRow;
+

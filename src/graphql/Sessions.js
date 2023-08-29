@@ -18,9 +18,9 @@ const LOGGED_MEMBERS = gql`
       formatedDuration
       isPresential
       description
-      # project {
-      #   name
-      # }
+      project {
+        name
+      }
     }
   }
   ${DefaultSessionFields}

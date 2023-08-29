@@ -37,7 +37,6 @@ const Sessions = () => {
 
   const { data: loggedData, refetch: refetchLoggedMembers } =
     useQuery(LOGGED_MEMBERS);
-  console.log(loggedData?.loggedMembers[0]);
   const { data: sessionUpdateData } = useSubscription(SESSION_SUBSCRIPTION);
 
   const { loggedMembers } = loggedData || {};
@@ -162,7 +161,7 @@ const Sessions = () => {
     handleCloseModal();
     var hide = message.loading("Atualizando");
     try {
-      const teste = await startSessionMutation({ variables: newSession });
+      await startSessionMutation({ variables: newSession });
       hide();
       message.success(`Bom trabalho ${memberToLogin.current.name}!`, 2.5);
     } catch (error) {
