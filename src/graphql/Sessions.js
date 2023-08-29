@@ -1,6 +1,5 @@
 import gql from "graphql-tag";
 import { DefaultSessionFields } from "./Member";
-import { DefaultTaskFields } from "./Tasks";
 
 const LOGGED_MEMBERS = gql`
   query LoggedMembers {
