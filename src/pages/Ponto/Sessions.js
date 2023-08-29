@@ -123,13 +123,11 @@ const Sessions = () => {
             onChange={updateFilter}
           />
         </div>
-        <form className="d-flex ms-0 ms-sm-3 col-sm-6 col-md-5 col-lg-4 col-xl-3 justify-content-end">
+        <form className="d-flex ms-0 col-sm-6 col-md-5 col-lg-4 col-xl-3 justify-content-end">
           
           <Button
             width="84px"
             onClick={() => {
-              handleLoginClick();
-              console.log(data._id);
             }}
           >
             Fazer Login
