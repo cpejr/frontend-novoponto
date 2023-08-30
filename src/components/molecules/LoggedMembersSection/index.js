@@ -38,7 +38,7 @@ const LoggedMembers = ({
             />
           </Row>
 					<Row className="gap-2">
-						{role && role.length > 23 ? <DefaultLabel labelText={`${role.slice(0, 22)}...`} className="d-xs-block d-sm-none d-md-none d-xl-none"/> :
+						{role && role.length > 22 ? <DefaultLabel labelText={`${role.slice(0, 22)}...`} className="d-xs-block d-sm-none d-md-none d-xl-none"/> :
 							<DefaultLabel labelText={role} className="d-xs-block d-sm-none d-md-none d-xl-none"/>
 						}
 						{role && <DefaultLabel labelText={role} className="d-none d-sm-block" />

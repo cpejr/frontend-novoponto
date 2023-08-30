@@ -61,6 +61,7 @@ const HoursConsultationComponent = styled.div`
   }
 
   .memberArea {
+    width: 360px;
     min-height: 80px;
     padding: 32px 0px;
   }
