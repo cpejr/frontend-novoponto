@@ -43,6 +43,7 @@ const BadgesComponent = styled.div`
 	td {
 		margin: 0;
 		padding: 0;
+		height: auto;
     img {
       height: 35px;
     }
@@ -55,9 +56,10 @@ const BadgesComponent = styled.div`
 	}
 
 	.badgeTable tr {
-		height: 80px;
+		height: auto;
+		min-height: 70px;
 		background-color: #141414;
-		padding: 0px 20px;
+		padding: 15px 20px;
 
 		display: flex;
 		justify-content: flex-start;
