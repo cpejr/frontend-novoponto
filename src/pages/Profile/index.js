@@ -5,6 +5,7 @@ import { SessionContext } from "../../context/SessionProvider";
 import { OutlinedBox } from "../../components/atoms";
 import MemberProfile from "../../components/organisms/MemberProfile";
 import useGoogleAuth from "../../services/firebase";
+import Footer from "../../components/molecules/Footer";
 
 const CardView = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -29,6 +30,7 @@ const CardView = () => {
           member={data?.member}
         />
       </OutlinedBox>
+      <Footer />
     </ProfileComponent>
   );
 };
