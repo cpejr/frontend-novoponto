@@ -15,6 +15,7 @@ import { GET_TASKS } from "../../graphql/Tasks";
 import { CREATE_SESSION, FINISH_SESSION } from "../../graphql/Sessions";
 import { useMutation, useQuery } from "@apollo/client";
 import { TooltipTitle } from "./styles";
+import { GET_PROJECTS } from "../../graphql/Projects";
 
 const SessionRow = ({ session, onLogout, ...props }) => {
   const { themeColors } = useContext(ThemeContext);
@@ -27,8 +28,8 @@ const SessionRow = ({ session, onLogout, ...props }) => {
   const [startSessionMutation] = useMutation(CREATE_SESSION);
   const [endSessionMutation] = useMutation(FINISH_SESSION);
 
-  async function handleEditTask(taskId) {
-    const hide = message.loading("Trocando tarefa...");
+  async function handleEditCall(editFields) {
+    const hide = message.loading("Alterando sessão...");
     try {
       await endSessionMutation({
         variables: { memberId: member._id },
@@ -37,7 +38,9 @@ const SessionRow = ({ session, onLogout, ...props }) => {
         variables: {
           memberId: member._id,
           isPresential: session.isPresential,
-          taskId: taskId,
+          taskId: editFields?.selectedTask || session?.task?._id,
+          projectId: editFields?.selectedProject || session?.project?._id,
+          description: editFields?.description || session?.description,
         },
       });
       hide();
@@ -57,6 +60,11 @@ const SessionRow = ({ session, onLogout, ...props }) => {
     () => member.name === data.member.name,
     [data.member.name, member.name]
   );
+
+  const { data: dataProjects } = useQuery(GET_PROJECTS);
+  const projectOptionsList = dataProjects?.projects.map((project) => {
+    return { value: project._id, label: project.name };
+  });
 
   return (
     <>
@@ -137,10 +145,10 @@ const SessionRow = ({ session, onLogout, ...props }) => {
       </tr>
       <EditSessionModal
         title="Edição de tarefa"
-        content={`Qual sera a próxima tarefa?`}
         isVisible={EditSessionModalVisible}
         tasks={tasksData?.tasks}
-        handleEditTask={handleEditTask}
+        projects={projectOptionsList}
+        handleEditCall={handleEditCall}
         handleCancel={() => setEditSessionModalVisible(false)}
       />
     </>

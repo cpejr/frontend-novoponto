@@ -19,6 +19,7 @@ const LOGGED_MEMBERS = gql`
       description
       project {
         name
+        _id
       }
     }
   }
