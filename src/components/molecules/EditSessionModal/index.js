@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Modal, Button } from "antd";
 import { ModalContainer, ModalContentSection } from "./styles";
 import { CommonSelectBox, TextArea } from "../../atoms";
-import AutocompleteInput from "../AutocompleteInput";
 
 const EditSessionModal = ({
   title,
