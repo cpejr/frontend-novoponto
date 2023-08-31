@@ -10,7 +10,7 @@ import {
 import { Tooltip, message, Skeleton, Table } from "antd";
 import { MembersComponent, ActionsDiv } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
-
+import Footer from "../../../components/molecules/Footer";
 import {
   CommonButton,
   DefaultLabel,
@@ -348,6 +348,9 @@ const Members = () => {
         handleCancel={handleCloseModal}
       />
       <FormModal {...editOrCreateModalInfo} />
+      <div>
+        <Footer />
+      </div>
     </MembersComponent>
   );
 };

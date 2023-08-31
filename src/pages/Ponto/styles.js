@@ -25,4 +25,6 @@ const newsComponent = styled.div`
   background-color: ${(props) => props.theme.appBackground};
 `;
 
-export { PontoComponent, newsComponent };
+const FooterDiv = styled.div``;
+
+export { PontoComponent, newsComponent, FooterDiv };

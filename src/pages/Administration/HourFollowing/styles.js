@@ -11,6 +11,10 @@ const HourFollowingContainer = styled.div`
     max-width: 400px;
     min-height: 590px;
   }
+
+  .divFooter{
+    margin-top: 560px;
+  }
 `;
 
 export { HourFollowingContainer };

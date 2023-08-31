@@ -9,6 +9,7 @@ import { Button, message } from "antd";
 import { GlobalsContext } from "../../../context/GlobalsProvider";
 import { useMutation } from "@apollo/client";
 import { ReplaceNews } from "../../../graphql/News";
+import Footer from "../../../components/molecules/Footer";
 
 function dynamicSort(property) {
 	var sortOrder = 1;
@@ -151,6 +152,9 @@ const UpdateNews = () => {
 					</Button>
 				</div>
 			</div>
+			<div>
+        		<Footer />
+      		</div>
 		</UpdatedNewsComponent>
 	);
 };

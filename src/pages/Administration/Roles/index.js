@@ -10,7 +10,7 @@ import { GlobalsContext } from "../../../context/GlobalsProvider";
 import { message, Skeleton } from "antd";
 import { RolesComponent } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
-
+import Footer from "../../../components/molecules/Footer";
 import { CommonButton } from "../../../components/atoms";
 import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
 import FormModal from "../../../components/organisms/FormModal";
@@ -216,6 +216,9 @@ const Roles = () => {
           handleCancel={handleCloseModal}
         />
         <FormModal {...editOrCreateModalInfo} />
+        <div>
+          <Footer />
+        </div>
       </RolesComponent>
     );
   }

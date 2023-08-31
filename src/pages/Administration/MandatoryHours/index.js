@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { MandatoryHoursComponent } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
-
+import Footer from "../../../components/molecules/Footer";
 import Lottie from "react-lottie";
 import buildingLottie from "../../../assets/lotties/building.json";
 import { DefaultText } from "../../../components/atoms";
@@ -41,6 +41,9 @@ const MandatoryHours = () => {
       <DefaultText style={{ opacity: 0.5 }}>
         (isso pode levar um tempo)
       </DefaultText>
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 };

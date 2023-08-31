@@ -4,6 +4,7 @@ import { LeftOutlined } from '@ant-design/icons';
 import { StandByComponent } from './styles';
 import { ThemeContext } from '../../context/ThemeProvider';
 import logoCPE from '../../assets/logoCPE.png';
+import Footer from '../../components/molecules/Footer';
 
 const StandBy = () => {
     const { themeColors } = useContext(ThemeContext);
@@ -91,6 +92,9 @@ const StandBy = () => {
                 <LeftOutlined size={14} />
                 Voltar
             </a>
+            <div>
+              <Footer />
+            </div>
         </StandByComponent>
     );
 }

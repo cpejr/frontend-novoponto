@@ -84,4 +84,8 @@ const ActionsDiv = styled.div`
   }
 `;
 
-export { TasksComponent, ActionsDiv };
+const DivFooter = styled.div`
+  margin-top: 60px;
+`;
+
+export { TasksComponent, ActionsDiv, DivFooter };

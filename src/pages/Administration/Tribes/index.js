@@ -10,15 +10,14 @@ import { message, Skeleton } from "antd";
 import { TribesComponent } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
 import { GlobalsContext } from "../../../context/GlobalsProvider";
-
 import { CommonButton } from "../../../components/atoms";
 import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
-import FormModal from "../../../components/organisms/FormModal";
-
+import Footer from "../../../components/molecules/Footer";
 import { RocketOutlined } from "@ant-design/icons";
 
 import validators from "../../../services/validators";
 import TribeRow from "./TribeRow";
+import FormModal from "../../../components/organisms/FormModal";
 
 const Tribes = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -231,6 +230,9 @@ const Tribes = () => {
           handleCancel={handleCloseModal}
         />
         <FormModal {...editOrCreateModalInfo} />
+        <div>
+          <Footer />
+        </div>
       </TribesComponent>
     );
   }
