@@ -17,9 +17,11 @@ import {
 	HourFollowing,
 	Login,
 	Tasks,
+	Departaments,
 	Tribes,
     Badges,
 } from "../pages";
+
 
 function Menu() {
   return (
@@ -48,6 +50,11 @@ function Menu() {
 				/>
 				<RestrictedRoute
 					minAccessLevel={1}
+					path="/ponto/departamentos"
+					component={Departaments}
+				/>
+				<RestrictedRoute
+					minAccessLevel={1}
 					path="/ponto/acompanhamento"
 					component={HourFollowing}
 				/>
@@ -69,7 +76,7 @@ function Menu() {
 					path="/ponto/horarioobrigatorio"
 					minAccessLevel={1}
 					component={MandatoryHours}
-				/> */}
+				/ */
       </Switch>
     </SidebarMenu>
   );

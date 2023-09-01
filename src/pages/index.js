@@ -12,3 +12,4 @@ export { default as Tribes } from "./Administration/Tribes";
 export { default as HourFollowing } from "./Administration/HourFollowing";
 export { default as Tasks } from "./Administration/Tasks";
 export { default as Badges } from "./Administration/Badges";
+export { default as Departaments } from "./Administration/Departaments";
