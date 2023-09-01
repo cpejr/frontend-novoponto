@@ -12,16 +12,16 @@ const GET_DEPARTAMENTS = gql`
 `;
 
 const DELETE_DEPARTAMENT = gql`
-    mutation DeleteDepartament($departament_id: ID!) {
-        deleteDepartament(departament_id: $departament_id) {
+    mutation DeleteDepartament($departamentId: ID!) {
+        deleteDepartament(departamentId: $departamentId) {
             _id
         }
     }
 `;
 
 const UPDATE_DEPARTAMENT = gql`
-    mutation UpdateDeparatament($departament_id: ID!, $data: DepartamentUpdate) {
-        updateDepartament(departament_id: $departament_id, data: $data) {
+    mutation UpdateDeparatament($departamentId: ID!, $data: DepartamentUpdate) {
+        updateDepartament(departamentId: $departamentId, data: $data) {
             _id
             name
             color

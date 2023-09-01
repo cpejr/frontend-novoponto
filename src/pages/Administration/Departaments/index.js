@@ -172,11 +172,11 @@ const Departaments = () => {
       />
     );
 
-  if (error) {
+  /*if (error) {
     console.log(error);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
-  }
+  }*/
 
   if (data) {
     const { departaments } = data;
