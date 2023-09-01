@@ -1,5 +1,5 @@
 import React from "react";
-import logoDoti from "../../../assets/logoDoti.svg";
+import logoDoti from "../../../assets/logoDoti.png";
 import logoCPE from '../../../assets/logoCPE.png';
 import { 
     FooterContainer, 
@@ -17,11 +17,11 @@ const Footer = () => {
                 <LogoDoti>
                     <img src={logoDoti} alt="Doti"/>
                 </LogoDoti>
-            </FooterElements>
+            
 
-            <Separator />
+                <Separator />
 
-            <FooterElements>
+            
                 <LogoCPE>
                     <img src={logoCPE} alt="Consultoria e Projétos Elétricos Júnior"/>
                 </LogoCPE>

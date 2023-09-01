@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const FooterContainer = styled.div`
     background-color: #000;
-    color: white;
     padding: 20px;
     text-align: center;
     position: absolute;
@@ -13,35 +12,91 @@ export const FooterContainer = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: row;
+
+    @media (max-width: 280px){
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+    }
+
+    @media (max-width: 350px){
+        position: absolute;
+        margin-top: 250px;
+    }
+
+    @media (max-width: 1550px){
+        position: absolute;
+        margin-top: 245px;
+    }
 `;
 
 export const FooterElements = styled.div`
     color: yellow;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 `;
 
 export const Separator = styled.div`
     width: 3px;
     height: 75px;
-    margin: 0 40px;
+    margin: 0 40px 0 20px;
     background-color: yellow;
     border-radius: 10px;
     align-items: center;
+
+    @media (max-width: 330px){
+        width: 3px;
+        margin: 0 30px 0 20px;
+    }
+
+    @media (max-width: 280px){
+        margin: 0 30px 0 20px;
+    }
 `;
 
 export const LogoDoti = styled.div`
-    width: 10px;
-    height: 10px;
-    margin-right: 100px;
-    fill: white;
+    width: 150px;
+    height: 60px;
+    margin-right: 0px;
+    margin-top: 5px;
+
+    img{
+        margin-top: -10px;
+        max-width: 100%;
+    }
+
+    @media (max-width: 330px){
+        margin-left: -5px;
+        width: 120px;
+    }
+
+    @media (max-width: 280px){
+        margin-right: 0px;
+        margin-top: 10px;
+        width: 120px;
+        
+    }
 `;
 
 export const LogoCPE = styled.div`
     width: 100px;
     margin-left: 10px;
-    fill: white;
     
     img{
         margin-top: -10px;
         max-width: 100%;
+    }
+
+    @media (max-width: 330px){
+        margin-right: 20px;
+        width: 80px;
+    }
+
+    @media (max-width: 280px){
+        margin-left: 10px;
+        margin-right: 15px;
+        margin-top: 0px;
+        width: 90px;
     }
 `;

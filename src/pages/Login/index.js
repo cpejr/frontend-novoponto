@@ -8,7 +8,6 @@ import OutlinedBoxContainer from "../../components/atoms/OutlinedBox";
 import logoAmarela from "../../assets/logoAmarela.png";
 import LoginButton from "./login";
 import { DefaultText } from "../../components/atoms";
-import Footer from "../../components/molecules/Footer";
 
 const Login = () => {
   const { data, error } = useContext(SessionContext);
@@ -41,9 +40,6 @@ const Login = () => {
       ) : (
         <Redirect to="/ponto" />
       )}
-      <div>
-        <Footer />
-      </div>
     </LoginComponent>
   );
 };
