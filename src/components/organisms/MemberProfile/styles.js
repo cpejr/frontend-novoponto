@@ -69,7 +69,6 @@ const MemberProfileContainer = styled.div`
     display: flex;
     flex-direction: row;
     gap: 5%;
-    //justify-content: start;
     margin-left: 35%;
   }
 

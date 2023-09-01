@@ -124,14 +124,6 @@ const MemberProfile = ({
             </div>
           </div>
         </div>
-        
-        
-        {/* <div className="botaoSalvar">
-        <SaveButton
-            saved={newData?.status === member?.status}
-            onClick={handleSave}
-        />
-        </div> */}
       </div>
       
       <ConfirmationModal

@@ -9,7 +9,6 @@ const LogoutPointButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* margin-right: 7%; */
   transition: opacity 0.5s;
   cursor: pointer;
 
