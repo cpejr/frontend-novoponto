@@ -20,6 +20,7 @@ import {
 	Tribes,
     Badges,
 } from "../pages";
+import EditColors from "../pages/Administration/EditColors";
 
 function Menu() {
   return (
@@ -61,15 +62,16 @@ function Menu() {
 					minAccessLevel={1}
 					component={Tasks}
 				/>
-                <RestrictedRoute
-                    minAccessLevel={1}
-                    path="/ponto/reconhecimentos"
-                    component={Badges}
-                />
-					path="/ponto/horarioobrigatorio"
-					minAccessLevel={1}
-					component={MandatoryHours}
-				/> */}
+				<RestrictedRoute
+						minAccessLevel={1}
+						path="/ponto/reconhecimentos"
+						component={Badges}
+				/>
+				<RestrictedRoute
+						minAccessLevel={1}
+						path="/ponto/editarCores"
+						component={EditColors}
+				/>
       </Switch>
     </SidebarMenu>
   );

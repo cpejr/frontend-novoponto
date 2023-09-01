@@ -130,6 +130,12 @@ const Menuu = ({ collapsed, ...props }) => {
           route="/ponto/reconhecimentos"
           label="Reconhecimentos"
         />
+        <MenuItem
+          disabled={!access || access === 0}
+          key="/ponto/editarCores"
+          route="/ponto/editarCores"
+          label="Editar Cores"
+        />
 			</SubMenu>
 
       <MenuItem
