@@ -83,7 +83,7 @@ function App() {
           <SessionContextProvider>
             <GlobalsContextProvider>
               <GlobalStyle />
-              <Routes />
+                  <Routes />
             </GlobalsContextProvider>
           </SessionContextProvider>
         </ThemeContextProvider>

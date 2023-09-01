@@ -3,6 +3,7 @@ import { Modal, Button } from "antd";
 import { ModalContainer, ModalContentSection } from "./styles";
 import { CommonSelectBox } from "../../atoms";
 import { ThemeContext } from "styled-components";
+import { colors } from "../../../context/ThemeProvider/pallete";
 
 const LoginModal = ({
   content,
@@ -55,7 +56,7 @@ const LoginModal = ({
         </Button>,
 
         <Button
-          style={{ color: "white", background: "#8A6B0E" }}
+          style={{ color: "white", background: colors.secondaryColor }}
           key="submit"
           // type="primary"
           onClick={handleConfirm}
