@@ -79,8 +79,8 @@ const BadgesComponent = styled.div`
 
 	.badgeColumn {
 		width: 45%;
-		max-width: 50vw;
-		min-width: 140px;
+		max-width: 100vw;
+		min-width: 170px;
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;

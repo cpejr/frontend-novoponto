@@ -23,9 +23,9 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    .ant-picker-panel-container {
+    .ant-picker-panels {
       @media (max-width: 560px) {
-        width: 300px;
+        flex-direction: column;
       }
     }
   }
