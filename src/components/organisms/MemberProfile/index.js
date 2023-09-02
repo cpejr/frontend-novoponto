@@ -12,6 +12,7 @@ import SaveButton from "../../molecules/SaveButton";
 import ConfirmationModal from "../../molecules/ConfirmationModal";
 import { Row } from "antd";
 import { MemberProfileContainer } from "./styles";
+import { colors } from "../../../context/ThemeProvider/pallete";
 
 const MemberProfile = ({
   member,
@@ -65,7 +66,7 @@ const MemberProfile = ({
             {member?.role && (
               <DefaultLabel
                 labelText={member?.role?.name}
-                labelColor="#FFD100"
+                labelColor={colors.primaryColor}
               />
             )}
           </div>

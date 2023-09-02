@@ -63,7 +63,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   ::-webkit-scrollbar-thumb {
-    background: ${colors.yellowCPE};
+    background: ${colors.primaryColor};
     border-radius: 20px;
   }
 

@@ -12,7 +12,6 @@ import {
 } from "../../../graphql/Color";
 const EditColors = () => {
 
-
   const [primaryColorInput, setPrimaryColorInput] = useState('');
   const [secondColorInput, setSecondColorInput] = useState('')
   const [primaryColor, setPrimaryColor] = useState("#aabbcc");
@@ -30,24 +29,22 @@ const EditColors = () => {
     }
   }
   const [createColorMutation] = useMutation(CREATE_COLORS);
-  const { loading, error, data, refetch } = useQuery(GET_COLORS);
+  
   const createColor = async (color) => {
 
-    const { PrimaryColor, SecundaryColor } = color;
     const newColor = {
-      primaryColor: PrimaryColor,
-      secundary: SecundaryColor,
+      primaryColor: primaryColor,
+      secundaryColor: secondColor,
     };
 
     try {
+      console.log(newColor);
       await createColorMutation({ variables: { data: newColor } });
       message.success("Cores inseridas com sucesso", 2.5);
     } catch (err) {
       console.error(err);
       message.error("Houve um problema, tente novamente", 2.5);
     }
-    refetch();
-
   };
 
   return (
@@ -83,6 +80,7 @@ const EditColors = () => {
 						buttonLabel="Enviar"
 						color="#22762B"
 						width="100%"
+            onClick={createColor}
 					/>
 				</div>
       </OutlinedBox>

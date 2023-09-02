@@ -11,11 +11,11 @@ const GET_COLORS = gql`
 `; 
  
 const CREATE_COLORS = gql` 
-	mutation CreateColors($data: ColorsInput!) { 
-		createColors(data: $data) { 
+	mutation CreateColors($data: ColorInput!) { 
+		createColor(data: $data) { 
 			_id 
 			primaryColor 
-            secundaryColor
+			secundaryColor
 		} 
 	} 
 `; 
