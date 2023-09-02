@@ -4,7 +4,12 @@ import { themedColors } from "../../../context/ThemeProvider/pallete";
 import { EditColorComponent } from "./styles";
 import { HexColorPicker } from "react-colorful";
 import { Input } from "antd";
-
+import { message } from "antd";
+import { useQuery, useMutation } from "@apollo/client";
+import {
+  GET_COLORS,
+  CREATE_COLORS,
+} from "../../../graphql/Color";
 const EditColors = () => {
 
 
@@ -24,6 +29,26 @@ const EditColors = () => {
       setSecondColor(input);
     }
   }
+  const [createColorMutation] = useMutation(CREATE_COLORS);
+  const { loading, error, data, refetch } = useQuery(GET_COLORS);
+  const createColor = async (color) => {
+
+    const { PrimaryColor, SecundaryColor } = color;
+    const newColor = {
+      primaryColor: PrimaryColor,
+      secundary: SecundaryColor,
+    };
+
+    try {
+      await createColorMutation({ variables: { data: newColor } });
+      message.success("Cores inseridas com sucesso", 2.5);
+    } catch (err) {
+      console.error(err);
+      message.error("Houve um problema, tente novamente", 2.5);
+    }
+    refetch();
+
+  };
 
   return (
     <EditColorComponent theme={themedColors} className="">
