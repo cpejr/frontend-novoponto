@@ -43,7 +43,6 @@ const HoursConsultationComponent = styled.div`
     left: 0 !important;
   }
 
-  /* Ajuste CSS do RangePicjer */
   .ant-picker-range {
     min-width: 250px;
   }
