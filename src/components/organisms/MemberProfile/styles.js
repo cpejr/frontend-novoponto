@@ -30,7 +30,7 @@ const MemberProfileContainer = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-    height: auto;
+    height: 200px;
     margin: 10px 0;
     width: 70%;
   }
@@ -70,6 +70,12 @@ const MemberProfileContainer = styled.div`
     flex-direction: row;
     gap: 5%;
     margin-left: 35%;
+
+    @media (max-width: 340px){
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
   }
 
   .botaoLogOut{
