@@ -20,7 +20,6 @@ const SessionRow = ({ session, onLogout, ...props }) => {
   const { member, task } = session;
 
   const { data } = useContext(SessionContext);
-  const memberSession = data.member;
 
   const [EditSessionModalVisible, setEditSessionModalVisible] = useState(false);
   const { data: tasksData } = useQuery(GET_TASKS);
@@ -60,14 +59,15 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 
   return (
     <>
-      <tr {...props} className="d-flex">
-        <td className="col-5 col-sm-4">
+      <tr {...props} className="d-flex h-auto py-2">
+        <td className="col-6 col-sm-5 col-md-6">
           <LoggedMembers
             name={member.name}
             imageLink={member.imageLink}
             tribe={member?.tribe}
             role={member?.role?.name}
             description={member.status}
+            recognition={member.Badge}
           />
         </td>
         <td className="col-2 d-none d-sm-flex align-items-center justify-content-center">
@@ -78,7 +78,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
             />
           </div>
         </td>
-        <td className="col-2 d-none d-sm-flex align-items-center justify-content-center">
+        <td className="col-1 col-sm-2 col-md-1 d-none d-sm-flex align-items-center justify-content-center">
           <div className="d-flex">
             <HourDisplayer
               hour={session.start}
@@ -87,7 +87,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
             />
           </div>
         </td>
-        <td className="col-3 col-sm-2 d-flex align-items-center justify-content-center">
+        <td className="col-2 col-sm-2 col-md-1 d-flex align-items-center justify-content-center">
           <div className="d-flex">
             <DurationDisplayer
               startTime={session.start}

@@ -7,6 +7,7 @@ export { default as InfoDisplayer } from "./InfoDisplayer";
 export { default as InputText } from "./InputText";
 export { default as LogoutPointButton } from "./LogoutPointButton";
 export { default as MemberDescription } from "./MemberDescription";
+export { default as MemberRecognition } from "./MemberRecognition"
 export { default as MemberName } from "./MemberName";
 export { default as MemberAvatar } from "./MemberAvatar";
 export { default as OutlinedBox } from "./OutlinedBox";

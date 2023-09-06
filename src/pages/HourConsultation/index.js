@@ -45,6 +45,7 @@ const HoursConsultation = () => {
             tribe={member.tribe}
             description={member.status}
             imageLink={member.imageLink}
+            recognition={member.Badge}
           />
         </div>
       )}
