@@ -22,12 +22,12 @@ const Sessions = () => {
 
   const [memberToLogout, setMemberToLogout] = useState();
   const [filteredSessions, setFilteredSessions] = useState([]);
-  const [showLogoutAllMembers, setShowLogoutAllMembers] = useState(false);
+  //const [showLogoutAllMembers, setShowLogoutAllMembers] = useState(false);
   const [loginModalVisible, setLoginModalVisible] = useState(false);
 
   const [startSessionMutation] = useMutation(CREATE_SESSION);
   const [endSessionMutation] = useMutation(FINISH_SESSION);
-  const [endAllSessions] = useMutation(END_ALL_SESSIONS);
+  //const [endAllSessions] = useMutation(END_ALL_SESSIONS);
 
   const filterMemberField = useRef();
   const memberToLogin = useRef();
@@ -133,11 +133,6 @@ const Sessions = () => {
         />
       </div>
 
-      <div className="d-flex justify-content-end">
-        <Button onClick={() => setShowLogoutAllMembers(true)}>
-          Deslogar todos os membros
-        </Button>
-      </div>
       <ConfirmationModal
         title="Confirmação de logout"
         content={`Deseja deslogar ${memberToLogout?.name}?`}
@@ -145,16 +140,7 @@ const Sessions = () => {
         handleOk={() => handleLogoutMember(memberToLogout)}
         handleCancel={() => setMemberToLogout()}
       />
-      <ConfirmationModal
-        title="Confirmação"
-        content={`Deseja deslogar todos os membros?`}
-        isVisible={showLogoutAllMembers}
-        handleOk={() => {
-          endAllSessions();
-          setShowLogoutAllMembers(false);
-        }}
-        handleCancel={() => setShowLogoutAllMembers(false)}
-      />
+      
       <LoginModal
         title="Confirmação de login"
         content={`Como deseja logar ${memberToLogin.current?.name}?`}
