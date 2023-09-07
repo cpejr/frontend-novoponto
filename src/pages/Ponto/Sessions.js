@@ -31,7 +31,7 @@ const Sessions = () => {
   const filterMemberField = useRef();
   const memberToLogin = useRef();
   const { data } = useContext(SessionContext);
-  memberToLogin.current = data.member
+  memberToLogin.current = data.member;
 
   const { data: loggedData, refetch: refetchLoggedMembers } =
     useQuery(LOGGED_MEMBERS);
@@ -115,7 +115,7 @@ const Sessions = () => {
         </div>
         <form className="d-flex ms-0 ms-sm-3 col-sm-6 col-md-5 col-lg-4 col-xl-3 justify-content-end">
           <Button width="84px" onClick={() => setLoginModalVisible(true)}>
-            Login
+            Fazer Login
           </Button>
         </form>
       </div>
