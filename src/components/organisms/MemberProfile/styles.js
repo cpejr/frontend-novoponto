@@ -30,7 +30,7 @@ const MemberProfileContainer = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 200px;
+    height: 195px;
     margin: 10px 0;
     width: 70%;
   }

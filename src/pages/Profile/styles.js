@@ -6,6 +6,11 @@ const ProfileComponent = styled.div`
 
   background-color: ${(props) => props.theme.appBackground};
 
+  @media (max-width: 767px){
+    margin: 0;
+    width: 105%;
+  }
+
   .centralize {
     display: flex;
     justify-content: center;
@@ -23,6 +28,8 @@ const ProfileComponent = styled.div`
     width: 90%;
     max-width: 100%;
     height: auto;
+    display: flex;
+    justify-content: start;
   }
 `;
 
