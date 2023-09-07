@@ -50,6 +50,10 @@ const MemberProfileContainer = styled.div`
     margin-bottom: 8px;
     margin-right: 8px;
   }
+
+  .BotaoInserirHoras{
+    padding: 10px 0px;
+  }
 `;
 
 export { MemberProfileContainer };

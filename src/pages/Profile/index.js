@@ -17,7 +17,6 @@ const CardView = () => {
       updateSelf({
         message: { read: true, text: data?.member?.message?.text },
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
