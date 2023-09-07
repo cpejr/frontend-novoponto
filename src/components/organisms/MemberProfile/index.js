@@ -143,7 +143,6 @@ const MemberProfile = ({
 	}
 
   function disabledDate(current) {
-		// Can not select days after today
 		return current && current > moment().endOf("day");
 	}
 
