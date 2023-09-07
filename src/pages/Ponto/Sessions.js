@@ -124,12 +124,7 @@ const Sessions = () => {
           />
         </div>
         <form className="d-flex ms-0 col-sm-6 col-md-5 col-lg-4 col-xl-3 justify-content-end">
-          
-          <Button
-            width="84px"
-            onClick={() => {
-            }}
-          >
+          <Button width="84px" onClick={() => handleLoginClick()}>
             Fazer Login
           </Button>
         </form>
