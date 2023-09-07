@@ -19,6 +19,8 @@ import { RocketOutlined } from "@ant-design/icons";
 
 import validators from "../../../services/validators";
 import RoleRow from "./RoleRow";
+import { useEffect } from "react";
+import { GET_DEPARTMENTS } from "../../../graphql/Departaments";
 
 const Roles = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -28,12 +30,27 @@ const Roles = () => {
   const [editOrCreateModalInfo, setEditOrCreateModalInfo] = useState({
     open: false,
   });
+  const [availableDepartaments, setAvaibleDepartaments] = useState([]);
   const { availableRoles } = useContext(GlobalsContext);
 
   const [deleteRoleMutation] = useMutation(DELETE_ROLE);
   const [updateRoleMutation] = useMutation(UPDATE_ROLE);
   const [createRoleMutation] = useMutation(CREATE_ROLE);
-  const { loading, error, data, refetch } = useQuery(GET_ROLES);
+  const { loading: loadingRoles, error: errorRoles, data: dataRoles, refetch: refetchRoles } = useQuery(GET_ROLES);
+
+  // Second Query
+  const { loading: loadingDepartments, error: errorDepartments, data: dataDepartments, refetch: refetchDepartments } = useQuery(GET_DEPARTMENTS);
+
+  useEffect(() => {
+    if (!loadingDepartments && !errorDepartments && dataDepartments && dataDepartments.departament) {
+      const newDepartments = dataDepartments.departament.map((d, index) => ({
+        label: d.name,
+        value: index,
+      }));
+    
+      setAvaibleDepartaments([...availableDepartaments, ...newDepartments]);
+    }
+  }, [loadingDepartments, errorDepartments, dataDepartments])
 
   const handleOpenModal = (role) => {
     setExcludeRole(role);
@@ -54,7 +71,7 @@ const Roles = () => {
       await deleteRoleMutation({ variables: { roleId: role._id } });
       hide();
       message.success("Excluido com sucesso", 2.5);
-      refetch();
+      refetchRoles();
     } catch (err) {
       console.error(err);
       hide();
@@ -82,6 +99,15 @@ const Roles = () => {
         initialValue: withInitialValue ? role.access : undefined,
 
         options: availableRoles,
+      },
+      {
+        key: "access",
+        type: "select",
+        label: "Departamento",
+        validator: validators.antdRequired,
+        initialValue: withInitialValue ? role.departament : undefined,
+
+        options: availableDepartaments,
       },
     ];
 
@@ -120,7 +146,7 @@ const Roles = () => {
       await updateRoleMutation({ variables: { roleId, data: newRole } });
       hide();
       message.success("Alterado com sucesso", 2.5);
-      refetch();
+      refetchRoles();
     } catch (err) {
       console.error(err);
       hide();
@@ -132,7 +158,7 @@ const Roles = () => {
   const createRole = async (role) => {
     var hide = message.loading("Criando");
 
-    const { Cargo, Permissão } = role;
+    const { Cargo, Permissão, Departamento } = role;
     const newRole = {
       access: Permissão,
       name: Cargo,
@@ -147,28 +173,28 @@ const Roles = () => {
       hide();
       message.error("Houve um problema, tente novamente", 2.5);
     }
-    refetch();
+    refetchRoles();
     handleCloseEditOrCreate();
   };
 
-  if (loading)
+  if (loadingRoles)
     return (
       <Skeleton
         paragraph={{ rows: 4 }}
         size={"large"}
-        active={loading}
-        loading={loading}
+        active={loadingRoles}
+        loading={loadingRoles}
       />
     );
 
-  if (error) {
-    console.log(error);
+  if (errorRoles) {
+    console.log(errorRoles);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
   }
 
-  if (data) {
-    const { roles } = data;
+  if (dataRoles) {
+    const { roles } = dataRoles;
 
     return (
       <RolesComponent theme={themeColors}>
