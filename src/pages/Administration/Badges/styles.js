@@ -88,6 +88,10 @@ const BadgesComponent = styled.div`
     overflow: auto;
 	}
 
+	.badgeName {
+		width: 110px;
+	}
+
 	.isAdmColumn {
 		width: 35%;
 		min-width: 150px;
