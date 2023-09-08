@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useMutation } from "@apollo/client";
-import { DatePicker, message, TimePicker } from "antd";
 import moment from "moment";
+import FormModal from "../../../components/organisms/FormModal";
 
 import {
   DefaultLabel,
@@ -13,11 +12,10 @@ import {
 } from "../../atoms";
 import SaveButton from "../../molecules/SaveButton";
 import ConfirmationModal from "../../molecules/ConfirmationModal";
-import FormModal from "../../../components/organisms/FormModal";
-import { Row } from "antd";
+
+import { Form, Row } from "antd";
 import { MemberProfileContainer } from "./styles";
 import { CommonButton } from "../../../components/atoms";
-import { SendAditionalHour } from "../../../graphql/AditionalHour";
 
 const INITIAL_ERRORS = {
 	member: false,
@@ -39,19 +37,43 @@ const MemberProfile = ({
   showAsAdministrator = false,
 }) => {
   const [isConfirmationVis, setIsConfirmationVis] = useState(false);
-  const [formData, setFormData] = useState({});
-  const [errors, setErrors] = useState(INITIAL_ERRORS);
+  const [openModalHourChange, setOpenModalHourChange] = useState(false);
+  const [createModalInfo, setCreateModalInfo] = useState({
+    open: false,
+  });
+
+  const handleOpenModal = () => {
+    setOpenModalHourChange(true);
+  }
+
+  const handleCloseModal = () => {
+    setOpenModalHourChange({ open: false });
+  }
+
+  const addHour = (hour) => {
+    const withInitialValue = "";
+
+    var fields = [
+      {
+        key: "modality",
+        type: "text",
+        label: "Modalidade: ",
+        // validator
+        initialValue: withInitialValue ? hour.access : undefined,
+      },
+      {
+        key: "work",
+        type: "text",
+        label: "O que você fez neste horário: ",
+        // validator
+        initialValue: withInitialValue ? hour.access : undefined,
+      }
+    ]
+  }
 
   const [newData, setNewData] = useState({
     status: member?.status || "",
   });
-
-  const [submitAditionalHours, { loading, error }] = useMutation(
-		SendAditionalHour,
-		{ ignoreResults: true }
-	);
-
-  const needComment = formData.hourAction !== "REMOVE";
 
   useEffect(() => {
     if (showAsAdministrator)
@@ -79,76 +101,9 @@ const MemberProfile = ({
     setIsConfirmationVis(true);
   }
 
-  function handleCloseModal() {
-    setIsConfirmationVis(false);
-  }
-
-  function handleSubmit(e) {
-		e.preventDefault();
-
-		if (!loading && validateFields()) {
-			const { hourAction, member, date, comment, isPresential } = formData;
-			let { duration } = formData;
-
-			duration = convertDurationToMilliseconds(duration);
-			if (hourAction === "REMOVE") duration *= -1;
-
-			submitAditionalHours({
-				variables: {
-					data: {
-						memberId: member,
-						date: date.startOf("day").toISOString(),
-						amount: duration,
-						description: comment,
-						isPresential: isPresential,
-					},
-				},
-			})
-				.then(() => {
-					setFormData({});
-					message.success("Enviado com sucesso!");
-				})
-				.catch(() => {
-					message.error("Vish algo deu errado.\nTente novamente mais tarde.");
-				});
-		}
-	}
-
-  function validateFields() {
-		const newErrors = {};
-		const { hourAction, member, date, duration, comment, isPresential } =
-			formData;
-
-		if (isPresential === undefined) newErrors.isPresential = true;
-
-		if (!member) newErrors.member = true;
-
-		if (!hourAction) newErrors.hourAction = true;
-
-		if (!date || date === "") newErrors.date = true;
-
-		if (!duration || convertDurationToMilliseconds(duration) < 1000)
-			newErrors.duration = true;
-
-		if (needComment && (!comment || comment?.trim() === ""))
-			newErrors.comment = true;
-
-		if (Object.keys(newErrors).length > 0) {
-			setErrors({ ...INITIAL_ERRORS, ...newErrors });
-			return false;
-		}
-
-		setErrors(INITIAL_ERRORS);
-		return true;
-	}
-
-  function disabledDate(current) {
-		return current && current > moment().endOf("day");
-	}
-
-	function handleChangeData(key, data) {
-		setFormData({ ...formData, [key]: data });
-	}
+  // function handleCloseModal() {
+  //   setIsConfirmationVis(false);
+  // }
 
   return (
     <MemberProfileContainer>
@@ -177,8 +132,7 @@ const MemberProfile = ({
               buttonLabel="Adicionar Horas"
               color="#22762B"
               width="100%"
-              onClick={handleSubmit}
-              loading={loading}
+              onClick={handleOpenModal}
             />
       </div>
       <div>
@@ -229,6 +183,7 @@ const MemberProfile = ({
         }}
         handleCancel={handleCloseModal}
       />
+      <FormModal {...createModalInfo} />
     </MemberProfileContainer>
   );
 };
