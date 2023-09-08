@@ -30,6 +30,7 @@ const Roles = () => {
   const [editOrCreateModalInfo, setEditOrCreateModalInfo] = useState({
     open: false,
   });
+  const [departaments, setDepartaments] = useState([]);
   const [availableDepartaments, setAvaibleDepartaments] = useState([]);
   const { availableRoles } = useContext(GlobalsContext);
 
@@ -37,17 +38,16 @@ const Roles = () => {
   const [updateRoleMutation] = useMutation(UPDATE_ROLE);
   const [createRoleMutation] = useMutation(CREATE_ROLE);
   const { loading: loadingRoles, error: errorRoles, data: dataRoles, refetch: refetchRoles } = useQuery(GET_ROLES);
-
-  // Second Query
   const { loading: loadingDepartments, error: errorDepartments, data: dataDepartments, refetch: refetchDepartments } = useQuery(GET_DEPARTMENTS);
 
   useEffect(() => {
-    if (!loadingDepartments && !errorDepartments && dataDepartments && dataDepartments.departament) {
+    if (!loadingDepartments && !errorDepartments && dataDepartments && availableDepartaments.length === 0) {
       const newDepartments = dataDepartments.departament.map((d, index) => ({
         label: d.name,
         value: index,
       }));
     
+      setDepartaments(dataDepartments.departament);
       setAvaibleDepartaments([...availableDepartaments, ...newDepartments]);
     }
   }, [loadingDepartments, errorDepartments, dataDepartments])
@@ -101,7 +101,7 @@ const Roles = () => {
         options: availableRoles,
       },
       {
-        key: "access",
+        key: "departament",
         type: "select",
         label: "Departamento",
         validator: validators.antdRequired,
@@ -157,11 +157,15 @@ const Roles = () => {
 
   const createRole = async (role) => {
     var hide = message.loading("Criando");
-
     const { Cargo, Permissão, Departamento } = role;
+
+    const departamentData = departaments.find(v => v.name === availableDepartaments[Departamento].label);
+    console.log(departamentData);
+
     const newRole = {
       access: Permissão,
       name: Cargo,
+      departamentId: departamentData._id,
     };
 
     try {
@@ -215,6 +219,7 @@ const Roles = () => {
           <thead>
             <tr>
               <th className="roleColumn">Cargo</th>
+              <th className="roleColumn">Departamento</th>
             </tr>
           </thead>
           <tbody>

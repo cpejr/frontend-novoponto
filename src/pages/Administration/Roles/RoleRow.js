@@ -6,6 +6,7 @@ import { GlobalsContext } from "../../../context/GlobalsProvider";
 
 const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
 	const { availableRoles } = useContext(GlobalsContext);
+	console.log(role);
 	return (
 		<tr {...props}>
 			<td className="roleColumn">{role.name}</td>
@@ -21,6 +22,7 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
 					/>
 				)}
 			</td>
+			<td className="roleColumn">{role.departamentId}</td>
 			<td className="editColumn">
 				<Tooltip placement="topLeft" title={"Editar"} onClick={onEdit}>
 					<EditOutlined />
