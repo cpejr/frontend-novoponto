@@ -6,6 +6,7 @@ const ProfileComponent = styled.div`
 
   background-color: ${(props) => props.theme.appBackground};
 
+
   .centralize {
     display: flex;
     justify-content: center;

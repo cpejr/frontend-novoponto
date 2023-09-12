@@ -5,6 +5,7 @@ import { SessionContext } from "../../context/SessionProvider";
 import { OutlinedBox } from "../../components/atoms";
 import MemberProfile from "../../components/organisms/MemberProfile";
 import useGoogleAuth from "../../services/firebase";
+import ExportExcel from "../../components/atoms/ExportExcelButton";
 
 const CardView = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -20,8 +21,11 @@ const CardView = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  //const dadosJson = ;
+  const nomeDoArquivo = "PlanilhaSessões";
+
   return (
-    <ProfileComponent theme={themeColors} className="">
+    <ProfileComponent theme={themeColors} >
       <OutlinedBox className="outlinedBox mx-auto mx-md-0">
         <MemberProfile
           onLogOut={googleLogout}
@@ -29,6 +33,7 @@ const CardView = () => {
           member={data?.member}
         />
       </OutlinedBox>
+      <ExportExcel></ExportExcel>
     </ProfileComponent>
   );
 };
