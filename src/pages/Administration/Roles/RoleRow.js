@@ -3,12 +3,20 @@ import { Tooltip } from "antd";
 import React, { useContext } from "react";
 import { DefaultLabel } from "../../../components/atoms";
 import { GlobalsContext } from "../../../context/GlobalsProvider";
+import { useQuery } from "@apollo/client";
+import { GET_DEPARTAMENT_BY_ID } from "../../../graphql/Departaments";
 
 const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
 	const { availableRoles } = useContext(GlobalsContext);
-	console.log(role);
+	const { loading, error, data } = useQuery(GET_DEPARTAMENT_BY_ID	, {
+    variables: { 
+			departamentId: role.departamentId
+		},
+  });
 	return (
-		<tr {...props}>
+		<>
+		{!loading && 
+			<tr {...props}>
 			<td className="roleColumn">{role.name}</td>
 			<td className="isAdmColumn">
 				{role.access > 0 && (
@@ -22,7 +30,12 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
 					/>
 				)}
 			</td>
-			<td className="roleColumn">{role.departamentId}</td>
+			<td className="roleColumn">
+			<DefaultLabel
+						labelText={data.departamentById.name}
+						labelColor={data.departamentById.color}
+					/>
+					</td>
 			<td className="editColumn">
 				<Tooltip placement="topLeft" title={"Editar"} onClick={onEdit}>
 					<EditOutlined />
@@ -34,6 +47,8 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
 				</Tooltip>
 			</td>
 		</tr>
+		}
+		</>
 	);
 };
 

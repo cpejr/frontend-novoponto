@@ -130,10 +130,14 @@ const Roles = () => {
   };
 
   const updateRole = (roleId) => async (updatedRole) => {
-    const { Cargo, Permissão } = updatedRole;
+    const { Cargo, Permissão, Departamento } = updatedRole;
+
+    const departamentData = departaments.find(v => v.name === availableDepartaments[Departamento].label);
+
     const newRole = {
       access: Permissão,
       name: Cargo,
+      departamentId: departamentData._id,
     };
 
     console.log(
@@ -160,7 +164,6 @@ const Roles = () => {
     const { Cargo, Permissão, Departamento } = role;
 
     const departamentData = departaments.find(v => v.name === availableDepartaments[Departamento].label);
-    console.log(departamentData);
 
     const newRole = {
       access: Permissão,
@@ -219,7 +222,9 @@ const Roles = () => {
           <thead>
             <tr>
               <th className="roleColumn">Cargo</th>
+              <th className="roleColumn"></th>
               <th className="roleColumn">Departamento</th>
+              <th className="roleColumn"></th>
             </tr>
           </thead>
           <tbody>

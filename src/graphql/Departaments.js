@@ -11,6 +11,17 @@ query Departaments {
 }
 `;
 
+const GET_DEPARTAMENT_BY_ID = gql`
+query Departaments($departamentId: ID!) {
+  departamentById(departamentId: $departamentId) {
+    name
+    color
+    segment
+  }
+}
+`
+
 export {
   GET_DEPARTMENTS,
+  GET_DEPARTAMENT_BY_ID,
 };
