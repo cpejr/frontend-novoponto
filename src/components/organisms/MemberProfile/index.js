@@ -74,7 +74,7 @@ const MemberProfile = ({
               </div>
             </div>
           </Row>
-        
+
           {!isAdm && (
             <LogoutPointButton
               className="col-md-12 col-sm-3 mb-3 mb-sm-0"
@@ -89,10 +89,15 @@ const MemberProfile = ({
       <div className="messageAndFrase">
         <div className="row">
           <div className="col-md-6">
-            <div className="message">
+            <div className="quote mt-2">
               <DefaultSubTitle>Mensagem do acompanhamento:</DefaultSubTitle>
               {!isAdm ? (
-                <div className="messageBox">{member?.message?.text}</div>
+                <TextArea
+                  maxLength={50}
+                  resize={"none"}
+                  value={member?.message?.text}
+                  inputMode="none"
+                />
               ) : (
                 <>
                   <TextArea
@@ -120,12 +125,12 @@ const MemberProfile = ({
                 resize={"none"}
                 onChange={(e) => handleOnChange({ status: e.target.value })}
                 value={newData?.status}
-              />  
+              />
             </div>
           </div>
         </div>
       </div>
-      
+
       <ConfirmationModal
         title="Log out"
         content={`${member?.name}, Você deseja mesmo fazer logout?`}
@@ -141,3 +146,4 @@ const MemberProfile = ({
 };
 
 export default MemberProfile;
+
