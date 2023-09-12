@@ -37,7 +37,6 @@ const MemberProfile = ({
         status: member?.status || "",
       });
   }, [member]);
-
   const isAdm = showAsAdministrator;
 
   async function handleSave() {
@@ -87,7 +86,7 @@ const MemberProfile = ({
         <DefaultText>Assessor: {member?.responsible?.name}</DefaultText>
       </div>
       <div className="messageAndFrase">
-        <div className="row">
+        <div className="row align-items-end">
           <div className="col-md-6">
             <div className="quote mt-2">
               <DefaultSubTitle>Mensagem do acompanhamento:</DefaultSubTitle>

@@ -1,12 +1,11 @@
 import styled from "styled-components";
 
 const ProfileComponent = styled.div`
-  margin: 0 5%;
   width: 100%;
 
   background-color: ${(props) => props.theme.appBackground};
 
-  @media (max-width: 767px){
+  @media (max-width: 767px) {
     margin: 0;
     width: 105%;
   }
@@ -111,3 +110,4 @@ const HoursConsultationComponent = styled.div`
 `;
 
 export { ProfileComponent, HoursConsultationComponent };
+

@@ -27,7 +27,7 @@ const CardView = () => {
   return (
     <div>
       <ProfileComponent theme={themeColors} className="">
-        <OutlinedBox className="outlinedBox mx-auto mx-md-0" style={{marginLeft: "500%"}}>
+        <OutlinedBox className="outlinedBox mx-auto mx-md-0 m-lg-5">
           <MemberProfile
             onLogOut={googleLogout}
             onSave={updateSelf}
@@ -36,9 +36,9 @@ const CardView = () => {
         </OutlinedBox>
       </ProfileComponent>
 
-      <HoursConsultationComponent theme={themeColors}>
+      <div className="mt-4 d-flex flex-column m-lg-5">
         <MemberHistory memberId={member?._id} />
-      </HoursConsultationComponent>
+      </div>
     </div>
   );
 };

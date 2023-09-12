@@ -71,14 +71,14 @@ const MemberProfileContainer = styled.div`
     gap: 5%;
     margin-left: 35%;
 
-    @media (max-width: 340px){
+    @media (max-width: 340px) {
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
   }
 
-  .botaoLogOut{
+  .botaoLogOut {
     width: 95%;
     display: flex;
     flex-direction: row;
@@ -86,19 +86,19 @@ const MemberProfileContainer = styled.div`
     margin-right: 10%;
   }
 
-  .messageAndFrase{
+  .messageAndFrase {
     margin-left: 7.5%;
   }
 
   @media (max-width: 800px) {
     .messageAndFrase {
-      flex-direction: column; 
+      flex-direction: column;
       gap: 20px;
     }
 
     .message,
     .quote {
-      width: 100%; 
+      width: 100%;
     }
 
     .quote textarea,
@@ -106,32 +106,32 @@ const MemberProfileContainer = styled.div`
       max-width: 100%;
     }
 
-    .messageBox{
+    .messageBox {
       width: 100%;
     }
   }
 
-  @media (max-width: 1100px){
-    .imagemNomeCargo{
+  @media (max-width: 1100px) {
+    .imagemNomeCargo {
       margin-left: 27.5%;
     }
   }
 
-  @media (max-width: 785px){
-    .imagemNomeCargo{
+  @media (max-width: 785px) {
+    .imagemNomeCargo {
       margin-left: 17.5%;
     }
   }
 
-  @media (max-width: 545px){
-    .botaoLogOut{
+  @media (max-width: 545px) {
+    .botaoLogOut {
       flex-direction: column-reverse;
       gap: 10px;
       margin-bottom: 10%;
       margin-left: 10%;
     }
 
-    .imagemNomeCargo{
+    .imagemNomeCargo {
       display: flex;
       justify-content: start;
       margin-left: 0px;
@@ -140,3 +140,4 @@ const MemberProfileContainer = styled.div`
 `;
 
 export { MemberProfileContainer };
+
