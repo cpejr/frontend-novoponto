@@ -17,11 +17,10 @@ const PontoComponent = styled.div`
       padding: 20px 0 20px 0;
     }
   }
-  .usersSession{
+  .usersSession {
     max-height: 576px;
     overflow: auto;
-   
-  }  
+  }
 `;
 
 const newsComponent = styled.div`
@@ -31,4 +30,8 @@ const newsComponent = styled.div`
   background-color: ${(props) => props.theme.appBackground};
 `;
 
-export { PontoComponent, newsComponent };
+const TooltipTitle = styled.div`
+  text-align: center;
+`;
+export { PontoComponent, newsComponent, TooltipTitle };
+

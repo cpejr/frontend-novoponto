@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-const AditionalHourTableArea = styled.div``;
+const AditionalHourTableArea = styled.div`
+  margin-right: 10%;
+`;
 
 const FlexDiv = styled.div`
   display: flex;
