@@ -93,14 +93,14 @@ const MemberProfile = ({
               {!isAdm ? (
                 <TextArea
                   maxLength={50}
-                  resize={"none"}
+                  className="non-resizable-textarea"
                   value={member?.message?.text}
                   inputMode="none"
                 />
               ) : (
                 <>
                   <TextArea
-                    resize={true}
+                    className="non-resizable-textarea"
                     onChange={(e) =>
                       handleOnChange({
                         message: { text: e.target.value, read: false },
@@ -121,9 +121,13 @@ const MemberProfile = ({
               <DefaultSubTitle>Frase:</DefaultSubTitle>
               <TextArea
                 maxLength={50}
-                resize={"none"}
+                className="non-resizable-textarea"
                 onChange={(e) => handleOnChange({ status: e.target.value })}
                 value={newData?.status}
+              />
+              <SaveButton
+                saved={newData?.status === member?.status}
+                onClick={handleSave}
               />
             </div>
           </div>

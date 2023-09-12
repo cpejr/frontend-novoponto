@@ -22,8 +22,8 @@ const MemberProfileContainer = styled.div`
 
   .quote button {
     position: absolute;
-    right: 8px;
-    bottom: 8px;
+    right: 22%;
+    bottom: 2%;
   }
 
   .message {
@@ -136,6 +136,9 @@ const MemberProfileContainer = styled.div`
       justify-content: start;
       margin-left: 0px;
     }
+  }
+  .non-resizable-textarea {
+    resize: none;
   }
 `;
 
