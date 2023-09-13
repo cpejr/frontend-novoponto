@@ -8,7 +8,7 @@ import { GET_DEPARTAMENT_BY_ID } from "../../../graphql/Departaments";
 
 const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
 	const { availableRoles } = useContext(GlobalsContext);
-	const { loading, error, data } = useQuery(GET_DEPARTAMENT_BY_ID	, {
+	const { loading, data } = useQuery(GET_DEPARTAMENT_BY_ID	, {
     variables: { 
 			departamentId: role.departamentId
 		},
@@ -37,7 +37,7 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
 					/>
 					</td>
 			<td className="editColumn">
-				<Tooltip placement="topLeft" title={"Editar"} onClick={onEdit}>
+				<Tooltip placement="topLeft" title={"Editar"} onClick={() => onEdit('edit', role, data)}>
 					<EditOutlined />
 				</Tooltip>
 			</td>

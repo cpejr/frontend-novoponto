@@ -20,7 +20,7 @@ import { RocketOutlined } from "@ant-design/icons";
 import validators from "../../../services/validators";
 import RoleRow from "./RoleRow";
 import { useEffect } from "react";
-import { GET_DEPARTMENTS } from "../../../graphql/Departaments";
+import { GET_DEPARTAMENT_BY_ID, GET_DEPARTMENTS } from "../../../graphql/Departaments";
 
 const Roles = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -80,8 +80,9 @@ const Roles = () => {
     setOpenModalExcludeRole(false);
   };
 
-  const editOrCreateRole = (method, role) => {
+  const editOrCreateRole = (method, role, data) => {
     const withInitialValue = method === "edit";
+
 
     var fields = [
       {
@@ -105,7 +106,7 @@ const Roles = () => {
         type: "select",
         label: "Departamento",
         validator: validators.antdRequired,
-        initialValue: withInitialValue ? role.departament : undefined,
+        initialValue: withInitialValue ? data.departamentById.name : undefined,
 
         options: availableDepartaments,
       },
@@ -131,14 +132,19 @@ const Roles = () => {
 
   const updateRole = (roleId) => async (updatedRole) => {
     const { Cargo, Permissão, Departamento } = updatedRole;
-
-    const departamentData = departaments.find(v => v.name === availableDepartaments[Departamento].label);
-
+    let departamentData;
+    if (isNaN(Departamento)) {
+      departamentData = departaments.find(v => v.name === Departamento);
+    } else {
+      departamentData = departaments.find(v => v.name === availableDepartaments[Departamento].label);
+    }
+    
     const newRole = {
       access: Permissão,
       name: Cargo,
       departamentId: departamentData._id,
     };
+  
 
     console.log(
       "🚀 ~ file: index.js ~ line 106 ~ updateRole ~ updatedRole",
@@ -233,7 +239,7 @@ const Roles = () => {
                 <RoleRow
                   key={role._id}
                   role={role}
-                  onEdit={() => editOrCreateRole("edit", role)}
+                  onEdit={editOrCreateRole}
                   onDelete={() => handleOpenModal(role)}
                 />
               ))
