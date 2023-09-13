@@ -63,12 +63,6 @@ const Menuu = ({ collapsed, ...props }) => {
 				label={data?.member?.name || "Perfil"}
 				icon = {<UserOutlined/>}
 			/>
-			<MenuItem
-				key="/ponto/consultadehoras"
-				route="/ponto/consultadehoras"
-				icon={<ClockCircleOutlined />}
-				label="Consulta de horas"
-			/>
 
       <MenuItem
         key="/ponto/alteracaodehoras"
@@ -100,37 +94,43 @@ const Menuu = ({ collapsed, ...props }) => {
 					route="/ponto/horarioobrigatorio"
 					label="Horário Obrigatório"
 				/> */}
-				<MenuItem
-					disabled={!access || access === 0}
-					key="/ponto/membros"
-					route="/ponto/membros"
-					label="Membros"
-				/>
-				<MenuItem
-					disabled={!access || access === 0}
-					key="/ponto/cargos"
-					route="/ponto/cargos"
-					label="Cargos"
-				/>
-				<MenuItem
-					disabled={!access || access === 0}
-					key="/ponto/tribos"
-					route="/ponto/tribos"
-					label="Tribos"
-				/>
-				<MenuItem
-					disabled={!access || access === 0}
-					key="/ponto/tarefas"
-					route="/ponto/tarefas"
-					label="Tarefas"
-				/>
+        <MenuItem
+          disabled={!access || access === 0}
+          key="/ponto/membros"
+          route="/ponto/membros"
+          label="Membros"
+        />
+        <MenuItem
+          disabled={!access || access === 0}
+          key="/ponto/cargos"
+          route="/ponto/cargos"
+          label="Cargos"
+        />
+        <MenuItem
+          disabled={!access || access === 0}
+          key="/ponto/tribos"
+          route="/ponto/tribos"
+          label="Tribos"
+        />
+        <MenuItem
+          disabled={!access || access === 0}
+          key="/ponto/tarefas"
+          route="/ponto/tarefas"
+          label="Tarefas"
+        />
         <MenuItem
           disabled={!access || access === 0}
           key="/ponto/reconhecimentos"
           route="/ponto/reconhecimentos"
           label="Reconhecimentos"
         />
-			</SubMenu>
+        <MenuItem
+          disabled={!access || access === 0}
+          key="/ponto/projetos"
+          route="/ponto/projetos"
+          label="Projetos"
+        />
+      </SubMenu>
 
       <MenuItem
         key="novidades"
@@ -158,3 +158,4 @@ const Menuu = ({ collapsed, ...props }) => {
 };
 
 export default Menuu;
+

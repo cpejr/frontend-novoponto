@@ -1,11 +1,14 @@
 import React, { useContext, useEffect } from "react";
-import { ProfileComponent } from "./styles";
 import { ThemeContext } from "../../context/ThemeProvider";
 import { SessionContext } from "../../context/SessionProvider";
 import { OutlinedBox } from "../../components/atoms";
 import MemberProfile from "../../components/organisms/MemberProfile";
 import useGoogleAuth from "../../services/firebase";
 import ExportExcel from "../../components/atoms/ExportExcelButton";
+
+import MemberHistory from "../../components/organisms/MemberHistory";
+
+import { HoursConsultationComponent, ProfileComponent } from "./styles";
 
 const CardView = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -18,23 +21,29 @@ const CardView = () => {
       updateSelf({
         message: { read: true, text: data?.member?.message?.text },
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //const dadosJson = ;
   const nomeDoArquivo = "PlanilhaSessões";
 
+  const { member } = data || {};
+
   return (
-    <ProfileComponent theme={themeColors} >
-      <OutlinedBox className="outlinedBox mx-auto mx-md-0">
-        <MemberProfile
-          onLogOut={googleLogout}
-          onSave={updateSelf}
-          member={data?.member}
-        />
-      </OutlinedBox>
-      <ExportExcel></ExportExcel>
-    </ProfileComponent>
+    <div>
+      <ProfileComponent theme={themeColors} className="">
+        <OutlinedBox className="outlinedBox mx-auto mx-md-0 m-lg-5">
+          <MemberProfile
+            onLogOut={googleLogout}
+            onSave={updateSelf}
+            member={data?.member}
+          />
+        </OutlinedBox>
+      </ProfileComponent>
+
+      <div className="mt-4 d-flex flex-column m-lg-5">
+        <MemberHistory memberId={member?._id} />
+      </div>
+    </div>
   );
 };
 
