@@ -1,8 +1,10 @@
+import { Tooltip } from "antd";
 import { HourDisplayer, InfoDisplayer, DefaultText } from "../../atoms";
 import { FlexDiv } from "./styles";
 import moment from "moment";
+import { EditOutlined, RestOutlined } from "@ant-design/icons";
 
-function getColumns(themeColors) {
+function getColumns(themeColors, onDelete) {
   const columns = [
     {
       title: "Dia",
@@ -69,8 +71,8 @@ function getColumns(themeColors) {
         <DefaultText
           style={{
             margin: 0,
-            maxWidth: "200px",
-            minWidth: "180px",
+            maxWidth: "180px",
+            minWidth: "160px",
             wordBreak: "break-word",
           }}
         >
@@ -78,6 +80,58 @@ function getColumns(themeColors) {
         </DefaultText>
       ),
     },
+    {
+      title: "Projeto",
+      dataIndex: "project",
+      key: "project",
+      render: (project) => (
+        <DefaultText
+          style={{
+            margin: 0,
+            maxWidth: "180px",
+            minWidth: "160px",
+            wordBreak: "break-word",
+          }}
+        >
+          {project.name}
+        </DefaultText>
+      ),
+    },
+    {
+      title: "Descrição",
+      dataIndex: "description",
+      key: "description",
+      render: (description) => (
+        <DefaultText
+          style={{
+            margin: 0,
+            maxWidth: "180px",
+            minWidth: "160px",
+            wordBreak: "break-word",
+          }}
+        >
+          {description}
+        </DefaultText>
+      ),
+    },
+    {
+      dataIndex: "_id",
+      key: "_id",
+      render: (_id) => (
+        <div className="buttonsEditGarbage">
+          <Tooltip placement="topLeft" title={"Editar"} className="editColumn" 
+          // onClick={onEdit}
+          >
+            <EditOutlined />
+          </Tooltip>
+          <Tooltip placement="topLeft" title={"Excluir"} className="garbageColumn" 
+          onClick={() => onDelete(_id)}
+          >
+            <RestOutlined />
+          </Tooltip>
+      </div>
+      )
+    }
   ];
   return columns;
 }

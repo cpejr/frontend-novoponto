@@ -1,18 +1,52 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ThemeContext } from "../../../context/ThemeProvider";
 import { getColumns } from "./columns";
 import { HourDisplayer } from "../../atoms";
 
 import { HoursSumAndTablesArea } from "./styles";
-import { Collapse, Table } from "antd";
+import { Collapse, Table, message } from "antd";
+import ConfirmationModal from "../ConfirmationModal";
+import { DELETE_SESSION } from "../../../graphql/Sessions";
+import { useMutation } from "@apollo/client";
 
 const SessionsTable = ({
+  refetch,
   sessions,
   formatedTotal,
   formatedPresentialTotal,
 }) => {
   const { themeColors } = useContext(ThemeContext);
-  const columns = getColumns(themeColors);
+
+  const [openModalExcludeSession, setOpenModalExcludeSession] = useState(false);
+  const [excludeSession, setExcludeSession] = useState({});
+
+  const [deleteSessionMutation] = useMutation(DELETE_SESSION);
+
+  const handleOpenModal = (session) => {
+    setExcludeSession(session);
+    setOpenModalExcludeSession(true);
+  };
+
+  const columns = getColumns(themeColors, handleOpenModal);
+
+  const handleCloseModal = () => {
+    setOpenModalExcludeSession(false);
+  };
+
+  const handleExcludeSession = async (session) => {
+    var hide = message.loading("Excluindo");
+    try {
+      await deleteSessionMutation({ variables: { sessionId: session } });
+      hide();
+      message.success("Excluido com sucesso", 2.5);
+      refetch();
+    } catch (err) {
+      console.error(err);
+      hide();
+      message.error("Houve um problema, tente novamente", 2.5);
+    }
+    setOpenModalExcludeSession(false);
+  };
 
   return (
     <HoursSumAndTablesArea>
@@ -38,6 +72,13 @@ const SessionsTable = ({
           />
         </Collapse.Panel>
       </Collapse>
+      <ConfirmationModal
+          title="Apagar cargo"
+          content={`Deseja mesmo apagar o cargo esse horário?`}
+          isVisible={openModalExcludeSession}
+          handleOk={() => handleExcludeSession(excludeSession)}
+          handleCancel={handleCloseModal}
+      />
     </HoursSumAndTablesArea>
   );
 };
