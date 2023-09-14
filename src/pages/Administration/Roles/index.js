@@ -89,6 +89,7 @@ const Roles = () => {
         key: "name",
         type: "text",
         label: "Cargo",
+        placeholder: "Qual será o nome do cargo?",
         validator: validators.antdRequired,
         initialValue: withInitialValue ? role.name : undefined,
       },
@@ -96,6 +97,7 @@ const Roles = () => {
         key: "access",
         type: "select",
         label: "Permissão",
+        placeholder: "Qual será a permissão do cargo?",
         validator: validators.antdRequired,
         initialValue: withInitialValue ? role.access : undefined,
 
@@ -105,6 +107,7 @@ const Roles = () => {
         key: "departament",
         type: "select",
         label: "Departamento",
+        placeholder: "A qual departamente o cargo está associado?",
         validator: validators.antdRequired,
         initialValue: withInitialValue ? data.departamentById.name : undefined,
 
