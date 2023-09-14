@@ -42,7 +42,6 @@ const LoginModal = ({
     setFormData({});
     handleLogin(formData.isOnline, formData.selectedTask);
   }
-  console.log(loading);
   return (
     <Modal
       title={title}
