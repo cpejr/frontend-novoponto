@@ -78,7 +78,6 @@ const SessionsTable = ({
 
   const editSession = (session) => {
 
-    console.log(session);
     var fields = [
       {
         key: "modality",

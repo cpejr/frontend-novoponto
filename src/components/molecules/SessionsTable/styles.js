@@ -2,9 +2,17 @@ import styled from "styled-components";
 
 const HoursSumAndTablesArea = styled.div`
   margin-right: 10%;
+
   .buttonsEditGarbage{
     display: flex;
   }
+
+	.columnText{
+		margin: 0;
+    max-width: 180px;
+    min-width: 140px;
+    word-break: break-word;
+	}
 
   .editColumn,
 	.garbageColumn {

@@ -69,12 +69,7 @@ function getColumns(themeColors, onDelete, onEdit) {
       key: "task",
       render: (task) => (
         <DefaultText
-          style={{
-            margin: 0,
-            maxWidth: "150px",
-            minWidth: "120px",
-            wordBreak: "break-word",
-          }}
+          className="columnText"
         >
           {task.name}
         </DefaultText>
@@ -86,12 +81,7 @@ function getColumns(themeColors, onDelete, onEdit) {
       key: "project",
       render: (project) => (
         <DefaultText
-          style={{
-            margin: 0,
-            maxWidth: "150px",
-            minWidth: "120px",
-            wordBreak: "break-word",
-          }}
+          className="columnText"
         >
           {project.name}
         </DefaultText>
@@ -103,12 +93,7 @@ function getColumns(themeColors, onDelete, onEdit) {
       key: "description",
       render: (description) => (
         <DefaultText
-          style={{
-            margin: 0,
-            maxWidth: "180px",
-            minWidth: "160px",
-            wordBreak: "break-word",
-          }}
+          className="columnText"
         >
           {description}
         </DefaultText>
