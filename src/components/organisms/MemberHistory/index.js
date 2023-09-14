@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { DatePicker } from "antd";
 import moment from "moment";
 import { useLazyQuery } from "@apollo/client";
-
 import { FetchCompiledForHC } from "../../../graphql/Member";
 import HomeOfficeTable from "../../molecules/HomeOfficeTable";
 import SessionsTable from "../../molecules/SessionsTable";
 import { MemberHistoyContainer } from "./styles";
+import ExportExcel from "../../atoms/ExportExcelButton";
 const { RangePicker } = DatePicker;
+const nomeDoArquivo = "PlanilhaSessões";
 
 const MemberHistory = ({ memberId }) => {
   const [rangeDate, setRangeDate] = useState([
@@ -18,11 +19,14 @@ const MemberHistory = ({ memberId }) => {
   const startDate = rangeDate && rangeDate[0];
   const endDate = rangeDate && rangeDate[1];
 
+  const [dadosJson, setDadosJson] = useState([]);
+
   const [loadCompiled, { loading, data }] = useLazyQuery(FetchCompiledForHC, {
     fetchPolicy: "network-only",
   });
   const { aditionalHours, sessions, formatedTotal, formatedPresentialTotal } =
     data?.compiled || {};
+
 
   async function loadData() {
     return loadCompiled({
@@ -31,23 +35,29 @@ const MemberHistory = ({ memberId }) => {
         startDate: moment(startDate)?.startOf("day").toISOString(),
         endDate: moment(endDate)?.endOf("day").toISOString(),
       },
-    });
+    }, 
+    );
   }
 
   useEffect(() => {
     if (startDate && endDate && memberId) loadData();
+    setDadosJson(sessions);
+    console.log(dadosJson);
+    console.log(sessions)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [memberId, rangeDate]);
+  }, [memberId, rangeDate, ]);
 
   function disabledDate(current) {
     // Can not select days after today
     return current && current > moment().endOf("day");
   }
 
+
   if (memberId && !loading)
     return (
       <MemberHistoyContainer>
         <h5>Histórico Ponto</h5>
+        <ExportExcel dadosJson={dadosJson} nomeDoArquivo={nomeDoArquivo}></ExportExcel>
 
         <RangePicker
           format="DD-MM-yyyy"

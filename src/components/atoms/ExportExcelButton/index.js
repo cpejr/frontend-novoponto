@@ -3,7 +3,7 @@ import * as FileSaver from "file-saver";
 import XLSX from "sheetjs-style";
 import CommonButton from "../CommonButton";
 
-const ExportExcel = ({ dadosJson, nomeDoArquivo }) => {
+  const ExportExcel = ({ dadosJson, nomeDoArquivo }) => {
   const tipoArquivo = "application/vnd.openxmlformats-officedocument.sheet;charset=UTF-8";
   const extensaoArquivo = ".xlsx";
 
@@ -16,7 +16,7 @@ const ExportExcel = ({ dadosJson, nomeDoArquivo }) => {
   }
 
   return (
-    <CommonButton className=""
+    <CommonButton 
     onClick={() => exportarParaExcel()}
     
     style={{
