@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import Modal from "../../molecules/ConfirmationModal";
 import AutoCompleteInput from "../../molecules/AutocompleteInput";
 import { CommonSelectBox, InputText } from "../../atoms";
-import { Form } from "antd";
+import { Form, DatePicker } from "antd";
+// import locale from "antd/lib/date-picker/locale/pt_BR";
 
 // This Modal recieves an array of fields and deals with each one of them, including its type and validation
 // It can be used to create or edit any object, since the object has only simple keys (no arrays or objects inside it)
@@ -43,7 +44,7 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
 
   //Setting up the form fields
   var showingFields = fields?.map((field) => {
-    const { type, label, options, placeholder, initialValue, rules } = field;
+    const { type, label, options, placeholder, initialValue, rules, locale, format, disableDate, value, onChange } = field;
 
     let inputField;
     switch (type) {
@@ -65,6 +66,10 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
       default:
       case "text":
         inputField = <InputText placeholder={placeholder} />;
+        break;
+      
+      case "date":
+        inputField = <DatePicker locale={locale} format={format} disabledDate={disableDate} value={value} onChange={onChange}/>;
         break;
     }
 
