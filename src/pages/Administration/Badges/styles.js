@@ -43,7 +43,6 @@ const BadgesComponent = styled.div`
 	td {
 		margin: 0;
 		padding: 0;
-		height: auto;
     img {
       height: 35px;
     }
@@ -56,10 +55,9 @@ const BadgesComponent = styled.div`
 	}
 
 	.badgeTable tr {
-		height: auto;
-		min-height: 70px;
+		height: 80px;
 		background-color: #141414;
-		padding: 15px 20px;
+		padding: 0px 20px;
 
 		display: flex;
 		justify-content: flex-start;
@@ -79,17 +77,13 @@ const BadgesComponent = styled.div`
 
 	.badgeColumn {
 		width: 45%;
-		max-width: 100vw;
-		min-width: 170px;
+		max-width: 50vw;
+		min-width: 140px;
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
 		color: #ffffff;
     overflow: auto;
-	}
-
-	.badgeName {
-		width: 110px;
 	}
 
 	.isAdmColumn {

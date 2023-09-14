@@ -37,18 +37,12 @@ const LoggedMembers = ({
               className="p-0 text text-truncate"
             />
           </Row>
-					<Row className="gap-2">
-						{role && role.length > 22 ? <DefaultLabel labelText={`${role.slice(0, 22)}...`} className="d-xs-block d-sm-none d-md-none d-xl-none"/> :
-							<DefaultLabel labelText={role} className="d-xs-block d-sm-none d-md-none d-xl-none"/>
-						}
-						{role && <DefaultLabel labelText={role} className="d-none d-sm-block" />
-						}
-						{/* {role && <DefaultLabel labelText={role} />} */}
-						{/* {mandatoryHour && (
+          <Row className="gap-2">
+            {role && <DefaultLabel labelText={role} />}
+            {/* {mandatoryHour && (
 							<DefaultLabel
 								labelText="Horário obrigatório"
 								labelColor="#0085FF"
-								{`${role.slice(0, 23)}...`}
 							/>
 						)} */}
             {tribe && (
