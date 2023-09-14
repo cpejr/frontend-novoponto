@@ -4,7 +4,7 @@ import { FlexDiv } from "./styles";
 import moment from "moment";
 import { EditOutlined, RestOutlined } from "@ant-design/icons";
 
-function getColumns(themeColors, onDelete) {
+function getColumns(themeColors, onDelete, onEdit) {
   const columns = [
     {
       title: "Dia",
@@ -71,8 +71,8 @@ function getColumns(themeColors, onDelete) {
         <DefaultText
           style={{
             margin: 0,
-            maxWidth: "180px",
-            minWidth: "160px",
+            maxWidth: "150px",
+            minWidth: "120px",
             wordBreak: "break-word",
           }}
         >
@@ -88,8 +88,8 @@ function getColumns(themeColors, onDelete) {
         <DefaultText
           style={{
             margin: 0,
-            maxWidth: "180px",
-            minWidth: "160px",
+            maxWidth: "150px",
+            minWidth: "120px",
             wordBreak: "break-word",
           }}
         >
@@ -115,17 +115,15 @@ function getColumns(themeColors, onDelete) {
       ),
     },
     {
-      dataIndex: "_id",
-      key: "_id",
-      render: (_id) => (
+      render: (record) => (
         <div className="buttonsEditGarbage">
           <Tooltip placement="topLeft" title={"Editar"} className="editColumn" 
-          // onClick={onEdit}
+          onClick={() => onEdit(record)}
           >
             <EditOutlined />
           </Tooltip>
           <Tooltip placement="topLeft" title={"Excluir"} className="garbageColumn" 
-          onClick={() => onDelete(_id)}
+          onClick={() => onDelete(record)}
           >
             <RestOutlined />
           </Tooltip>
