@@ -8,7 +8,6 @@ import SessionsTable from "../../molecules/SessionsTable";
 import { MemberHistoyContainer } from "./styles";
 import ExportExcel from "../ExportExcelButton";
 const { RangePicker } = DatePicker;
-const archiveName = "PlanilhaSessões";
 
 const MemberHistory = ({ memberId }) => {
   const [rangeDate, setRangeDate] = useState([
@@ -35,17 +34,7 @@ const MemberHistory = ({ memberId }) => {
     });
   }
 
-  /*const jsonFormatedData = sessions.map(session => {
-    return {
-      duração: session.formatedDuration,
-      início: session.start,
-      fim: session.end,
-      tarefa: session.task.name,
-      presencial: session.isPresential
-    };
-  })*/
-
-  console.log(sessions)
+  console.log(sessions);
   useEffect(() => {
     if (startDate && endDate && memberId) loadData();
   }, [memberId, rangeDate]);
@@ -58,7 +47,7 @@ const MemberHistory = ({ memberId }) => {
     return (
       <MemberHistoyContainer>
         <h5>Histórico Ponto</h5>
-        
+
         <RangePicker
           format="DD-MM-yyyy"
           disabledDate={disabledDate}
@@ -67,27 +56,17 @@ const MemberHistory = ({ memberId }) => {
           placeholder={["Inicio", "Fim"]}
         />
 
-        {startDate && endDate && (
+        {sessions && (
           <div className="mt-4">
-            <div className=""> 
-                <ExportExcel
-                  jsonFormatedData={sessions}
-                  archiveName={archiveName}
-                />
-            </div>
             <SessionsTable
               sessions={sessions}
               formatedTotal={formatedTotal}
               formatedPresentialTotal={formatedPresentialTotal}
             />
-
-            <div>
-            </div>
             <HomeOfficeTable
               aditionalHours={aditionalHours}
               onDelete={loadData}
             />
-        
           </div>
         )}
       </MemberHistoyContainer>
