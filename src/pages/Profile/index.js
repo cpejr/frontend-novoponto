@@ -4,9 +4,6 @@ import { SessionContext } from "../../context/SessionProvider";
 import { OutlinedBox } from "../../components/atoms";
 import MemberProfile from "../../components/organisms/MemberProfile";
 import useGoogleAuth from "../../services/firebase";
-import ExportExcel from "../../components/atoms/ExportExcelButton";
-import { useLazyQuery } from "@apollo/client";
-import { FetchCompiledForHC } from "../../graphql/Member";
 
 import MemberHistory from "../../components/organisms/MemberHistory";
 
@@ -16,7 +13,6 @@ const CardView = () => {
   const { themeColors } = useContext(ThemeContext);
   const { data, updateSelf, getSessionData } = useContext(SessionContext);
   const { googleLogout } = useGoogleAuth();
- // const [dadosJson, setDadosJson] = useState([]);
 
   useEffect(() => {
     if (!!data) getSessionData();
@@ -26,35 +22,7 @@ const CardView = () => {
       });
   }, []);
 
-  const [loadSessions, { loading, sheetData }] = useLazyQuery(FetchCompiledForHC, {
-    fetchPolicy: "network-only",
-  });
-
-  //const {sessions} = sheetData?.compiled.sessions;
-
-  const dadosJson = [
-    {
-      nome: "Pedro",
-      idade: 10,
-    },
-    {
-      nome: "João",
-      idade: 20,
-    },
-    {
-      nome: "Mariana",
-      idade: 3,
-    },
-    {
-      nome: "Julano",
-      idade: 69,
-    },
-  ]
-
-  const nomeDoArquivo = "PlanilhaSessões";
-
   const { member } = data || {};
-  //console.log(sessions);
 
   return (
     <div>

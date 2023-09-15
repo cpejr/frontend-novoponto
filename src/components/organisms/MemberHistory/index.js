@@ -6,9 +6,9 @@ import { FetchCompiledForHC } from "../../../graphql/Member";
 import HomeOfficeTable from "../../molecules/HomeOfficeTable";
 import SessionsTable from "../../molecules/SessionsTable";
 import { MemberHistoyContainer } from "./styles";
-import ExportExcel from "../../atoms/ExportExcelButton";
+import ExportExcel from "../ExportExcelButton";
 const { RangePicker } = DatePicker;
-const nomeDoArquivo = "PlanilhaSessões";
+const archiveName = "PlanilhaSessões";
 
 const MemberHistory = ({ memberId }) => {
   const [rangeDate, setRangeDate] = useState([
@@ -34,7 +34,18 @@ const MemberHistory = ({ memberId }) => {
       },
     });
   }
-  console.log(sessions);
+
+  /*const jsonFormatedData = sessions.map(session => {
+    return {
+      duração: session.formatedDuration,
+      início: session.start,
+      fim: session.end,
+      tarefa: session.task.name,
+      presencial: session.isPresential
+    };
+  })*/
+
+  console.log(sessions)
   useEffect(() => {
     if (startDate && endDate && memberId) loadData();
   }, [memberId, rangeDate]);
@@ -47,12 +58,7 @@ const MemberHistory = ({ memberId }) => {
     return (
       <MemberHistoyContainer>
         <h5>Histórico Ponto</h5>
-        {sessions && (
-          <ExportExcel
-            dadosJson={sessions}
-            nomeDoArquivo={nomeDoArquivo}
-          ></ExportExcel>
-        )}
+        
         <RangePicker
           format="DD-MM-yyyy"
           disabledDate={disabledDate}
@@ -63,15 +69,25 @@ const MemberHistory = ({ memberId }) => {
 
         {startDate && endDate && (
           <div className="mt-4">
+            <div className=""> 
+                <ExportExcel
+                  jsonFormatedData={sessions}
+                  archiveName={archiveName}
+                />
+            </div>
             <SessionsTable
               sessions={sessions}
               formatedTotal={formatedTotal}
               formatedPresentialTotal={formatedPresentialTotal}
             />
+
+            <div>
+            </div>
             <HomeOfficeTable
               aditionalHours={aditionalHours}
               onDelete={loadData}
             />
+        
           </div>
         )}
       </MemberHistoyContainer>
