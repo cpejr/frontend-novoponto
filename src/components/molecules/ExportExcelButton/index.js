@@ -10,9 +10,9 @@ const ExportExcel = ({ jsonData, archiveName }) => {
 
   const jsonFormatedData = jsonData.map((session) => {
     return {
-      Duração: session?.formatedDuration,
       Início: session?.start,
       Fim: session?.end,
+      Duração: session?.formatedDuration,  
       "Nome da Tarefa": session?.task.name,
       "É presencial?": session?.isPresential,
     };
@@ -31,7 +31,6 @@ const ExportExcel = ({ jsonData, archiveName }) => {
       onClick={() => exportToExcel()}
       color="#22762b"
       nowrap
-      maxWidth="215px"
     >
       Visualizar em Planilha
     </CommonButton>

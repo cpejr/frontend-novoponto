@@ -6,7 +6,6 @@ import { FetchCompiledForHC } from "../../../graphql/Member";
 import HomeOfficeTable from "../../molecules/HomeOfficeTable";
 import SessionsTable from "../../molecules/SessionsTable";
 import { MemberHistoyContainer } from "./styles";
-import ExportExcel from "../ExportExcelButton";
 const { RangePicker } = DatePicker;
 
 const MemberHistory = ({ memberId }) => {
@@ -34,7 +33,7 @@ const MemberHistory = ({ memberId }) => {
     });
   }
 
-  console.log(sessions);
+ 
   useEffect(() => {
     if (startDate && endDate && memberId) loadData();
   }, [memberId, rangeDate]);

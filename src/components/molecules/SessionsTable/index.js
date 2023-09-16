@@ -5,7 +5,7 @@ import { HourDisplayer } from "../../atoms";
 
 import { HoursSumAndTablesArea, ExportButtonContainer } from "./styles";
 import { Collapse, Table } from "antd";
-import ExportExcel from "../../organisms/ExportExcelButton";
+import ExportExcel from "../ExportExcelButton";
 
 const SessionsTable = ({
   sessions,
