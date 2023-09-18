@@ -24,6 +24,7 @@ const CardView = () => {
 
   const { member } = data || {};
 
+
   return (
     <div>
       <ProfileComponent theme={themeColors} className="">

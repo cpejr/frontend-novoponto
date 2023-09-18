@@ -31,8 +31,9 @@ const SessionsTable = ({
         </div>
         <ExportExcel
           jsonData={sessions}
-          archiveName="PlanilhaSessões"
+          archiveName="Sessões"
         ></ExportExcel>
+       
       </ExportButtonContainer>
       <Collapse ghost defaultActiveKey={"1"}>
         <Collapse.Panel header={<h6>Sessões:</h6>} key="1">

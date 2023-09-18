@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import * as FileSaver from "file-saver";
 import XLSX from "sheetjs-style";
 import CommonButton from "../../atoms/CommonButton";
+import { SessionContext } from "../../../context/SessionProvider";
 
 const ExportExcel = ({ jsonData, archiveName }) => {
+
+  const {data} = useContext(SessionContext);
+  const {member} = data || {};
+  
   const archiveType =
     "application/vnd.openxmlformats-officedocument.sheet;charset=UTF-8";
   const archiveExtension = ".xlsx";
-
+ 
   const jsonFormatedData = jsonData.map((session) => {
     return {
       Início: session?.start,
@@ -23,7 +28,7 @@ const ExportExcel = ({ jsonData, archiveName }) => {
     const sheet = { Sheets: { data: sheetData }, SheetNames: ["data"] };
     const buffer = XLSX.write(sheet, { bookType: "xlsx", type: "array" });
     const archive = new Blob([buffer], { type: archiveType });
-    FileSaver.saveAs(archive, archiveName + archiveExtension);
+    FileSaver.saveAs(archive, archiveName + "_" + member.name + "_" + member.role.name + "_" + member.tribe.name + archiveExtension);
   }
 
   return (
@@ -33,6 +38,7 @@ const ExportExcel = ({ jsonData, archiveName }) => {
       nowrap
     >
       Visualizar em Planilha
+
     </CommonButton>
   );
 };
