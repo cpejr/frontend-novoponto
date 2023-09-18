@@ -4,7 +4,6 @@ import { useMutation, useQuery, useSubscription } from "@apollo/client";
 
 import {
   CREATE_SESSION,
-  END_ALL_SESSIONS,
   FINISH_SESSION,
   LOGGED_MEMBERS,
 } from "../../graphql/Sessions";
@@ -19,15 +18,14 @@ import diacriticCaseInsensitiveMatch from "../../utils/diacriticCaseInsensitiveM
 import LoginModal from "../../components/molecules/LoginModal";
 
 const Sessions = () => {
-
+  
   const [memberToLogout, setMemberToLogout] = useState();
   const [filteredSessions, setFilteredSessions] = useState([]);
-  //const [showLogoutAllMembers, setShowLogoutAllMembers] = useState(false);
   const [loginModalVisible, setLoginModalVisible] = useState(false);
 
   const [startSessionMutation] = useMutation(CREATE_SESSION);
   const [endSessionMutation] = useMutation(FINISH_SESSION);
-  //const [endAllSessions] = useMutation(END_ALL_SESSIONS);
+  const [sessionStart, setSessionStart] = useState();
 
   const filterMemberField = useRef();
   const memberToLogin = useRef();
@@ -35,7 +33,6 @@ const Sessions = () => {
   
  memberToLogin.current=data.member;
  
-  
   const { data: loggedData, refetch: refetchLoggedMembers } =
     useQuery(LOGGED_MEMBERS);
   const { data: tasksData } = useQuery(GET_TASKS);
@@ -45,6 +42,7 @@ const Sessions = () => {
   const { loggedMembers } = loggedData || {};
 
   async function handleLogoutMember(member) {  
+  
     let hide = message.loading("Deslogando...");
 
     try {
@@ -63,6 +61,30 @@ const Sessions = () => {
     }
   }
 
+  const logoutAfter20Hours = () => {
+    const twentyHoursInMilliseconds =  20 * 60 * 60 * 1000; 
+    const currentTime = Date.now();
+    const timeDifference = currentTime - sessionStart;
+
+    if (timeDifference >= twentyHoursInMilliseconds) {
+      let hide = message.loading("Deslogando...");
+
+    try {
+       endSessionMutation({
+        variables: { memberId: memberToLogin.current._id },
+      });
+      hide();
+      message.success(`Bom descanso ${memberToLogin.current.name}!`, 2.5);
+
+    } catch (err) {
+      hide();
+      console.error(err);
+      message.error("Houve um problema, tente novamente", 2.5);
+    }
+    }
+  };
+
+
   async function handleLogin(modality, taskId) {
     const hide = message.loading("Fazendo Login...");
     try {
@@ -73,7 +95,9 @@ const Sessions = () => {
           taskId: taskId,
         },
       });
+      setSessionStart(Date.now());
       hide();
+      
       message.success(`Bom trabalho ${memberToLogin.current.name}!`, 2.5);
     } catch (err) {
       hide();
@@ -92,6 +116,12 @@ const Sessions = () => {
 
   useEffect(() => {
     updateFilter();
+    const timer = setInterval(logoutAfter20Hours, 60000);
+    
+    return () => {
+      clearInterval(timer); 
+    };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedMembers]);
 
@@ -130,6 +160,7 @@ const Sessions = () => {
         <SessionsTable
           sessions={filteredSessions}
           onLogout={({ member }) => setMemberToLogout(member)}
+          
         />
       </div>
 
