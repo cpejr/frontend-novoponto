@@ -77,7 +77,6 @@ const SessionsTable = ({
   };
 
   const editSession = (session) => {
-
     var fields = [
       {
         key: "modality",
@@ -101,7 +100,7 @@ const SessionsTable = ({
         label: "Projeto",
         options: projectOptionsList,
         validator: validators.antdRequired,
-        initialValue: session.project._id,
+        initialValue: session?.project?._id,
       },
       {
         key: "description",
@@ -109,7 +108,7 @@ const SessionsTable = ({
         label: "Descrição",
         characterLimit: "150",
         validator: validators.antdRequired,
-        initialValue: session.description,
+        initialValue: session?.description,
       },
     ];
 
@@ -123,16 +122,14 @@ const SessionsTable = ({
     modalData.title = "Editar Sessão";
     modalData.onSubmit = updateSession(session._id);
 
-
-
     setEditModalInfo(modalData);
   };
 
   const updateSession = (sessionId) => async (updatedSession) => {
     const { Modalidade, Tarefa, Projeto, Descrição } = updatedSession;
     let newSession;
-    
-    if(typeof(Modalidade) === "string") {
+
+    if (typeof Modalidade === "string") {
       newSession = {
         taskId: Tarefa,
         projectId: Projeto,
@@ -146,11 +143,12 @@ const SessionsTable = ({
         description: Descrição,
       };
     }
-    
 
     var hide = message.loading("Atualizando");
     try {
-      await updateSessionMutation({ variables: { sessionId, data: newSession } });
+      await updateSessionMutation({
+        variables: { sessionId, data: newSession },
+      });
       hide();
       message.success("Alterado com sucesso", 2.5);
       refetch();
@@ -161,7 +159,7 @@ const SessionsTable = ({
     }
     handleCloseEdit();
   };
-  
+
   const columns = getColumns(themeColors, handleOpenModal, editSession);
 
   return (
@@ -189,11 +187,11 @@ const SessionsTable = ({
         </Collapse.Panel>
       </Collapse>
       <ConfirmationModal
-          title="Apagar sessão"
-          content={`Deseja mesmo apagar essa sessão?`}
-          isVisible={openModalExcludeSession}
-          handleOk={() => handleExcludeSession(excludeSession)}
-          handleCancel={handleCloseModal}
+        title="Apagar sessão"
+        content={`Deseja mesmo apagar essa sessão?`}
+        isVisible={openModalExcludeSession}
+        handleOk={() => handleExcludeSession(excludeSession)}
+        handleCancel={handleCloseModal}
       />
       <FormModal {...editModalInfo} />
     </HoursSumAndTablesArea>

@@ -68,11 +68,7 @@ function getColumns(themeColors, onDelete, onEdit) {
       dataIndex: "task",
       key: "task",
       render: (task) => (
-        <DefaultText
-          className="columnText"
-        >
-          {task.name}
-        </DefaultText>
+        <DefaultText className="columnText">{task?.name}</DefaultText>
       ),
     },
     {
@@ -80,11 +76,7 @@ function getColumns(themeColors, onDelete, onEdit) {
       dataIndex: "project",
       key: "project",
       render: (project) => (
-        <DefaultText
-          className="columnText"
-        >
-          {project.name}
-        </DefaultText>
+        <DefaultText className="columnText">{project?.name}</DefaultText>
       ),
     },
     {
@@ -92,29 +84,31 @@ function getColumns(themeColors, onDelete, onEdit) {
       dataIndex: "description",
       key: "description",
       render: (description) => (
-        <DefaultText
-          className="columnText"
-        >
-          {description}
-        </DefaultText>
+        <DefaultText className="columnText">{description}</DefaultText>
       ),
     },
     {
       render: (record) => (
         <div className="buttonsEditGarbage">
-          <Tooltip placement="topLeft" title={"Editar"} className="editColumn" 
-          onClick={() => onEdit(record)}
+          <Tooltip
+            placement="topLeft"
+            title={"Editar"}
+            className="editColumn"
+            onClick={() => onEdit(record)}
           >
             <EditOutlined />
           </Tooltip>
-          <Tooltip placement="topLeft" title={"Excluir"} className="garbageColumn" 
-          onClick={() => onDelete(record)}
+          <Tooltip
+            placement="topLeft"
+            title={"Excluir"}
+            className="garbageColumn"
+            onClick={() => onDelete(record)}
           >
             <RestOutlined />
           </Tooltip>
-      </div>
-      )
-    }
+        </div>
+      ),
+    },
   ];
   return columns;
 }
