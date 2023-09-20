@@ -3,7 +3,7 @@ import { ThemeContext } from "../../../context/ThemeProvider";
 import { getColumns } from "./columns";
 import { HourDisplayer } from "../../atoms";
 
-import { HoursSumAndTablesArea } from "./styles";
+import { HoursSumAndTablesArea, ExportButtonContainer } from "./styles";
 import { Collapse, Table, message } from "antd";
 import ConfirmationModal from "../ConfirmationModal";
 import { DELETE_SESSION, UPDATE_SESSION } from "../../../graphql/Sessions";
@@ -177,11 +177,7 @@ const SessionsTable = ({
             hourColor={themeColors.yellow}
           />
         </div>
-        <ExportExcel
-          jsonData={sessions}
-          archiveName="Sessões"
-        ></ExportExcel>
-       
+        <ExportExcel jsonData={sessions} archiveName="Sessões"></ExportExcel>
       </ExportButtonContainer>
       <Collapse ghost defaultActiveKey={"1"}>
         <Collapse.Panel header={<h6>Sessões:</h6>} key="1">
