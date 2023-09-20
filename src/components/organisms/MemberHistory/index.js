@@ -17,7 +17,7 @@ const MemberHistory = ({ memberId }) => {
   const startDate = rangeDate && rangeDate[0];
   const endDate = rangeDate && rangeDate[1];
 
-  const [loadCompiled, { loading, data }] = useLazyQuery(FetchCompiledForHC, {
+  const [loadCompiled, { loading, data, refetch }] = useLazyQuery(FetchCompiledForHC, {
     fetchPolicy: "network-only",
   });
   const { aditionalHours, sessions, formatedTotal, formatedPresentialTotal } =
@@ -58,6 +58,7 @@ const MemberHistory = ({ memberId }) => {
         {sessions && (
           <div className="mt-4">
             <SessionsTable
+              refetch={refetch}
               sessions={sessions}
               formatedTotal={formatedTotal}
               formatedPresentialTotal={formatedPresentialTotal}

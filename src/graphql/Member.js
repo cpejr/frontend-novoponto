@@ -232,10 +232,15 @@ const FetchCompiledForHC = gql`
         end
         formatedDuration
         isPresential
+        description
         task {
           _id
           name
           active
+        }
+        project {
+          _id
+          name
         }
       }
       aditionalHours {

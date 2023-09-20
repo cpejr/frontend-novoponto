@@ -71,5 +71,21 @@ const END_ALL_SESSIONS = gql`
   }
 `;
 
-export { LOGGED_MEMBERS, CREATE_SESSION, FINISH_SESSION, END_ALL_SESSIONS };
+const DELETE_SESSION = gql`
+	mutation DeleteSession($sessionId: ID!) {
+		deleteSession(sessionId: $sessionId) {
+			_id
+		}
+	}
+`;
+
+const UPDATE_SESSION = gql`
+	mutation UpdateSession($sessionId: ID!, $data: SessionUpdateInput!) {
+		updateSession(sessionId: $sessionId, data: $data) {
+			_id
+		}
+	}
+`;
+
+export { LOGGED_MEMBERS, CREATE_SESSION, FINISH_SESSION, END_ALL_SESSIONS, DELETE_SESSION, UPDATE_SESSION };
 
