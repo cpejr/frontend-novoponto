@@ -7,7 +7,7 @@ import useGoogleAuth from "../../services/firebase";
 
 import MemberHistory from "../../components/organisms/MemberHistory";
 
-import { HoursConsultationComponent, ProfileComponent } from "./styles";
+import {ProfileComponent } from "./styles";
 
 const CardView = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -24,6 +24,7 @@ const CardView = () => {
 
   const { member } = data || {};
 
+
   return (
     <div>
       <ProfileComponent theme={themeColors} className="">
@@ -34,6 +35,7 @@ const CardView = () => {
             member={data?.member}
           />
         </OutlinedBox>
+        
       </ProfileComponent>
 
       <div className="mt-4 d-flex flex-column m-lg-5">

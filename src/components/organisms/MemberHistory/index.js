@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { DatePicker } from "antd";
 import moment from "moment";
 import { useLazyQuery } from "@apollo/client";
-
 import { FetchCompiledForHC } from "../../../graphql/Member";
 import HomeOfficeTable from "../../molecules/HomeOfficeTable";
 import SessionsTable from "../../molecules/SessionsTable";
@@ -34,16 +33,15 @@ const MemberHistory = ({ memberId }) => {
     });
   }
 
+ 
   useEffect(() => {
     if (startDate && endDate && memberId) loadData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [memberId, rangeDate]);
 
   function disabledDate(current) {
     // Can not select days after today
     return current && current > moment().endOf("day");
   }
-
   if (memberId && !loading)
     return (
       <MemberHistoyContainer>
@@ -57,7 +55,7 @@ const MemberHistory = ({ memberId }) => {
           placeholder={["Inicio", "Fim"]}
         />
 
-        {startDate && endDate && (
+        {sessions && (
           <div className="mt-4">
             <SessionsTable
               refetch={refetch}

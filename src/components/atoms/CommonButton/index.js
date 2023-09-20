@@ -8,12 +8,16 @@ const CommonButton = ({
   buttonLabel,
   loading = false,
   icon,
+  color,
   ...props
 }) => {
   const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-
   return (
-    <CommonButtonContainer disabled={loading} color="#454545" {...props}>
+    <CommonButtonContainer
+      disabled={loading}
+      color={color || "#454545"}
+      {...props}
+    >
       {icon && <span>{icon}</span>}
       {(buttonLabel || children) && (
         <>
