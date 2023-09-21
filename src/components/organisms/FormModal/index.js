@@ -4,9 +4,8 @@ import AutoCompleteInput from "../../molecules/AutocompleteInput";
 import BadgeInput from "../../molecules/BadgeInput";
 import SelectMultiple from "../../molecules/SelectMultiple";
 import { CommonSelectBox, InputText, TextArea } from "../../atoms";
-import { Form } from "antd";
-import { CommonSelectBox, InputText } from "../../atoms";
 import { Form, DatePicker } from "antd";
+import locale from "antd/lib/date-picker/locale/en_US";
 // import locale from "antd/lib/date-picker/locale/pt_BR";
 
 // This Modal recieves an array of fields and deals with each one of them, including its type and validation
@@ -53,6 +52,10 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
       initialValue,
       rules,
       characterLimit,
+      format,
+      disableDate,
+      value,
+      onChange
     } = field;
     let inputField;
     switch (type) {
@@ -62,6 +65,11 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
             options={options}
             placeholder={placeholder}
             initialValue={initialValue}
+            locale={locale}
+            format={format}
+            disableDate={disableDate}
+            value={value}
+            onChange={onChange}
           />
         );
         break;

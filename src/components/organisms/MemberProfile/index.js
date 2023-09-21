@@ -278,7 +278,7 @@ const MemberProfile = ({
           )}
         </div>
       </div>
-      <div className="titulo1">
+      
       <div className="BotaoInserirHoras" >
         <CommonButton
               buttonLabel="Adicionar Horas"
