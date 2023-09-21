@@ -13,7 +13,7 @@ import {
 import { Tooltip, message, Skeleton, Table } from "antd";
 import { MembersComponent, ActionsDiv } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
-
+import Footer from "../../../components/molecules/Footer";
 import {
   CommonButton,
   DefaultLabel,
@@ -377,7 +377,10 @@ const Members = () => {
         handleOk={() => handleExcludeMember(excludeMember._id)}
         handleCancel={handleCloseModal}
       />
-      <FormModal {...editOrCreateModalInfo}/>
+      <FormModal {...editOrCreateModalInfo} />
+      <div>
+        <Footer />
+      </div>
     </MembersComponent>
   );
 };

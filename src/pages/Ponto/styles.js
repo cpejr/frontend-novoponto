@@ -30,8 +30,11 @@ const newsComponent = styled.div`
   background-color: ${(props) => props.theme.appBackground};
 `;
 
+const FooterDiv = styled.div`
+  margin-top: 10px;
+`;
 const TooltipTitle = styled.div`
   text-align: center;
 `;
-export { PontoComponent, newsComponent, TooltipTitle };
+export { PontoComponent, newsComponent, TooltipTitle, FooterDiv };
 

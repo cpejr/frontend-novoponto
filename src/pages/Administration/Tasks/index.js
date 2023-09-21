@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { Tooltip, message, Skeleton, Table } from "antd";
-import { TasksComponent, ActionsDiv } from "./styles";
+import { TasksComponent, ActionsDiv, DivFooter } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
-
+import Footer from "../../../components/molecules/Footer";
 import { CommonButton, InputText } from "../../../components/atoms";
 import searchIcon from "../../../assets/searchIcon.svg";
 import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
@@ -232,6 +232,9 @@ const Tasks = () => {
         handleCancel={handleCloseModal}
       />
       <FormModal {...editOrCreateModalInfo} />
+      <DivFooter>
+        <Footer />
+      </DivFooter>
     </TasksComponent>
   );
 };

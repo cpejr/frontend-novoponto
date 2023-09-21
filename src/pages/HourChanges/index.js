@@ -5,7 +5,7 @@ import { useMutation } from "@apollo/client";
 
 import { HourChangesComponent } from "./styles";
 import { ThemeContext } from "../../context/ThemeProvider";
-
+import Footer from "../../components/molecules/Footer";
 import MembersSelectBox from "../../components/molecules/MembersSelectBox";
 import hourActionOptions from "./hourActionOptions";
 import {
@@ -203,6 +203,9 @@ const HourChanges = () => {
 				</div>
 				<DefaultText error>{JSON.stringify(error)}</DefaultText>
 			</OutlinedBox>
+			<div>
+        		<Footer />
+      		</div>
 		</HourChangesComponent>
 	);
 };
