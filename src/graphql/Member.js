@@ -24,6 +24,12 @@ const DefaultSessionFields = gql`
       color
       segment
     }
+    Badge {
+      _id
+      name
+      url
+      description
+    }
   }
 `;
 
@@ -39,6 +45,11 @@ const DefaultMemberFields = gql`
     }
     tribe {
       name
+    }
+    Badge {
+      _id
+      name
+      url
     }
   }
 `;
@@ -106,6 +117,12 @@ const Members = gql`
         text
         read
       }
+      Badge {
+        _id
+        name
+        url
+      }
+      badgeId
     }
   }
 `;
@@ -130,6 +147,11 @@ const UpdateMember = gql`
         name
         color
         segment
+      }
+      Badge {
+        _id
+        name
+        url
       }
     }
   }
@@ -172,6 +194,11 @@ const FetchMemberForHC = gql`
         name
         color
       }
+      Badge {
+        _id
+        name
+        url
+      }
     }
   }
 `;
@@ -205,10 +232,15 @@ const FetchCompiledForHC = gql`
         end
         formatedDuration
         isPresential
+        description
         task {
           _id
           name
           active
+        }
+        project {
+          _id
+          name
         }
       }
       aditionalHours {

@@ -1,6 +1,5 @@
 import gql from "graphql-tag";
 import { DefaultSessionFields } from "./Member";
-import { DefaultTaskFields } from "./Tasks";
 
 const LOGGED_MEMBERS = gql`
   query LoggedMembers {
@@ -17,17 +16,30 @@ const LOGGED_MEMBERS = gql`
       duration
       formatedDuration
       isPresential
+      description
+      project {
+        name
+        _id
+      }
     }
   }
   ${DefaultSessionFields}
 `;
 
 const CREATE_SESSION = gql`
-  mutation StartSession($memberId: ID!, $isPresential: Boolean!, $taskId: ID!) {
+  mutation StartSession(
+    $memberId: ID!
+    $isPresential: Boolean!
+    $taskId: ID!
+    $description: String
+    $projectId: ID
+  ) {
     startSession(
       memberId: $memberId
       isPresential: $isPresential
       taskId: $taskId
+      description: $description
+      projectId: $projectId
     ) {
       start
       isPresential
@@ -37,6 +49,7 @@ const CREATE_SESSION = gql`
       task {
         name
       }
+      description
     }
   }
 `;
@@ -58,4 +71,21 @@ const END_ALL_SESSIONS = gql`
   }
 `;
 
-export { LOGGED_MEMBERS, CREATE_SESSION, FINISH_SESSION, END_ALL_SESSIONS };
+const DELETE_SESSION = gql`
+	mutation DeleteSession($sessionId: ID!) {
+		deleteSession(sessionId: $sessionId) {
+			_id
+		}
+	}
+`;
+
+const UPDATE_SESSION = gql`
+	mutation UpdateSession($sessionId: ID!, $data: SessionUpdateInput!) {
+		updateSession(sessionId: $sessionId, data: $data) {
+			_id
+		}
+	}
+`;
+
+export { LOGGED_MEMBERS, CREATE_SESSION, FINISH_SESSION, END_ALL_SESSIONS, DELETE_SESSION, UPDATE_SESSION };
+

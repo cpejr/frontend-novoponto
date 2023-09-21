@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import Modal from "../../molecules/ConfirmationModal";
 import AutoCompleteInput from "../../molecules/AutocompleteInput";
+import BadgeInput from "../../molecules/BadgeInput";
+import SelectMultiple from "../../molecules/SelectMultiple";
+import { CommonSelectBox, InputText, TextArea } from "../../atoms";
+import { Form } from "antd";
 import { CommonSelectBox, InputText } from "../../atoms";
 import { Form, DatePicker } from "antd";
 // import locale from "antd/lib/date-picker/locale/pt_BR";
@@ -24,7 +28,6 @@ import { Form, DatePicker } from "antd";
 
 const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
   const [form] = Form.useForm();
-
   // Setting up the information when the modal is open
   useEffect(() => {
     if (fields) {
@@ -37,15 +40,20 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
   const handleSubmit = async () => {
     try {
       const data = await form.validateFields();
-
       onSubmit && onSubmit(data);
     } catch (error) {}
   };
-
   //Setting up the form fields
   var showingFields = fields?.map((field) => {
-    const { type, label, options, placeholder, initialValue, rules, locale, format, disableDate, value, onChange } = field;
-
+    const {
+      type,
+      label,
+      options,
+      placeholder,
+      initialValue,
+      rules,
+      characterLimit,
+    } = field;
     let inputField;
     switch (type) {
       case "autoComplete":
@@ -59,10 +67,27 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
         break;
       case "select":
         inputField = (
-          <CommonSelectBox optionsList={options} placeholder={placeholder} />
+          <CommonSelectBox placeholder={placeholder} optionsList={options} />
         );
         break;
-
+      case "selectMultiple":
+        inputField = (
+          <SelectMultiple
+            optionsList={options}
+            initialValue={initialValue}
+            placeholder={placeholder}
+            form={form}
+          />
+        );
+        break;
+      case "file":
+        inputField = <BadgeInput form={form} defaultValue={initialValue} />;
+        break;
+      case "textArea":
+        inputField = (
+          <TextArea placeholder={placeholder} maxLength={characterLimit} />
+        );
+        break;
       default:
       case "text":
         inputField = <InputText placeholder={placeholder} />;
@@ -101,3 +126,4 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
 };
 
 export default FormModal;
+

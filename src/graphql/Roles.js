@@ -6,6 +6,7 @@ const GET_ROLES = gql`
 			name
 			_id
 			access
+			departamentId
 		}
 	}
 `;

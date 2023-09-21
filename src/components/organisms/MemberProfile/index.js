@@ -5,6 +5,7 @@ import FormModal from "../../../components/organisms/FormModal";
 import { message } from "antd";
 import {
   DefaultLabel,
+  DefaultSubTitle,
   DefaultText,
   LogoutPointButton,
   MemberAvatar,
@@ -236,7 +237,6 @@ const MemberProfile = ({
         status: member?.status || "",
       });
   }, [member]);
-
   const isAdm = showAsAdministrator;
 
   async function handleSave() {
@@ -253,26 +253,32 @@ const MemberProfile = ({
 
   return (
     <MemberProfileContainer>
-      <div className="d-flex flex-column-reverse flex-sm-row mb-2 justify-content-between">
-        <Row>
-          <MemberAvatar src={member?.imageLink} className="col-auto" />
-          <div className="d-flex flex-column justify-content-around ms-2">
-            <MemberName name={member?.name} className="namePart" />
-            {member?.role && (
-              <DefaultLabel
-                labelText={member?.role?.name}
-                labelColor="#FFD100"
-              />
-            )}
-          </div>
-        </Row>
-        {!isAdm && (
-          <LogoutPointButton
-            className="col-12 col-sm-3 mb-3 mb-sm-0"
-            onClick={handleLogOutRequest}
-          />
-        )}
+      <div className="d-flex flex-column-reverse flex-sm-row mb-2 custom_margin">
+        <div className="botaoLogOut">
+          <Row>
+            <div className="imagemNomeCargo">
+              <MemberAvatar src={member?.imageLink} className="col-auto" />
+              <div className="d-flex flex-column justify-content-around ms-2">
+                <MemberName name={member?.name} className="namePart" />
+                {member?.role && (
+                  <DefaultLabel
+                    labelText={member?.role?.name}
+                    labelColor="#FFD100"
+                  />
+                )}
+              </div>
+            </div>
+          </Row>
+
+          {!isAdm && (
+            <LogoutPointButton
+              className="col-md-12 col-sm-3 mb-3 mb-sm-0"
+              onClick={handleLogOutRequest}
+            />
+          )}
+        </div>
       </div>
+      <div className="titulo1">
       <div className="BotaoInserirHoras" >
         <CommonButton
               buttonLabel="Adicionar Horas"
@@ -285,41 +291,55 @@ const MemberProfile = ({
       <div>
         <DefaultText>Assessor: {member?.responsible?.name}</DefaultText>
       </div>
-      <div className="message">
-        <DefaultText>Mensagem do acompanhamento:</DefaultText>
-        {!isAdm ? (
-          <div className="messageBox">{member?.message?.text}</div>
-        ) : (
-          <>
-            <TextArea
-              resize={true}
-              onChange={(e) =>
-                handleOnChange({
-                  message: { text: e.target.value, read: false },
-                })
-              }
-              value={newData?.message?.text}
-            />
-            <SaveButton
-              saved={newData?.message?.text === member?.message?.text}
-              onClick={handleSave}
-            />
-          </>
-        )}
+      <div className="messageAndFrase">
+        <div className="row align-items-end">
+          <div className="col-md-6">
+            <div className="quote mt-2">
+              <DefaultSubTitle>Mensagem do acompanhamento:</DefaultSubTitle>
+              {!isAdm ? (
+                <TextArea
+                  maxLength={50}
+                  className="non-resizable-textarea"
+                  value={member?.message?.text}
+                  inputMode="none"
+                />
+              ) : (
+                <>
+                  <TextArea
+                    className="non-resizable-textarea"
+                    onChange={(e) =>
+                      handleOnChange({
+                        message: { text: e.target.value, read: false },
+                      })
+                    }
+                    value={newData?.message?.text}
+                  />
+                  <SaveButton
+                    saved={newData?.message?.text === member?.message?.text}
+                    onClick={handleSave}
+                  />
+                </>
+              )}
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="quote mt-2">
+              <DefaultSubTitle>Frase:</DefaultSubTitle>
+              <TextArea
+                maxLength={50}
+                className="non-resizable-textarea"
+                onChange={(e) => handleOnChange({ status: e.target.value })}
+                value={newData?.status}
+              />
+              <SaveButton
+                saved={newData?.status === member?.status}
+                onClick={handleSave}
+              />
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="quote mt-2">
-        <DefaultText>Frase:</DefaultText>
-        <TextArea
-          maxLength={50}
-          resize={"none"}
-          onChange={(e) => handleOnChange({ status: e.target.value })}
-          value={newData?.status}
-        />
-        <SaveButton
-          saved={newData?.status === member?.status}
-          onClick={handleSave}
-        />
-      </div>
+
       <ConfirmationModal
         title="Log out"
         content={`${member?.name}, Você deseja mesmo fazer logout?`}
@@ -336,3 +356,4 @@ const MemberProfile = ({
 };
 
 export default MemberProfile;
+
