@@ -12,7 +12,6 @@ import { ThemeContext } from "../../../context/ThemeProvider";
 import { GlobalsContext } from "../../../context/GlobalsProvider";
 import { CommonButton } from "../../../components/atoms";
 import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
-import Footer from "../../../components/molecules/Footer";
 import { RocketOutlined } from "@ant-design/icons";
 
 import validators from "../../../services/validators";
@@ -230,9 +229,6 @@ const Tribes = () => {
           handleCancel={handleCloseModal}
         />
         <FormModal {...editOrCreateModalInfo} />
-        <div>
-          <Footer />
-        </div>
       </TribesComponent>
     );
   }

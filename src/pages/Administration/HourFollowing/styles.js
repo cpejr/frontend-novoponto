@@ -9,10 +9,6 @@ const HourFollowingContainer = styled.div`
 
   .outlinedBox {
   }
-
-  .divFooter{
-    margin-top: 560px;
-  }
 `;
 
 export { HourFollowingContainer };

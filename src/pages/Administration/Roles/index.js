@@ -10,7 +10,6 @@ import { GlobalsContext } from "../../../context/GlobalsProvider";
 import { message, Skeleton } from "antd";
 import { RolesComponent } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
-import Footer from "../../../components/molecules/Footer";
 import { CommonButton } from "../../../components/atoms";
 import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
 import FormModal from "../../../components/organisms/FormModal";
@@ -20,7 +19,10 @@ import { RocketOutlined } from "@ant-design/icons";
 import validators from "../../../services/validators";
 import RoleRow from "./RoleRow";
 import { useEffect } from "react";
-import { GET_DEPARTAMENT_BY_ID, GET_DEPARTMENTS } from "../../../graphql/Departaments";
+import {
+  GET_DEPARTAMENT_BY_ID,
+  GET_DEPARTMENTS,
+} from "../../../graphql/Departaments";
 
 const Roles = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -37,20 +39,35 @@ const Roles = () => {
   const [deleteRoleMutation] = useMutation(DELETE_ROLE);
   const [updateRoleMutation] = useMutation(UPDATE_ROLE);
   const [createRoleMutation] = useMutation(CREATE_ROLE);
-  const { loading: loadingRoles, error: errorRoles, data: dataRoles, refetch: refetchRoles } = useQuery(GET_ROLES);
-  const { loading: loadingDepartments, error: errorDepartments, data: dataDepartments, refetch: refetchDepartments } = useQuery(GET_DEPARTMENTS);
+  const {
+    loading: loadingRoles,
+    error: errorRoles,
+    data: dataRoles,
+    refetch: refetchRoles,
+  } = useQuery(GET_ROLES);
+  const {
+    loading: loadingDepartments,
+    error: errorDepartments,
+    data: dataDepartments,
+    refetch: refetchDepartments,
+  } = useQuery(GET_DEPARTMENTS);
 
   useEffect(() => {
-    if (!loadingDepartments && !errorDepartments && dataDepartments && availableDepartaments.length === 0) {
+    if (
+      !loadingDepartments &&
+      !errorDepartments &&
+      dataDepartments &&
+      availableDepartaments.length === 0
+    ) {
       const newDepartments = dataDepartments.departament.map((d, index) => ({
         label: d.name,
         value: index,
       }));
-    
+
       setDepartaments(dataDepartments.departament);
       setAvaibleDepartaments([...availableDepartaments, ...newDepartments]);
     }
-  }, [loadingDepartments, errorDepartments, dataDepartments])
+  }, [loadingDepartments, errorDepartments, dataDepartments]);
 
   const handleOpenModal = (role) => {
     setExcludeRole(role);
@@ -82,7 +99,6 @@ const Roles = () => {
 
   const editOrCreateRole = (method, role, data) => {
     const withInitialValue = method === "edit";
-
 
     var fields = [
       {
@@ -137,17 +153,18 @@ const Roles = () => {
     const { Cargo, Permissão, Departamento } = updatedRole;
     let departamentData;
     if (isNaN(Departamento)) {
-      departamentData = departaments.find(v => v.name === Departamento);
+      departamentData = departaments.find((v) => v.name === Departamento);
     } else {
-      departamentData = departaments.find(v => v.name === availableDepartaments[Departamento].label);
+      departamentData = departaments.find(
+        (v) => v.name === availableDepartaments[Departamento].label
+      );
     }
-    
+
     const newRole = {
       access: Permissão,
       name: Cargo,
       departamentId: departamentData._id,
     };
-  
 
     console.log(
       "🚀 ~ file: index.js ~ line 106 ~ updateRole ~ updatedRole",
@@ -172,7 +189,9 @@ const Roles = () => {
     var hide = message.loading("Criando");
     const { Cargo, Permissão, Departamento } = role;
 
-    const departamentData = departaments.find(v => v.name === availableDepartaments[Departamento].label);
+    const departamentData = departaments.find(
+      (v) => v.name === availableDepartaments[Departamento].label
+    );
 
     const newRole = {
       access: Permissão,
@@ -261,9 +280,6 @@ const Roles = () => {
           handleCancel={handleCloseModal}
         />
         <FormModal {...editOrCreateModalInfo} />
-        <div>
-          <Footer />
-        </div>
       </RolesComponent>
     );
   }

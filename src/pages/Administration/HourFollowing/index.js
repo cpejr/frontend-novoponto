@@ -4,12 +4,11 @@ import { useMutation } from "@apollo/client";
 import { UpdateMember } from "../../../graphql/Member";
 
 import { message, Skeleton } from "antd";
-import { HourFollowingContainer, DivFooter } from "./styles";
+import { HourFollowingContainer } from "./styles";
 import MembersSelectBox from "../../../components/molecules/MembersSelectBox";
 import MemberProfile from "../../../components/organisms/MemberProfile";
 import { OutlinedBox } from "../../../components/atoms";
 import MemberHistory from "../../../components/organisms/MemberHistory";
-import Footer from "../../../components/molecules/Footer";
 
 const HourFollowing = () => {
   const [selected, setSelected] = useState();
@@ -83,9 +82,6 @@ const HourFollowing = () => {
             </div>
           </>
         )}
-        <div className="divFooter">  
-          <Footer />
-        </div>
       </HourFollowingContainer>
     );
   }
