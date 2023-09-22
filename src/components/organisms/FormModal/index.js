@@ -4,7 +4,7 @@ import AutoCompleteInput from "../../molecules/AutocompleteInput";
 import BadgeInput from "../../molecules/BadgeInput";
 import SelectMultiple from "../../molecules/SelectMultiple";
 import { CommonSelectBox, InputText, TextArea } from "../../atoms";
-import { Form, DatePicker } from "antd";
+import { Form, DatePicker, TimePicker } from "antd";
 import locale from "antd/lib/date-picker/locale/en_US";
 // import locale from "antd/lib/date-picker/locale/pt_BR";
 
@@ -55,7 +55,8 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
       format,
       disableDate,
       value,
-      onChange
+      onChange,
+      onSelect,
     } = field;
     let inputField;
     switch (type) {
@@ -100,10 +101,30 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
       case "text":
         inputField = <InputText placeholder={placeholder} />;
         break;
-      
+
       case "date":
-        inputField = <DatePicker locale={locale} format={format} disabledDate={disableDate} value={value} onChange={onChange}/>;
+        inputField = (
+          <DatePicker
+            locale={locale}
+            format={format}
+            disabledDate={disableDate}
+            value={value}
+            onChange={onChange}
+          />
+        );
         break;
+
+      case "hour":
+        inputField = (
+          <TimePicker
+            onSelect={onSelect}
+            format={"HH:mm"}
+            showNow={false}
+            placeholder={"00:00"}
+            onChange={onChange}
+            value={value}
+          />
+        );
     }
 
     return (

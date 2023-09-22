@@ -21,18 +21,19 @@ import { MemberProfileContainer } from "./styles";
 import { CommonButton, CommonSelectBox } from "../../../components/atoms";
 import { useMutation } from "@apollo/client";
 import { SendAditionalHour } from "../../../graphql/AditionalHour";
+import validators from "../../../services/validators";
 
 const INITIAL_ERRORS = {
-	member: false,
-	hourAction: false,
-	date: false,
-	duration: false,
-	comment: false,
-	isPresential: false,
+  member: false,
+  hourAction: false,
+  date: false,
+  duration: false,
+  comment: false,
+  isPresential: false,
 };
 
 function convertDurationToMilliseconds(time) {
-	return moment.duration(time.format("HH:mm")).asMilliseconds();
+  return moment.duration(time.format("HH:mm")).asMilliseconds();
 }
 
 const MemberProfile = ({
@@ -55,99 +56,71 @@ const MemberProfile = ({
   const needComment = formData.hourAction !== "REMOVE";
 
   const [submitAditionalHours, { loading, error }] = useMutation(
-		SendAditionalHour,
-		{ ignoreResults: true }
-	);
+    SendAditionalHour,
+    { ignoreResults: true }
+  );
 
   const handleOpenModal = (hour) => {
     setExcludeHour(hour);
     setOpenModalExcludeHour(true);
-  }
+  };
 
   const handleCloseModal = () => {
     setOpenModalExcludeHour(false);
-  }
+  };
 
   const handleCloseOrCreate = () => {
     setCreateModalInfo({ open: false });
-  }
+  };
 
-  function validateFields() {
-		const newErrors = {};
-		const { hourAction, member, date, duration, comment, isPresential } =
-			formData;
+  const handleSubmit = async (formData) => {
+    console.log(formData); //adequar ao formato feito em sessions.
+    // if (!loading) {
+    //   console.log(formData);
+    //   const { hourAction, member, date, comment, isPresential } = formData;
+    //   // let { duration } = formData;
 
-		if (isPresential === undefined) newErrors.isPresential = true;
+    //   // duration = convertDurationToMilliseconds(duration);
+    //   // if (hourAction === "REMOVE") duration *= -1;
 
-		if (!member) newErrors.member = true;
-
-		if (!hourAction) newErrors.hourAction = true;
-
-		if (!date || date === "") newErrors.date = true;
-
-		if (!duration || convertDurationToMilliseconds(duration) < 1000)
-			newErrors.duration = true;
-
-		if (needComment && (!comment || comment?.trim() === ""))
-			newErrors.comment = true;
-
-		if (Object.keys(newErrors).length > 0) {
-			setErrors({ ...INITIAL_ERRORS, ...newErrors });
-			return false;
-		}
-
-		setErrors(INITIAL_ERRORS);
-		return true;
-	}
-
-  function handleSubmit(e) {
-		e.preventDefault();
-
-		if (!loading && validateFields()) {
-			const { hourAction, member, date, comment, isPresential } = formData;
-			let { duration } = formData;
-
-			duration = convertDurationToMilliseconds(duration);
-			if (hourAction === "REMOVE") duration *= -1;
-
-			submitAditionalHours({
-				variables: {
-					data: {
-						memberId: member,
-						date: date.startOf("day").toISOString(),
-						amount: duration,
-						description: comment,
-						isPresential: isPresential,
-					},
-				},
-			})
-				.then(() => {
-					setFormData({});
-					message.success("Enviado com sucesso!");
-				})
-				.catch(() => {
-					message.error("Vish algo deu errado.\nTente novamente mais tarde.");
-				});
-		}
-	}
+    //   // submitAditionalHours({
+    //   //   variables: {
+    //   //     data: {
+    //   //       memberId: member,
+    //   //       date: date.startOf("day").toISOString(),
+    //   //       amount: duration,
+    //   //       description: comment,
+    //   //       isPresential: isPresential,
+    //   //     },
+    //   //   },
+    //   // })
+    //   //   .then(() => {
+    //   //     setFormData({});
+    //   //     message.success("Enviado com sucesso!");
+    //   //   })
+    //   //   .catch(() => {
+    //   //     message.error("Vish algo deu errado.\nTente novamente mais tarde.");
+    //   //   });
+    // }
+  };
 
   function disabledDate(current) {
-		return current && current > moment().endOf("day");
-	}
+    return current && current > moment().endOf("day");
+  }
 
-	function handleChangeData(key, data) {
-		setFormData({ ...formData, [key]: data });
-	}
+  function handleChangeData(key, data) {
+    setFormData({ ...formData, [key]: data });
+  }
 
   const modalityModalOptions = [
     {
       value: false,
-      label: "Remoto"
+      label: "Remoto",
     },
     {
       value: true,
-      label: "Presencial"
-    }
+      label: "Presencial",
+    },
   ];
 
   const dateModalOptions = [
@@ -155,48 +128,48 @@ const MemberProfile = ({
       onChange: (data) => handleChangeData("date", data),
       locale: "pt_BR",
       format: "DD/MM/yyyy",
-      disabledDate: {disabledDate},
-      value: formData.date
-    }
-  ]
+      disabledDate: { disabledDate },
+      value: formData.date,
+    },
+  ];
 
   const addHour = (method) => {
-    const withInitialValue = method ===  "create";
+    const withInitialValue = method === "create";
 
     var fields = [
       {
         key: "modality",
         type: "select",
-        label: "Modalidade: *",
+        label: "Modalidade:",
         placeholder: "Presencial/Remoto",
         options: modalityModalOptions,
-        validator: validateFields,
+        rules: [validators.antdRequired()],
       },
       {
         key: "day",
         type: "date",
-        label: "Qual dia foi ocorrido? *",
+        label: "Qual dia foi ocorrido?",
         placeholder: "Selecionar data",
         options: dateModalOptions,
-        validator: validateFields,
+        rules: [validators.antdRequired()],
       },
       {
         key: "HourIn",
-        type: "text",
-        label: "Horário de Entrada: *",
-        validator: validateFields,
+        type: "hour",
+        label: "Horário de Entrada:",
+        rules: [validators.antdRequired()],
       },
       {
-        key: "HoutOut",
-        type: "text",
-        label: "Horário de Saída: *",
-        validator: validateFields,
+        key: "HourOut",
+        type: "hour",
+        label: "Horário de Saída:",
+        rules: [validators.antdRequired()],
       },
       {
         key: "work",
         type: "text",
-        label: "O que você fez neste horário: *",
-        validator: validateFields,
+        label: "O que você fez neste horário:",
+        rules: [validators.antdRequired()],
       },
       {
         key: "Project",
@@ -205,9 +178,10 @@ const MemberProfile = ({
       },
       {
         key: "Description",
-        type: "text",
+        type: "textArea",
         label: "Deseja descrever melhor o que foi feito?",
-      }
+        characterLimit: 150,
+      },
     ];
 
     const modalData = {
@@ -215,9 +189,8 @@ const MemberProfile = ({
       fields: fields,
       open: true,
       cancel: handleCloseOrCreate,
+      onSubmit: handleSubmit,
     };
-
-    modalData.onSubmit = handleSubmit;
 
     setCreateModalInfo(modalData);
   };
@@ -278,15 +251,15 @@ const MemberProfile = ({
           )}
         </div>
       </div>
-      
-      <div className="BotaoInserirHoras" >
+
+      <div className="BotaoInserirHoras">
         <CommonButton
-              buttonLabel="Adicionar Horas"
-              color="#22762B"
-              width="100%"
-              onClick={() => addHour("create")}
-              loading={loading}
-            />
+          buttonLabel="Adicionar Horas"
+          color="#22762B"
+          width="100%"
+          onClick={() => addHour("create")}
+          loading={loading}
+        />
       </div>
       <div>
         <DefaultText>Assessor: {member?.responsible?.name}</DefaultText>
