@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import moment from "moment";
 import FormModal from "../../../components/organisms/FormModal";
 // import validators from "../../../services/validators";
@@ -19,9 +19,10 @@ import ConfirmationModal from "../../molecules/ConfirmationModal";
 import { Form, Row } from "antd";
 import { MemberProfileContainer } from "./styles";
 import { CommonButton, CommonSelectBox } from "../../../components/atoms";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { SendAditionalHour } from "../../../graphql/AditionalHour";
 import validators from "../../../services/validators";
+import { GET_PROJECTS } from "../../../graphql/Projects";
 
 const INITIAL_ERRORS = {
   member: false,
@@ -55,6 +56,10 @@ const MemberProfile = ({
 
   const needComment = formData.hourAction !== "REMOVE";
 
+  const memberToLogin = useRef();
+  memberToLogin.current = data.member;
+
+
   const [submitAditionalHours, { loading, error }] = useMutation(
     SendAditionalHour,
     { ignoreResults: true }
@@ -74,34 +79,16 @@ const MemberProfile = ({
   };
 
   const handleSubmit = async (formData) => {
-    console.log(formData); //adequar ao formato feito em sessions.
-    // if (!loading) {
-    //   console.log(formData);
-    //   const { hourAction, member, date, comment, isPresential } = formData;
-    //   // let { duration } = formData;
+    console.log(formData); 
+    const newHour = {
+      memberId: memberToLogin.current._id,
+      projectId: formData["Você trabalhou em algum projeto?"],
+      description: formData["Deseja descrever melhor o que foi feito?"],
+    };
 
-    //   // duration = convertDurationToMilliseconds(duration);
-    //   // if (hourAction === "REMOVE") duration *= -1;
-
-    //   // submitAditionalHours({
-    //   //   variables: {
-    //   //     data: {
-    //   //       memberId: member,
-    //   //       date: date.startOf("day").toISOString(),
-    //   //       amount: duration,
-    //   //       description: comment,
-    //   //       isPresential: isPresential,
-    //   //     },
-    //   //   },
-    //   // })
-    //   //   .then(() => {
-    //   //     setFormData({});
-    //   //     message.success("Enviado com sucesso!");
-    //   //   })
-    //   //   .catch(() => {
-    //   //     message.error("Vish algo deu errado.\nTente novamente mais tarde.");
-    //   //   });
-    // }
+    handleCloseModal();
+    var hide = message.loading("Carregando...");
+    
   };
 
   function disabledDate(current) {
@@ -132,6 +119,12 @@ const MemberProfile = ({
       value: formData.date,
     },
   ];
+
+  const { data: dataProjects } = useQuery(GET_PROJECTS);
+
+  const projectsModalOptions = dataProjects?.projects.map((project) => {
+    return { value: project._id, label: project.name };
+  });
 
   const addHour = (method) => {
     const withInitialValue = method === "create";
@@ -166,14 +159,9 @@ const MemberProfile = ({
         rules: [validators.antdRequired()],
       },
       {
-        key: "work",
-        type: "text",
-        label: "O que você fez neste horário:",
-        rules: [validators.antdRequired()],
-      },
-      {
         key: "Project",
-        type: "text",
+        type: "select",
+        options: projectsModalOptions,
         label: "Você trabalhou em algum projeto?",
       },
       {
@@ -181,6 +169,7 @@ const MemberProfile = ({
         type: "textArea",
         label: "Deseja descrever melhor o que foi feito?",
         characterLimit: 150,
+        rules: [validators.antdRequired()],
       },
     ];
 
