@@ -56,10 +56,6 @@ const MemberProfile = ({
 
   const needComment = formData.hourAction !== "REMOVE";
 
-  const memberToLogin = useRef();
-  memberToLogin.current = data.member;
-
-
   const [submitAditionalHours, { loading, error }] = useMutation(
     SendAditionalHour,
     { ignoreResults: true }
@@ -77,18 +73,14 @@ const MemberProfile = ({
   const handleCloseOrCreate = () => {
     setCreateModalInfo({ open: false });
   };
-
   const handleSubmit = async (formData) => {
-    console.log(formData); 
     const newHour = {
-      memberId: memberToLogin.current._id,
+      memberId: member._id,
       projectId: formData["Você trabalhou em algum projeto?"],
       description: formData["Deseja descrever melhor o que foi feito?"],
     };
-
     handleCloseModal();
     var hide = message.loading("Carregando...");
-    
   };
 
   function disabledDate(current) {
