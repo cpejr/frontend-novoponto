@@ -3,8 +3,14 @@ import Modal from "../../molecules/ConfirmationModal";
 import AutoCompleteInput from "../../molecules/AutocompleteInput";
 import BadgeInput from "../../molecules/BadgeInput";
 import SelectMultiple from "../../molecules/SelectMultiple";
-import { CommonSelectBox, InputText, TextArea } from "../../atoms";
-import { Form, DatePicker, TimePicker } from "antd";
+import {
+  CommonTimePicker,
+  CommonDatePicker,
+  CommonSelectBox,
+  InputText,
+  TextArea,
+} from "../../atoms";
+import { Form } from "antd";
 import locale from "antd/lib/date-picker/locale/en_US";
 // import locale from "antd/lib/date-picker/locale/pt_BR";
 
@@ -104,7 +110,7 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
 
       case "date":
         inputField = (
-          <DatePicker
+          <CommonDatePicker
             locale={locale}
             format={format}
             disabledDate={disableDate}
@@ -116,7 +122,7 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
 
       case "hour":
         inputField = (
-          <TimePicker
+          <CommonTimePicker
             onSelect={onSelect}
             format={"HH:mm"}
             showNow={false}
