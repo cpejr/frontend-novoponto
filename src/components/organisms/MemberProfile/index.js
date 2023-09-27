@@ -73,12 +73,19 @@ const MemberProfile = ({
   const handleCloseOrCreate = () => {
     setCreateModalInfo({ open: false });
   };
+
   const handleSubmit = async (formData) => {
     const newHour = {
-      memberId: member._id,
+      member: member._id,
+      isPresential: formData["Modalidade:"],
+      date: formData["Qual dia foi ocorrido?"],
+      initialHour: formData["Horário de Entrada:"],
+      finalHour: formData["Horário de Saída:"],
+      coment: formData["O que você fez neste horário:"],
       projectId: formData["Você trabalhou em algum projeto?"],
       description: formData["Deseja descrever melhor o que foi feito?"],
     };
+    console.log(JSON.stringify(newHour))
     handleCloseModal();
     var hide = message.loading("Carregando...");
   };
@@ -151,6 +158,12 @@ const MemberProfile = ({
         rules: [validators.antdRequired()],
       },
       {
+        key: "work",
+        type: "text",
+        label: "O que você fez neste horário:",
+        rules: [validators.antdRequired()],
+      },
+      {
         key: "Project",
         type: "select",
         options: projectsModalOptions,
@@ -161,7 +174,6 @@ const MemberProfile = ({
         type: "textArea",
         label: "Deseja descrever melhor o que foi feito?",
         characterLimit: 150,
-        rules: [validators.antdRequired()],
       },
     ];
 
@@ -310,4 +322,3 @@ const MemberProfile = ({
 };
 
 export default MemberProfile;
-
