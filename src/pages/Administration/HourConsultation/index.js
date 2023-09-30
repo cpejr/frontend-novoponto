@@ -34,7 +34,7 @@ const HourConsultation = () => {
       <MembersSelectBox onChange={selectMember} />
       <SelectFilter placeholder={'Projeto'} data={projectsData.projects}/>
       <SelectFilter placeholder={'Tarefa'} data={tasksData.tasks}/>
-      <SelectFilter placeholder={'Departamento'} data={tasksData.tasks}/>
+      <SelectFilter placeholder={'Departamento'} data={departamentsData.departament}/>
     </FilterArea>
   )
 }
