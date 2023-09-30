@@ -20,6 +20,7 @@ import {
   Badges,
   Projects,
 } from "../pages";
+import HourConsultation from "../pages/Administration/HourConsultation";
 
 function Menu() {
   return (
@@ -53,6 +54,11 @@ function Menu() {
           minAccessLevel={1}
           path="/ponto/acompanhamento"
           component={HourFollowing}
+        />
+        <RestrictedRoute
+          minAccessLevel={1}
+          path="/ponto/consultadehoras"
+          component={HourConsultation}
         />
         <RestrictedRoute
           path="/ponto/atualizarnoticias"
