@@ -57,5 +57,10 @@ const END_ALL_SESSIONS = gql`
     endAllSessions
   }
 `;
+  const END_SESSIONS_AFTER_20HOURS = gql`
+  mutation EndSessionAfter20Hours {
+    endSessionAfter20Hours
+  }
+`;
 
-export { LOGGED_MEMBERS, CREATE_SESSION, FINISH_SESSION, END_ALL_SESSIONS };
+export { LOGGED_MEMBERS, CREATE_SESSION, FINISH_SESSION, END_ALL_SESSIONS,END_SESSIONS_AFTER_20HOURS };

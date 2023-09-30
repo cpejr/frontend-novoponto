@@ -6,6 +6,7 @@ import {
   CREATE_SESSION,
   FINISH_SESSION,
   LOGGED_MEMBERS,
+  END_SESSIONS_AFTER_20HOURS,
 } from "../../graphql/Sessions";
 import { GET_TASKS } from "../../graphql/Tasks";
 import { InputText } from "../../components/atoms";
@@ -25,7 +26,7 @@ const Sessions = () => {
 
   const [startSessionMutation] = useMutation(CREATE_SESSION);
   const [endSessionMutation] = useMutation(FINISH_SESSION);
-  const [sessionStart, setSessionStart] = useState();
+  const [endSessionAfter20Hours] = useMutation(END_SESSIONS_AFTER_20HOURS);
 
   const filterMemberField = useRef();
   const memberToLogin = useRef();
@@ -61,30 +62,7 @@ const Sessions = () => {
     }
   }
 
-  const logoutAfter20Hours = () => {
-    const twentyHoursInMilliseconds =  20 * 60 * 60 * 1000; 
-    const currentTime = Date.now();
-    const timeDifference = currentTime - sessionStart;
-
-    if (timeDifference >= twentyHoursInMilliseconds) {
-      let hide = message.loading("Deslogando...");
-
-    try {
-       endSessionMutation({
-        variables: { memberId: memberToLogin.current._id },
-      });
-      hide();
-      message.success(`Bom descanso ${memberToLogin.current.name}!`, 2.5);
-
-    } catch (err) {
-      hide();
-      console.error(err);
-      message.error("Houve um problema, tente novamente", 2.5);
-    }
-    }
-  };
-
-
+ 
   async function handleLogin(modality, taskId) {
     const hide = message.loading("Fazendo Login...");
     try {
@@ -95,7 +73,7 @@ const Sessions = () => {
           taskId: taskId,
         },
       });
-      setSessionStart(Date.now());
+     
       hide();
       
       message.success(`Bom trabalho ${memberToLogin.current.name}!`, 2.5);
@@ -109,6 +87,14 @@ const Sessions = () => {
     setLoginModalVisible(false);
   }
 
+  const checkAndEndSessionsAfter20Hours = async () => {
+    try {
+      await endSessionAfter20Hours();
+    } catch (error) {
+      console.error("Erro ao encerrar sessões após 20 horas:", error);
+    }
+  };
+
   useEffect(() => {
     refetchLoggedMembers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -116,14 +102,20 @@ const Sessions = () => {
 
   useEffect(() => {
     updateFilter();
-    const timer = setInterval(logoutAfter20Hours, 60000);
+    
     
     return () => {
-      clearInterval(timer); 
+     
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedMembers]);
+
+  useEffect(() => {
+
+    const interval = setInterval(checkAndEndSessionsAfter20Hours, 60000); 
+    return () => clearInterval(interval); 
+  }, []);
 
   function updateFilter() {
     const value = filterMemberField?.current?.input.value;
