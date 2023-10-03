@@ -102,6 +102,15 @@ const Members = () => {
         initialValue: withInitialValue ? member.name : undefined,
       },
       {
+        key: "email",
+        type: "text",
+        label: "Email",
+        rules: [validators.antdRequired()],
+
+        placeholder: "Escreva o email do membro",
+        initialValue: withInitialValue ? member?.email : undefined,
+      },
+      {
         key: "tribe",
         type: "select",
         label: "Tribo",
@@ -176,10 +185,11 @@ const Members = () => {
   const createMember = async (member) => {
     var hide = message.loading("Criando...");
 
-    const { Nome, Cargo, Assessor, Tribo, Reconhecimento } = member;
+    const { Nome, Email, Cargo, Assessor, Tribo, Reconhecimento } = member;
     try {
       const newMember = {
         name: Nome,
+        email: Email,
         roleId: Cargo,
         tribeId: Tribo,
         badgeId: Reconhecimento,
@@ -367,7 +377,7 @@ const Members = () => {
         handleOk={() => handleExcludeMember(excludeMember._id)}
         handleCancel={handleCloseModal}
       />
-      <FormModal {...editOrCreateModalInfo} />
+      <FormModal {...editOrCreateModalInfo}/>
     </MembersComponent>
   );
 };
