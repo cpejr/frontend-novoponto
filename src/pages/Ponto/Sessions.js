@@ -87,7 +87,7 @@ const Sessions = () => {
     setLoginModalVisible(false);
   }
 
-  const checkAndEndSessionsAfter20Hours = async () => {
+  async function checkAndEndSessionsAfter20Hours() {
     try {
       await endSessionAfter20Hours();
     } catch (error) {
@@ -112,7 +112,7 @@ const Sessions = () => {
   }, [loggedMembers]);
 
   useEffect(() => {
-
+    checkAndEndSessionsAfter20Hours(); 
     const interval = setInterval(checkAndEndSessionsAfter20Hours, 60000); 
     return () => clearInterval(interval); 
   }, []);
