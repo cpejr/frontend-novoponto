@@ -24,7 +24,7 @@ const Sessions = () => {
   
   const [memberToLogout, setMemberToLogout] = useState();
   const [filteredSessions, setFilteredSessions] = useState([]);
-  const [showLogoutAllMembers, setShowLogoutAllMembers] = useState(false);
+  
   const [loginModalVisible, setLoginModalVisible] = useState(false);
 
   const [startSessionMutation] = useMutation(CREATE_SESSION);
@@ -258,15 +258,7 @@ const Sessions = () => {
         handleOk={() => handleLogoutMember(memberToLogout)}
         handleCancel={() => setMemberToLogout()}
       />
-      
-      <LoginModal
-        title="Confirmação de login"
-        content={`Como deseja logar ${memberToLogin.current?.name}?`}
-        isVisible={loginModalVisible}
-        tasks={tasksData?.tasks}
-        handleLogin={handleLogin}
-        handleCancel={() => setLoginModalVisible(false)}
-      />
+    
     </div>
   );
 };
