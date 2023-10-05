@@ -8,9 +8,8 @@ const HourFollowingContainer = styled.div`
   }
 
   .outlinedBox {
-    max-width: 400px;
-    min-height: 590px;
   }
 `;
 
 export { HourFollowingContainer };
+

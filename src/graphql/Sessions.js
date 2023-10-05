@@ -1,6 +1,5 @@
 import gql from "graphql-tag";
 import { DefaultSessionFields } from "./Member";
-import { DefaultTaskFields } from "./Tasks";
 
 const LOGGED_MEMBERS = gql`
   query LoggedMembers {
@@ -17,17 +16,30 @@ const LOGGED_MEMBERS = gql`
       duration
       formatedDuration
       isPresential
+      description
+      project {
+        name
+        _id
+      }
     }
   }
   ${DefaultSessionFields}
 `;
 
 const CREATE_SESSION = gql`
-  mutation StartSession($memberId: ID!, $isPresential: Boolean!, $taskId: ID!) {
+  mutation StartSession(
+    $memberId: ID!
+    $isPresential: Boolean!
+    $taskId: ID!
+    $description: String
+    $projectId: ID
+  ) {
     startSession(
       memberId: $memberId
       isPresential: $isPresential
       taskId: $taskId
+      description: $description
+      projectId: $projectId
     ) {
       start
       isPresential
@@ -37,6 +49,7 @@ const CREATE_SESSION = gql`
       task {
         name
       }
+      description
     }
   }
 `;

@@ -23,14 +23,16 @@ const SessionsTable = ({ sessions, onLogout, ...props }) => {
           <th scope="col-4 col-sm-3"></th>
         </tr>
       </thead>
-      <tbody>
-        {sessions?.map((session) => (
-          <SessionRow
-            key={session.member._id}
-            session={session}
-            onLogout={onLogout}
-          />
-        ))}
+      <tbody >
+        <div className="usersSession">
+          {sessions?.map((session) => (
+            <SessionRow
+              key={session.member._id}
+              session={session}
+              onLogout={onLogout}
+            />
+          ))}
+        </div>
 
         {(!sessions || sessions.length === 0) && (
           <tr>
