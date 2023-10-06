@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { GlobalsContext } from "../../../context/GlobalsProvider";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_ROLES } from "../../../graphql/Roles";
+import { GET_BADGES } from "../../../graphql/Badges";
+import { GET_TRIBES } from "../../../graphql/Tribes";
+
 import {
   UpdateMember,
   DeleteMember,
@@ -10,7 +13,6 @@ import {
 import { Tooltip, message, Skeleton, Table } from "antd";
 import { MembersComponent, ActionsDiv } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
-
 import {
   CommonButton,
   DefaultLabel,
@@ -23,10 +25,9 @@ import FormModal from "../../../components/organisms/FormModal";
 import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";
 
 import validators from "../../../services/validators";
-import { GET_TRIBES } from "../../../graphql/Tribes";
 import diacriticCaseInsensitiveMatch from "../../../utils/diacriticCaseInsensitiveMatch";
 
-const { Column, ColumnGroup } = Table;
+const { Column } = Table;
 
 const Members = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -35,6 +36,7 @@ const Members = () => {
 
   const { data: roles, error: errorRoles } = useQuery(GET_ROLES);
   const { data: tribes, error: errorTribes } = useQuery(GET_TRIBES);
+  const { data: badges, error: errorBadges } = useQuery(GET_BADGES);
 
   const [updateMemberMutation] = useMutation(UpdateMember);
   const [createMemberMutation] = useMutation(CreateMember);
@@ -77,9 +79,15 @@ const Members = () => {
         label: tribe?.name,
       }))
     );
+    const badgesOptions = Object.assign(
+      [],
+      badges?.badges?.map((badge) => ({
+        value: badge?._id,
+        label: badge?.name,
+      }))
+    );
 
     if (withInitialValue) tribesOptions.push({ label: "", value: null });
-
     var fields = [
       {
         key: "name",
@@ -139,6 +147,16 @@ const Members = () => {
             }
           : undefined,
       },
+      {
+        key: "badges",
+        type: "selectMultiple",
+        label: "Reconhecimento",
+        placeholder: "Escolha o reconhecimento",
+
+        options: badgesOptions,
+
+        initialValue: withInitialValue ? member?.badgeId : undefined,
+      },
     ];
 
     const modalData = {
@@ -163,13 +181,14 @@ const Members = () => {
   const createMember = async (member) => {
     var hide = message.loading("Criando...");
 
-    const { Nome, Email, Cargo, Assessor, Tribo } = member;
+    const { Nome, Email, Cargo, Assessor, Tribo, Reconhecimento } = member;
     try {
       const newMember = {
         name: Nome,
         email: Email,
         roleId: Cargo,
         tribeId: Tribo,
+        badgeId: Reconhecimento,
         responsibleId: Assessor?.selectedOption?.value,
       };
       await createMemberMutation({ variables: { data: newMember } });
@@ -187,18 +206,15 @@ const Members = () => {
 
   const updateMember = (memberId) => async (member) => {
     var hide = message.loading("Atualizando dados do membro...");
-
-    const { Nome, Email, Cargo, Assessor, Tribo } = member;
-
+    const { Nome, Cargo, Assessor, Tribo, Reconhecimento } = member;
     try {
       const newMember = {
         name: Nome,
-        email: Email,
         roleId: Cargo,
         tribeId: Tribo,
+        badgeId: Reconhecimento,
         responsibleId: Assessor?.selectedOption?.value || null,
       };
-
       await updateMemberMutation({
         variables: { memberId, data: newMember },
       });
@@ -266,6 +282,10 @@ const Members = () => {
     console.log(errorTribes);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
+  } else if (errorBadges) {
+    console.log(errorBadges);
+    message.error("Houve um problema, tente recarregar a pagina", 2.5);
+    return <h1>Erro, recarregue a pagina</h1>;
   }
 
   return (
@@ -312,13 +332,30 @@ const Members = () => {
           dataIndex="role"
           key="role"
           width={200}
-          render={(role) => <DefaultLabel labelText={role?.name} />}
+          render={(role) => role && <DefaultLabel labelText={role.name} />}
         />
         <Column
           title="Assessor"
           dataIndex="responsible"
           key="responsible.name"
           render={(responsible) => responsible?.name}
+        />
+        <Column
+          title="Reconhecimentos"
+          dataIndex="Badge"
+          key="Badge"
+          width={200}
+          render={(Badge) =>
+            Badge &&
+            Badge.map((badgeItem) => (
+              <img
+                key={badgeItem.name}
+                src={badgeItem.url}
+                alt={badgeItem.name}
+                style={{ height: "35px" }}
+              />
+            ))
+          }
         />
         <Column
           key="action"
@@ -353,3 +390,4 @@ const Members = () => {
 };
 
 export default Members;
+

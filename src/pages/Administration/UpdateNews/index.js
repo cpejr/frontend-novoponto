@@ -121,12 +121,7 @@ const UpdateNews = () => {
       <div className="outerBoxNewsContainer">
         <div className="d-flex w-100 justify-content-between py-2">
           <span>Editor de noticias:</span>
-          <Button
-            style={{ color: "white" }}
-            type="primary"
-            loading={loading}
-            onClick={handleSaveNews}
-          >
+          <Button type="primary" loading={loading} onClick={handleSaveNews}>
             Salvar
           </Button>
         </div>
@@ -151,12 +146,7 @@ const UpdateNews = () => {
           </NewsAdd>
         </div>
         <div className="ms-auto py-2">
-          <Button
-            type="primary"
-            style={{ color: "white" }}
-            loading={loading}
-            onClick={handleSaveNews}
-          >
+          <Button type="primary" loading={loading} onClick={handleSaveNews}>
             Salvar
           </Button>
         </div>
@@ -166,3 +156,4 @@ const UpdateNews = () => {
 };
 
 export default UpdateNews;
+

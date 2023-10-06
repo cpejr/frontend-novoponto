@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { HourDisplayer, InfoDisplayer, DefaultText } from "../../atoms";
 import moment from "moment";
 

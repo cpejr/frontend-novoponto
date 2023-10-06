@@ -11,10 +11,15 @@ const PontoComponent = styled.div`
   tr.customHeader {
     background-color: #1d1d1d;
     color: #ffffff;
+    position: sticky;
 
     th {
       padding: 20px 0 20px 0;
     }
+  }
+  .usersSession {
+    max-height: 576px;
+    overflow: auto;
   }
 `;
 
@@ -25,4 +30,8 @@ const newsComponent = styled.div`
   background-color: ${(props) => props.theme.appBackground};
 `;
 
-export { PontoComponent, newsComponent };
+const TooltipTitle = styled.div`
+  text-align: center;
+`;
+export { PontoComponent, newsComponent, TooltipTitle };
+

@@ -7,7 +7,7 @@ const TasksComponent = styled.div`
   display: flex;
   flex-direction: column;
   padding: 30px 20px;
-  .ant-table-content{
+  .ant-table-content {
     overflow-x: scroll;
   }
   .iconWithTitle {
@@ -68,7 +68,7 @@ const TasksComponent = styled.div`
       justify-content: space-between;
       align-items: flex-start;
     }
-    padding-left:0px;
+    padding-left: 0px;
     padding-right: 0px;
     padding-top: 10px;
     padding-bottom: 5px;
@@ -85,3 +85,4 @@ const ActionsDiv = styled.div`
 `;
 
 export { TasksComponent, ActionsDiv };
+
