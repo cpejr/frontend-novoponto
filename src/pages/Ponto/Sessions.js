@@ -15,7 +15,6 @@ import SessionsTable from "./SessionsTable";
 import { SessionContext } from "../../context/SessionProvider";
 import ConfirmationModal from "../../components/molecules/ConfirmationModal";
 import { SESSION_SUBSCRIPTION } from "../../graphql/Subscription";
-import { SessionContext } from "../../context/SessionProvider";
 import diacriticCaseInsensitiveMatch from "../../utils/diacriticCaseInsensitiveMatch";
 import FormModal from "../../components/organisms/FormModal";
 import validators from "../../services/validators";
