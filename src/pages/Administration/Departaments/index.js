@@ -24,7 +24,8 @@ const Departaments = () => {
   const { themeColors } = useContext(ThemeContext);
   const { refetchMembers } = useContext(GlobalsContext);
 
-  const [openModalExcludeDepartament, setOpenModalExcludeDepartament] = useState(false);
+  const [openModalExcludeDepartament, setOpenModalExcludeDepartament] =
+    useState(false);
   const [excludeDepartament, setExcludeDepartament] = useState({});
   const [editOrCreateModalInfo, setEditOrCreateModalInfo] = useState({
     open: false,
@@ -46,7 +47,9 @@ const Departaments = () => {
   const handleExcludeDepartament = async (departament) => {
     var hide = message.loading("Excluindo");
     try {
-      await deleteDepartamentMutation({ variables: { departamentId: departament._id } });
+      await deleteDepartamentMutation({
+        variables: { departamentId: departament._id },
+      });
       hide();
       message.success("Excluido com sucesso", 2.5);
       refetchMembers();
@@ -117,7 +120,9 @@ const Departaments = () => {
 
     var hide = message.loading("Atualizando");
     try {
-      await updateDepartamentMutation({ variables: { departamentId, data: newDepartament } });
+      await updateDepartamentMutation({
+        variables: { departamentId, data: newDepartament },
+      });
       hide();
       message.success("Alterado com sucesso", 2.5);
       refetch();
@@ -156,7 +161,6 @@ const Departaments = () => {
   const [updateDepartamentMutation] = useMutation(UPDATE_DEPARTAMENT);
   const [createDepartamentMutation] = useMutation(CREATE_DEPARTAMENT);
   const { loading, error, data, refetch } = useQuery(GET_DEPARTAMENTS);
-
   if (loading)
     return (
       <Skeleton
@@ -167,16 +171,15 @@ const Departaments = () => {
       />
     );
 
-  /*if (error) {
+  if (error) {
     console.log(error);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
-  }*/
+  }
 
   if (data) {
-    const { departaments } = data;
-    console.log("🚀 ~ file: index.js:178 ~ Departaments ~ departaments:", departaments)
-
+    const { departament: departaments } = data;
+    console.log(departaments);
     return (
       <DepartamentsComponent theme={themeColors}>
         <div className="iconWithTitle">
@@ -203,7 +206,7 @@ const Departaments = () => {
             </tr>
           </thead>
           <tbody>
-            {departaments? (
+            {departaments ? (
               departaments.map((departament) => (
                 <DepartamentRow
                   key={departament._id}
@@ -233,3 +236,4 @@ const Departaments = () => {
 };
 
 export default Departaments;
+

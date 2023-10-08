@@ -43,28 +43,28 @@ const Roles = () => {
     refetch: refetchRoles,
   } = useQuery(GET_ROLES);
   const {
-    loading: loadingDepartments,
-    error: errorDepartments,
-    data: dataDepartments,
-    refetch: refetchDepartments,
+    loading: loadingDepartaments,
+    error: errorDepartaments,
+    data: dataDepartaments,
+    refetch: refetchDepartaments,
   } = useQuery(GET_DEPARTAMENTS);
 
   useEffect(() => {
     if (
-      !loadingDepartments &&
-      !errorDepartments &&
-      dataDepartments &&
+      !loadingDepartaments &&
+      !errorDepartaments &&
+      dataDepartaments &&
       availableDepartaments.length === 0
     ) {
-      const newDepartments = dataDepartments.departament.map((d, index) => ({
+      const newDepartments = dataDepartaments.departament.map((d, index) => ({
         label: d.name,
         value: index,
       }));
 
-      setDepartaments(dataDepartments.departament);
+      setDepartaments(dataDepartaments.departament);
       setAvaibleDepartaments([...availableDepartaments, ...newDepartments]);
     }
-  }, [loadingDepartments, errorDepartments, dataDepartments]);
+  }, [loadingDepartaments, errorDepartaments, dataDepartaments]);
 
   const handleOpenModal = (role) => {
     setExcludeRole(role);

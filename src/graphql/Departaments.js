@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 const GET_DEPARTAMENTS = gql`
-  query GetDepartament {
+  query departament {
     departament {
       _id
       name
@@ -10,6 +10,7 @@ const GET_DEPARTAMENTS = gql`
     }
   }
 `;
+
 const GET_DEPARTAMENT_BY_ID = gql`
   query Departaments($departamentId: ID!) {
     departamentById(departamentId: $departamentId) {
@@ -55,3 +56,4 @@ export {
   UPDATE_DEPARTAMENT,
   CREATE_DEPARTAMENT,
 };
+
