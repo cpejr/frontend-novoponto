@@ -24,7 +24,6 @@ import SessionContextProvider from "./context/SessionProvider";
 import GlobalStyle from "./styles/GlobalStyle";
 
 import GlobalsContextProvider from "./context/GlobalsProvider";
-import Footer from "./components/molecules/Footer";
 
 const httpLink = createUploadLink({
   uri: process.env.REACT_APP_API || "http://localhost:4000/",
@@ -85,7 +84,6 @@ function App() {
             <GlobalsContextProvider>
               <GlobalStyle />
               <Routes />
-              <Footer />
             </GlobalsContextProvider>
           </SessionContextProvider>
         </ThemeContextProvider>

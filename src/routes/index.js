@@ -19,9 +19,9 @@ import {
   Tribes,
   Badges,
   Projects,
-	Departaments,
+  Departaments,
 } from "../pages";
-
+import Footer from "../components/molecules/Footer";
 
 function Menu() {
   return (
@@ -76,12 +76,13 @@ function Menu() {
           minAccessLevel={1}
           component={MandatoryHours}
         />
-				<RestrictedRoute
-					minAccessLevel={1}
-					path="/ponto/departamentos"
-					component={Departaments}
-				/>
+        <RestrictedRoute
+          minAccessLevel={1}
+          path="/ponto/departamentos"
+          component={Departaments}
+        />
       </Switch>
+      <Footer />
     </SidebarMenu>
   );
 }
