@@ -75,15 +75,14 @@ const Menuu = ({ collapsed, ...props }) => {
         key="sub3"
         icon={<LockOutlined />}
         title="Administração"
-        style={{ display: showAdm ? "block" : "none" }}
+        //style={{ display: showAdm ? "block" : "none" }}
       >
         <MenuItem
           key="/ponto/acompanhamento"
           route="/ponto/acompanhamento"
           label="Acompanhamento"
         />
-        <MenuItem
-          disabled={!access || access === 0}
+        <MenuItem         
           key="/ponto/atualizarnoticias"
           route="/ponto/atualizarnoticias"
           label="Atualizar Notícias"
@@ -94,6 +93,12 @@ const Menuu = ({ collapsed, ...props }) => {
 					route="/ponto/horarioobrigatorio"
 					label="Horário Obrigatório"
 				/> */}
+        <MenuItem
+          disabled={!access || access === 0}
+				  key="/ponto/departamentos"
+				  route="/ponto/departamentos"
+				  label="Departamentos"
+			/>
         <MenuItem
           disabled={!access || access === 0}
           key="/ponto/membros"

@@ -19,7 +19,9 @@ import {
   Tribes,
   Badges,
   Projects,
+	Departaments,
 } from "../pages";
+
 
 function Menu() {
   return (
@@ -74,6 +76,11 @@ function Menu() {
           minAccessLevel={1}
           component={MandatoryHours}
         />
+				<RestrictedRoute
+					minAccessLevel={1}
+					path="/ponto/departamentos"
+					component={Departaments}
+				/>
       </Switch>
     </SidebarMenu>
   );

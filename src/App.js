@@ -27,11 +27,11 @@ import GlobalsContextProvider from "./context/GlobalsProvider";
 import Footer from "./components/molecules/Footer";
 
 const httpLink = createUploadLink({
-  uri: process.env.REACT_APP_API || "http://localhost:4000/",
+  uri: process.env.REACT_APP_API || "http://localhost:4321/",
 });
 
 const wsLink = new WebSocketLink({
-  uri: process.env.REACT_APP_SUB_API || "ws://localhost:4000/subscriptions",
+  uri: process.env.REACT_APP_SUB_API || "ws://localhost:4321/subscriptions",
   options: {
     reconnect: true,
   },
