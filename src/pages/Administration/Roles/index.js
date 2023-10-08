@@ -19,10 +19,7 @@ import { RocketOutlined } from "@ant-design/icons";
 import validators from "../../../services/validators";
 import RoleRow from "./RoleRow";
 import { useEffect } from "react";
-import {
-  GET_DEPARTAMENT_BY_ID,
-  GET_DEPARTMENTS,
-} from "../../../graphql/Departaments";
+import { GET_DEPARTAMENTS } from "../../../graphql/Departaments.js";
 
 const Roles = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -50,7 +47,7 @@ const Roles = () => {
     error: errorDepartments,
     data: dataDepartments,
     refetch: refetchDepartments,
-  } = useQuery(GET_DEPARTMENTS);
+  } = useQuery(GET_DEPARTAMENTS);
 
   useEffect(() => {
     if (
