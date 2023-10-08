@@ -175,6 +175,7 @@ const Departaments = () => {
 
   if (data) {
     const { departaments } = data;
+    console.log("🚀 ~ file: index.js:178 ~ Departaments ~ departaments:", departaments)
 
     return (
       <DepartamentsComponent theme={themeColors}>
