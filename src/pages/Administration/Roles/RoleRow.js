@@ -8,16 +8,11 @@ import { GET_DEPARTAMENT_BY_ID } from "../../../graphql/Departaments";
 
 const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
   const { availableRoles } = useContext(GlobalsContext);
-  if (role.departamentId) {
-    const { loading, data } = useQuery(GET_DEPARTAMENT_BY_ID, {
-      variables: {
-        departamentId: role.departamentId,
-      },
-    });
-  } else {
-    const data = "Nenhum departamento";
-  }
-
+  const { loading, data } = useQuery(GET_DEPARTAMENT_BY_ID, {
+    variables: {
+      departamentId: role.departamentId,
+    },
+  });
   return (
     <>
       {!loading && (
@@ -36,10 +31,17 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
             )}
           </td>
           <td className="roleColumn">
-            <DefaultLabel
-              labelText={data.departamentById.name}
-              labelColor={data.departamentById.color}
-            />
+            {data.departamentById ? (
+              <DefaultLabel
+                labelText={data.departamentById.name}
+                labelColor={data.departamentById.color}
+              />
+            ) : (
+              <DefaultLabel
+                labelText={"Departamento não Definido"}
+                labelColor={"#FFF"}
+              />
+            )}
           </td>
           <td className="editColumn">
             <Tooltip
