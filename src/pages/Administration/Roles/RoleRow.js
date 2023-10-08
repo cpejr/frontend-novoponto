@@ -13,6 +13,10 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
       departamentId: role.departamentId,
     },
   });
+  console.log(
+    "🚀 ~ file: RoleRow.js:17 ~ RoleRow ~  data.departamentById;:",
+    data.departamentById
+  );
   return (
     <>
       {!loading && (
@@ -31,17 +35,10 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
             )}
           </td>
           <td className="roleColumn">
-            {data.departamentById ? (
-              <DefaultLabel
-                labelText={data.departamentById.name}
-                labelColor={data.departamentById.color}
-              />
-            ) : (
-              <DefaultLabel
-                labelText={"Departamento não Definido"}
-                labelColor={"#FFF"}
-              />
-            )}
+            <DefaultLabel
+              labelText={data.departamentById.name}
+              labelColor={data.departamentById.color}
+            />
           </td>
           <td className="editColumn">
             <Tooltip
