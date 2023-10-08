@@ -24,7 +24,8 @@ const Departaments = () => {
   const { themeColors } = useContext(ThemeContext);
   const { refetchMembers } = useContext(GlobalsContext);
 
-  const [openModalExcludeDepartament, setOpenModalExcludeDepartament] = useState(false);
+  const [openModalExcludeDepartament, setOpenModalExcludeDepartament] =
+    useState(false);
   const [excludeDepartament, setExcludeDepartament] = useState({});
   const [editOrCreateModalInfo, setEditOrCreateModalInfo] = useState({
     open: false,
@@ -46,7 +47,9 @@ const Departaments = () => {
   const handleExcludeDepartament = async (departament) => {
     var hide = message.loading("Excluindo");
     try {
-      await deleteDepartamentMutation({ variables: { departamentId: departament._id } });
+      await deleteDepartamentMutation({
+        variables: { departamentId: departament._id },
+      });
       hide();
       message.success("Excluido com sucesso", 2.5);
       refetchMembers();
@@ -115,14 +118,11 @@ const Departaments = () => {
       segment: Segmento,
     };
 
-    console.log(
-      "🚀 ~ file: index.js ~ line 106 ~ updateDepartament ~ updatedDepartament",
-      updatedDepartament
-    );
-
     var hide = message.loading("Atualizando");
     try {
-      await updateDepartamentMutation({ variables: { departamentId, data: newDepartament } });
+      await updateDepartamentMutation({
+        variables: { departamentId, data: newDepartament },
+      });
       hide();
       message.success("Alterado com sucesso", 2.5);
       refetch();
@@ -207,7 +207,7 @@ const Departaments = () => {
             </tr>
           </thead>
           <tbody>
-            {departaments.length > 0 ? (
+            {departaments && departaments.length > 0 ? (
               departaments.map((departament) => (
                 <DepartamentRow
                   key={departament._id}
