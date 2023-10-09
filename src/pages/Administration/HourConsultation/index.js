@@ -6,11 +6,9 @@ import SelectFilter from "../../../components/molecules/SelectFilter";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { GET_PROJECTS } from "../../../graphql/Projects";
 import { GET_TASKS } from "../../../graphql/Tasks";
-import { GET_DEPARTMENTS } from "../../../graphql/Departaments";
+import { GET_DEPARTAMENTS } from "../../../graphql/Departaments";
 import { CommonButton } from "../../../components/atoms";
 import { colors, themedColors } from "../../../context/ThemeProvider/pallete";
-import MemberHistory from "../../../components/organisms/MemberHistory";
-import { useEffect } from "react";
 import { FetchAllMembersSessions } from "../../../graphql/Member";
 import TrackingTable from "../../../components/molecules/TrackingTable";
 
@@ -18,13 +16,13 @@ const HourConsultation = () => {
 
   const [selectedMember, setSelectedMember] = useState();
 
-  const { loading, data, error, refetch } = useQuery(FetchAllMembersSessions, {
-    fetchPolicy: "network-only",
-  });
+  // const { loading, data, error, refetch } = useQuery(FetchAllMembersSessions, {
+  //   fetchPolicy: "network-only",
+  // });
 
   const { data: projectsData, loading: projectsLoading } = useQuery(GET_PROJECTS);
   const { data: tasksData, loading: tasksLoading } = useQuery(GET_TASKS);
-  const { data: departamentsData, loading: departamentsLoading } = useQuery(GET_DEPARTMENTS)
+  const { data: departamentsData, loading: departamentsLoading } = useQuery(GET_DEPARTAMENTS)
 
   const allQueriesLoaded = !projectsLoading && !tasksLoading && !departamentsLoading;
 
@@ -54,7 +52,7 @@ const HourConsultation = () => {
             width="223px"
           />
         </FilterArea>
-        <TrackingTable sessions={data}/>
+        <TrackingTable/>
       </>
       )}
     </>

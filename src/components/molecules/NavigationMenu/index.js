@@ -34,35 +34,40 @@ const Menuu = ({ collapsed, ...props }) => {
   const access = data?.member?.role?.access;
   const showAdm = access && access > 0;
 
-	return (
-		<AntdMenu
-			mode="inline"
-			defaultSelectedKeys={[location.pathname]}
-			theme="light"
-			style={{ height: "100%", borderRight: 0 }}
-			inlineCollapsed={collapsed}
-			onSelect={({ key }) => {
-				key === "novidades" && showUpdateCatalog();
-			}}
-		>
-			<MenuItem key="/ponto" route="/ponto" icon={<BulbOutlined />} label="Ponto" />
-			<MenuItem
-				key="/ponto/profile"
-				route="/ponto/profile"
-				member={
-					<Badge
-						dot={!data?.member?.message?.read}
-						style={{
-							top: collapsed ? 11 : -2,
-							right: collapsed ? 0 : -4,
-						}}
-					>
-						<UserOutlined style={{ margin: 0 }} />
-					</Badge>
-				}
-				label={data?.member?.name || "Perfil"}
-				icon = {<UserOutlined/>}
-			/>
+  return (
+    <AntdMenu
+      mode="inline"
+      defaultSelectedKeys={[location.pathname]}
+      theme="light"
+      style={{ height: "100%", borderRight: 0 }}
+      inlineCollapsed={collapsed}
+      onSelect={({ key }) => {
+        key === "novidades" && showUpdateCatalog();
+      }}
+    >
+      <MenuItem
+        key="/ponto"
+        route="/ponto"
+        icon={<BulbOutlined />}
+        label="Ponto"
+      />
+      <MenuItem
+        key="/ponto/profile"
+        route="/ponto/profile"
+        member={
+          <Badge
+            dot={!data?.member?.message?.read}
+            style={{
+              top: collapsed ? 11 : -2,
+              right: collapsed ? 0 : -4,
+            }}
+          >
+            <UserOutlined style={{ margin: 0 }} />
+          </Badge>
+        }
+        label={data?.member?.name || "Perfil"}
+        icon={<UserOutlined />}
+      />
 
       <MenuItem
         key="/ponto/alteracaodehoras"
@@ -99,6 +104,12 @@ const Menuu = ({ collapsed, ...props }) => {
 					route="/ponto/horarioobrigatorio"
 					label="Horário Obrigatório"
 				/> */}
+        <MenuItem
+          disabled={!access || access === 0}
+          key="/ponto/departamentos"
+          route="/ponto/departamentos"
+          label="Departamentos"
+        />
         <MenuItem
           disabled={!access || access === 0}
           key="/ponto/membros"

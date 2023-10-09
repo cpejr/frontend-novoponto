@@ -28,7 +28,7 @@ const DurationDisplayer = ({
       if(nextTime !== durationTime){
         setDurationTime(nextTime);
       }
-    }, 5000);
+    }, 4321);
 
     return () => {
       clearInterval(timer);
