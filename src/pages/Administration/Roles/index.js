@@ -123,7 +123,11 @@ const Roles = () => {
         label: "Departamento",
         placeholder: "A qual departamente o cargo está associado?",
         validator: validators.antdRequired,
-        initialValue: withInitialValue ? data.departamentById.name : undefined,
+        initialValue: withInitialValue
+          ? data
+            ? data.departamentById.name
+            : undefined
+          : undefined,
 
         options: availableDepartaments,
       },
