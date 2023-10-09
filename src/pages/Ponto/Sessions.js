@@ -21,10 +21,9 @@ import validators from "../../services/validators";
 import { GET_PROJECTS } from "../../graphql/Projects";
 
 const Sessions = () => {
-  
   const [memberToLogout, setMemberToLogout] = useState();
   const [filteredSessions, setFilteredSessions] = useState([]);
-  
+
   const [loginModalVisible, setLoginModalVisible] = useState(false);
 
   const [startSessionMutation] = useMutation(CREATE_SESSION);
@@ -34,17 +33,16 @@ const Sessions = () => {
   const filterMemberField = useRef();
   const memberToLogin = useRef();
   const { data } = useContext(SessionContext);
-  
- memberToLogin.current=data.member;
- 
+
+  memberToLogin.current = data.member;
+
   const { data: loggedData, refetch: refetchLoggedMembers } =
     useQuery(LOGGED_MEMBERS);
   const { data: sessionUpdateData } = useSubscription(SESSION_SUBSCRIPTION);
 
   const { loggedMembers } = loggedData || {};
 
-  async function handleLogoutMember(member) {  
-  
+  async function handleLogoutMember(member) {
     let hide = message.loading("Deslogando...");
 
     try {
@@ -63,7 +61,6 @@ const Sessions = () => {
     }
   }
 
- 
   async function handleLogin(modality, taskId) {
     const hide = message.loading("Fazendo Login...");
     try {
@@ -74,16 +71,15 @@ const Sessions = () => {
           taskId: taskId,
         },
       });
-     
+
       hide();
-      
+
       message.success(`Bom trabalho ${memberToLogin.current.name}!`, 2.5);
     } catch (err) {
       hide();
       message.warn(err.message, 2.5);
     } finally {
       memberToLogin.current = undefined;
-    
     }
     setLoginModalVisible(false);
   }
@@ -94,7 +90,7 @@ const Sessions = () => {
     } catch (error) {
       console.error("Erro ao encerrar sessões após 20 horas:", error);
     }
-  };
+  }
 
   useEffect(() => {
     refetchLoggedMembers();
@@ -103,19 +99,16 @@ const Sessions = () => {
 
   useEffect(() => {
     updateFilter();
-    
-    
-    return () => {
-     
-    };
+
+    return () => {};
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedMembers]);
 
   useEffect(() => {
-    checkAndEndSessionsAfter20Hours(); 
-    const interval = setInterval(checkAndEndSessionsAfter20Hours, 60000); 
-    return () => clearInterval(interval); 
+    checkAndEndSessionsAfter20Hours();
+    const interval = setInterval(checkAndEndSessionsAfter20Hours, 60000);
+    return () => clearInterval(interval);
   }, []);
 
   function updateFilter() {
@@ -247,7 +240,6 @@ const Sessions = () => {
         <SessionsTable
           sessions={filteredSessions}
           onLogout={({ member }) => setMemberToLogout(member)}
-          
         />
       </div>
 
@@ -258,7 +250,7 @@ const Sessions = () => {
         handleOk={() => handleLogoutMember(memberToLogout)}
         handleCancel={() => setMemberToLogout()}
       />
-    
+      <FormModal {...createSessionModal} />
     </div>
   );
 };
