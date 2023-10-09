@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { MandatoryHoursComponent } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
-
 import Lottie from "react-lottie";
 import buildingLottie from "../../../assets/lotties/building.json";
 import { DefaultText } from "../../../components/atoms";
@@ -13,7 +12,6 @@ const MandatoryHours = () => {
     autoplay: true,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
-
     },
   };
 
@@ -46,3 +44,4 @@ const MandatoryHours = () => {
 };
 
 export default MandatoryHours;
+

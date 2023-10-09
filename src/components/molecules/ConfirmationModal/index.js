@@ -16,7 +16,8 @@ const ConfirmationModal = ({
       visible={isVisible}
       onOk={handleOk}
       onCancel={handleCancel}
-      bodyStyle={{ backgroundColor: "#141414" }}
+      bodyStyle={{ backgroundColor: "#141414"}}
+      style={{ top: 70 }}
       footer={[
         <Button key="back" onClick={handleCancel}>
           Cancelar

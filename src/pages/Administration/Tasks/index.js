@@ -3,7 +3,6 @@ import { useQuery, useMutation } from "@apollo/client";
 import { Tooltip, message, Skeleton, Table } from "antd";
 import { TasksComponent, ActionsDiv } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
-
 import { CommonButton, InputText } from "../../../components/atoms";
 import searchIcon from "../../../assets/searchIcon.svg";
 import ConfirmationModal from "../../../components/molecules/ConfirmationModal";

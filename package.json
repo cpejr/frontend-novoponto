@@ -15,7 +15,8 @@
     "dotenv": "^8.2.0",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
-    "firebase": "^10.1.0",
+    "file-saver": "^2.0.5",
+    "firebase": "^9.18.0",
     "graphql": "^15.5.0",
     "hex-color-to-color-name": "^1.0.2",
     "html-react-parser": "^1.2.6",
@@ -33,6 +34,7 @@
     "react-rotating-text": "^1.4.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
+    "sheetjs-style": "^0.15.8",
     "styled-components": "^5.2.1",
     "subscriptions-transport-ws": "^0.9.18",
     "web-vitals": "^1.0.1"
@@ -62,3 +64,4 @@
     ]
   }
 }
+

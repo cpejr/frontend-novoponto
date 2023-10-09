@@ -13,7 +13,6 @@ import {
 import { Tooltip, message, Skeleton, Table } from "antd";
 import { MembersComponent, ActionsDiv } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
-
 import {
   CommonButton,
   DefaultLabel,
@@ -87,8 +86,6 @@ const Members = () => {
         label: badge?.name,
       }))
     );
-    
-    
 
     if (withInitialValue) tribesOptions.push({ label: "", value: null });
     var fields = [
@@ -100,6 +97,15 @@ const Members = () => {
 
         placeholder: "Escreva o nome do membro",
         initialValue: withInitialValue ? member.name : undefined,
+      },
+      {
+        key: "email",
+        type: "text",
+        label: "Email",
+        rules: [validators.antdRequired()],
+
+        placeholder: "Escreva o email do membro",
+        initialValue: withInitialValue ? member?.email : undefined,
       },
       {
         key: "tribe",
@@ -150,7 +156,6 @@ const Members = () => {
         options: badgesOptions,
 
         initialValue: withInitialValue ? member?.badgeId : undefined,
-          
       },
     ];
 
@@ -176,10 +181,11 @@ const Members = () => {
   const createMember = async (member) => {
     var hide = message.loading("Criando...");
 
-    const { Nome, Cargo, Assessor, Tribo, Reconhecimento } = member;
+    const { Nome, Email, Cargo, Assessor, Tribo, Reconhecimento } = member;
     try {
       const newMember = {
         name: Nome,
+        email: Email,
         roleId: Cargo,
         tribeId: Tribo,
         badgeId: Reconhecimento,
@@ -338,7 +344,17 @@ const Members = () => {
           dataIndex="Badge"
           key="Badge"
           width={200}
-          render={(Badge) => Badge && Badge.map((badgeItem) => (<img key={badgeItem.name} src={badgeItem.url} alt={badgeItem.name} style={{height:"35px"}}/>))}
+          render={(Badge) =>
+            Badge &&
+            Badge.map((badgeItem) => (
+              <img
+                key={badgeItem.name}
+                src={badgeItem.url}
+                alt={badgeItem.name}
+                style={{ height: "35px" }}
+              />
+            ))
+          }
         />
         <Column
           key="action"
@@ -373,3 +389,4 @@ const Members = () => {
 };
 
 export default Members;
+
