@@ -48,7 +48,7 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
             <Tooltip
               placement="topLeft"
               title={"Editar"}
-              onClick={() => onEdit("edit", data, role)}
+              onClick={() => onEdit("edit", role, data)}
             >
               <EditOutlined />
             </Tooltip>
