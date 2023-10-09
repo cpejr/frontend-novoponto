@@ -96,7 +96,8 @@ const Roles = () => {
 
   const editOrCreateRole = (method, role, data) => {
     const withInitialValue = method === "edit";
-
+    console.log("🚀 ~ file: index.js:126 ~ editOrCreateRole ~ data:", data);
+    console.log("🚀 ~ file: index.js:116 ~ editOrCreateRole ~ role:", role);
     var fields = [
       {
         key: "name",
@@ -122,7 +123,8 @@ const Roles = () => {
         label: "Departamento",
         placeholder: "A qual departamente o cargo está associado?",
         validator: validators.antdRequired,
-        initialValue: withInitialValue  ? data.departamentById.name : undefined,
+        initialValue: withInitialValue ? data.departamentById.name : undefined,
+
         options: availableDepartaments,
       },
     ];
