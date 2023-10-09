@@ -19,10 +19,7 @@ import { RocketOutlined } from "@ant-design/icons";
 import validators from "../../../services/validators";
 import RoleRow from "./RoleRow";
 import { useEffect } from "react";
-import {
-  GET_DEPARTAMENT_BY_ID,
-  GET_DEPARTMENTS,
-} from "../../../graphql/Departaments";
+import { GET_DEPARTAMENTS } from "../../../graphql/Departaments.js";
 
 const Roles = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -46,28 +43,28 @@ const Roles = () => {
     refetch: refetchRoles,
   } = useQuery(GET_ROLES);
   const {
-    loading: loadingDepartments,
-    error: errorDepartments,
-    data: dataDepartments,
-    refetch: refetchDepartments,
-  } = useQuery(GET_DEPARTMENTS);
+    loading: loadingDepartaments,
+    error: errorDepartaments,
+    data: dataDepartaments,
+    refetch: refetchDepartaments,
+  } = useQuery(GET_DEPARTAMENTS);
 
   useEffect(() => {
     if (
-      !loadingDepartments &&
-      !errorDepartments &&
-      dataDepartments &&
+      !loadingDepartaments &&
+      !errorDepartaments &&
+      dataDepartaments &&
       availableDepartaments.length === 0
     ) {
-      const newDepartments = dataDepartments.departament.map((d, index) => ({
+      const newDepartments = dataDepartaments.departament.map((d, index) => ({
         label: d.name,
         value: index,
       }));
 
-      setDepartaments(dataDepartments.departament);
+      setDepartaments(dataDepartaments.departament);
       setAvaibleDepartaments([...availableDepartaments, ...newDepartments]);
     }
-  }, [loadingDepartments, errorDepartments, dataDepartments]);
+  }, [loadingDepartaments, errorDepartaments, dataDepartaments]);
 
   const handleOpenModal = (role) => {
     setExcludeRole(role);
@@ -99,7 +96,8 @@ const Roles = () => {
 
   const editOrCreateRole = (method, role, data) => {
     const withInitialValue = method === "edit";
-
+    console.log("🚀 ~ file: index.js:126 ~ editOrCreateRole ~ data:", data);
+    console.log("🚀 ~ file: index.js:116 ~ editOrCreateRole ~ role:", role);
     var fields = [
       {
         key: "name",
@@ -125,7 +123,11 @@ const Roles = () => {
         label: "Departamento",
         placeholder: "A qual departamente o cargo está associado?",
         validator: validators.antdRequired,
-        initialValue: withInitialValue ? data.departamentById.name : undefined,
+        initialValue: withInitialValue
+          ? data
+            ? data.departamentById.name
+            : undefined
+          : undefined,
 
         options: availableDepartaments,
       },
@@ -165,11 +167,6 @@ const Roles = () => {
       name: Cargo,
       departamentId: departamentData._id,
     };
-
-    console.log(
-      "🚀 ~ file: index.js ~ line 106 ~ updateRole ~ updatedRole",
-      updatedRole
-    );
 
     var hide = message.loading("Atualizando");
     try {
