@@ -13,18 +13,7 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
       departamentId: role.departamentId,
     },
   });
-  function edit(role, data) {
-    var auxrole = role;
-    var auxdata = data;
-    if (!auxdata.departamentId) {
-      auxdata.departamentId = "Departamento não Selecionado";
-    }
-    if (!auxrole.departamentId) {
-      auxrole.departamentId = "Departamento não Selecionado";
-    }
 
-    onEdit("edit", auxrole, auxdata);
-  }
   return (
     <>
       {!loading && (
@@ -59,7 +48,7 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
             <Tooltip
               placement="topLeft"
               title={"Editar"}
-              onClick={() => edit(role, data)}
+              onClick={() => onEdit("edit", data, role)}
             >
               <EditOutlined />
             </Tooltip>

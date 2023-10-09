@@ -122,8 +122,9 @@ const Roles = () => {
         label: "Departamento",
         placeholder: "A qual departamente o cargo está associado?",
         validator: validators.antdRequired,
-        initialValue: withInitialValue ? data.departamentById.name : undefined,
-
+        initialValue: role.departamentId
+          ? data.departamentById.name
+          : undefined,
         options: availableDepartaments,
       },
     ];
@@ -162,11 +163,6 @@ const Roles = () => {
       name: Cargo,
       departamentId: departamentData._id,
     };
-
-    console.log(
-      "🚀 ~ file: index.js ~ line 106 ~ updateRole ~ updatedRole",
-      updatedRole
-    );
 
     var hide = message.loading("Atualizando");
     try {
