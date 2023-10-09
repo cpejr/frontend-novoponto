@@ -10,7 +10,7 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
   const { availableRoles } = useContext(GlobalsContext);
   const { loading, data } = useQuery(GET_DEPARTAMENT_BY_ID, {
     variables: {
-      departamentId: role.departamentId | "0",
+      departamentId: role.departamentId,
     },
   });
 
@@ -32,10 +32,17 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
             )}
           </td>
           <td className="roleColumn">
-            <DefaultLabel
-              labelText={data.departamentById.name}
-              labelColor={data.departamentById.color}
-            />
+            {role.departamentById ? (
+              <DefaultLabel
+                labelText={data.departamentById.name}
+                labelColor={data.departamentById.color}
+              />
+            ) : (
+              <DefaultLabel
+                labelText={"data.departamentById.name"}
+                labelColor={"#fff"}
+              />
+            )}
           </td>
           <td className="editColumn">
             <Tooltip
