@@ -32,7 +32,7 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
             )}
           </td>
           <td className="roleColumn">
-            {role.departamentById ? (
+            {role.departamentId ? (
               <DefaultLabel
                 labelText={data.departamentById.name}
                 labelColor={data.departamentById.color}
