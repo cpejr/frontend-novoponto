@@ -34,7 +34,7 @@ const RestrictedRoute = ({ minAccessLevel, ...props }) => {
       />
     );
 
-  if (isAuthenticated && (!minAccessLevel || access >= minAccessLevel))
+  if (isAuthenticated && (minAccessLevel || access >= minAccessLevel))
     return <Route {...props} />;
 
   return (

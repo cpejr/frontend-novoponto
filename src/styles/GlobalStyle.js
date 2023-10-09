@@ -22,6 +22,12 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Inter', BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    .ant-picker-panels {
+      @media (max-width: 560px) {
+        flex-direction: column;
+      }
+    }
   }
 
   h1, h2, h3, h4{

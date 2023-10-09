@@ -23,7 +23,6 @@ const LoginComponent = styled.div`
     @media (max-width: 600px) {
       width: 80%;
     }
-
     .logo {
         position: absolute;
         width: 25%;
@@ -35,14 +34,12 @@ const LoginComponent = styled.div`
         width: 90%;
       }
     }
-
     .loginButton {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         top: 65%;
     }
-
     .text {
         font-size: 11px;
         position: absolute;
