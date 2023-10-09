@@ -10,13 +10,10 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
   const { availableRoles } = useContext(GlobalsContext);
   const { loading, data } = useQuery(GET_DEPARTAMENT_BY_ID, {
     variables: {
-      departamentId: role.departamentId,
+      departamentId: role.departamentId | "0",
     },
   });
-  console.log(
-    "🚀 ~ file: RoleRow.js:17 ~ RoleRow ~  data.departamentById;:",
-    data.departamentById
-  );
+
   return (
     <>
       {!loading && (
