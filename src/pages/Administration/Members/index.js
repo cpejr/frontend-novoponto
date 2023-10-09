@@ -13,7 +13,6 @@ import {
 import { Tooltip, message, Skeleton, Table } from "antd";
 import { MembersComponent, ActionsDiv } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
-
 import {
   CommonButton,
   DefaultLabel,
@@ -87,8 +86,6 @@ const Members = () => {
         label: badge?.name,
       }))
     );
-    
-    
 
     if (withInitialValue) tribesOptions.push({ label: "", value: null });
     var fields = [
@@ -159,7 +156,6 @@ const Members = () => {
         options: badgesOptions,
 
         initialValue: withInitialValue ? member?.badgeId : undefined,
-          
       },
     ];
 
@@ -348,7 +344,17 @@ const Members = () => {
           dataIndex="Badge"
           key="Badge"
           width={200}
-          render={(Badge) => Badge && Badge.map((badgeItem) => (<img key={badgeItem.name} src={badgeItem.url} alt={badgeItem.name} style={{height:"35px"}}/>))}
+          render={(Badge) =>
+            Badge &&
+            Badge.map((badgeItem) => (
+              <img
+                key={badgeItem.name}
+                src={badgeItem.url}
+                alt={badgeItem.name}
+                style={{ height: "35px" }}
+              />
+            ))
+          }
         />
         <Column
           key="action"
@@ -377,9 +383,10 @@ const Members = () => {
         handleOk={() => handleExcludeMember(excludeMember._id)}
         handleCancel={handleCloseModal}
       />
-      <FormModal {...editOrCreateModalInfo}/>
+      <FormModal {...editOrCreateModalInfo} />
     </MembersComponent>
   );
 };
 
 export default Members;
+
