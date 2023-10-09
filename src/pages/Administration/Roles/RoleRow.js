@@ -16,7 +16,13 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
   function edit(role, data) {
     var auxrole = role;
     var auxdata = data;
-    auxrole.departamentId = "Departamento não Selecionado";
+    if (!auxdata.departamentId) {
+      auxdata.departamentId = "Departamento não Selecionado";
+    }
+    if (!auxrole.departamentId) {
+      auxrole.departamentId = "Departamento não Selecionado";
+    }
+
     onEdit("edit", auxrole, auxdata);
   }
   return (
