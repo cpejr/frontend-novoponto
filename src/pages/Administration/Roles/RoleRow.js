@@ -39,7 +39,7 @@ const RoleRow = ({ role, onEdit, onDelete, ...props }) => {
               />
             ) : (
               <DefaultLabel
-                labelText={"data.departamentById.name"}
+                labelText={"Departamento não Selecionado"}
                 labelColor={"#fff"}
               />
             )}
