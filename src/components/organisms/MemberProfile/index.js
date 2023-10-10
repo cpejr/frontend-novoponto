@@ -23,6 +23,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { SendAditionalHour } from "../../../graphql/AditionalHour";
 import validators from "../../../services/validators";
 import { GET_PROJECTS } from "../../../graphql/Projects";
+import { GET_TASKS } from "../../../graphql/Tasks";
 
 const INITIAL_ERRORS = {
   member: false,
@@ -81,7 +82,7 @@ const MemberProfile = ({
       date: formData["Qual dia foi ocorrido?"],
       initialHour: formData["Horário de Entrada:"],
       finalHour: formData["Horário de Saída:"],
-      coment: formData["O que você fez neste horário:"],
+      taskId: formData["O que você fez neste horário:"],
       projectId: formData["Você trabalhou em algum projeto?"],
       description: formData["Deseja descrever melhor o que foi feito?"],
     };
@@ -118,6 +119,11 @@ const MemberProfile = ({
       value: formData.date,
     },
   ];
+
+  const { data: tasksInformation } = useQuery(GET_TASKS);
+  const tasksOptions = tasksInformation?.tasks.map((task) => {
+    return { value: task._id, label: task.name };
+  });
 
   const { data: dataProjects } = useQuery(GET_PROJECTS);
 
@@ -158,15 +164,17 @@ const MemberProfile = ({
         rules: [validators.antdRequired()],
       },
       {
-        key: "work",
-        type: "text",
+        key: "task",
+        type: "select",
         label: "O que você fez neste horário:",
+        options: tasksOptions,
         rules: [validators.antdRequired()],
       },
       {
         key: "Project",
         type: "select",
         options: projectsModalOptions,
+        placeholder: "Selecionar projeto",
         label: "Você trabalhou em algum projeto?",
       },
       {
