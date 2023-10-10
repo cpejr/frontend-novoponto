@@ -5,6 +5,8 @@ import moment from "moment";
 import { ALL_SESSIONS } from "../../../graphql/Sessions";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { ThemeContext } from "../../../context/ThemeProvider";
+import { HourDisplayer } from "../../atoms";
+import { ContainerTable } from "./styles";
 
 const TrackingTable = () => {
   const { themeColors } = useContext(ThemeContext);
@@ -26,21 +28,29 @@ const TrackingTable = () => {
       endDate: moment(endDate)?.endOf("day").toISOString(),
     }
   });
-  const { aditionalHours, sessions, formatedTotal, formatedPresentialTotal } =
+  const {sessions, formatedTotal } =
     data?.allSessions || {};
 
   const columns = getColumns(themeColors);
 
+  console.log(data);
+
   return (
     <>
     {sessions && (
-      <Table
-        columns={columns}
-        dataSource={sessions?.map((session) => ({
-          key: session._id,
-          ...session,
-        }))}
-      />
+      <ContainerTable>
+      <div className="sum">
+        <h6 className="m-0 me-2">Soma total:</h6>
+        <HourDisplayer text={formatedTotal} hourColor={themeColors.yellow} />
+      </div>
+        <Table
+          columns={columns}
+          dataSource={sessions?.slice().reverse().map((session) => ({
+            key: session._id,
+            ...session,
+          }))}
+        />
+      </ContainerTable>
     )}
     </>
   )

@@ -107,15 +107,13 @@ const ALL_SESSIONS = gql`
           name
         }
         member {
-          _id
           name
           tribe {
-            _id
             name
           }
         }
       }
-      total
+      formatedTotal
     }
   }
 `;

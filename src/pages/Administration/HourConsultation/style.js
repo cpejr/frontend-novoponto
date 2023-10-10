@@ -8,6 +8,7 @@ const FilterArea = styled.div`
   gap: 20px;
   width: 90%;
   margin: auto;
+  margin-bottom: 80px;
 `
 
 export { FilterArea }; 
