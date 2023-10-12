@@ -13,7 +13,7 @@ const { RangePicker } = DatePicker;
 const SessionHistory = () => {
   const { themeColors } = useContext(ThemeContext);
 
-  const [hashtableArray, setHashtableArray] = useState([]);
+  const [tribeArray, setTribeArray] = useState([]);
   const [sessionsData, setSessionsData] = useState();
   const [formatedTotalData, setFormatedTotalData] = useState();
 
@@ -39,11 +39,11 @@ const SessionHistory = () => {
     }
   });
 
-  const {sessions, formatedTotal } =
+  const {sessions, formatedTotal, aditionalHours } =
         data?.allSessions || {};
 
 
-  function loadData() {
+  function getData() {
       loadCompiled({
         variables: {
           startDate: moment(startDate)?.startOf("day").toISOString(),
@@ -55,33 +55,41 @@ const SessionHistory = () => {
       setFormatedTotalData();
   }
 
-  function loadingData() {
+  function loadData() {
     setSessionsData(sessions);
     setFormatedTotalData(formatedTotal);
 
   
     if (sessions) {
-      let hashtable = {};
+      let hashtableTribe = {};
       sessions.map(v => {
         if (v.member?.tribe?.name !== undefined) {
-          if (hashtable[v.member?.tribe?.name] === undefined) {
-            hashtable[v.member?.tribe?.name] = v.duration;
+          if (hashtableTribe[v.member?.tribe?.name] === undefined) {
+            hashtableTribe[v.member?.tribe?.name] = v.duration;
           } else {
-            hashtable[v.member?.tribe?.name] += v.duration;
+            hashtableTribe[v.member?.tribe?.name] += v.duration;
           }
         }
     });
-    setHashtableArray(Object.entries(hashtable).map(([key, value]) => ({ key, value })));
+    if (aditionalHours) {
+      aditionalHours.map(v => {
+        console.log(v);
+        if (v.member?.tribe?.name !== undefined) {
+          hashtableTribe[v.member?.tribe?.name] += v.amount;
+        }
+      })
+    }
+    setTribeArray(Object.entries(hashtableTribe).map(([key, value]) => ({ key, value })));
     }
   }
 
  
   useEffect(() => {
-    loadData();
+    getData();
   }, [rangeDate]);
 
   useEffect(() => {
-    setTimeout(loadingData, 500)
+    setTimeout(loadData, 500)
   }, [data]);
 
   return (
@@ -103,7 +111,7 @@ const SessionHistory = () => {
         />
       </HeadTable>
       <TrackingTable sessions={sessionsData} />
-      <TribeTable tribes={hashtableArray} />
+      <TribeTable tribes={tribeArray} />
       </ContainerTable>
     </>
   )

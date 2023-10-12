@@ -114,6 +114,14 @@ const ALL_SESSIONS = gql`
           }
         }
       }
+      aditionalHours {
+        amount
+        member {
+          tribe {
+            name
+          }
+        }
+      }
       formatedTotal
     }
   }
