@@ -10,7 +10,7 @@ import { GET_DEPARTAMENTS } from "../../../graphql/Departaments";
 import { CommonButton } from "../../../components/atoms";
 import { colors, themedColors } from "../../../context/ThemeProvider/pallete";
 import { FetchAllMembersSessions } from "../../../graphql/Member";
-import TrackingTable from "../../../components/molecules/TrackingTable";
+import SessionHistory from "../../../components/organisms/SessionHistory";
 
 const HourConsultation = () => {
 
@@ -52,7 +52,7 @@ const HourConsultation = () => {
             width="223px"
           />
         </FilterArea>
-        <TrackingTable/>
+        <SessionHistory/>
       </>
       )}
     </>

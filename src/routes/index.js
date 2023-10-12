@@ -88,7 +88,6 @@ function Menu() {
           component={Departaments}
         />
       </Switch>
-      <Footer />
     </SidebarMenu>
   );
 }

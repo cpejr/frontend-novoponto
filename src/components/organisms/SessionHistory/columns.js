@@ -1,8 +1,12 @@
+import { Collapse, Tooltip } from "antd";
 import { HourDisplayer, InfoDisplayer, DefaultText } from "../../atoms";
 import { FlexDiv } from "./styles";
 import moment from "moment";
+import { EditOutlined, RestOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import React from "react";
 
-function getColumns(themeColors) {
+function getColumns(themeColors, activeKey, setActiveKey) {
   const columns = [
     {
       title: "Departamento",

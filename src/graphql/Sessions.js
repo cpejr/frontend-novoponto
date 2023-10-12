@@ -95,6 +95,7 @@ const ALL_SESSIONS = gql`
         start
         end
         formatedDuration
+        duration
         isPresential
         description
         task {
