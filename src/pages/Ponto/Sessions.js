@@ -4,9 +4,9 @@ import { useMutation, useQuery, useSubscription } from "@apollo/client";
 
 import {
   CREATE_SESSION,
-  END_ALL_SESSIONS,
   FINISH_SESSION,
   LOGGED_MEMBERS,
+  END_SESSIONS_AFTER_20HOURS,
 } from "../../graphql/Sessions";
 import { GET_TASKS } from "../../graphql/Tasks";
 import { InputText } from "../../components/atoms";
@@ -23,11 +23,12 @@ import { GET_PROJECTS } from "../../graphql/Projects";
 const Sessions = () => {
   const [memberToLogout, setMemberToLogout] = useState();
   const [filteredSessions, setFilteredSessions] = useState([]);
-  const [showLogoutAllMembers, setShowLogoutAllMembers] = useState(false);
+
+  const [loginModalVisible, setLoginModalVisible] = useState(false);
 
   const [startSessionMutation] = useMutation(CREATE_SESSION);
   const [endSessionMutation] = useMutation(FINISH_SESSION);
-  const [endAllSessions] = useMutation(END_ALL_SESSIONS);
+  const [endSessionAfter20Hours] = useMutation(END_SESSIONS_AFTER_20HOURS);
 
   const filterMemberField = useRef();
   const memberToLogin = useRef();
@@ -60,6 +61,37 @@ const Sessions = () => {
     }
   }
 
+  async function handleLogin(modality, taskId) {
+    const hide = message.loading("Fazendo Login...");
+    try {
+      await startSessionMutation({
+        variables: {
+          memberId: memberToLogin.current._id,
+          isPresential: modality,
+          taskId: taskId,
+        },
+      });
+
+      hide();
+
+      message.success(`Bom trabalho ${memberToLogin.current.name}!`, 2.5);
+    } catch (err) {
+      hide();
+      message.warn(err.message, 2.5);
+    } finally {
+      memberToLogin.current = undefined;
+    }
+    setLoginModalVisible(false);
+  }
+
+  async function checkAndEndSessionsAfter20Hours() {
+    try {
+      await endSessionAfter20Hours();
+    } catch (error) {
+      console.error("Erro ao encerrar sessões após 20 horas:", error);
+    }
+  }
+
   useEffect(() => {
     refetchLoggedMembers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,8 +99,18 @@ const Sessions = () => {
 
   useEffect(() => {
     updateFilter();
+
+    return () => {};
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedMembers]);
+
+  useEffect(() => {
+    checkAndEndSessionsAfter20Hours();
+    const interval = setInterval(checkAndEndSessionsAfter20Hours, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
   function updateFilter() {
     const value = filterMemberField?.current?.input.value;
     if (value && value.trim() !== "")
@@ -201,27 +243,12 @@ const Sessions = () => {
         />
       </div>
 
-      <div className="d-flex justify-content-end">
-        <Button onClick={() => setShowLogoutAllMembers(true)}>
-          Deslogar todos os membros
-        </Button>
-      </div>
       <ConfirmationModal
         title="Confirmação de logout"
         content={`Deseja deslogar ${memberToLogout?.name}?`}
         isVisible={!!memberToLogout}
         handleOk={() => handleLogoutMember(memberToLogout)}
         handleCancel={() => setMemberToLogout()}
-      />
-      <ConfirmationModal
-        title="Confirmação"
-        content={`Deseja deslogar todos os membros?`}
-        isVisible={showLogoutAllMembers}
-        handleOk={() => {
-          endAllSessions();
-          setShowLogoutAllMembers(false);
-        }}
-        handleCancel={() => setShowLogoutAllMembers(false)}
       />
       <FormModal {...createSessionModal} />
     </div>
