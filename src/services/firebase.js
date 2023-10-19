@@ -9,13 +9,13 @@ import { useContext, useState } from "react";
 import { SessionContext } from "../context/SessionProvider";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDKITSVF0d3CrY09Xf2HuynmlMzEgf3NV0",
-  authDomain: "ponto-cpe.firebaseapp.com",
-  projectId: "ponto-cpe",
-  storageBucket: "ponto-cpe.appspot.com",
-  messagingSenderId: "927681508740",
-  appId: "1:927681508740:web:84ebb90a0613589728d9d1",
-  measurementId: "G-612XHC164X",
+  apiKey: process.env.APIKEY,
+  authDomain: process.env.AUTHDOMAIN,
+  projectId: process.env.PROJECTID,
+  storageBucket: process.env.STORAGEBUCKET,
+  messagingSenderId: process.env.MESSAGINGSENDERID,
+  appId: process.env.APPID,
+  measurementId: process.env.MEASUREMENTID,
 };
 
 export default function useGoogleAuth() {
