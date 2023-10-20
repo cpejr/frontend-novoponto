@@ -8,8 +8,16 @@ const FilterArea = styled.div`
   gap: 20px;
   width: 90%;
   margin: auto;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
   margin-top: 30px;
+  div:first-child {
+    max-width: 300px;
+    min-width: 200px;
+  }
+  @media (max-width: 920px) {
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
 `
 
 export { FilterArea }; 

@@ -25,26 +25,28 @@ const TrackingTable = ({ sessions }) => {
           {record.project?.name && (
               <HorizontalCard>
                 <TitleCard>Projeto</TitleCard>
-                <ContentCard><DefaultText>{record.project?.name}</DefaultText></ContentCard>
+                <ContentCard>
+                  <DefaultText style={{ margin: 0 }}>{record.project?.name}</DefaultText>
+                </ContentCard>
               </HorizontalCard>
           )}
           {record.task?.name && (
               <HorizontalCard>
-                <TitleCard><DefaultText>Tarefa</DefaultText></TitleCard>
-                <ContentCard><DefaultText>{record.task?.name}</DefaultText></ContentCard>
+                <TitleCard>Tarefa</TitleCard>
+                <ContentCard>{record.task?.name}</ContentCard>
               </HorizontalCard>
           )}
           {record.isPresential !== undefined && (
               <HorizontalCard>
-                <TitleCard><DefaultText>Modalidade</DefaultText></TitleCard>
-                <ContentCard><DefaultText>{record.isPresential ? 'Presencial' : 'Remoto'}</DefaultText></ContentCard>
+                <TitleCard>Modalidade</TitleCard>
+                <ContentCard>{record.isPresential ? 'Presencial' : 'Remoto'}</ContentCard>
               </HorizontalCard>
           )}
         </ContainerCards>
         {record.description && (
               <HorizontalCard>
-                <TitleCard><DefaultText>Descrição</DefaultText></TitleCard>
-                <ContentCard><DefaultText>{record.description}</DefaultText></ContentCard>
+                <TitleCard>Descrição</TitleCard>
+                <ContentCard>{record.description}</ContentCard>
               </HorizontalCard>
           )}
         </ContainerExpandable>

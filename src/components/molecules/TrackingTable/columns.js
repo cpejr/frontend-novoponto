@@ -9,7 +9,7 @@ function getColumns(themeColors) {
       dataIndex: "member",
       key: "member",
       render: (member) => (
-        <DefaultText className="columnText">{member?.tribe?.name}</DefaultText>
+        <DefaultText style={{ margin: 0 }} className="columnText">{member?.tribe?.name}</DefaultText>
       ),
     },
     {
@@ -17,7 +17,7 @@ function getColumns(themeColors) {
       dataIndex: "member",
       key: "member",
       render: (member) => (
-        <DefaultText className="columnText">{member?.name}</DefaultText>
+        <DefaultText style={{ margin: 0 }} className="columnText">{member?.name}</DefaultText>
       ),
     },
     {
@@ -26,7 +26,6 @@ function getColumns(themeColors) {
       key: "start",
       render: (start) => (
         <DefaultText style={{ margin: 0 }}>
-          {" "}
           {moment(start).format("DD/MM/yy")}
         </DefaultText>
       ),

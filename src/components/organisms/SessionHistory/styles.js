@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-const FlexDiv = styled.div`
-  display: flex;
-`;
-
 const ContainerTable = styled.div`
   margin: auto;
   .ant-table{
@@ -26,10 +22,10 @@ const HeadTable = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100px;
+  height: 80px;
   margin-bottom: 15px;
   .ant-picker-range {
-    min-width: 250px;
+    max-width: 250px;
     height: 30px;
   }
   @media (max-width: 800px) {
@@ -38,4 +34,4 @@ const HeadTable = styled.div`
   }
 `
 
-export { FlexDiv, ContainerTable, SumTotalTitle, HourDisplay, HeadTable }
+export { ContainerTable, SumTotalTitle, HourDisplay, HeadTable }

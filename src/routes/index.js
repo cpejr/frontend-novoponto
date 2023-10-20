@@ -13,7 +13,6 @@ import {
   MandatoryHours,
   Members,
   Roles,
-  HourFollowing,
   Login,
   Tasks,
   Tribes,
@@ -22,7 +21,6 @@ import {
   Departaments,
 } from "../pages";
 import HourConsultation from "../pages/Administration/HourConsultation";
-import Footer from "../components/molecules/Footer";
 
 function Menu() {
   return (
@@ -55,11 +53,6 @@ function Menu() {
         <RestrictedRoute
           minAccessLevel={1}
           path="/ponto/acompanhamento"
-          component={HourFollowing}
-        />
-        <RestrictedRoute
-          minAccessLevel={1}
-          path="/ponto/consultadehoras"
           component={HourConsultation}
         />
         <RestrictedRoute
