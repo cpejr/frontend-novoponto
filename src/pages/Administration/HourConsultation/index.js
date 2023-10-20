@@ -3,31 +3,25 @@ import MembersSelectBox from "../../../components/molecules/MembersSelectBox";
 import { GlobalsContext } from "../../../context/GlobalsProvider";
 import { FilterArea } from "./style";
 import SelectFilter from "../../../components/molecules/SelectFilter";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { GET_PROJECTS } from "../../../graphql/Projects";
 import { GET_TASKS } from "../../../graphql/Tasks";
 import { GET_DEPARTAMENTS } from "../../../graphql/Departaments";
 import { CommonButton } from "../../../components/atoms";
-import { colors, themedColors } from "../../../context/ThemeProvider/pallete";
-import { FetchAllMembersSessions } from "../../../graphql/Member";
+import { colors } from "../../../context/ThemeProvider/pallete";
 import SessionHistory from "../../../components/organisms/SessionHistory";
 
 const HourConsultation = () => {
 
   const [selectedMember, setSelectedMember] = useState();
 
-  // const { loading, data, error, refetch } = useQuery(FetchAllMembersSessions, {
-  //   fetchPolicy: "network-only",
-  // });
-
   const { data: projectsData, loading: projectsLoading } = useQuery(GET_PROJECTS);
   const { data: tasksData, loading: tasksLoading } = useQuery(GET_TASKS);
-  const { data: departamentsData, loading: departamentsLoading } = useQuery(GET_DEPARTAMENTS)
-
-  const allQueriesLoaded = !projectsLoading && !tasksLoading && !departamentsLoading;
-
+  const { data: departamentsData, loading: departamentsLoading } = useQuery(GET_DEPARTAMENTS);
   const { membersLoading, membersError, membersData, refetchMembers } =
-    useContext(GlobalsContext);
+  useContext(GlobalsContext);
+
+  const allQueriesLoaded = !projectsLoading && !tasksLoading && !departamentsLoading && !membersLoading;
 
   const selectMember = (memberId) => {
     const member = membersData.members.find(

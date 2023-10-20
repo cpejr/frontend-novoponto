@@ -1,4 +1,4 @@
-import { Card, Col, Row, Table } from "antd"
+import { Table } from "antd"
 import { getColumns } from "./columns";
 import { ThemeContext } from "../../../context/ThemeProvider";
 import { useContext } from "react";

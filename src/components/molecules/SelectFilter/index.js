@@ -1,10 +1,6 @@
 import { Select, Space } from 'antd';
 import { SelectStyled } from './style';
 const { Option } = Select;
-
-const handleChange = (value) => {
-  console.log({value});
-};
 const SelectFilter = ({ placeholder, data }) => (
   <SelectStyled
     mode="multiple"
@@ -12,7 +8,6 @@ const SelectFilter = ({ placeholder, data }) => (
       width: '100%',
     }}
     placeholder={placeholder}
-    onChange={handleChange}
     optionLabelProp="label"
   >
     {data.map(v => (

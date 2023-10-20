@@ -73,7 +73,6 @@ const SessionHistory = () => {
     });
     if (aditionalHours) {
       aditionalHours.map(v => {
-        console.log(v);
         if (v.member?.tribe?.name !== undefined) {
           hashtableTribe[v.member?.tribe?.name] += v.amount;
         }
