@@ -209,15 +209,20 @@ const FetchAllMembersSessions = gql`
     $endDate: DateScalar
     $compileGroup: Int
   ) {
+    tribes {
+      name
+    }
     allMembersSessions(
       startDate: $startDate
       endDate: $endDate
       compileGroup: $compileGroup
     ) {
-      total
       formatedTotal
       member {
         name
+        tribe {
+          name
+        }
       }
     }
   }

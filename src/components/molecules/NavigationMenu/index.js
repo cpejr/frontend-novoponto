@@ -88,6 +88,7 @@ const Menuu = ({ collapsed, ...props }) => {
           label="Acompanhamento"
         />
         <MenuItem
+          disabled={!access || access === 0}
           key="/ponto/atualizarnoticias"
           route="/ponto/atualizarnoticias"
           label="Atualizar Notícias"

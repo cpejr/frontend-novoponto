@@ -38,7 +38,7 @@ const SessionsTable = ({ sessions, onLogout, ...props }) => {
           <tr>
             <td colSpan="4">
               <h1 style={{ color: "#fff", fontSize: "30px" }}>
-                Trabalhe enquanto eles{" "}
+                Trabalhe enquanto eles
                 <ReactRotatingText
                   typingInterval={120}
                   deletingInterval={80}

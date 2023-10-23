@@ -89,5 +89,46 @@ const UPDATE_SESSION = gql`
 		}
   }
 `;
-	
-export { LOGGED_MEMBERS, CREATE_SESSION, FINISH_SESSION, END_ALL_SESSIONS,END_SESSIONS_AFTER_20HOURS, DELETE_SESSION, UPDATE_SESSION };
+
+const ALL_SESSIONS = gql`
+  query AllSessions($startDate: DateScalar, $endDate: DateScalar) {
+    allSessions(startDate: $startDate, endDate: $endDate) {
+      sessions {
+        _id
+        start
+        end
+        formatedDuration
+        duration
+        isPresential
+        description
+        task {
+          _id
+          name
+          active
+        }
+        project {
+          _id
+          name
+        }
+        member {
+          name
+          tribe {
+            name
+          }
+        }
+      }
+      aditionalHours {
+        amount
+        member {
+          tribe {
+            name
+          }
+        }
+      }
+      formatedTotal
+    }
+  }
+`;
+
+export { LOGGED_MEMBERS, CREATE_SESSION, FINISH_SESSION, END_SESSIONS_AFTER_20HOURS, END_ALL_SESSIONS, DELETE_SESSION, UPDATE_SESSION, ALL_SESSIONS };
+
