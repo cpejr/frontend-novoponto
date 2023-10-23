@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useRef, useState } from "react";
+import moment from "moment";
+import FormModal from "../../../components/organisms/FormModal";
+// import validators from "../../../services/validators";
+import { message } from "antd";
 import {
   DefaultLabel,
   DefaultSubTitle,
@@ -11,8 +14,29 @@ import {
 } from "../../atoms";
 import SaveButton from "../../molecules/SaveButton";
 import ConfirmationModal from "../../molecules/ConfirmationModal";
-import { Row } from "antd";
+// import hourActionOptions from "./hourActionOptions";
+
+import { Form, Row } from "antd";
 import { MemberProfileContainer } from "./styles";
+import { CommonButton, CommonSelectBox } from "../../../components/atoms";
+import { useMutation, useQuery } from "@apollo/client";
+import { SendAditionalHour } from "../../../graphql/AditionalHour";
+import validators from "../../../services/validators";
+import { GET_PROJECTS } from "../../../graphql/Projects";
+import { GET_TASKS } from "../../../graphql/Tasks";
+
+const INITIAL_ERRORS = {
+  member: false,
+  hourAction: false,
+  date: false,
+  duration: false,
+  comment: false,
+  isPresential: false,
+};
+
+function convertDurationToMilliseconds(time) {
+  return moment.duration(time.format("HH:mm")).asMilliseconds();
+}
 
 const MemberProfile = ({
   member,
@@ -21,6 +45,156 @@ const MemberProfile = ({
   showAsAdministrator = false,
 }) => {
   const [isConfirmationVis, setIsConfirmationVis] = useState(false);
+  const [openModalExcludeHour, setOpenModalExcludeHour] = useState(false);
+  const [excludeHour, setExcludeHour] = useState({});
+  // const [openModalHourChange, setOpenModalHourChange] = useState(false);
+  const [createModalInfo, setCreateModalInfo] = useState({
+    open: false,
+  });
+
+  const [errors, setErrors] = useState(INITIAL_ERRORS);
+  const [formData, setFormData] = useState({});
+
+  const needComment = formData.hourAction !== "REMOVE";
+
+  const [submitAditionalHours, { loading, error }] = useMutation(
+    SendAditionalHour,
+    { ignoreResults: true }
+  );
+
+  const handleOpenModal = (hour) => {
+    setExcludeHour(hour);
+    setOpenModalExcludeHour(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModalExcludeHour(false);
+  };
+
+  const handleCloseOrCreate = () => {
+    setCreateModalInfo({ open: false });
+  };
+
+  const handleSubmit = async (formData) => {
+    const newHour = {
+      member: member._id,
+      isPresential: formData["Modalidade:"],
+      date: formData["Qual dia foi ocorrido?"],
+      initialHour: formData["Horário de Entrada:"],
+      finalHour: formData["Horário de Saída:"],
+      taskId: formData["O que você fez neste horário:"],
+      projectId: formData["Você trabalhou em algum projeto?"],
+      description: formData["Deseja descrever melhor o que foi feito?"],
+    };
+    console.log(JSON.stringify(newHour))
+    handleCloseModal();
+    var hide = message.loading("Carregando...");
+  };
+
+  function disabledDate(current) {
+    return current && current > moment().endOf("day");
+  }
+
+  function handleChangeData(key, data) {
+    setFormData({ ...formData, [key]: data });
+  }
+
+  const modalityModalOptions = [
+    {
+      value: false,
+      label: "Remoto",
+    },
+    {
+      value: true,
+      label: "Presencial",
+    },
+  ];
+
+  const dateModalOptions = [
+    {
+      onChange: (data) => handleChangeData("date", data),
+      locale: "pt_BR",
+      format: "DD/MM/yyyy",
+      disabledDate: { disabledDate },
+      value: formData.date,
+    },
+  ];
+
+  const { data: tasksInformation } = useQuery(GET_TASKS);
+  const tasksOptions = tasksInformation?.tasks.map((task) => {
+    return { value: task._id, label: task.name };
+  });
+
+  const { data: dataProjects } = useQuery(GET_PROJECTS);
+
+  const projectsModalOptions = dataProjects?.projects.map((project) => {
+    return { value: project._id, label: project.name };
+  });
+
+  const addHour = (method) => {
+    const withInitialValue = method === "create";
+
+    var fields = [
+      {
+        key: "modality",
+        type: "select",
+        label: "Modalidade:",
+        placeholder: "Presencial/Remoto",
+        options: modalityModalOptions,
+        rules: [validators.antdRequired()],
+      },
+      {
+        key: "day",
+        type: "date",
+        label: "Qual dia foi ocorrido?",
+        placeholder: "Selecionar data",
+        options: dateModalOptions,
+        rules: [validators.antdRequired()],
+      },
+      {
+        key: "HourIn",
+        type: "hour",
+        label: "Horário de Entrada:",
+        rules: [validators.antdRequired()],
+      },
+      {
+        key: "HourOut",
+        type: "hour",
+        label: "Horário de Saída:",
+        rules: [validators.antdRequired()],
+      },
+      {
+        key: "task",
+        type: "select",
+        label: "O que você fez neste horário:",
+        options: tasksOptions,
+        rules: [validators.antdRequired()],
+      },
+      {
+        key: "Project",
+        type: "select",
+        options: projectsModalOptions,
+        placeholder: "Selecionar projeto",
+        label: "Você trabalhou em algum projeto?",
+      },
+      {
+        key: "Description",
+        type: "textArea",
+        label: "Deseja descrever melhor o que foi feito?",
+        characterLimit: 150,
+      },
+    ];
+
+    const modalData = {
+      title: "Adicionar Horas",
+      fields: fields,
+      open: true,
+      cancel: handleCloseOrCreate,
+      onSubmit: handleSubmit,
+    };
+
+    setCreateModalInfo(modalData);
+  };
 
   const [newData, setNewData] = useState({
     status: member?.status || "",
@@ -51,10 +225,6 @@ const MemberProfile = ({
     setIsConfirmationVis(true);
   }
 
-  function handleCloseModal() {
-    setIsConfirmationVis(false);
-  }
-
   return (
     <MemberProfileContainer>
       <div className="d-flex flex-column-reverse flex-sm-row mb-2 custom_margin">
@@ -82,7 +252,17 @@ const MemberProfile = ({
           )}
         </div>
       </div>
-      <div className="titulo1">
+
+      <div className="BotaoInserirHoras">
+        <CommonButton
+          buttonLabel="Adicionar Horas"
+          color="#22762B"
+          width="100%"
+          onClick={() => addHour("create")}
+          loading={loading}
+        />
+      </div>
+      <div>
         <DefaultText>Assessor: {member?.responsible?.name}</DefaultText>
       </div>
       <div className="messageAndFrase">
@@ -144,9 +324,9 @@ const MemberProfile = ({
         }}
         handleCancel={handleCloseModal}
       />
+      <FormModal {...createModalInfo} />
     </MemberProfileContainer>
   );
 };
 
 export default MemberProfile;
-

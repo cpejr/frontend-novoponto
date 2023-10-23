@@ -140,6 +140,10 @@ const MemberProfileContainer = styled.div`
   .non-resizable-textarea {
     resize: none;
   }
+
+  .BotaoInserirHoras{
+    padding: 10px 0px;
+  }
 `;
 
 export { MemberProfileContainer };
