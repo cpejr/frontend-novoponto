@@ -10,7 +10,7 @@ const FilterArea = styled.div`
   margin: auto;
   margin-bottom: 40px;
   margin-top: 30px;
-  div:first-child {
+  > :first-of-type {
     max-width: 300px;
     min-width: 200px;
   }

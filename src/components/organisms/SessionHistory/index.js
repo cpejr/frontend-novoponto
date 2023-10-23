@@ -72,9 +72,9 @@ const SessionHistory = () => {
         }
     });
     if (aditionalHours) {
-      aditionalHours.map(v => {
-        if (v.member?.tribe?.name !== undefined) {
-          hashtableTribe[v.member?.tribe?.name] += v.amount;
+      aditionalHours.map(aditionalHour => {
+        if (aditionalHour.member?.tribe?.name !== undefined) {
+          hashtableTribe[aditionalHour.member?.tribe?.name] += aditionalHour.amount;
         }
       })
     }
