@@ -27,7 +27,7 @@ const CardView = () => {
   return (
     <div>
       <ProfileComponent theme={themeColors} className="">
-        <OutlinedBox className="outlinedBox mx-auto mx-md-0 m-lg-5">
+        <OutlinedBox className="outlinedBox">
           <MemberProfile
             onLogOut={googleLogout}
             onSave={updateSelf}

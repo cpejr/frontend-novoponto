@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import FormModal from "../../../components/organisms/FormModal";
-// import validators from "../../../services/validators";
 import { message } from "antd";
 import {
   DefaultLabel,
@@ -14,29 +13,16 @@ import {
 } from "../../atoms";
 import SaveButton from "../../molecules/SaveButton";
 import ConfirmationModal from "../../molecules/ConfirmationModal";
-// import hourActionOptions from "./hourActionOptions";
 
-import { Form, Row } from "antd";
+import { Row } from "antd";
 import { MemberProfileContainer } from "./styles";
-import { CommonButton, CommonSelectBox } from "../../../components/atoms";
+import { CommonButton } from "../../../components/atoms";
 import { useMutation, useQuery } from "@apollo/client";
-import { SendAditionalHour } from "../../../graphql/AditionalHour";
 import validators from "../../../services/validators";
 import { GET_PROJECTS } from "../../../graphql/Projects";
 import { GET_TASKS } from "../../../graphql/Tasks";
-
-const INITIAL_ERRORS = {
-  member: false,
-  hourAction: false,
-  date: false,
-  duration: false,
-  comment: false,
-  isPresential: false,
-};
-
-function convertDurationToMilliseconds(time) {
-  return moment.duration(time.format("HH:mm")).asMilliseconds();
-}
+import adjustTimeData from "../../../utils/adjustTimeData";
+import { ADD_SESSION } from "../../../graphql/Sessions";
 
 const MemberProfile = ({
   member,
@@ -44,60 +30,13 @@ const MemberProfile = ({
   onSave,
   showAsAdministrator = false,
 }) => {
+
   const [isConfirmationVis, setIsConfirmationVis] = useState(false);
   const [openModalExcludeHour, setOpenModalExcludeHour] = useState(false);
-  const [excludeHour, setExcludeHour] = useState({});
-  // const [openModalHourChange, setOpenModalHourChange] = useState(false);
   const [createModalInfo, setCreateModalInfo] = useState({
     open: false,
   });
-
-  const [errors, setErrors] = useState(INITIAL_ERRORS);
   const [formData, setFormData] = useState({});
-
-  const needComment = formData.hourAction !== "REMOVE";
-
-  const [submitAditionalHours, { loading, error }] = useMutation(
-    SendAditionalHour,
-    { ignoreResults: true }
-  );
-
-  const handleOpenModal = (hour) => {
-    setExcludeHour(hour);
-    setOpenModalExcludeHour(true);
-  };
-
-  const handleCloseModal = () => {
-    setOpenModalExcludeHour(false);
-  };
-
-  const handleCloseOrCreate = () => {
-    setCreateModalInfo({ open: false });
-  };
-
-  const handleSubmit = async (formData) => {
-    const newHour = {
-      member: member._id,
-      isPresential: formData["Modalidade:"],
-      date: formData["Qual dia foi ocorrido?"],
-      initialHour: formData["Horário de Entrada:"],
-      finalHour: formData["Horário de Saída:"],
-      taskId: formData["O que você fez neste horário:"],
-      projectId: formData["Você trabalhou em algum projeto?"],
-      description: formData["Deseja descrever melhor o que foi feito?"],
-    };
-    console.log(JSON.stringify(newHour))
-    handleCloseModal();
-    var hide = message.loading("Carregando...");
-  };
-
-  function disabledDate(current) {
-    return current && current > moment().endOf("day");
-  }
-
-  function handleChangeData(key, data) {
-    setFormData({ ...formData, [key]: data });
-  }
 
   const modalityModalOptions = [
     {
@@ -112,7 +51,6 @@ const MemberProfile = ({
 
   const dateModalOptions = [
     {
-      onChange: (data) => handleChangeData("date", data),
       locale: "pt_BR",
       format: "DD/MM/yyyy",
       disabledDate: { disabledDate },
@@ -131,8 +69,31 @@ const MemberProfile = ({
     return { value: project._id, label: project.name };
   });
 
-  const addHour = (method) => {
-    const withInitialValue = method === "create";
+  const [submitSession, { loading, error }] = useMutation(
+    ADD_SESSION
+  );
+
+  const handleCloseModal = () => {
+    setOpenModalExcludeHour(false);
+  };
+
+  const handleCloseOrCreate = () => {
+    setCreateModalInfo({ open: false });
+  };
+
+  function disabledDate(current) {
+    return current && current > moment().endOf("day");
+  }
+  
+  function handleOnChange(field) {
+    setNewData({ ...newData, ...field });
+  }
+
+  function handleLogOutRequest() {
+    setIsConfirmationVis(true);
+  }
+
+  const addHour = () => {
 
     var fields = [
       {
@@ -196,6 +157,40 @@ const MemberProfile = ({
     setCreateModalInfo(modalData);
   };
 
+  const handleSubmit = async (formData) => {
+    const date = formData["Qual dia foi ocorrido?"].toISOString();
+    const hourStart = formData["Horário de Entrada:"].toISOString();
+    const hourEnd = formData["Horário de Saída:"].toISOString();
+
+    if (hourStart.slice(0, 18) === hourEnd.slice(0, 18)) {
+      return message.error("Você mencionou que os horários de entrada e de saída são iguais. Por favor, ajuste essa discrepância para continuar.");
+    }
+
+    const hours = adjustTimeData(date, hourStart, hourEnd);
+
+    const data = {
+      memberId: member._id,
+      isPresential: formData["Modalidade:"],
+      start: hours.hourStart,
+      end: hours.hourEnd,
+      taskId: formData["O que você fez neste horário:"],
+      projectId: formData["Você trabalhou em algum projeto?"],
+      description: formData["Deseja descrever melhor o que foi feito?"],
+    }
+
+    submitSession({
+      variables: data
+    })
+      .then(() => {
+        setFormData({});
+        message.success("Enviado com sucesso!");
+        handleCloseOrCreate();
+      })
+      .catch((error) => {
+        message.error("Vish algo deu errado.\nTente novamente mais tarde.");
+      });
+  };
+
   const [newData, setNewData] = useState({
     status: member?.status || "",
   });
@@ -217,14 +212,6 @@ const MemberProfile = ({
     onSave(newData);
   }
 
-  function handleOnChange(field) {
-    setNewData({ ...newData, ...field });
-  }
-
-  function handleLogOutRequest() {
-    setIsConfirmationVis(true);
-  }
-
   return (
     <MemberProfileContainer>
       <div className="d-flex flex-column-reverse flex-sm-row mb-2 custom_margin">
@@ -243,6 +230,16 @@ const MemberProfile = ({
               </div>
             </div>
           </Row>
+          
+          <div className="BotaoInserirHoras">
+            <CommonButton
+              buttonLabel="Adicionar Horas"
+              color="#22762B"
+              width="100%"
+              onClick={() => addHour()}
+              loading={loading}
+            />
+          </div>
 
           {!isAdm && (
             <LogoutPointButton
@@ -253,15 +250,6 @@ const MemberProfile = ({
         </div>
       </div>
 
-      <div className="BotaoInserirHoras">
-        <CommonButton
-          buttonLabel="Adicionar Horas"
-          color="#22762B"
-          width="100%"
-          onClick={() => addHour("create")}
-          loading={loading}
-        />
-      </div>
       <div>
         <DefaultText>Assessor: {member?.responsible?.name}</DefaultText>
       </div>

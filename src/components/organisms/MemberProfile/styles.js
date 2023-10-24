@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const MemberProfileContainer = styled.div`
+  width: 100%;
   .quote {
     display: flex;
     flex-direction: column;
@@ -69,7 +70,6 @@ const MemberProfileContainer = styled.div`
     display: flex;
     flex-direction: row;
     gap: 5%;
-    margin-left: 35%;
 
     @media (max-width: 340px) {
       display: flex;
@@ -80,10 +80,10 @@ const MemberProfileContainer = styled.div`
 
   .botaoLogOut {
     width: 95%;
+    margin: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-right: 10%;
   }
 
   .messageAndFrase {
@@ -111,30 +111,15 @@ const MemberProfileContainer = styled.div`
     }
   }
 
-  @media (max-width: 1100px) {
-    .imagemNomeCargo {
-      margin-left: 27.5%;
-    }
-  }
-
-  @media (max-width: 785px) {
-    .imagemNomeCargo {
-      margin-left: 17.5%;
-    }
-  }
-
-  @media (max-width: 545px) {
+  @media (max-width: 670px) {
     .botaoLogOut {
-      flex-direction: column-reverse;
-      gap: 10px;
-      margin-bottom: 10%;
-      margin-left: 10%;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
     }
 
     .imagemNomeCargo {
       display: flex;
-      justify-content: start;
-      margin-left: 0px;
     }
   }
   .non-resizable-textarea {

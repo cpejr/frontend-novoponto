@@ -89,5 +89,43 @@ const UPDATE_SESSION = gql`
 		}
   }
 `;
+
+const DefaultHourFields = gql`
+  fragment DefaultHourFields on AditionalHour {
+    date
+    amount
+    formatedAmount
+    taskId
+    projectId
+    description
+    isPresential
+  }
+`;
+
+const ADD_SESSION = gql`
+  mutation AddSession($memberId: ID!
+    $isPresential: Boolean!
+    $taskId: ID!
+    $description: String
+    $projectId: ID
+    $start: DateScalar!
+    $end: DateScalar!
+    ) {
+    addSession(memberId: $memberId
+      isPresential: $isPresential
+      taskId: $taskId
+      description: $description
+      projectId: $projectId
+      start: $start
+      end: $end
+      ) {
+      taskId
+      description
+      isPresential
+      start
+      end
+    }
+  }
+`;
 	
-export { LOGGED_MEMBERS, CREATE_SESSION, FINISH_SESSION, END_ALL_SESSIONS,END_SESSIONS_AFTER_20HOURS, DELETE_SESSION, UPDATE_SESSION };
+export { LOGGED_MEMBERS, CREATE_SESSION, FINISH_SESSION, END_ALL_SESSIONS,END_SESSIONS_AFTER_20HOURS, DELETE_SESSION, UPDATE_SESSION, ADD_SESSION };
