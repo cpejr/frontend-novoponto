@@ -29,6 +29,7 @@ const MemberProfile = ({
   onLogOut,
   onSave,
   showAsAdministrator = false,
+  refetch,
 }) => {
 
   const [isConfirmationVis, setIsConfirmationVis] = useState(false);
@@ -185,6 +186,7 @@ const MemberProfile = ({
         setFormData({});
         message.success("Enviado com sucesso!");
         handleCloseOrCreate();
+        refetch()
       })
       .catch((error) => {
         message.error("Vish algo deu errado.\nTente novamente mais tarde.");
