@@ -5,6 +5,8 @@ const FlexDiv = styled.div`
 `;
 
 const ContainerTable = styled.div`
+  margin-top: 50px;
+
   .ant-table-wrapper{
     max-width: 400px !important;
   }

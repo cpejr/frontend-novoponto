@@ -10,7 +10,7 @@ import TrackingTable from "../../molecules/TrackingTable";
 import TribeTable from "../../molecules/TribeTable";
 const { RangePicker } = DatePicker;
 
-const SessionHistory = () => {
+const SessionHistory = ({ filter }) => {
   const { themeColors } = useContext(ThemeContext);
 
   const [tribeArray, setTribeArray] = useState([]);
@@ -46,6 +46,10 @@ const SessionHistory = () => {
   function getData() {
       loadCompiled({
         variables: {
+          taskIds: filter.tasks,
+          projectIds: filter.projects,
+          tribeIds: filter.departaments,
+          memberId: filter.member,
           startDate: moment(startDate)?.startOf("day").toISOString(),
           endDate: moment(endDate)?.endOf("day").toISOString(),
         },
@@ -85,7 +89,7 @@ const SessionHistory = () => {
  
   useEffect(() => {
     getData();
-  }, [rangeDate]);
+  }, [rangeDate, filter]);
 
   useEffect(() => {
     setTimeout(loadData, 500)
