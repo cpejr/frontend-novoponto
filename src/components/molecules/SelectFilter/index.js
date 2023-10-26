@@ -12,10 +12,10 @@ const SelectFilter = ({ placeholder, data, handleChange }) => (
     optionLabelProp="label"
     onChange={handleChange}
   >
-    {data.map(v => (
-      <Option value={v._id} label={v.name}>
+    {data.map(dataValue => (
+      <Option value={dataValue._id} label={dataValue.name}>
       <Space>
-        {v.name}
+        {dataValue.name}
       </Space>
     </Option>
     ))}
