@@ -1,7 +1,8 @@
 import { Select, Space } from 'antd';
 import { SelectStyled } from './style';
 const { Option } = Select;
-const SelectFilter = ({ placeholder, data }) => (
+
+const SelectFilter = ({ placeholder, data, handleChange }) => (
   <SelectStyled
     mode="multiple"
     style={{
@@ -9,11 +10,12 @@ const SelectFilter = ({ placeholder, data }) => (
     }}
     placeholder={placeholder}
     optionLabelProp="label"
+    onChange={handleChange}
   >
-    {data.map(v => (
-      <Option value={v.name} label={v.name}>
+    {data.map(dataValue => (
+      <Option value={dataValue._id} label={dataValue.name}>
       <Space>
-        {v.name}
+        {dataValue.name}
       </Space>
     </Option>
     ))}

@@ -91,8 +91,20 @@ const UPDATE_SESSION = gql`
 `;
 
 const ALL_SESSIONS = gql`
-  query AllSessions($startDate: DateScalar, $endDate: DateScalar) {
-    allSessions(startDate: $startDate, endDate: $endDate) {
+  query AllSessions(
+    $startDate: DateScalar, 
+    $endDate: DateScalar, 
+    $taskIds: [ID], 
+    $projectIds: [ID], 
+    $tribeIds: [ID],
+    $memberId: ID) {
+    allSessions(
+      startDate: $startDate, 
+      endDate: $endDate, 
+      taskIds: $taskIds, 
+      projectIds: $projectIds, 
+      tribeIds: $tribeIds,
+      memberId: $memberId) {
       sessions {
         _id
         start
