@@ -31,7 +31,6 @@ const MemberProfile = ({
   showAsAdministrator = false,
   refetch,
 }) => {
-
   const [isConfirmationVis, setIsConfirmationVis] = useState(false);
   const [openModalExcludeHour, setOpenModalExcludeHour] = useState(false);
   const [createModalInfo, setCreateModalInfo] = useState({
@@ -70,9 +69,7 @@ const MemberProfile = ({
     return { value: project._id, label: project.name };
   });
 
-  const [submitSession, { loading, error }] = useMutation(
-    ADD_SESSION
-  );
+  const [submitSession, { loading, error }] = useMutation(ADD_SESSION);
 
   const handleCloseModal = () => {
     setOpenModalExcludeHour(false);
@@ -85,7 +82,7 @@ const MemberProfile = ({
   function disabledDate(current) {
     return current && current > moment().endOf("day");
   }
-  
+
   function handleOnChange(field) {
     setNewData({ ...newData, ...field });
   }
@@ -95,7 +92,6 @@ const MemberProfile = ({
   }
 
   const addHour = () => {
-
     var fields = [
       {
         key: "modality",
@@ -129,6 +125,7 @@ const MemberProfile = ({
         key: "task",
         type: "select",
         label: "O que você fez neste horário:",
+        placeholder: "Selecionar atividade",
         options: tasksOptions,
         rules: [validators.antdRequired()],
       },
@@ -164,7 +161,9 @@ const MemberProfile = ({
     const hourEnd = formData["Horário de Saída:"].toISOString();
 
     if (hourStart.slice(0, 18) === hourEnd.slice(0, 18)) {
-      return message.error("Você mencionou que os horários de entrada e de saída são iguais. Por favor, ajuste essa discrepância para continuar.");
+      return message.error(
+        "Você mencionou que os horários de entrada e de saída são iguais. Por favor, ajuste essa discrepância para continuar."
+      );
     }
 
     const hours = adjustTimeData(date, hourStart, hourEnd);
@@ -177,16 +176,16 @@ const MemberProfile = ({
       taskId: formData["O que você fez neste horário:"],
       projectId: formData["Você trabalhou em algum projeto?"],
       description: formData["Deseja descrever melhor o que foi feito?"],
-    }
+    };
 
     submitSession({
-      variables: data
+      variables: data,
     })
       .then(() => {
         setFormData({});
         message.success("Enviado com sucesso!");
         handleCloseOrCreate();
-        refetch()
+        refetch();
       })
       .catch((error) => {
         message.error("Vish algo deu errado.\nTente novamente mais tarde.");
@@ -232,7 +231,7 @@ const MemberProfile = ({
               </div>
             </div>
           </Row>
-          
+
           <div className="BotaoInserirHoras">
             <CommonButton
               buttonLabel="Adicionar Horas"
@@ -320,3 +319,4 @@ const MemberProfile = ({
 };
 
 export default MemberProfile;
+
