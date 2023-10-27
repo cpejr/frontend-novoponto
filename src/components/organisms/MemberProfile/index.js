@@ -107,8 +107,9 @@ const MemberProfile = ({
       {
         key: "day",
         type: "date",
+        format: "DD/MM/yyyy",
         label: "Qual dia foi ocorrido?",
-        placeholder: "Selecionar data",
+        placeholder: "Selecione a data",
         options: dateModalOptions,
         rules: [validators.antdRequired()],
       },
@@ -128,6 +129,7 @@ const MemberProfile = ({
         key: "task",
         type: "select",
         label: "O que você fez neste horário:",
+        placeholder: "Selecione a tarefa",
         options: tasksOptions,
         rules: [validators.antdRequired()],
       },
@@ -135,7 +137,7 @@ const MemberProfile = ({
         key: "Project",
         type: "select",
         options: projectsModalOptions,
-        placeholder: "Selecionar projeto",
+        placeholder: "Selecione o projeto",
         label: "Você trabalhou em algum projeto?",
       },
       {
