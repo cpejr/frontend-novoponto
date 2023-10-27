@@ -10,22 +10,25 @@ import { CommonButton } from "../../../components/atoms";
 import { colors } from "../../../context/ThemeProvider/pallete";
 import SessionHistory from "../../../components/organisms/SessionHistory";
 import { GET_TRIBES } from "../../../graphql/Tribes";
+import { GET_ROLES } from "../../../graphql/Roles";
 
 const HourConsultation = () => {
 
   const [selectedMember, setSelectedMember] = useState();
-  const [filter, setFilter] = useState({tasks: [], projects: [], departaments: [], member: ''});
+  const [filter, setFilter] = useState({tasks: [], projects: [], departaments: [], roles: [], member: ''});
   const [tasks, setTasks] = useState([])
   const [projects, setProjects] = useState([]);
   const [departaments, setDepartaments] = useState([]);
+  const [roles, setRoles] = useState([]);
 
   const { data: projectsData, loading: projectsLoading } = useQuery(GET_PROJECTS);
   const { data: tasksData, loading: tasksLoading } = useQuery(GET_TASKS);
   const { data: departamentsData, loading: departamentsLoading } = useQuery(GET_TRIBES);
+  const { data: rolesData, loading: rolesLoading } = useQuery(GET_ROLES);
   const { membersLoading, membersError, membersData, refetchMembers } =
   useContext(GlobalsContext);
 
-  const allQueriesLoaded = !projectsLoading && !tasksLoading && !departamentsLoading && !membersLoading;
+  const allQueriesLoaded = !projectsLoading && !tasksLoading && !departamentsLoading && !rolesLoading && !membersLoading;
 
   const handleChangeTasks = (value) => {
     setTasks(value);
@@ -39,8 +42,12 @@ const HourConsultation = () => {
     setDepartaments(value);
   };
 
+  const handleChangeRoles = (value) => {
+    setRoles(value);
+  }
+
   const handleFilter = () => {
-    setFilter({tasks, projects, departaments, member: selectedMember ? selectedMember._id : ''});
+    setFilter({tasks, projects, departaments, roles, member: selectedMember ? selectedMember._id : ''});
   }
 
   const selectMember = (memberId) => {
@@ -59,6 +66,7 @@ const HourConsultation = () => {
           <MembersSelectBox onChange={selectMember} />
           <SelectFilter placeholder={'Projeto'} data={projectsData.projects} handleChange={handleChangeProjects}/>
           <SelectFilter placeholder={'Tarefa'} data={tasksData.tasks} handleChange={handleChangeTasks}/>
+          <SelectFilter placeholder={'Cargo'} data={rolesData.roles} handleChange={handleChangeRoles} />
           <SelectFilter placeholder={'Departamento'} 
           data={departamentsData.tribes} handleChange={handleChangeDepartaments}/>
           <CommonButton
