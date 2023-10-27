@@ -200,6 +200,8 @@ const Sessions = () => {
       description: modalData["Deseja descrever melhor o que irá fazer?"],
     };
 
+    console.log(JSON.stringify(newSession))
+
     handleCloseModal();
     var hide = message.loading("Atualizando");
     try {

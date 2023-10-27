@@ -1,39 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { DatePicker } from "antd";
+import { ConfigProvider, DatePicker } from "antd";
 import moment from "moment";
-import { useLazyQuery } from "@apollo/client";
-import { FetchCompiledForHC } from "../../../graphql/Member";
 import HomeOfficeTable from "../../molecules/HomeOfficeTable";
 import SessionsTable from "../../molecules/SessionsTable";
 import { MemberHistoyContainer } from "./styles";
+import customizeRenderEmpty from "../../molecules/CustomizeEmpty";
 const { RangePicker } = DatePicker;
 
-const MemberHistory = ({ memberId }) => {
-  const [rangeDate, setRangeDate] = useState([
-    moment().startOf("isoWeek"),
-    moment().endOf("day"),
-  ]);
+const MemberHistory = ({ memberId, rangeDate, setRangeDate, loadData, loading, data, refetch }) => {
 
   const startDate = rangeDate && rangeDate[0];
   const endDate = rangeDate && rangeDate[1];
 
-  const [loadCompiled, { loading, data, refetch }] = useLazyQuery(FetchCompiledForHC, {
-    fetchPolicy: "network-only",
-  });
   const { aditionalHours, sessions, formatedTotal, formatedPresentialTotal } =
-    data?.compiled || {};
+  data?.compiled || {};
 
-  async function loadData() {
-    return loadCompiled({
-      variables: {
-        memberId,
-        startDate: moment(startDate)?.startOf("day").toISOString(),
-        endDate: moment(endDate)?.endOf("day").toISOString(),
-      },
-    });
-  }
-
- 
   useEffect(() => {
     if (startDate && endDate && memberId) loadData();
   }, [memberId, rangeDate]);
@@ -42,6 +23,7 @@ const MemberHistory = ({ memberId }) => {
     // Can not select days after today
     return current && current > moment().endOf("day");
   }
+
   if (memberId && !loading)
     return (
       <MemberHistoyContainer>
@@ -63,10 +45,12 @@ const MemberHistory = ({ memberId }) => {
               formatedTotal={formatedTotal}
               formatedPresentialTotal={formatedPresentialTotal}
             />
-            <HomeOfficeTable
-              aditionalHours={aditionalHours}
-              onDelete={loadData}
-            />
+            <ConfigProvider renderEmpty={() => customizeRenderEmpty('A partir de agora, novas adições serão diretamente incorporadas como novas sessões!')}>
+              <HomeOfficeTable
+                aditionalHours={aditionalHours}
+                onDelete={loadData}
+              />
+            </ConfigProvider>
           </div>
         )}
       </MemberHistoyContainer>
