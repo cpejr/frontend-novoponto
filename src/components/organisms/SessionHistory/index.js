@@ -49,6 +49,7 @@ const SessionHistory = ({ filter }) => {
           taskIds: filter.tasks,
           projectIds: filter.projects,
           tribeIds: filter.departaments,
+          roleIds: filter.roles,
           memberId: filter.member,
           startDate: moment(startDate)?.startOf("day").toISOString(),
           endDate: moment(endDate)?.endOf("day").toISOString(),

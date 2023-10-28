@@ -97,6 +97,7 @@ const ALL_SESSIONS = gql`
     $taskIds: [ID], 
     $projectIds: [ID], 
     $tribeIds: [ID],
+    $roleIds: [ID],
     $memberId: ID) {
     allSessions(
       startDate: $startDate, 
@@ -104,6 +105,7 @@ const ALL_SESSIONS = gql`
       taskIds: $taskIds, 
       projectIds: $projectIds, 
       tribeIds: $tribeIds,
+      roleIds: $roleIds,
       memberId: $memberId) {
       sessions {
         _id

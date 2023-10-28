@@ -44,7 +44,7 @@ const HourConsultation = () => {
 
   const handleChangeRoles = (value) => {
     setRoles(value);
-  }
+  };
 
   const handleFilter = () => {
     setFilter({tasks, projects, departaments, roles, member: selectedMember ? selectedMember._id : ''});
