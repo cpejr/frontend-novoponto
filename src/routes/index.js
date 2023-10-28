@@ -6,7 +6,6 @@ import RestrictedRoute from "./RestrictedRoute";
 
 import {
   Profile,
-  HourChanges,
   Ponto,
   StandBy,
   UpdateNews,
@@ -27,7 +26,6 @@ function Menu() {
     <SidebarMenu>
       <Switch>
         <Route path="/ponto" exact component={Ponto} />
-        <Route path="/ponto/alteracaodehoras" component={HourChanges} />
         <Route path="/ponto/profile" component={Profile} />
         <Route path="/ponto/standby" component={StandBy} />
         <RestrictedRoute

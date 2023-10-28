@@ -69,13 +69,6 @@ const Menuu = ({ collapsed, ...props }) => {
         icon={<UserOutlined />}
       />
 
-      <MenuItem
-        key="/ponto/alteracaodehoras"
-        route="/ponto/alteracaodehoras"
-        icon={<CarryOutOutlined />}
-        label="Adicionar/Remover horas"
-      />
-
       <SubMenu
         key="sub3"
         icon={<LockOutlined />}
