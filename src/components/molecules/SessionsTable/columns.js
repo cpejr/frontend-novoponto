@@ -12,7 +12,6 @@ function getColumns(themeColors, onDelete, onEdit) {
       key: "start",
       render: (start) => (
         <DefaultText style={{ margin: 0 }}>
-          {" "}
           {moment(start).format("DD/MM/yy")}
         </DefaultText>
       ),

@@ -6,14 +6,12 @@ import RestrictedRoute from "./RestrictedRoute";
 
 import {
   Profile,
-  HourChanges,
   Ponto,
   StandBy,
   UpdateNews,
   MandatoryHours,
   Members,
   Roles,
-  HourFollowing,
   Login,
   Tasks,
   Tribes,
@@ -21,14 +19,13 @@ import {
   Projects,
   Departaments,
 } from "../pages";
-import Footer from "../components/molecules/Footer";
+import HourConsultation from "../pages/Administration/HourConsultation";
 
 function Menu() {
   return (
     <SidebarMenu>
       <Switch>
         <Route path="/ponto" exact component={Ponto} />
-        <Route path="/ponto/alteracaodehoras" component={HourChanges} />
         <Route path="/ponto/profile" component={Profile} />
         <Route path="/ponto/standby" component={StandBy} />
         <RestrictedRoute
@@ -54,7 +51,7 @@ function Menu() {
         <RestrictedRoute
           minAccessLevel={1}
           path="/ponto/acompanhamento"
-          component={HourFollowing}
+          component={HourConsultation}
         />
         <RestrictedRoute
           path="/ponto/atualizarnoticias"
@@ -82,7 +79,6 @@ function Menu() {
           component={Departaments}
         />
       </Switch>
-      <Footer />
     </SidebarMenu>
   );
 }
