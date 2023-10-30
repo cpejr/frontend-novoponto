@@ -140,7 +140,6 @@ const Badges = () => {
 			description: Descrição,
 			image: Imagem,
 		};
-		console.log(badge);
 		try {
 			await createBadgeMutation({ variables: { data: newBadge } });
 			hide();

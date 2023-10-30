@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 const ProfileComponent = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: center;
 
   background-color: ${(props) => props.theme.appBackground};
 
@@ -28,7 +30,6 @@ const ProfileComponent = styled.div`
     max-width: 100%;
     height: auto;
     display: flex;
-    justify-content: start;
   }
 `;
 

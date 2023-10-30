@@ -110,7 +110,7 @@ const SessionRow = ({ session, onLogout, ...props }) => {
             placement="top"
             title={
               <>
-                <TooltipTitle>{task?.name}</TooltipTitle>{" "}
+                <TooltipTitle>{task?.name}</TooltipTitle>
                 <TooltipTitle>{project?.name ?? ""}</TooltipTitle>
                 <TooltipTitle>{description ?? ""}</TooltipTitle>
               </>
@@ -138,7 +138,13 @@ const SessionRow = ({ session, onLogout, ...props }) => {
           <Button
             style={{ border: "none" }}
             className="d-flex align-items-center justify-content-center"
-            icon={<HiOutlineLogout size="2em" />}
+            icon={ 
+              isLoggedMember ? (
+                <HiOutlineLogout size="2em" />
+              ) : (
+               null
+              )
+            }
             onClick={handleLogout}
           />
         </td>

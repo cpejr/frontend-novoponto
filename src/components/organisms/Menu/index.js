@@ -56,6 +56,7 @@ const SidebarMenu = ({ children }) => {
           </Layout>
         </Layout>
       )}
+      <Footer/>
     </SidebarMenuContainer>
   );
 };
