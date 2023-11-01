@@ -12,20 +12,30 @@ import SessionHistory from "../../../components/organisms/SessionHistory";
 import { GET_TRIBES } from "../../../graphql/Tribes";
 
 const HourConsultation = () => {
-
-  const [filter, setFilter] = useState({tasks: [], projects: [], departaments: [], members: []});
+  const [filter, setFilter] = useState({
+    tasks: [],
+    projects: [],
+    departaments: [],
+    members: [],
+  });
   const [members, setMembers] = useState([]);
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState([]);
   const [projects, setProjects] = useState([]);
   const [departaments, setDepartaments] = useState([]);
 
-  const { data: projectsData, loading: projectsLoading } = useQuery(GET_PROJECTS);
+  const { data: projectsData, loading: projectsLoading } =
+    useQuery(GET_PROJECTS);
   const { data: tasksData, loading: tasksLoading } = useQuery(GET_TASKS);
-  const { data: departamentsData, loading: departamentsLoading } = useQuery(GET_TRIBES);
+  const { data: departamentsData, loading: departamentsLoading } =
+    useQuery(GET_TRIBES);
   const { membersLoading, membersError, membersData, refetchMembers } =
-  useContext(GlobalsContext);
+    useContext(GlobalsContext);
 
-  const allQueriesLoaded = !projectsLoading && !tasksLoading && !departamentsLoading && !membersLoading;
+  const allQueriesLoaded =
+    !projectsLoading &&
+    !tasksLoading &&
+    !departamentsLoading &&
+    !membersLoading;
 
   const handleChangeTasks = (value) => {
     setTasks(value);
@@ -43,46 +53,50 @@ const HourConsultation = () => {
     setMembers(value);
   };
 
-  console.log(members);
-
   const handleFilter = () => {
-    setFilter({tasks, projects, departaments, members});
-  }
-
-  // const selectMembers = (memberIds) => {
-  //   console.log(memberIds);
-  //   const members = membersData.members.filter(
-  //     (member) => memberIds.includes(member._id)
-  //   );
-
-  //   setSelectedMember(members);
-  // };
+    setFilter({ tasks, projects, departaments, members });
+  };
 
   console.log(filter);
 
   return (
     <>
-    {allQueriesLoaded && (
-      <>
-        <FilterArea>
-          {/* <MembersSelectBox onChange={selectMember} /> */}
-          <SelectFilter placeholder={'Escolha o(s) membro(s)'} data={membersData.members} handleChange={handleChangeMembers}/>
-          <SelectFilter placeholder={'Projeto'} data={projectsData.projects} handleChange={handleChangeProjects}/>
-          <SelectFilter placeholder={'Tarefa'} data={tasksData.tasks} handleChange={handleChangeTasks}/>
-          <SelectFilter placeholder={'Departamento'} 
-          data={departamentsData.tribes} handleChange={handleChangeDepartaments}/>
-          <CommonButton
-            buttonLabel="Filtrar"
-            color={colors.green}
-            width="223px"
-            onClick={handleFilter}
-          />
-        </FilterArea>
-        <SessionHistory filter={filter}/>
-      </>
+      {allQueriesLoaded && (
+        <>
+          <FilterArea>
+            {/* <MembersSelectBox onChange={selectMember} /> */}
+            <SelectFilter
+              placeholder={"Escolha o(s) membro(s)"}
+              data={membersData.members}
+              handleChange={handleChangeMembers}
+            />
+            <SelectFilter
+              placeholder={"Projeto"}
+              data={projectsData.projects}
+              handleChange={handleChangeProjects}
+            />
+            <SelectFilter
+              placeholder={"Tarefa"}
+              data={tasksData.tasks}
+              handleChange={handleChangeTasks}
+            />
+            <SelectFilter
+              placeholder={"Departamento"}
+              data={departamentsData.tribes}
+              handleChange={handleChangeDepartaments}
+            />
+            <CommonButton
+              buttonLabel="Filtrar"
+              color={colors.green}
+              width="223px"
+              onClick={handleFilter}
+            />
+          </FilterArea>
+          <SessionHistory filter={filter} />
+        </>
       )}
     </>
-  )
-}
+  );
+};
 
 export default HourConsultation;
