@@ -41,7 +41,6 @@ const HourConsultation = () => {
 
   const handleChangeMembers = (value) => {
     setMembers(value);
-    console.log(value);
   };
 
   console.log(members);
