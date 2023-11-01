@@ -13,8 +13,8 @@ import { GET_TRIBES } from "../../../graphql/Tribes";
 
 const HourConsultation = () => {
 
-  const [selectedMember, setSelectedMember] = useState();
-  const [filter, setFilter] = useState({tasks: [], projects: [], departaments: [], member: ''});
+  const [filter, setFilter] = useState({tasks: [], projects: [], departaments: [], members: []});
+  const [members, setMembers] = useState([]);
   const [tasks, setTasks] = useState([])
   const [projects, setProjects] = useState([]);
   const [departaments, setDepartaments] = useState([]);
@@ -39,24 +39,35 @@ const HourConsultation = () => {
     setDepartaments(value);
   };
 
+  const handleChangeMembers = (value) => {
+    setMembers(value);
+    console.log(value);
+  };
+
+  console.log(members);
+
   const handleFilter = () => {
-    setFilter({tasks, projects, departaments, member: selectedMember ? selectedMember._id : ''});
+    setFilter({tasks, projects, departaments, members});
   }
 
-  const selectMember = (memberId) => {
-    const member = membersData.members.find(
-      (member) => member._id === memberId
-    );
+  // const selectMembers = (memberIds) => {
+  //   console.log(memberIds);
+  //   const members = membersData.members.filter(
+  //     (member) => memberIds.includes(member._id)
+  //   );
 
-    setSelectedMember(member);
-  };
+  //   setSelectedMember(members);
+  // };
+
+  console.log(filter);
 
   return (
     <>
     {allQueriesLoaded && (
       <>
         <FilterArea>
-          <MembersSelectBox onChange={selectMember} />
+          {/* <MembersSelectBox onChange={selectMember} /> */}
+          <SelectFilter placeholder={'Escolha o(s) membro(s)'} data={membersData.members} handleChange={handleChangeMembers}/>
           <SelectFilter placeholder={'Projeto'} data={projectsData.projects} handleChange={handleChangeProjects}/>
           <SelectFilter placeholder={'Tarefa'} data={tasksData.tasks} handleChange={handleChangeTasks}/>
           <SelectFilter placeholder={'Departamento'} 
