@@ -57,8 +57,6 @@ const HourConsultation = () => {
     setFilter({ tasks, projects, departaments, members });
   };
 
-  console.log(filter);
-
   return (
     <>
       {allQueriesLoaded && (
