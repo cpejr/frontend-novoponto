@@ -14,7 +14,7 @@ const HorizontalCard = styled.div`
 const TitleCard = styled.div`
   display: flex;
   align-items: center;
-  background: #1D1D1D;
+  background: #1d1d1d;
   padding: 5px;
   border-radius: 5px 0px 0px 5px;
 `;
@@ -34,10 +34,26 @@ const ContainerCards = styled.div`
 `;
 
 const ContainerExpandable = styled.div`
+  display: flex;
   width: 100%;
   height: 100%;
-  background-color: #111111;
   padding: 10px;
-`
+  background-color: #111111;
+  gap: 30px;
+`;
 
-export { FlexDiv, HorizontalCard, ContentCard, TitleCard, ContainerCards, ContainerExpandable };
+const ContainerAllCards = styled.div`
+  width: 70%;
+  height: 100%;
+`;
+
+export {
+  FlexDiv,
+  HorizontalCard,
+  ContentCard,
+  TitleCard,
+  ContainerCards,
+  ContainerAllCards,
+  ContainerExpandable,
+};
+

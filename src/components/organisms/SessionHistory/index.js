@@ -19,6 +19,7 @@ const SessionHistory = ({ filter }) => {
   const { themeColors } = useContext(ThemeContext);
 
   const [tribeArray, setTribeArray] = useState([]);
+  const [hashtableMemberHours, setHashtableMemberHours] = useState([]);
   const [sessionsData, setSessionsData] = useState();
   const [formatedTotalData, setFormatedTotalData] = useState();
 
@@ -69,29 +70,71 @@ const SessionHistory = ({ filter }) => {
     setSessionsData(sessions);
     setFormatedTotalData(formatedTotal);
 
+    let hashtableMemberHoursConstruct = {};
+
     if (sessions) {
-      let hashtableTribe = {};
-      sessions.map((v) => {
-        if (v.member?.tribe?.name !== undefined) {
-          if (hashtableTribe[v.member?.tribe?.name] === undefined) {
-            hashtableTribe[v.member?.tribe?.name] = v.duration;
+      sessions.forEach((session) => {
+        if (session.member !== undefined && session.task !== undefined) {
+          const memberName = session.member.name;
+          const taskName = session.task.name;
+          const duration = session.duration;
+
+          if (!hashtableMemberHoursConstruct[memberName]) {
+            hashtableMemberHoursConstruct[memberName] = {};
+          }
+
+          if (!hashtableMemberHoursConstruct[memberName][taskName]) {
+            hashtableMemberHoursConstruct[memberName][taskName] = duration;
           } else {
-            hashtableTribe[v.member?.tribe?.name] += v.duration;
+            hashtableMemberHoursConstruct[memberName][taskName] += duration;
           }
         }
       });
-      if (aditionalHours) {
-        aditionalHours.map((aditionalHour) => {
-          if (aditionalHour.member?.tribe?.name !== undefined) {
-            hashtableTribe[aditionalHour.member?.tribe?.name] +=
-              aditionalHour.amount;
-          }
-        });
-      }
-      setTribeArray(
-        Object.entries(hashtableTribe).map(([key, value]) => ({ key, value }))
-      );
     }
+    Object.keys(hashtableMemberHoursConstruct).forEach((memberName) => {
+      const tasksArray = Object.entries(
+        hashtableMemberHoursConstruct[memberName]
+      ).map(([name, value]) => ({
+        name,
+        value,
+      }));
+      hashtableMemberHoursConstruct[memberName] = tasksArray;
+    });
+    setHashtableMemberHours(hashtableMemberHoursConstruct);
+
+    let hashtableTribe = {};
+    if (sessions) {
+      sessions.forEach((session) => {
+        const memberTribeName = session.member?.tribe?.name;
+        const duration = session.duration;
+
+        if (memberTribeName !== undefined) {
+          if (!hashtableTribe[memberTribeName]) {
+            hashtableTribe[memberTribeName] = duration;
+          } else {
+            hashtableTribe[memberTribeName] += duration;
+          }
+        }
+      });
+    }
+
+    if (aditionalHours) {
+      aditionalHours.forEach((aditionalHour) => {
+        const memberTribeName = aditionalHour.member?.tribe?.name;
+        const amount = aditionalHour.amount;
+
+        if (memberTribeName !== undefined) {
+          if (!hashtableTribe[memberTribeName]) {
+            hashtableTribe[memberTribeName] = amount;
+          } else {
+            hashtableTribe[memberTribeName] += amount;
+          }
+        }
+      });
+    }
+    setTribeArray(
+      Object.entries(hashtableTribe).map(([key, value]) => ({ key, value }))
+    );
   }
 
   useEffect(() => {
@@ -102,14 +145,6 @@ const SessionHistory = ({ filter }) => {
     setTimeout(loadData, 500);
   }, [data]);
 
-  console.log({
-    taskIds: filter.tasks,
-    projectIds: filter.projects,
-    tribeIds: filter.departaments,
-    memberIds: filter.members,
-    startDate: moment(startDate)?.startOf("day").toISOString(),
-    endDate: moment(endDate)?.endOf("day").toISOString(),
-  });
   return (
     <>
       <ContainerTable>
@@ -131,7 +166,10 @@ const SessionHistory = ({ filter }) => {
             placeholder={["Inicio", "Fim"]}
           />
         </HeadTable>
-        <TrackingTable sessions={sessionsData} />
+        <TrackingTable
+          sessions={sessionsData}
+          hashtableMemberHours={hashtableMemberHours}
+        />
         <TribeTable tribes={tribeArray} />
       </ContainerTable>
     </>
@@ -139,3 +177,4 @@ const SessionHistory = ({ filter }) => {
 };
 
 export default SessionHistory;
+
