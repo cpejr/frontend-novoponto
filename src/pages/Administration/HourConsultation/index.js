@@ -15,27 +15,22 @@ const HourConsultation = () => {
   const [filter, setFilter] = useState({
     tasks: [],
     projects: [],
-    departaments: [],
+    tribes: [],
     members: [],
   });
   const [members, setMembers] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [projects, setProjects] = useState([]);
-  const [departaments, setDepartaments] = useState([]);
+  const [tribes, setTribes] = useState([]);
 
   const { data: projectsData, loading: projectsLoading } =
     useQuery(GET_PROJECTS);
   const { data: tasksData, loading: tasksLoading } = useQuery(GET_TASKS);
-  const { data: departamentsData, loading: departamentsLoading } =
-    useQuery(GET_TRIBES);
-  const { membersLoading, membersError, membersData, refetchMembers } =
-    useContext(GlobalsContext);
+  const { data: tribesData, loading: tribesLoading } = useQuery(GET_TRIBES);
+  const { membersLoading, membersData } = useContext(GlobalsContext);
 
   const allQueriesLoaded =
-    !projectsLoading &&
-    !tasksLoading &&
-    !departamentsLoading &&
-    !membersLoading;
+    !projectsLoading && !tasksLoading && !tribesLoading && !membersLoading;
 
   const handleChangeTasks = (value) => {
     setTasks(value);
@@ -45,8 +40,8 @@ const HourConsultation = () => {
     setProjects(value);
   };
 
-  const handleChangeDepartaments = (value) => {
-    setDepartaments(value);
+  const handleChangeTribes = (value) => {
+    setTribes(value);
   };
 
   const handleChangeMembers = (value) => {
@@ -54,7 +49,7 @@ const HourConsultation = () => {
   };
 
   const handleFilter = () => {
-    setFilter({ tasks, projects, departaments, members });
+    setFilter({ tasks, projects, tribes, members });
   };
 
   return (
@@ -62,7 +57,6 @@ const HourConsultation = () => {
       {allQueriesLoaded && (
         <>
           <FilterArea>
-            {/* <MembersSelectBox onChange={selectMember} /> */}
             <SelectFilter
               placeholder={"Escolha o(s) membro(s)"}
               data={membersData.members}
@@ -79,9 +73,9 @@ const HourConsultation = () => {
               handleChange={handleChangeTasks}
             />
             <SelectFilter
-              placeholder={"Departamento"}
-              data={departamentsData.tribes}
-              handleChange={handleChangeDepartaments}
+              placeholder={"Tribos"}
+              data={tribesData.tribes}
+              handleChange={handleChangeTribes}
             />
             <CommonButton
               buttonLabel="Filtrar"
@@ -98,3 +92,4 @@ const HourConsultation = () => {
 };
 
 export default HourConsultation;
+
