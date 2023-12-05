@@ -53,6 +53,7 @@ const SessionHistory = ({ filter }) => {
         projectIds: filter.projects,
         tribeIds: filter.tribes,
         memberIds: filter.members,
+        departamentIds: filter.departaments,
         startDate: moment(startDate)?.startOf("day").toISOString(),
         endDate: moment(endDate)?.endOf("day").toISOString(),
       },
@@ -68,7 +69,7 @@ const SessionHistory = ({ filter }) => {
 
     if (sessions) {
       let hashtableTribe = {};
-      sessions.map((v) => {
+      sessions.forEach((v) => {
         if (v.member?.tribe?.name !== undefined) {
           if (hashtableTribe[v.member?.tribe?.name] === undefined) {
             hashtableTribe[v.member?.tribe?.name] = v.duration;
@@ -78,7 +79,7 @@ const SessionHistory = ({ filter }) => {
         }
       });
       if (aditionalHours) {
-        aditionalHours.map((aditionalHour) => {
+        aditionalHours.forEach((aditionalHour) => {
           if (aditionalHour.member?.tribe?.name !== undefined) {
             hashtableTribe[aditionalHour.member?.tribe?.name] +=
               aditionalHour.amount;
