@@ -37,15 +37,12 @@ const SessionHistory = ({ filter }) => {
     return current && current > moment().endOf("day");
   }
 
-  const [loadCompiled, { loading, data, error, refetch }] = useLazyQuery(
-    ALL_SESSIONS,
-    {
-      variables: {
-        startDate: moment(startDate)?.startOf("day").toISOString(),
-        endDate: moment(endDate)?.endOf("day").toISOString(),
-      },
-    }
-  );
+  const [loadCompiled, { data }] = useLazyQuery(ALL_SESSIONS, {
+    variables: {
+      startDate: moment(startDate)?.startOf("day").toISOString(),
+      endDate: moment(endDate)?.endOf("day").toISOString(),
+    },
+  });
 
   const { sessions, formatedTotal, aditionalHours } = data?.allSessions || {};
 
@@ -54,8 +51,9 @@ const SessionHistory = ({ filter }) => {
       variables: {
         taskIds: filter.tasks,
         projectIds: filter.projects,
-        tribeIds: filter.departaments,
+        tribeIds: filter.tribes,
         memberIds: filter.members,
+        departamentIds: filter.departaments,
         startDate: moment(startDate)?.startOf("day").toISOString(),
         endDate: moment(endDate)?.endOf("day").toISOString(),
       },
@@ -71,7 +69,7 @@ const SessionHistory = ({ filter }) => {
 
     if (sessions) {
       let hashtableTribe = {};
-      sessions.map((v) => {
+      sessions.forEach((v) => {
         if (v.member?.tribe?.name !== undefined) {
           if (hashtableTribe[v.member?.tribe?.name] === undefined) {
             hashtableTribe[v.member?.tribe?.name] = v.duration;
@@ -81,7 +79,7 @@ const SessionHistory = ({ filter }) => {
         }
       });
       if (aditionalHours) {
-        aditionalHours.map((aditionalHour) => {
+        aditionalHours.forEach((aditionalHour) => {
           if (aditionalHour.member?.tribe?.name !== undefined) {
             hashtableTribe[aditionalHour.member?.tribe?.name] +=
               aditionalHour.amount;
@@ -102,14 +100,6 @@ const SessionHistory = ({ filter }) => {
     setTimeout(loadData, 500);
   }, [data]);
 
-  console.log({
-    taskIds: filter.tasks,
-    projectIds: filter.projects,
-    tribeIds: filter.departaments,
-    memberIds: filter.members,
-    startDate: moment(startDate)?.startOf("day").toISOString(),
-    endDate: moment(endDate)?.endOf("day").toISOString(),
-  });
   return (
     <>
       <ContainerTable>
@@ -139,3 +129,4 @@ const SessionHistory = ({ filter }) => {
 };
 
 export default SessionHistory;
+

@@ -10,32 +10,36 @@ import { CommonButton } from "../../../components/atoms";
 import { colors } from "../../../context/ThemeProvider/pallete";
 import SessionHistory from "../../../components/organisms/SessionHistory";
 import { GET_TRIBES } from "../../../graphql/Tribes";
+import { GET_DEPARTAMENTS } from "../../../graphql/Departaments";
 
 const HourConsultation = () => {
   const [filter, setFilter] = useState({
     tasks: [],
     projects: [],
-    departaments: [],
+    tribes: [],
     members: [],
+    departaments: [],
   });
   const [members, setMembers] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [tribes, setTribes] = useState([]);
   const [departaments, setDepartaments] = useState([]);
 
   const { data: projectsData, loading: projectsLoading } =
     useQuery(GET_PROJECTS);
   const { data: tasksData, loading: tasksLoading } = useQuery(GET_TASKS);
+  const { data: tribesData, loading: tribesLoading } = useQuery(GET_TRIBES);
   const { data: departamentsData, loading: departamentsLoading } =
-    useQuery(GET_TRIBES);
-  const { membersLoading, membersError, membersData, refetchMembers } =
-    useContext(GlobalsContext);
+    useQuery(GET_DEPARTAMENTS);
+  const { membersLoading, membersData } = useContext(GlobalsContext);
 
   const allQueriesLoaded =
     !projectsLoading &&
     !tasksLoading &&
-    !departamentsLoading &&
-    !membersLoading;
+    !tribesLoading &&
+    !membersLoading &&
+    !departamentsLoading;
 
   const handleChangeTasks = (value) => {
     setTasks(value);
@@ -43,6 +47,10 @@ const HourConsultation = () => {
 
   const handleChangeProjects = (value) => {
     setProjects(value);
+  };
+
+  const handleChangeTribes = (value) => {
+    setTribes(value);
   };
 
   const handleChangeDepartaments = (value) => {
@@ -54,7 +62,7 @@ const HourConsultation = () => {
   };
 
   const handleFilter = () => {
-    setFilter({ tasks, projects, departaments, members });
+    setFilter({ tasks, projects, tribes, members, departaments });
   };
 
   return (
@@ -62,7 +70,6 @@ const HourConsultation = () => {
       {allQueriesLoaded && (
         <>
           <FilterArea>
-            {/* <MembersSelectBox onChange={selectMember} /> */}
             <SelectFilter
               placeholder={"Escolha o(s) membro(s)"}
               data={membersData.members}
@@ -79,8 +86,13 @@ const HourConsultation = () => {
               handleChange={handleChangeTasks}
             />
             <SelectFilter
-              placeholder={"Departamento"}
-              data={departamentsData.tribes}
+              placeholder={"Tribos"}
+              data={tribesData.tribes}
+              handleChange={handleChangeTribes}
+            />
+            <SelectFilter
+              placeholder={"Departamentos"}
+              data={departamentsData.departament}
               handleChange={handleChangeDepartaments}
             />
             <CommonButton
@@ -98,3 +110,4 @@ const HourConsultation = () => {
 };
 
 export default HourConsultation;
+
