@@ -206,10 +206,11 @@ const Members = () => {
 
   const updateMember = (memberId) => async (member) => {
     var hide = message.loading("Atualizando dados do membro...");
-    const { Nome, Cargo, Assessor, Tribo, Reconhecimento } = member;
+    const { Nome, Cargo, Assessor, Tribo, Reconhecimento, Email } = member;
     try {
       const newMember = {
         name: Nome,
+        email: Email,
         roleId: Cargo,
         tribeId: Tribo,
         badgeId: Reconhecimento,
