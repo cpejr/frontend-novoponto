@@ -90,7 +90,7 @@ const Menuu = ({ collapsed, ...props }) => {
           disabled={!access || access === 0}
           key="/ponto/mediahoras"
           route="/ponto/mediahoras"
-          label="Media de horas"
+          label="Média de horas"
         />
         {/* <MenuItem
 					disabled={!access || access === 0}

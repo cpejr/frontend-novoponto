@@ -9,17 +9,8 @@ const AverageHoursRow = ({ departament, onEdit, onDelete, ...props }) => {
 			<td className="departamentColumn">{departament.name}</td>
 			<td className="departamentColumn">{GetColorName(departament.color)}</td>
 			<td className="departamentColumn">{departament.segment}</td>
-			<td className="editColumn">
-				<Tooltip placement="topLeft" title={"Editar"} onClick={onEdit}>
-					<EditOutlined />
-				</Tooltip>
-			</td>
-			<td className="garbageColumn">
-				<Tooltip placement="topLeft" title={"Excluir"}>
-					<RestOutlined onClick={onDelete} />
-				</Tooltip>
-			</td>
 		</tr>
+		
 	);
 };
 

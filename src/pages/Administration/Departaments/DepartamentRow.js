@@ -20,6 +20,7 @@ const DepartamentRow = ({ departament, onEdit, onDelete, ...props }) => {
 				</Tooltip>
 			</td>
 		</tr>
+		
 	);
 };
 
