@@ -46,8 +46,7 @@ const DepartamentsComponent = styled.div`
 	}
 
 	.departamentTable {
-		width: 100%;
-		display: block;
+		max-width: 420px;
 		overflow-x: scroll;
 	}
 
