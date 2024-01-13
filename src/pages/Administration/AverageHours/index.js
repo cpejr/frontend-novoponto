@@ -46,7 +46,7 @@ const AverageHours = () => {
   }
 
   if (data) {
-    const { departament: departaments } = data;
+    const { departament: departaments, level: levels } = data;
     return (
       <AverageHoursComponent theme={themeColors}>
         <div className="iconWithTitle">
@@ -95,12 +95,9 @@ const AverageHours = () => {
               </tr>
             </thead>
             <tbody>
-              {departaments ? (
-                departaments.map((organizacional) => (
-                  <AverageHoursRow
-                    key={organizacional._id}
-                    averageHours={organizacional}
-                  />
+              {levels ? (
+                levels.map((level) => (
+                  <AverageHoursRow key={level._id} averageHours={level} />
                 ))
               ) : (
                 <tr>
