@@ -62,8 +62,7 @@ const AverageHoursComponent = styled.div`
     padding: 0;
   }
 
-  .departamentHoursTable,
-  .roleHoursTable {
+  .frame {
     max-width: 400px;
     overflow-x: scroll;
 

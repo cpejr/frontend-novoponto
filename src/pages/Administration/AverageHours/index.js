@@ -46,7 +46,32 @@ const AverageHours = () => {
   }
 
   if (data) {
-    const { departament: departaments, level: levels } = data;
+    const { departament: departaments } = data;
+    const levels = [
+      {
+        color: "#000",
+        name: "Oparacional",
+        segment: "Desenvolvimento web",
+        __typename: "Departament",
+        _id: "6522da261ba6ef1bd40bdb51",
+      },
+      {
+        color: "#EDF723",
+        name: "Projetos",
+        segment: "Some Segment",
+        __typename: "Departament",
+        _id: "64f5f12df7b55f049c7817b7",
+      },
+      {
+        color: "#AAAAAA",
+        name: "teste dpto",
+        segment: "none",
+        __typename: "Departament",
+        _id: "6522da261ba6ef1bd40bdb51",
+      },
+    ];
+
+    console.log(departaments);
     return (
       <AverageHoursComponent theme={themeColors}>
         <div className="iconWithTitle">
@@ -64,7 +89,7 @@ const AverageHours = () => {
         />
 
         <div className="tables">
-          <table className="departamentHoursTable">
+          <table className="frame">
             <thead>
               <tr>
                 <th className="avgHoursColumn">Departamento</th>
@@ -87,7 +112,7 @@ const AverageHours = () => {
             </tbody>
           </table>
 
-          <table className="roleHoursTable">
+          <table className="frame">
             <thead>
               <tr>
                 <th className="avgHoursColumn">Nível organizacional</th>
