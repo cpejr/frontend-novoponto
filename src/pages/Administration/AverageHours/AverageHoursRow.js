@@ -1,13 +1,15 @@
 import React from "react";
 import { GetColorName } from "hex-color-to-color-name";
+import AverageHours from ".";
 
-const AverageHoursRow = ({ averageHours, ...props }) => {
+const AverageHoursRow = ({ averageHour, ...props }) => {
   return (
     <tr {...props}>
-      <td className="avgHoursColumn">{averageHours.name}</td>
-      <td className="avgHoursColumn">{GetColorName(averageHours.color)}</td>
+      <td className="avgHoursColumn">{averageHour.name}</td>
+      <td className="avgHoursColumn">{averageHour.duration}</td>
     </tr>
   );
 };
 
 export default AverageHoursRow;
+
