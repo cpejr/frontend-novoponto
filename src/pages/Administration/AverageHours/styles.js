@@ -37,21 +37,8 @@ const AverageHoursComponent = styled.div`
 
   .tables {
     display: flex;
-    margin-top: 70px;
-    justify-content: space-around;
-    align-items: center;
-    overflow-x: scroll;
-
-    @media (max-width: 1100px) {
-      margin-left: 15%;
-      flex-direction: column;
-      justify-content: start;
-    }
-    @media (max-width: 829px) {
-      margin-inline: auto;
-      flex-direction: column;
-      justify-content: start;
-    }
+    flex-direction: column;
+    margin-left: 20px;
   }
 
   table,
@@ -64,8 +51,10 @@ const AverageHoursComponent = styled.div`
 
   .departamentHoursTable,
   .roleHoursTable {
-    max-width: 400px;
+    width: 100%;
+    display: block;
     overflow-x: scroll;
+    margin: 3rem 0;
 
     tr {
       height: 80px;
@@ -105,3 +94,4 @@ const AverageHoursComponent = styled.div`
 `;
 
 export { AverageHoursComponent };
+
