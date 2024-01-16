@@ -10,6 +10,7 @@ import {
   StandBy,
   UpdateNews,
   MandatoryHours,
+  AverageHours,
   Members,
   Roles,
   Login,
@@ -19,6 +20,7 @@ import {
   Projects,
   Departaments,
 } from "../pages";
+
 import HourConsultation from "../pages/Administration/HourConsultation";
 
 function Menu() {
@@ -32,6 +34,11 @@ function Menu() {
           minAccessLevel={1}
           path="/ponto/membros"
           component={Members}
+        />
+        <RestrictedRoute
+          minAccessLevel={1}
+          path="/ponto/mediahoras"
+          component={AverageHours}
         />
         <RestrictedRoute
           minAccessLevel={1}
@@ -96,4 +103,3 @@ const Routes = () => {
 };
 
 export default Routes;
-
