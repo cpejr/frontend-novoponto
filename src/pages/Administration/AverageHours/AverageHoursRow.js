@@ -23,7 +23,6 @@ const AverageHoursRow = ({ averageHour, ...props }) => {
     setDurationTime(formatHour(averageHour.duration));
   }, []);
 
-  console.log(averageHour.duration, averageHour.name);
   return (
     <tr {...props}>
       <td className="avgHoursColumn">{averageHour.name}</td>

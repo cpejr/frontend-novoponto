@@ -49,9 +49,6 @@ const AverageHours = () => {
       });
     }
   }
-  console.log(data);
-  console.log(departamentHours);
-  console.log(levelHours);
 
   if (loading)
     return (
@@ -97,7 +94,6 @@ const AverageHours = () => {
             <tbody>
               {departamentHours ? (
                 departamentHours.map((departament) => {
-                  console.log(departament);
                   return (
                     <AverageHoursRow
                       key={departament._id}
