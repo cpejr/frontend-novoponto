@@ -71,23 +71,23 @@ const END_ALL_SESSIONS = gql`
     endAllSessions
   }
 `;
-  const END_SESSIONS_AFTER_20HOURS = gql`
+const END_SESSIONS_AFTER_20HOURS = gql`
   mutation EndSessionAfter20Hours {
     endSessionAfter20Hours
   }
 `;
 const DELETE_SESSION = gql`
-	mutation DeleteSession($sessionId: ID!) {
-		deleteSession(sessionId: $sessionId) {
-			_id
-		}
-	}
+  mutation DeleteSession($sessionId: ID!) {
+    deleteSession(sessionId: $sessionId) {
+      _id
+    }
+  }
 `;
 const UPDATE_SESSION = gql`
-	mutation UpdateSession($sessionId: ID!, $data: SessionUpdateInput!) {
-		updateSession(sessionId: $sessionId, data: $data) {
-			_id
-		}
+  mutation UpdateSession($sessionId: ID!, $data: SessionUpdateInput!) {
+    updateSession(sessionId: $sessionId, data: $data) {
+      _id
+    }
   }
 `;
 
@@ -104,22 +104,24 @@ const DefaultHourFields = gql`
 `;
 
 const ADD_SESSION = gql`
-  mutation AddSession($memberId: ID!
+  mutation AddSession(
+    $memberId: ID!
     $isPresential: Boolean!
     $taskId: ID!
     $description: String
     $projectId: ID
     $start: DateScalar!
     $end: DateScalar!
-    ) {
-    addSession(memberId: $memberId
+  ) {
+    addSession(
+      memberId: $memberId
       isPresential: $isPresential
       taskId: $taskId
       description: $description
       projectId: $projectId
       start: $start
       end: $end
-      ) {
+    ) {
       taskId
       description
       isPresential
@@ -131,19 +133,23 @@ const ADD_SESSION = gql`
 
 const ALL_SESSIONS = gql`
   query AllSessions(
-    $startDate: DateScalar, 
-    $endDate: DateScalar, 
-    $taskIds: [ID], 
-    $projectIds: [ID], 
-    $tribeIds: [ID],
-    $memberId: ID) {
+    $startDate: DateScalar
+    $endDate: DateScalar
+    $taskIds: [ID]
+    $projectIds: [ID]
+    $tribeIds: [ID]
+    $memberIds: [ID]
+    $departamentIds: [ID]
+  ) {
     allSessions(
-      startDate: $startDate, 
-      endDate: $endDate, 
-      taskIds: $taskIds, 
-      projectIds: $projectIds, 
-      tribeIds: $tribeIds,
-      memberId: $memberId) {
+      startDate: $startDate
+      endDate: $endDate
+      taskIds: $taskIds
+      projectIds: $projectIds
+      tribeIds: $tribeIds
+      memberIds: $memberIds
+      departamentIds: $departamentIds
+    ) {
       sessions {
         _id
         start
@@ -181,4 +187,15 @@ const ALL_SESSIONS = gql`
   }
 `;
 
-export { LOGGED_MEMBERS, CREATE_SESSION, FINISH_SESSION, END_SESSIONS_AFTER_20HOURS, END_ALL_SESSIONS, DELETE_SESSION, UPDATE_SESSION, ALL_SESSIONS, ADD_SESSION };
+export {
+  LOGGED_MEMBERS,
+  CREATE_SESSION,
+  FINISH_SESSION,
+  END_SESSIONS_AFTER_20HOURS,
+  END_ALL_SESSIONS,
+  DELETE_SESSION,
+  UPDATE_SESSION,
+  ALL_SESSIONS,
+  ADD_SESSION,
+};
+

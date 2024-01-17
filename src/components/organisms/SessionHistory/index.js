@@ -5,7 +5,12 @@ import { ALL_SESSIONS } from "../../../graphql/Sessions";
 import { useLazyQuery } from "@apollo/client";
 import { ThemeContext } from "../../../context/ThemeProvider";
 import { HourDisplayer } from "../../atoms";
-import { ContainerTable, HeadTable, HourDisplay, SumTotalTitle } from "./styles";
+import {
+  ContainerTable,
+  HeadTable,
+  HourDisplay,
+  SumTotalTitle,
+} from "./styles";
 import TrackingTable from "../../molecules/TrackingTable";
 import TribeTable from "../../molecules/TribeTable";
 const { RangePicker } = DatePicker;
@@ -18,11 +23,11 @@ const SessionHistory = ({ filter }) => {
   const [formatedTotalData, setFormatedTotalData] = useState();
 
   const today = moment();
-  const fourWeeksAgo = moment().subtract(4, 'weeks');
+  const fourWeeksAgo = moment().subtract(4, "weeks");
 
   const [rangeDate, setRangeDate] = useState([
-    fourWeeksAgo.startOf('day'),
-    today.endOf('day'),
+    fourWeeksAgo.startOf("day"),
+    today.endOf("day"),
   ]);
 
   const startDate = rangeDate && rangeDate[0];
@@ -32,41 +37,39 @@ const SessionHistory = ({ filter }) => {
     return current && current > moment().endOf("day");
   }
 
-  const [loadCompiled, { loading, data, error, refetch }] = useLazyQuery(ALL_SESSIONS, {
+  const [loadCompiled, { data }] = useLazyQuery(ALL_SESSIONS, {
     variables: {
       startDate: moment(startDate)?.startOf("day").toISOString(),
       endDate: moment(endDate)?.endOf("day").toISOString(),
-    }
+    },
   });
 
-  const {sessions, formatedTotal, aditionalHours } =
-        data?.allSessions || {};
-
+  const { sessions, formatedTotal, aditionalHours } = data?.allSessions || {};
 
   function getData() {
-      loadCompiled({
-        variables: {
-          taskIds: filter.tasks,
-          projectIds: filter.projects,
-          tribeIds: filter.departaments,
-          memberId: filter.member,
-          startDate: moment(startDate)?.startOf("day").toISOString(),
-          endDate: moment(endDate)?.endOf("day").toISOString(),
-        },
-      });
+    loadCompiled({
+      variables: {
+        taskIds: filter.tasks,
+        projectIds: filter.projects,
+        tribeIds: filter.tribes,
+        memberIds: filter.members,
+        departamentIds: filter.departaments,
+        startDate: moment(startDate)?.startOf("day").toISOString(),
+        endDate: moment(endDate)?.endOf("day").toISOString(),
+      },
+    });
 
-      setSessionsData();
-      setFormatedTotalData();
+    setSessionsData();
+    setFormatedTotalData();
   }
 
   function loadData() {
     setSessionsData(sessions);
     setFormatedTotalData(formatedTotal);
 
-  
     if (sessions) {
       let hashtableTribe = {};
-      sessions.map(v => {
+      sessions.forEach((v) => {
         if (v.member?.tribe?.name !== undefined) {
           if (hashtableTribe[v.member?.tribe?.name] === undefined) {
             hashtableTribe[v.member?.tribe?.name] = v.duration;
@@ -74,50 +77,56 @@ const SessionHistory = ({ filter }) => {
             hashtableTribe[v.member?.tribe?.name] += v.duration;
           }
         }
-    });
-    if (aditionalHours) {
-      aditionalHours.map(aditionalHour => {
-        if (aditionalHour.member?.tribe?.name !== undefined) {
-          hashtableTribe[aditionalHour.member?.tribe?.name] += aditionalHour.amount;
-        }
-      })
-    }
-    setTribeArray(Object.entries(hashtableTribe).map(([key, value]) => ({ key, value })));
+      });
+      if (aditionalHours) {
+        aditionalHours.forEach((aditionalHour) => {
+          if (aditionalHour.member?.tribe?.name !== undefined) {
+            hashtableTribe[aditionalHour.member?.tribe?.name] +=
+              aditionalHour.amount;
+          }
+        });
+      }
+      setTribeArray(
+        Object.entries(hashtableTribe).map(([key, value]) => ({ key, value }))
+      );
     }
   }
 
- 
   useEffect(() => {
     getData();
   }, [rangeDate, filter]);
 
   useEffect(() => {
-    setTimeout(loadData, 500)
+    setTimeout(loadData, 500);
   }, [data]);
 
   return (
     <>
       <ContainerTable>
-      <HeadTable>
-        <HourDisplay>
-          <SumTotalTitle>Soma total:</SumTotalTitle>
-          {formatedTotalData && (
-            <HourDisplayer text={formatedTotalData} hourColor={themeColors.yellow} />
-          )}
-        </HourDisplay>
-        <RangePicker
+        <HeadTable>
+          <HourDisplay>
+            <SumTotalTitle>Soma total:</SumTotalTitle>
+            {formatedTotalData && (
+              <HourDisplayer
+                text={formatedTotalData}
+                hourColor={themeColors.yellow}
+              />
+            )}
+          </HourDisplay>
+          <RangePicker
             format="DD-MM-yyyy"
             disabledDate={disabledDate}
             onChange={setRangeDate}
             value={rangeDate}
             placeholder={["Inicio", "Fim"]}
-        />
-      </HeadTable>
-      <TrackingTable sessions={sessionsData} />
-      <TribeTable tribes={tribeArray} />
+          />
+        </HeadTable>
+        <TrackingTable sessions={sessionsData} />
+        <TribeTable tribes={tribeArray} />
       </ContainerTable>
     </>
-  )
+  );
 };
 
 export default SessionHistory;
+

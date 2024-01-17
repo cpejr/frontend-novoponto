@@ -30,7 +30,6 @@ const CardView = () => {
   });
 
   async function loadData() {
-    console.log(member, startDate, endDate)
     loadCompiled({
       variables: {
         memberId: member._id,

@@ -160,6 +160,7 @@ const Departaments = () => {
   const [updateDepartamentMutation] = useMutation(UPDATE_DEPARTAMENT);
   const [createDepartamentMutation] = useMutation(CREATE_DEPARTAMENT);
   const { loading, error, data, refetch } = useQuery(GET_DEPARTAMENTS);
+  
   if (loading)
     return (
       <Skeleton

@@ -32,6 +32,11 @@ const Roles = () => {
   const [departaments, setDepartaments] = useState([]);
   const [availableDepartaments, setAvaibleDepartaments] = useState([]);
   const { availableRoles } = useContext(GlobalsContext);
+  const availableLevels = [
+    { label: "Operacional", value: 0 },
+    { label: "Tático", value: 1 },
+    { label: "Estratégico", value: 2 },
+  ];
 
   const [deleteRoleMutation] = useMutation(DELETE_ROLE);
   const [updateRoleMutation] = useMutation(UPDATE_ROLE);
@@ -96,8 +101,6 @@ const Roles = () => {
 
   const editOrCreateRole = (method, role, data) => {
     const withInitialValue = method === "edit";
-    console.log("🚀 ~ file: index.js:126 ~ editOrCreateRole ~ data:", data);
-    console.log("🚀 ~ file: index.js:116 ~ editOrCreateRole ~ role:", role);
     var fields = [
       {
         key: "name",
@@ -116,6 +119,18 @@ const Roles = () => {
         initialValue: withInitialValue ? role.access : undefined,
 
         options: availableRoles,
+      },
+      {
+        key: "level",
+        type: "select",
+        label: "Nível",
+        placeholder: "Qual será o nível do cargo?",
+        validator: validators.antdRequired,
+        initialValue: withInitialValue
+          ? role?.level?.charAt(0).toUpperCase() + role?.level?.slice(1)
+          : undefined,
+
+        options: availableLevels,
       },
       {
         key: "departament",
@@ -152,7 +167,7 @@ const Roles = () => {
   };
 
   const updateRole = (roleId) => async (updatedRole) => {
-    const { Cargo, Permissão, Departamento } = updatedRole;
+    const { Cargo, Permissão, Departamento, Nível } = updatedRole;
     let departamentData;
     if (isNaN(Departamento)) {
       departamentData = departaments.find((v) => v.name === Departamento);
@@ -166,8 +181,8 @@ const Roles = () => {
       access: Permissão,
       name: Cargo,
       departamentId: departamentData._id,
+      level: availableLevels[Nível].label.toLowerCase(),
     };
-
     var hide = message.loading("Atualizando");
     try {
       await updateRoleMutation({ variables: { roleId, data: newRole } });
@@ -179,12 +194,14 @@ const Roles = () => {
       hide();
       message.error("Houve um problema, tente novamente", 2.5);
     }
+    refetchRoles();
     handleCloseEditOrCreate();
+    refetchRoles();
   };
 
   const createRole = async (role) => {
     var hide = message.loading("Criando");
-    const { Cargo, Permissão, Departamento } = role;
+    const { Cargo, Permissão, Departamento, Nível } = role;
 
     const departamentData = departaments.find(
       (v) => v.name === availableDepartaments[Departamento].label
@@ -194,6 +211,7 @@ const Roles = () => {
       access: Permissão,
       name: Cargo,
       departamentId: departamentData._id,
+      level: availableLevels[Nível].label.toLowerCase(),
     };
 
     try {
@@ -207,6 +225,7 @@ const Roles = () => {
     }
     refetchRoles();
     handleCloseEditOrCreate();
+    refetchRoles();
   };
 
   if (loadingRoles)
@@ -220,7 +239,6 @@ const Roles = () => {
     );
 
   if (errorRoles) {
-    console.log(errorRoles);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
   }
