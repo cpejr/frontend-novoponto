@@ -143,7 +143,6 @@ const Departaments = () => {
       color: Cor,
       segment: Segmento,
     };
-    console.log(departament);
     try {
       await createDepartamentMutation({ variables: { data: newDepartament } });
       hide();
@@ -161,6 +160,7 @@ const Departaments = () => {
   const [updateDepartamentMutation] = useMutation(UPDATE_DEPARTAMENT);
   const [createDepartamentMutation] = useMutation(CREATE_DEPARTAMENT);
   const { loading, error, data, refetch } = useQuery(GET_DEPARTAMENTS);
+  
   if (loading)
     return (
       <Skeleton
@@ -179,7 +179,6 @@ const Departaments = () => {
 
   if (data) {
     const { departament: departaments } = data;
-    console.log(departaments);
     return (
       <DepartamentsComponent theme={themeColors}>
         <div className="iconWithTitle">

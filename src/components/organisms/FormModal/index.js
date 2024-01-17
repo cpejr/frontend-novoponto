@@ -3,8 +3,16 @@ import Modal from "../../molecules/ConfirmationModal";
 import AutoCompleteInput from "../../molecules/AutocompleteInput";
 import BadgeInput from "../../molecules/BadgeInput";
 import SelectMultiple from "../../molecules/SelectMultiple";
-import { CommonSelectBox, InputText, TextArea } from "../../atoms";
+import {
+  CommonTimePicker,
+  CommonDatePicker,
+  CommonSelectBox,
+  InputText,
+  TextArea,
+} from "../../atoms";
 import { Form } from "antd";
+import locale from "antd/lib/date-picker/locale/en_US";
+// import locale from "antd/lib/date-picker/locale/pt_BR";
 
 // This Modal recieves an array of fields and deals with each one of them, including its type and validation
 // It can be used to create or edit any object, since the object has only simple keys (no arrays or objects inside it)
@@ -50,6 +58,11 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
       initialValue,
       rules,
       characterLimit,
+      format,
+      disableDate,
+      value,
+      onChange,
+      onSelect,
     } = field;
     let inputField;
     switch (type) {
@@ -59,6 +72,11 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
             options={options}
             placeholder={placeholder}
             initialValue={initialValue}
+            locale={locale}
+            format={format}
+            disableDate={disableDate}
+            value={value}
+            onChange={onChange}
           />
         );
         break;
@@ -89,6 +107,30 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
       case "text":
         inputField = <InputText placeholder={placeholder} />;
         break;
+
+      case "date":
+        inputField = (
+          <CommonDatePicker
+            locale={locale}
+            format={format}
+            disabledDate={disableDate}
+            value={value}
+            onChange={onChange}
+          />
+        );
+        break;
+
+      case "hour":
+        inputField = (
+          <CommonTimePicker
+            onSelect={onSelect}
+            format={"HH:mm"}
+            showNow={false}
+            placeholder={"00:00"}
+            onChange={onChange}
+            value={value}
+          />
+        );
     }
 
     return (

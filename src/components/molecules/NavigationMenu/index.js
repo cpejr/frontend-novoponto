@@ -69,13 +69,6 @@ const Menuu = ({ collapsed, ...props }) => {
         icon={<UserOutlined />}
       />
 
-      <MenuItem
-        key="/ponto/alteracaodehoras"
-        route="/ponto/alteracaodehoras"
-        icon={<CarryOutOutlined />}
-        label="Adicionar/Remover horas"
-      />
-
       <SubMenu
         key="sub3"
         icon={<LockOutlined />}
@@ -88,9 +81,16 @@ const Menuu = ({ collapsed, ...props }) => {
           label="Acompanhamento"
         />
         <MenuItem
+          disabled={!access || access === 0}
           key="/ponto/atualizarnoticias"
           route="/ponto/atualizarnoticias"
           label="Atualizar Notícias"
+        />
+        <MenuItem
+          disabled={!access || access === 0}
+          key="/ponto/mediahoras"
+          route="/ponto/mediahoras"
+          label="Média de horas"
         />
         {/* <MenuItem
 					disabled={!access || access === 0}

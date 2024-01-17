@@ -141,7 +141,6 @@ const Tribes = () => {
       color: Cor,
       segment: Segmento,
     };
-    console.log(tribe);
     try {
       await createTribeMutation({ variables: { data: newTribe } });
       hide();

@@ -19,7 +19,7 @@ const MemberRecognition = ({ recognition, ...props }) => {
     setClicked(open);
   };
 
-  if (recognition.length === 0) return <></>;
+  if (recognition?.length === 0) return <></>;
 
   return (
     <MemberRecognitionContainer>
@@ -57,3 +57,4 @@ const MemberRecognition = ({ recognition, ...props }) => {
 };
 
 export default MemberRecognition;
+

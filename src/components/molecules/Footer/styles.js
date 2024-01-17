@@ -4,11 +4,11 @@ export const FooterContainer = styled.div`
   background-color: #000;
   padding: 20px;
   text-align: center;
-  position: absolute;
+  position: relative;
 
-  margin-top: 100px;
   width: 100%;
   left: 0;
+  bottom: 0;
   height: 110px;
   display: flex;
   justify-content: center;
