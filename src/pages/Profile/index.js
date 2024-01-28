@@ -25,9 +25,10 @@ const CardView = () => {
   const startDate = rangeDate && rangeDate[0];
   const endDate = rangeDate && rangeDate[1];
 
-  const [loadCompiled, { loading, data : dataSessions, error, refetch }] = useLazyQuery(FetchCompiledForHC, {
-    fetchPolicy: "network-only",
-  });
+  const [loadCompiled, { loading, data: dataSessions, error, refetch }] =
+    useLazyQuery(FetchCompiledForHC, {
+      fetchPolicy: "network-only",
+    });
 
   async function loadData() {
     loadCompiled({
@@ -61,8 +62,15 @@ const CardView = () => {
       </ProfileComponent>
 
       <div className="mt-4 d-flex flex-column m-lg-5">
-        <MemberHistory memberId={member?._id} rangeDate={rangeDate} data={dataSessions}
-        setRangeDate={setRangeDate} loadData={loadData} loading={loading} refetch={refetch} />
+        <MemberHistory
+          memberId={member?._id}
+          rangeDate={rangeDate}
+          data={dataSessions}
+          setRangeDate={setRangeDate}
+          loadData={loadData}
+          loading={loading}
+          refetch={refetch}
+        />
       </div>
     </div>
   );

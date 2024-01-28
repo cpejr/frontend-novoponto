@@ -7,13 +7,20 @@ import { MemberHistoyContainer } from "./styles";
 import customizeRenderEmpty from "../../molecules/CustomizeEmpty";
 const { RangePicker } = DatePicker;
 
-const MemberHistory = ({ memberId, rangeDate, setRangeDate, loadData, loading, data, refetch }) => {
-
+const MemberHistory = ({
+  memberId,
+  rangeDate,
+  setRangeDate,
+  loadData,
+  loading,
+  data,
+  refetch,
+}) => {
   const startDate = rangeDate && rangeDate[0];
   const endDate = rangeDate && rangeDate[1];
 
   const { aditionalHours, sessions, formatedTotal, formatedPresentialTotal } =
-  data?.compiled || {};
+    data?.compiled || {};
 
   useEffect(() => {
     if (startDate && endDate && memberId) loadData();
@@ -44,8 +51,15 @@ const MemberHistory = ({ memberId, rangeDate, setRangeDate, loadData, loading, d
               sessions={sessions}
               formatedTotal={formatedTotal}
               formatedPresentialTotal={formatedPresentialTotal}
+              formatedDate={"ola"}
             />
-            <ConfigProvider renderEmpty={() => customizeRenderEmpty('A partir de agora, novas adições serão diretamente incorporadas como novas sessões!')}>
+            <ConfigProvider
+              renderEmpty={() =>
+                customizeRenderEmpty(
+                  "A partir de agora, novas adições serão diretamente incorporadas como novas sessões!"
+                )
+              }
+            >
               <HomeOfficeTable
                 aditionalHours={aditionalHours}
                 onDelete={loadData}
