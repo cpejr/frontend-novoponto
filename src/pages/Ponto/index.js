@@ -3,19 +3,23 @@ import { useMutation } from "@apollo/client";
 import { UpdateLastAccess } from "../../graphql/Member";
 import { PontoComponent } from "./styles";
 import { ThemeContext } from "../../context/ThemeProvider";
+import { SessionContext } from "../../context/SessionProvider";
 import Sessions from "./Sessions";
 import NewsCarousel from "../../components/molecules/NewsCarousel";
 
 const Ponto = () => {
+  const { data } = useContext(SessionContext);
+
+  //Atualiza a data de acesso do player ao logar o ponto
+
   const [_updateLastAccess] = useMutation(UpdateLastAccess);
   async function loadLastAccess(memberId) {
-    memberId = "65b9cbe0834f495a1ce081ec";
-    const { data } = await _updateLastAccess({
+    memberId = data?.member?._id;
+    await _updateLastAccess({
       variables: { memberId },
     });
-    console.log("FOIIIIII");
-    console.log(data);
   }
+
   useEffect(() => {
     loadLastAccess();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
