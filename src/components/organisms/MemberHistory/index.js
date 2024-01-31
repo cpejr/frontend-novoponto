@@ -5,6 +5,8 @@ import HomeOfficeTable from "../../molecules/HomeOfficeTable";
 import SessionsTable from "../../molecules/SessionsTable";
 import { MemberHistoyContainer } from "./styles";
 import customizeRenderEmpty from "../../molecules/CustomizeEmpty";
+import { FetchMemberForHC } from "../../../graphql/Member";
+import { useLazyQuery } from "@apollo/client";
 const { RangePicker } = DatePicker;
 
 const MemberHistory = ({
@@ -30,7 +32,14 @@ const MemberHistory = ({
     // Can not select days after today
     return current && current > moment().endOf("day");
   }
-
+  //Used to Get The LastAcess of the member
+  useEffect(() => {
+    if (memberId) loadMember({ variables: { _id: memberId } });
+  }, []);
+  const [loadMember, { data: dataMember }] = useLazyQuery(FetchMemberForHC, {
+    fetchPolicy: "network-only",
+  });
+  console.log(dataMember);
   if (memberId && !loading)
     return (
       <MemberHistoyContainer>
@@ -51,7 +60,7 @@ const MemberHistory = ({
               sessions={sessions}
               formatedTotal={formatedTotal}
               formatedPresentialTotal={formatedPresentialTotal}
-              formatedDate={"ola"}
+              lastAccess={"lastAccess"}
             />
             <ConfigProvider
               renderEmpty={() =>

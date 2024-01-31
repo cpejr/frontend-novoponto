@@ -19,7 +19,7 @@ const SessionsTable = ({
   sessions,
   formatedTotal,
   formatedPresentialTotal,
-  formatedDate,
+  lastAccess,
 }) => {
   const { themeColors } = useContext(ThemeContext);
 
@@ -179,8 +179,8 @@ const SessionsTable = ({
           />
         </div>
         <div className="sum">
-          <h6 className="m-0 me-2">Soma presencial:</h6>
-          <HourDisplayer text={formatedDate} hourColor={themeColors.yellow} />
+          <h6 className="m-0 me-2">Ultimo Acesso:</h6>
+          <HourDisplayer text={lastAccess} hourColor={themeColors.yellow} />
         </div>
         <ExportExcel jsonData={sessions} archiveName="Sessões"></ExportExcel>
       </ExportButtonContainer>
