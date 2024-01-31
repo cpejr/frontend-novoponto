@@ -35,11 +35,12 @@ const MemberHistory = ({
   //Used to Get The LastAcess of the member
   useEffect(() => {
     if (memberId) loadMember({ variables: { _id: memberId } });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   const [loadMember, { data: dataMember }] = useLazyQuery(FetchMemberForHC, {
     fetchPolicy: "network-only",
   });
-  console.log(dataMember);
+
   if (memberId && !loading)
     return (
       <MemberHistoyContainer>
@@ -60,7 +61,7 @@ const MemberHistory = ({
               sessions={sessions}
               formatedTotal={formatedTotal}
               formatedPresentialTotal={formatedPresentialTotal}
-              lastAccess={"lastAccess"}
+              lastAccess={dataMember?.member?.lastAccess}
             />
             <ConfigProvider
               renderEmpty={() =>
