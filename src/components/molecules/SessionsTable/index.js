@@ -178,12 +178,13 @@ const SessionsTable = ({
             hourColor={themeColors.yellow}
           />
         </div>
-        <div className="sum">
-          <h6 className="m-0 me-2">Ultimo Acesso:</h6>
-          <HourDisplayer text={lastAccess} hourColor={themeColors.yellow} />
-        </div>
+
         <ExportExcel jsonData={sessions} archiveName="Sessões"></ExportExcel>
       </ExportButtonContainer>
+      <div className="sum">
+        <h6 className="m-0 me-2">Ultimo Acesso:</h6>
+        <HourDisplayer text={lastAccess} hourColor={themeColors.yellow} />
+      </div>
       <Collapse ghost defaultActiveKey={"1"}>
         <Collapse.Panel header={<h6>Sessões:</h6>} key="1">
           <Table
