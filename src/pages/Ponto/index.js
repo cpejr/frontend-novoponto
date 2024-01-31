@@ -9,9 +9,6 @@ import NewsCarousel from "../../components/molecules/NewsCarousel";
 
 const Ponto = () => {
   const { data } = useContext(SessionContext);
-
-  //Atualiza a data de acesso do player ao logar o ponto
-
   const [_updateLastAccess] = useMutation(UpdateLastAccess);
   async function loadLastAccess(memberId) {
     memberId = data?.member?._id;
