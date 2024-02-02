@@ -32,6 +32,7 @@ const MemberHistory = ({
     // Can not select days after today
     return current && current > moment().endOf("day");
   }
+
   //Used to Get The LastAcess of the member
   useEffect(() => {
     if (memberId) loadMember({ variables: { _id: memberId } });
@@ -40,7 +41,6 @@ const MemberHistory = ({
   const [loadMember, { data: dataMember }] = useLazyQuery(FetchMemberForHC, {
     fetchPolicy: "network-only",
   });
-
   if (memberId && !loading)
     return (
       <MemberHistoyContainer>
