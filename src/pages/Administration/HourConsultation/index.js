@@ -16,6 +16,7 @@ import SessionHistory from "../../../components/organisms/SessionHistory";
 
 const HourConsultation = () => {
   const [filter, setFilter] = useState({
+    roles: [],
     tasks: [],
     tribes: [],
     members: [],

@@ -52,7 +52,7 @@ const SessionHistory = ({ filter }) => {
     loadCompiled({
       variables: {
         taskIds: filter.tasks,
-        rolesIds: filter.roles,
+        roleIds: filter.roles,
         tribeIds: filter.tribes,
         memberIds: filter.members,
         projectIds: filter.projects,  
