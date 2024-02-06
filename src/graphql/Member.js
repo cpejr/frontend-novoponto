@@ -173,6 +173,14 @@ const CreateMember = gql`
   }
   ${DefaultSessionFields}
 `;
+const UpdateLastAccess = gql`
+  mutation UpdateLastAccess($memberId: ID!) {
+    updateLastAccess(memberId: $memberId) {
+      _id
+      lastAccess
+    }
+  }
+`;
 
 const FetchMemberForHC = gql`
   query member($_id: ID!) {
@@ -182,6 +190,7 @@ const FetchMemberForHC = gql`
       email
       status
       imageLink
+      lastAccess
       mandatories {
         startAt
         endAt
@@ -275,6 +284,7 @@ export {
   UpdateMember,
   DeleteMember,
   CreateMember,
+  UpdateLastAccess,
   //Query
   Members,
   FetchMemberForHC,

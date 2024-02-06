@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../../context/ThemeProvider";
 import { getColumns } from "./columns";
 import { HourDisplayer } from "../../atoms";
@@ -19,11 +19,13 @@ const SessionsTable = ({
   sessions,
   formatedTotal,
   formatedPresentialTotal,
+  lastAccess,
 }) => {
   const { themeColors } = useContext(ThemeContext);
 
   const [openModalExcludeSession, setOpenModalExcludeSession] = useState(false);
   const [excludeSession, setExcludeSession] = useState({});
+  const [formatedDate, setFormatedDate] = useState("");
   const [editModalInfo, setEditModalInfo] = useState({
     open: false,
   });
@@ -163,6 +165,11 @@ const SessionsTable = ({
 
   const columns = getColumns(themeColors, handleOpenModal, editSession);
 
+  useEffect(() => {
+    const date = new Date(lastAccess).toLocaleDateString("pt-BR");
+    setFormatedDate(date);
+  }, [lastAccess]);
+
   return (
     <HoursSumAndTablesArea>
       <div className="sum">
@@ -177,8 +184,13 @@ const SessionsTable = ({
             hourColor={themeColors.yellow}
           />
         </div>
+
         <ExportExcel jsonData={sessions} archiveName="Sessões"></ExportExcel>
       </ExportButtonContainer>
+      <div className="sum">
+        <h6 className="m-0 me-2">Ultimo Acesso:</h6>
+        <HourDisplayer text={formatedDate} hourColor={themeColors.yellow} />
+      </div>
       <Collapse ghost defaultActiveKey={"1"}>
         <Collapse.Panel header={<h6>Sessões:</h6>} key="1">
           <Table
