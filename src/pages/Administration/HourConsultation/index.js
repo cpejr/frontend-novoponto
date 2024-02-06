@@ -1,69 +1,77 @@
-import { useContext, useState } from "react";
+
 import MembersSelectBox from "../../../components/molecules/MembersSelectBox";
-import { GlobalsContext } from "../../../context/GlobalsProvider";
 import { FilterArea } from "./style";
-import SelectFilter from "../../../components/molecules/SelectFilter";
 import { useQuery } from "@apollo/client";
-import { GET_PROJECTS } from "../../../graphql/Projects";
+import { useContext, useState } from "react";
+import { GET_ROLES } from "../../../graphql/Roles";
 import { GET_TASKS } from "../../../graphql/Tasks";
+import { GET_TRIBES } from "../../../graphql/Tribes";
+import { GET_PROJECTS } from "../../../graphql/Projects";
 import { CommonButton } from "../../../components/atoms";
 import { colors } from "../../../context/ThemeProvider/pallete";
-import SessionHistory from "../../../components/organisms/SessionHistory";
-import { GET_TRIBES } from "../../../graphql/Tribes";
 import { GET_DEPARTAMENTS } from "../../../graphql/Departaments";
+import { GlobalsContext } from "../../../context/GlobalsProvider";
+import SelectFilter from "../../../components/molecules/SelectFilter";
+import SessionHistory from "../../../components/organisms/SessionHistory";
 
 const HourConsultation = () => {
   const [filter, setFilter] = useState({
+    roles: [],
     tasks: [],
-    projects: [],
     tribes: [],
     members: [],
+    projects: [],
     departaments: [],
   });
-  const [members, setMembers] = useState([]);
+
+  const [roles, setRoles] = useState([]);
   const [tasks, setTasks] = useState([]);
-  const [projects, setProjects] = useState([]);
   const [tribes, setTribes] = useState([]);
+  const [members, setMembers] = useState([]);
+  const [projects, setProjects] = useState([]);
   const [departaments, setDepartaments] = useState([]);
 
-  const { data: projectsData, loading: projectsLoading } =
-    useQuery(GET_PROJECTS);
-  const { data: tasksData, loading: tasksLoading } = useQuery(GET_TASKS);
-  const { data: tribesData, loading: tribesLoading } = useQuery(GET_TRIBES);
-  const { data: departamentsData, loading: departamentsLoading } =
-    useQuery(GET_DEPARTAMENTS);
   const { membersLoading, membersData } = useContext(GlobalsContext);
+
+  const { data: tasksData, loading: tasksLoading } = useQuery(GET_TASKS);
+  const { data: rolesData, loading: rolesLoading } = useQuery(GET_ROLES);
+  const { data: tribesData, loading: tribesLoading } = useQuery(GET_TRIBES);
+  const { data: projectsData, loading: projectsLoading } = useQuery(GET_PROJECTS);
+  const { data: departamentsData, loading: departamentsLoading } = useQuery(GET_DEPARTAMENTS);
 
   const allQueriesLoaded =
     !projectsLoading &&
     !tasksLoading &&
     !tribesLoading &&
     !membersLoading &&
+    !rolesLoading &&
     !departamentsLoading;
 
   const handleChangeTasks = (value) => {
     setTasks(value);
   };
-
-  const handleChangeProjects = (value) => {
-    setProjects(value);
+  
+  const handleChangeRoles = (value) => {
+    setRoles(value);
   };
 
   const handleChangeTribes = (value) => {
     setTribes(value);
   };
 
-  const handleChangeDepartaments = (value) => {
-    setDepartaments(value);
-  };
-
   const handleChangeMembers = (value) => {
     setMembers(value);
   };
 
-  const handleFilter = () => {
-    setFilter({ tasks, projects, tribes, members, departaments });
+  const handleChangeProjects = (value) => {
+    setProjects(value);
   };
+
+  const handleChangeDepartaments = (value) => {
+    setDepartaments(value);
+  };
+
+  const handleFilter = () => { setFilter({ tasks, projects, tribes, members, departaments, roles }); console.log(filter) };
 
   return (
     <>
@@ -94,6 +102,11 @@ const HourConsultation = () => {
               placeholder={"Departamentos"}
               data={departamentsData.departament}
               handleChange={handleChangeDepartaments}
+            />
+            <SelectFilter
+              placeholder={"Cargos"}
+              data={rolesData.roles}
+              handleChange={handleChangeRoles}
             />
             <CommonButton
               buttonLabel="Filtrar"

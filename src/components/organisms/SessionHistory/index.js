@@ -1,21 +1,23 @@
-import { DatePicker } from "antd";
-import { useContext, useEffect, useState } from "react";
 import moment from "moment";
-import { ALL_SESSIONS } from "../../../graphql/Sessions";
-import { useLazyQuery } from "@apollo/client";
-import { ThemeContext } from "../../../context/ThemeProvider";
+import { DatePicker } from "antd";
 import { HourDisplayer } from "../../atoms";
+import { useLazyQuery } from "@apollo/client";
+import TribeTable from "../../molecules/TribeTable";
+import { useContext, useEffect, useState } from "react";
+import { ALL_SESSIONS } from "../../../graphql/Sessions";
+import TrackingTable from "../../molecules/TrackingTable";
+import { ThemeContext } from "../../../context/ThemeProvider";
 import {
-  ContainerTable,
   HeadTable,
   HourDisplay,
   SumTotalTitle,
+  ContainerTable,
 } from "./styles";
-import TrackingTable from "../../molecules/TrackingTable";
-import TribeTable from "../../molecules/TribeTable";
+
 const { RangePicker } = DatePicker;
 
 const SessionHistory = ({ filter }) => {
+
   const { themeColors } = useContext(ThemeContext);
 
   const [tribeArray, setTribeArray] = useState([]);
@@ -50,9 +52,10 @@ const SessionHistory = ({ filter }) => {
     loadCompiled({
       variables: {
         taskIds: filter.tasks,
-        projectIds: filter.projects,
+        roleIds: filter.roles,
         tribeIds: filter.tribes,
         memberIds: filter.members,
+        projectIds: filter.projects,  
         departamentIds: filter.departaments,
         startDate: moment(startDate)?.startOf("day").toISOString(),
         endDate: moment(endDate)?.endOf("day").toISOString(),
