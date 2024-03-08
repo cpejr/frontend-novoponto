@@ -201,11 +201,11 @@ const Sessions = () => {
         />
       </div>
 
-      <div className="d-flex justify-content-end">
+      {/* <div className="d-flex justify-content-end">
         <Button onClick={() => setShowLogoutAllMembers(true)}>
           Deslogar todos os membros
         </Button>
-      </div>
+      </div> */}
       <ConfirmationModal
         title="Confirmação de logout"
         content={`Deseja deslogar ${memberToLogout?.name}?`}
