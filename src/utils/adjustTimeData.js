@@ -2,7 +2,6 @@ export default function adjustTimeData(date, hourStart, hourEnd) {
   const dateObject = new Date(date);
   const hourStartObject = new Date(hourStart);
   const hourEndObject = new Date(hourEnd);
-  console.log(hourStartObject);
 
   const year = dateObject.getUTCFullYear();
   const month = dateObject.getUTCMonth();
@@ -20,11 +19,8 @@ export default function adjustTimeData(date, hourStart, hourEnd) {
     hourEndObject.setUTCDate(day + 1);
   }
 
-  console.log(hourStartObject);
-  console.log(hourEndObject);
-
   return {
     hourStart: hourStartObject,
-    hourEnd: hourEndObject
-  }
+    hourEnd: hourEndObject,
+  };
 }
