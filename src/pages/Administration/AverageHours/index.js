@@ -19,7 +19,7 @@ const AverageHours = () => {
   const [levelHours, setLevelHours] = useState([]);
 
   const today = moment();
-  const fourWeeksAgo = moment().subtract(4, "weeks");
+  const fourWeeksAgo = moment().subtract(1, "weeks");
   const [rangeDate, setRangeDate] = useState([
     fourWeeksAgo.startOf("day"),
     today.endOf("day"),
@@ -30,14 +30,18 @@ const AverageHours = () => {
 
   const { loading, error, data } = useQuery(GET_AVERAGEHOURS, {
     variables: { end: rangeDate[1]._d, start: rangeDate[0]._d },
+    fetchPolicy: "no-cache",
   });
 
   useEffect(() => {
     separateHourData();
+    
   }, [data]);
 
   function separateHourData() {
     if (data) {
+      departamentHours.splice(0,departamentHours.length)
+      levelHours.splice(0,levelHours.length)
       const { averageHours } = data;
       averageHours.forEach((hour) => {
         if (hour.type === "departament")
@@ -47,6 +51,17 @@ const AverageHours = () => {
           ]);
         else setLevelHours((levelHours) => [...levelHours, hour]);
       });
+    }
+  }
+
+  function changeDateRange(e) {
+
+    
+
+    if ( (e[1] - e[0] !== 691199999) && (e[1] - e[0] !== 604800000 ) ) {
+      message.error("A pesquisa deve ser feita com o período de uma semana obrigatoriamente", 2.5);
+    } else {
+      setRangeDate(e);
     }
   }
 
@@ -78,7 +93,7 @@ const AverageHours = () => {
           className="rangePicker"
           format="DD-MM-yyyy"
           disabledDate={disabledDate}
-          onChange={setRangeDate}
+          onChange={changeDateRange}
           value={rangeDate}
           placeholder={["Inicio", "Fim"]}
         />
@@ -135,4 +150,3 @@ const AverageHours = () => {
 };
 
 export default AverageHours;
-

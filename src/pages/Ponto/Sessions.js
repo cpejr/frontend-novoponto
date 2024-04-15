@@ -52,6 +52,7 @@ const Sessions = () => {
         variables: { memberId: member._id },
       });
 
+      window.location.reload();
       hide();
 
       message.success(`Bom descanso ${member.name}!`, 2.5);
@@ -202,12 +203,11 @@ const Sessions = () => {
       description: modalData["Deseja descrever melhor o que irá fazer?"],
     };
 
-    console.log(JSON.stringify(newSession))
-
     handleCloseModal();
     var hide = message.loading("Atualizando");
     try {
       await startSessionMutation({ variables: newSession });
+      window.location.reload();
       hide();
       message.success(`Bom trabalho ${memberToLogin.current.name}!`, 2.5);
     } catch (error) {
