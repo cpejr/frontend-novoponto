@@ -140,6 +140,12 @@ const Menuu = ({ collapsed, ...props }) => {
           route="/ponto/projetos"
           label="Projetos"
         />
+        <MenuItem
+          disabled={!access || access === 0}
+          key="/ponto/notificacao"
+          route="/ponto/notificacao"
+          label="Notificação"
+        />
       </SubMenu>
 
       <MenuItem
@@ -168,4 +174,3 @@ const Menuu = ({ collapsed, ...props }) => {
 };
 
 export default Menuu;
-

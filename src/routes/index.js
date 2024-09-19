@@ -20,6 +20,7 @@ import {
   Badges,
   Projects,
   Departaments,
+  Notification,
 } from "../pages";
 import Footer from "../components/molecules/Footer";
 
@@ -81,6 +82,11 @@ function Menu() {
           path="/ponto/departamentos"
           component={Departaments}
         />
+        <RestrictedRoute
+          minAccessLevel={1}
+          path="/ponto/Notificacao"
+          component={Notification}
+        />
       </Switch>
       <Footer />
     </SidebarMenu>
@@ -100,4 +106,3 @@ const Routes = () => {
 };
 
 export default Routes;
-
