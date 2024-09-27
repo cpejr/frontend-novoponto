@@ -4,7 +4,6 @@ import { PontoComponent } from "./styles";
 import { ThemeContext } from "../../context/ThemeProvider";
 import Sessions from "./Sessions";
 import NewsCarousel from "../../components/molecules/NewsCarousel";
-import NotificationPopUp from "../../components/organisms/NotificationPopUp";
 import { NotificationHome } from "./NotificationHome";
 
 const Ponto = () => {

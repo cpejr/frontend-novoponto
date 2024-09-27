@@ -29,20 +29,20 @@ export const NotificationsComponent = styled.div`
 
   .notificationTable {
     width: 100%;
-    border-collapse: collapse; /* Para remover espaços entre as células */
+    border-collapse: collapse;
   }
 
   .notificationTable tr {
     height: 80px;
-    background-color: #141414;
-    border-bottom: 2px solid #1c1c1d;
+    background-color: ${colors.primary};
+    border-bottom: 2px solid ${colors.accent};
     display: flex;
     align-items: center;
   }
 
   .notificationTable thead tr {
     height: 65px;
-    background-color: #1d1d1d;
+    background-color: ${colors.accent};
     display: flex;
     padding-left: 20px;
     padding-right: 90px;
@@ -52,12 +52,12 @@ export const NotificationsComponent = styled.div`
   .notificationTable thead th {
     justify-content: space-between;
     display: flex;
-    color: #ffffff;
+    color: ${colors.white};
   }
 
   .notificationColumn {
     width: 45%;
-    color: #ffffff;
+    color: ${colors.white};
     overflow: auto;
     padding: 10px;
   }
@@ -68,7 +68,7 @@ export const NotificationsComponent = styled.div`
       cursor: pointer;
     }
     svg:hover {
-      color: #c70000;
+      color: ${colors.red};
     }
   }
 `;
@@ -100,43 +100,12 @@ export const RowContainer = styled.div`
   }
 `;
 
-export const MessageContainer = styled.div`
-  h3 {
-    color: ${(props) => (!!!props.error ? "#fff" : "#CA191B")};
-    font-size: 20px;
-    margin-bottom: 8px;
-
-    @media (max-width: 340px) {
-      width: 130px;
-      font-size: 18px;
-    }
-  }
-`;
-
-export const LinkContainer = styled.div`
-  h3 {
-    color: ${(props) => (!!!props.error ? "#fff" : "#CA191B")};
-    font-size: 20px;
-    margin-bottom: 8px;
-
-    @media (max-width: 340px) {
-      width: 130px;
-      font-size: 18px;
-    }
-  }
-`;
-
 export const Title = styled.h1`
   font-size: 30px;
   font-weight: 400;
   line-height: 29px;
   padding-left: 0.5rem;
-  color: #ffffff;
-`;
-
-export const TextAreaMessage = styled(TextArea)`
-  width: 500px;
-  margin-right: 30px;
+  color: ${colors.white};
 `;
 
 export const TR = styled.tr``;

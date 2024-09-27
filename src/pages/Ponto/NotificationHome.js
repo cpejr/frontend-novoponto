@@ -10,7 +10,7 @@ export const NotificationHome = () => {
   if (error) return <p>Erro ao carregar notificações!</p>;
 
   if (!data || !data.notifications || data.notifications.length === 0) {
-    return <p>Nenhuma notificação disponível.</p>;
+    return;
   }
 
   return (

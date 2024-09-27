@@ -1,54 +1,44 @@
-import React, { useState } from "react";
-
-import { CommonButton, OutlinedBox, TextArea } from "../../../components/atoms";
+import React from "react";
+import { CommonButton } from "../../../components/atoms";
 import { MdOutlineTextsms } from "react-icons/md";
-import { ThemeContext } from "../../../context/ThemeProvider";
 import {
   CREATE_NOTIFICATION,
   DELETE_NOTIFICATION,
   GET_NOTIFICATIONS,
 } from "../../../graphql/Notification";
 import { useMutation, useQuery } from "@apollo/client";
-import { message } from "antd";
-
+import { message, Table } from "antd";
+import MessageInput from "../../../components/atoms/NotificationInput";
 import {
   Container,
-  LinkContainer,
-  MessageContainer,
   NotificationsComponent,
   RowContainer,
-  TextAreaMessage,
   Title,
   TitleContainer,
 } from "./style";
-import NotificationRow from "./NotificationRow";
+import getNotificationColumns from "./NotificationColumn";
+import { useForm, Controller } from "react-hook-form";
 
 const Notification = () => {
-  const [text, setText] = useState("");
-  const [link, setLink] = useState("");
+  const { handleSubmit, reset, control } = useForm();
 
-  //hook
+  // GraphQL hooks
   const [createNotificationMutation] = useMutation(CREATE_NOTIFICATION);
   const { loading, error, data, refetch } = useQuery(GET_NOTIFICATIONS);
   const [deleteNotificationMutation] = useMutation(DELETE_NOTIFICATION);
 
-  const createNotification = async () => {
+  const createNotification = async (data) => {
+    const { text, link } = data;
     const hide = message.loading("Enviando");
-    const newNotification = {
-      text,
-      link,
-    };
 
     try {
-      const response = await createNotificationMutation({
-        variables: newNotification,
+      await createNotificationMutation({
+        variables: data,
       });
-      console.log(response);
       hide();
       message.success("Notificação enviada com sucesso", 2.5);
-      setText("");
-      setLink("");
       refetch();
+      reset();
     } catch (err) {
       console.error(err);
       hide();
@@ -71,63 +61,49 @@ const Notification = () => {
     }
   };
 
+  const columns = getNotificationColumns(handleDeleteNotification);
+
   return (
     <Container>
       <TitleContainer>
         <MdOutlineTextsms className="IconSVG" />
         <Title>Notificações</Title>
       </TitleContainer>
-      <RowContainer>
-        <MessageContainer>
-          <h3>Defina a mensagem:</h3>
-          <TextAreaMessage
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          />
-        </MessageContainer>
-        <LinkContainer>
-          <h3>Adicione o link:</h3>
-          <TextAreaMessage
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
-          />
-        </LinkContainer>
-      </RowContainer>
-      <CommonButton className="Button" onClick={createNotification}>
-        Enviar
-      </CommonButton>
-      <NotificationsComponent>
-        <table className="notificationTable">
-          <thead>
-            <tr>
-              <th className="messageColumn">Mensagem</th>
-              <th className="linkColumn">Link</th>
-              <th className="actionColumn">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
-              <tr>
-                <td colSpan="3">Carregando...</td>
-              </tr>
-            ) : error ? (
-              <tr>
-                <td colSpan="3">Erro ao carregar as notificações!</td>
-              </tr>
-            ) : (
-              data.notifications
-                .slice()
-                .reverse()
-                .map((notification) => (
-                  <NotificationRow
-                    key={notification._id}
-                    notification={notification}
-                    onDelete={() => handleDeleteNotification(notification._id)}
-                  />
-                ))
+
+      <form onSubmit={handleSubmit(createNotification)}>
+        <RowContainer>
+          <Controller
+            name="text"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <MessageInput title="Defina a mensagem:" {...field} />
             )}
-          </tbody>
-        </table>
+          />
+          <Controller
+            name="link"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <MessageInput title="Adicione o link:" {...field} />
+            )}
+          />
+        </RowContainer>
+        <CommonButton className="Button" type="submit">
+          Enviar
+        </CommonButton>
+      </form>
+
+      <NotificationsComponent>
+        <Table
+          columns={columns}
+          dataSource={loading || error ? [] : [...data.notifications].reverse()}
+          loading={loading}
+          rowKey="_id"
+          locale={{
+            emptyText: loading ? "Carregando..." : error,
+          }}
+        />
       </NotificationsComponent>
     </Container>
   );
