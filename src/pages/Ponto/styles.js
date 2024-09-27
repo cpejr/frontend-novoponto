@@ -34,4 +34,3 @@ const TooltipTitle = styled.div`
   text-align: center;
 `;
 export { PontoComponent, newsComponent, TooltipTitle };
-

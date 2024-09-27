@@ -27,6 +27,7 @@
     "react-dom": "^17.0.1",
     "react-draft-wysiwyg": "^1.14.7",
     "react-google-login": "^5.2.2",
+    "react-hook-form": "^7.53.0",
     "react-icons": "^4.7.1",
     "react-lottie": "^1.2.3",
     "react-ratio": "^0.1.5",
@@ -64,4 +65,3 @@
     ]
   }
 }
-
