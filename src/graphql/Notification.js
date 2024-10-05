@@ -6,16 +6,26 @@ const GET_NOTIFICATIONS = gql`
       _id
       text
       link
+      linkValidation
     }
   }
 `;
 
 const CREATE_NOTIFICATION = gql`
-  mutation CreateNotification($text: String!, $link: String!) {
-    createNotification(text: $text, link: $link) {
+  mutation CreateNotification(
+    $text: String!
+    $link: String!
+    $linkValidation: String!
+  ) {
+    createNotification(
+      text: $text
+      link: $link
+      linkValidation: $linkValidation
+    ) {
       _id
       text
       link
+      linkValidation
     }
   }
 `;

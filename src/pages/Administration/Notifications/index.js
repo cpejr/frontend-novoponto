@@ -28,7 +28,6 @@ const Notification = () => {
   const [deleteNotificationMutation] = useMutation(DELETE_NOTIFICATION);
 
   const createNotification = async (data) => {
-    const { text, link } = data;
     const hide = message.loading("Enviando");
 
     try {
@@ -62,7 +61,6 @@ const Notification = () => {
   };
 
   const columns = getNotificationColumns(handleDeleteNotification);
-
   return (
     <Container>
       <TitleContainer>
@@ -86,6 +84,17 @@ const Notification = () => {
             defaultValue=""
             render={({ field }) => (
               <MessageInput title="Adicione o link:" {...field} />
+            )}
+          />
+          <Controller
+            name="linkValidation"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <MessageInput
+                title="Adicione o link da planilha dos resultados:"
+                {...field}
+              />
             )}
           />
         </RowContainer>

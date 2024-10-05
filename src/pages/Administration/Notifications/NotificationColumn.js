@@ -14,6 +14,11 @@ const getNotificationColumns = (handleDeleteNotification) => [
     key: "link",
   },
   {
+    title: "Link Validação",
+    dataIndex: "linkValidation",
+    key: "linkValidation",
+  },
+  {
     title: "Ações",
     key: "actions",
     render: (notification) => (
