@@ -38,4 +38,18 @@ const DELETE_NOTIFICATION = gql`
   }
 `;
 
-export { GET_NOTIFICATIONS, CREATE_NOTIFICATION, DELETE_NOTIFICATION };
+const GET_USERS_LIST = gql`
+  mutation GetListUsers($sheetID: String!, $userName: String!) {
+    getUserList(sheetID: $sheetID, userName: $userName) {
+      sheetID
+      userName
+    }
+  }
+`;
+
+export {
+  GET_NOTIFICATIONS,
+  CREATE_NOTIFICATION,
+  DELETE_NOTIFICATION,
+  GET_USERS_LIST,
+};
