@@ -143,4 +143,3 @@ const MemberProfileContainer = styled.div`
 `;
 
 export { MemberProfileContainer };
-

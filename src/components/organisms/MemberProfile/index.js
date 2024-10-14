@@ -8,11 +8,13 @@ import {
   MemberAvatar,
   MemberName,
   TextArea,
+  Input,
 } from "../../atoms";
 import SaveButton from "../../molecules/SaveButton";
 import ConfirmationModal from "../../molecules/ConfirmationModal";
 import { Row } from "antd";
 import { MemberProfileContainer } from "./styles";
+import phoneNumberValidator from "../../../services/phoneNumberValidator";
 
 const MemberProfile = ({
   member,
@@ -21,26 +23,43 @@ const MemberProfile = ({
   showAsAdministrator = false,
 }) => {
   const [isConfirmationVis, setIsConfirmationVis] = useState(false);
+  const [phoneError, setPhoneError] = useState(null);
 
   const [newData, setNewData] = useState({
     status: member?.status || "",
+    phoneNumber: member.phoneNumber || "",
   });
+  console.log(member.phoneNumber);
+  useEffect(() => {
+    if (member?.phoneNumber !== null)
+      setNewData({
+        phoneNumber: member?.phoneNumber || "",
+      });
+  }, [member.phoneNumber]);
 
   useEffect(() => {
     if (showAsAdministrator)
       setNewData({
         status: member?.status || "",
+        phoneNumber: member?.phoneNumber || "",
         message: member?.message || { text: "", read: true },
       });
     else
       setNewData({
         status: member?.status || "",
+        phoneNumber: member?.phoneNumber || "",
       });
   }, [member]);
   const isAdm = showAsAdministrator;
 
   async function handleSave() {
-    onSave(newData);
+    const error = phoneNumberValidator.validPhoneNumber(newData.phoneNumber);
+    if (error) {
+      setPhoneError(error);
+    } else {
+      setPhoneError(null);
+      await onSave(newData);
+    }
   }
 
   function handleOnChange(field) {
@@ -89,6 +108,20 @@ const MemberProfile = ({
         <div className="row align-items-end">
           <div className="col-md-6">
             <div className="quote mt-2">
+              <DefaultSubTitle> Número de Celular:</DefaultSubTitle>
+              <Input
+                onChange={(e) =>
+                  handleOnChange({
+                    phoneNumber: e.target.value,
+                  })
+                }
+                value={newData?.phoneNumber}
+              />
+              <SaveButton
+                saved={newData?.phoneNumber === member?.phoneNumber}
+                onClick={handleSave}
+              />
+
               <DefaultSubTitle>Mensagem do acompanhamento:</DefaultSubTitle>
               {!isAdm ? (
                 <TextArea
@@ -149,4 +182,3 @@ const MemberProfile = ({
 };
 
 export default MemberProfile;
-
