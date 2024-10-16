@@ -21,7 +21,9 @@ export const NotificationHome = () => {
 
   async function verifyUserNotifications(sheetURL, userName) {
     try {
-      const verify = await getUserslistMutation(sheetURL, userName);
+      const verify = await getUserslistMutation({
+        variables: { sheetID: sheetURL, userName },
+      });
       return verify;
     } catch (err) {
       console.error(err);
