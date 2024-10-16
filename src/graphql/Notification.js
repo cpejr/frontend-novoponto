@@ -39,7 +39,7 @@ const DELETE_NOTIFICATION = gql`
 `;
 
 const GET_USERS_LIST = gql`
-  mutation GetListUsers($sheetID: String!, $userName: String!) {
+  mutation GetUserList($sheetID: String!, $userName: String!) {
     getUserList(sheetID: $sheetID, userName: $userName) {
       sheetID
       userName
