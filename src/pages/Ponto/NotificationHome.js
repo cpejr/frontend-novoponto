@@ -15,24 +15,6 @@ export const NotificationHome = () => {
 
   const [validNotifications, setValidNotifications] = useState([]);
 
-  /*useEffect(() => {
-    if (data) {\
-      let validNot = [];
-
-      for (let i = 0; i < data.notifications.length; i++) {
-        if (
-          await verifyUserNotifications(
-            data.notifications[i].linkValidation,
-            member.email
-          ) === false
-        ) {
-          validNot.push(data.notifications[i]);
-        }
-      }
-      setValidNotifications(validNot);
-      console.log(validNot);
-    }
-  }, [data]);*/
   useEffect(() => {
     const fetchNotifications = async () => {
       if (data) {
@@ -72,10 +54,9 @@ export const NotificationHome = () => {
       const verify = await getUserslistMutation({
         variables: { sheetID: sheetURL, userName },
       });
-      console.log(verify.data.getUserList);
       return verify.data.getUserList;
     } catch (err) {
-      //console.error(err);
+      console.error(err);
       return false;
     }
   }
