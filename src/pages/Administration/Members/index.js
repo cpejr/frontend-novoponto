@@ -162,7 +162,8 @@ const Members = () => {
       {
         key: "phoneNumber",
         type: "text",
-        label: "Numero:",
+        label: "Numero",
+
         rules: [
           {
             validator: (_, value) => {
@@ -171,7 +172,8 @@ const Members = () => {
                 ? Promise.reject(new Error(error))
                 : Promise.resolve();
             },
-            message: "Insira um número de celular válido",
+            message:
+              "Número de celular inválido. Use um número com 11 a 14 dígitos.",
           },
         ],
         placeholder: "Escreva o número do membro",
@@ -229,6 +231,7 @@ const Members = () => {
 
   const updateMember = (memberId) => async (member) => {
     var hide = message.loading("Atualizando dados do membro...");
+
     const { Nome, Cargo, Assessor, Tribo, Reconhecimento, Numero } = member;
 
     try {
@@ -240,11 +243,11 @@ const Members = () => {
         phoneNumber: Numero,
         responsibleId: Assessor?.selectedOption?.value || null,
       };
-      console.log(newMember);
-      const response = await updateMemberMutation({
+
+      await updateMemberMutation({
         variables: { memberId, data: newMember },
       });
-      console.log("respostas da mutation", response);
+
       hide();
       message.success("Atualizado com sucesso", 2.5);
       refetchMembers();
@@ -297,19 +300,15 @@ const Members = () => {
       />
     );
   else if (membersError) {
-    console.log(membersError);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
   } else if (errorRoles) {
-    console.log(errorRoles);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
   } else if (errorTribes) {
-    console.log(errorTribes);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
   } else if (errorBadges) {
-    console.log(errorBadges);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
   }
