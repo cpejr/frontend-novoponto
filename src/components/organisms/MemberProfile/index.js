@@ -109,18 +109,21 @@ const MemberProfile = ({
           <div className="col-md-6">
             <div className="quote mt-2">
               <DefaultSubTitle> Número de Celular:</DefaultSubTitle>
-              <Input
-                onChange={(e) =>
-                  handleOnChange({
-                    phoneNumber: e.target.value,
-                  })
-                }
-                value={newData?.phoneNumber}
-              />
-              <SaveButton
-                saved={newData?.phoneNumber === member?.phoneNumber}
-                onClick={handleSave}
-              />
+              <>
+                <Input
+                  onChange={(e) =>
+                    handleOnChange({
+                      phoneNumber: e.target.value,
+                    })
+                  }
+                  value={newData?.phoneNumber}
+                />
+                <SaveButton
+                  saved={newData?.phoneNumber === member?.phoneNumber}
+                  onClick={handleSave}
+                  margin-top="30px"
+                />
+              </>
 
               <DefaultSubTitle>Mensagem do acompanhamento:</DefaultSubTitle>
               {!isAdm ? (
