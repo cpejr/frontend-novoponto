@@ -5,6 +5,7 @@ const DefaultSessionFields = gql`
     _id
     name
     email
+    phoneNumber
     status
     message {
       read
@@ -38,6 +39,7 @@ const DefaultMemberFields = gql`
     _id
     name
     email
+    phoneNumber
     status
     imageLink
     role {
@@ -96,6 +98,7 @@ const Members = gql`
       _id
       name
       email
+      phoneNumber
       imageLink
       status
       role {
@@ -133,6 +136,7 @@ const UpdateMember = gql`
       status
       _id
       name
+      phoneNumber
       email
       responsible {
         name
@@ -180,6 +184,7 @@ const FetchMemberForHC = gql`
       _id
       name
       email
+      phoneNumber
       status
       imageLink
       mandatories {

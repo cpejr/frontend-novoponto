@@ -25,6 +25,7 @@ import FormModal from "../../../components/organisms/FormModal";
 import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";
 
 import validators from "../../../services/validators";
+import phoneNumberValidator from "../../../services/phoneNumberValidator";
 import diacriticCaseInsensitiveMatch from "../../../utils/diacriticCaseInsensitiveMatch";
 
 const { Column } = Table;
@@ -157,6 +158,27 @@ const Members = () => {
 
         initialValue: withInitialValue ? member?.badgeId : undefined,
       },
+
+      {
+        key: "phoneNumber",
+        type: "text",
+        label: "Numero",
+
+        rules: [
+          {
+            validator: (_, value) => {
+              const error = phoneNumberValidator.validPhoneNumber(value);
+              return error
+                ? Promise.reject(new Error(error))
+                : Promise.resolve();
+            },
+            message:
+              "Número de celular inválido. Use um número com 11 a 14 dígitos.",
+          },
+        ],
+        placeholder: "Escreva o número do membro",
+        initialValue: withInitialValue ? member?.phoneNumber : undefined,
+      },
     ];
 
     const modalData = {
@@ -181,7 +203,8 @@ const Members = () => {
   const createMember = async (member) => {
     var hide = message.loading("Criando...");
 
-    const { Nome, Email, Cargo, Assessor, Tribo, Reconhecimento } = member;
+    const { Nome, Email, Cargo, Assessor, Tribo, Reconhecimento, Numero } =
+      member;
     try {
       const newMember = {
         name: Nome,
@@ -189,14 +212,16 @@ const Members = () => {
         roleId: Cargo,
         tribeId: Tribo,
         badgeId: Reconhecimento,
+        phoneNumber: Numero,
         responsibleId: Assessor?.selectedOption?.value,
       };
+
       await createMemberMutation({ variables: { data: newMember } });
       hide();
       message.success("Criado com sucesso", 2.5);
       refetchMembers();
     } catch (err) {
-      console.error(err);
+      console.error("erroo ao atualizar", err);
       hide();
       message.error("Houve um problema, tente novamente", 2.5);
     }
@@ -206,15 +231,19 @@ const Members = () => {
 
   const updateMember = (memberId) => async (member) => {
     var hide = message.loading("Atualizando dados do membro...");
-    const { Nome, Cargo, Assessor, Tribo, Reconhecimento } = member;
+
+    const { Nome, Cargo, Assessor, Tribo, Reconhecimento, Numero } = member;
+
     try {
       const newMember = {
         name: Nome,
         roleId: Cargo,
         tribeId: Tribo,
         badgeId: Reconhecimento,
+        phoneNumber: Numero,
         responsibleId: Assessor?.selectedOption?.value || null,
       };
+
       await updateMemberMutation({
         variables: { memberId, data: newMember },
       });
@@ -271,19 +300,15 @@ const Members = () => {
       />
     );
   else if (membersError) {
-    console.log(membersError);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
   } else if (errorRoles) {
-    console.log(errorRoles);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
   } else if (errorTribes) {
-    console.log(errorTribes);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
   } else if (errorBadges) {
-    console.log(errorBadges);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
   }
@@ -389,4 +414,3 @@ const Members = () => {
 };
 
 export default Members;
-
