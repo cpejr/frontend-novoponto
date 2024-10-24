@@ -36,7 +36,7 @@ export const NotificationHome = () => {
       }
     };
 
-    fetchNotifications(); // Chama a função assíncrona
+    fetchNotifications();
   }, [data]);
 
   const { member } = memberData || {};

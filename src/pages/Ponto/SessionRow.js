@@ -156,4 +156,3 @@ const SessionRow = ({ session, onLogout, ...props }) => {
 };
 
 export default SessionRow;
-
