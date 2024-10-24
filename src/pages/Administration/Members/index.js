@@ -22,6 +22,9 @@ import searchIcon from "../../../assets/searchIcon.svg";
 import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
 import FormModal from "../../../components/organisms/FormModal";
 
+import RolesSelectBox from "../../../components/molecules/RolesSelectBox";
+import TribesSelectBox from "../../../components/molecules/TribesSelectBox";
+
 import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";
 
 import validators from "../../../services/validators";
@@ -49,6 +52,9 @@ const Members = () => {
     open: false,
   });
 
+  const [selectedTribe, setSelectedTribe] = useState();
+  const [selectedRole, setSelectedRole] = useState();
+
   const handleOpenModal = (member) => {
     setExcludeMember(member);
     setOpenModalExcludeMember(true);
@@ -62,188 +68,44 @@ const Members = () => {
     setEditOrCreateModalInfo({ open: false });
   };
 
-  const editOrCreateMember = (method, member) => {
-    const withInitialValue = method === "edit";
-    const memberOptions = allMembersData?.members.map((member) => ({
-      value: member._id,
-      label: member.name,
-    }));
-    const rolesOptions = roles.roles.map((role) => ({
-      value: role._id,
-      label: role.name,
-    }));
-    const tribesOptions = Object.assign(
-      [],
-      tribes?.tribes?.map((tribe) => ({
-        value: tribe?._id,
-        label: tribe?.name,
-      }))
-    );
-    const badgesOptions = Object.assign(
-      [],
-      badges?.badges?.map((badge) => ({
-        value: badge?._id,
-        label: badge?.name,
-      }))
-    );
-
-    if (withInitialValue) tribesOptions.push({ label: "", value: null });
-    var fields = [
-      {
-        key: "name",
-        type: "text",
-        label: "Nome",
-        rules: [validators.antdRequired()],
-
-        placeholder: "Escreva o nome do membro",
-        initialValue: withInitialValue ? member.name : undefined,
-      },
-      {
-        key: "email",
-        type: "text",
-        label: "Email",
-        rules: [validators.antdRequired()],
-
-        placeholder: "Escreva o email do membro",
-        initialValue: withInitialValue ? member?.email : undefined,
-      },
-      {
-        key: "tribe",
-        type: "select",
-        label: "Tribo",
-        placeholder: "Escolha a tribo",
-
-        options: tribesOptions,
-
-        initialValue: withInitialValue ? member?.tribe?._id : undefined,
-      },
-      {
-        key: "role",
-        type: "select",
-        label: "Cargo",
-        placeholder: "Escolha o cargo",
-        rules: [validators.antdRequired()],
-
-        options: rolesOptions,
-
-        initialValue: withInitialValue ? member?.role?._id : undefined,
-      },
-      {
-        key: "responsible",
-        type: "autoComplete",
-        label: "Assessor",
-        placeholder: "Escolha o membro",
-        rules: [validators.antdInsideOptions(memberOptions)],
-
-        options: memberOptions,
-
-        initialValue: withInitialValue
-          ? {
-              text: member?.responsible?.name,
-              selectedOption: {
-                label: member?.responsible?.name,
-                value: member?.responsible?._id,
-              },
-            }
-          : undefined,
-      },
-      {
-        key: "badges",
-        type: "selectMultiple",
-        label: "Reconhecimento",
-        placeholder: "Escolha o reconhecimento",
-
-        options: badgesOptions,
-
-        initialValue: withInitialValue ? member?.badgeId : undefined,
-      },
-    ];
-
-    const modalData = {
-      title: "",
-      fields: fields,
-
-      open: true,
-      cancel: handleCloseEditOrCreate,
-    };
-
-    if (method === "edit") {
-      modalData.title = "Editar Membro";
-      modalData.onSubmit = updateMember(member._id);
-    } else {
-      modalData.title = "Criar Membro";
-      modalData.onSubmit = createMember;
-    }
-
-    setEditOrCreateModalInfo(modalData);
-  };
-
-  const createMember = async (member) => {
-    var hide = message.loading("Criando...");
-
-    const { Nome, Email, Cargo, Assessor, Tribo, Reconhecimento } = member;
+  const handleExcludeMember = async () => {
     try {
-      const newMember = {
-        name: Nome,
-        email: Email,
-        roleId: Cargo,
-        tribeId: Tribo,
-        badgeId: Reconhecimento,
-        responsibleId: Assessor?.selectedOption?.value,
-      };
-      await createMemberMutation({ variables: { data: newMember } });
-      hide();
-      message.success("Criado com sucesso", 2.5);
-      refetchMembers();
-    } catch (err) {
-      console.error(err);
-      hide();
-      message.error("Houve um problema, tente novamente", 2.5);
-    }
-
-    handleCloseEditOrCreate();
-  };
-
-  const updateMember = (memberId) => async (member) => {
-    var hide = message.loading("Atualizando dados do membro...");
-    const { Nome, Cargo, Assessor, Tribo, Reconhecimento } = member;
-    try {
-      const newMember = {
-        name: Nome,
-        roleId: Cargo,
-        tribeId: Tribo,
-        badgeId: Reconhecimento,
-        responsibleId: Assessor?.selectedOption?.value || null,
-      };
-      await updateMemberMutation({
-        variables: { memberId, data: newMember },
+      await deleteMemberMutation({
+        variables: { id: excludeMember._id },
       });
-
-      hide();
-      message.success("Atualizado com sucesso", 2.5);
-      refetchMembers();
-    } catch (err) {
-      console.error(err);
-      hide();
-      message.error("Houve um problema, tente novamente", 2.5);
+      message.success("Membro excluído com sucesso!", 2);
+      await refetchMembers(); // Refaz a consulta para atualizar a lista de membros
+    } catch (error) {
+      message.error("Erro ao excluir membro!", 2);
+      console.error(error);
+    } finally {
+      handleCloseModal(); // Fecha o modal após a operação
     }
-    handleCloseEditOrCreate();
   };
 
-  const handleExcludeMember = async (memberId) => {
-    var hide = message.loading("Excluindo membro...");
-    try {
-      await deleteMemberMutation({ variables: { memberId } });
-      hide();
-      message.success("Excluído com sucesso", 2.5);
-    } catch (err) {
-      console.error(err);
-      hide();
-      message.error("Houve um problema, tente novamente", 2.5);
+  // Função de filtro combinada
+  const combinedFilter = () => {
+    let filteredMembers = [...allMembersData?.members];
+
+    if (selectedRole && selectedRole !== "") {
+      filteredMembers = filteredMembers.filter(
+        (member) => member.role?._id === selectedRole
+      );
     }
-    refetchMembers();
-    setOpenModalExcludeMember(false);
+
+    if (selectedTribe && selectedTribe !== "") {
+      filteredMembers = filteredMembers.filter(
+        (member) => member.tribe?._id === selectedTribe
+      );
+    }
+
+    setFilteredMembers(filteredMembers);
   };
+
+  // Atualiza os membros filtrados quando selectedRole ou selectedTribe mudam
+  useEffect(() => {
+    combinedFilter();
+  }, [selectedRole, selectedTribe]);
 
   const handleSearchMembers = (e) => {
     if (e.target.value !== "") {
@@ -260,6 +122,24 @@ const Members = () => {
   useEffect(() => {
     if (allMembersData) setFilteredMembers([...allMembersData?.members]);
   }, [allMembersData]);
+
+  const editOrCreateMember = (action, memberData) => {
+    if (action === "edit") {
+      // Configurações para edição
+      setEditOrCreateModalInfo({
+        open: true,
+        member: memberData,
+        mode: "edit",
+      });
+    } else {
+      // Configurações para criação de novo membro
+      setEditOrCreateModalInfo({
+        open: true,
+        member: null,
+        mode: "create",
+      });
+    }
+  };
 
   if (membersLoading)
     return (
@@ -306,6 +186,23 @@ const Members = () => {
           nowrap
           width="215px"
           onClick={() => editOrCreateMember("new")}
+        />
+      </div>
+      <div style={{ display: "flex", marginBottom: "35px" }}>
+        <TribesSelectBox
+          tribes={tribes?.tribes}
+          onChange={(value) => {
+            setSelectedTribe(value || "");
+          }}
+          style={{ width: "250px" }}
+        />
+
+        <RolesSelectBox
+          roles={roles?.roles}
+          onChange={(value) => {
+            setSelectedRole(value || "");
+          }}
+          style={{ width: "250px" }}
         />
       </div>
 
@@ -357,36 +254,42 @@ const Members = () => {
           }
         />
         <Column
+          title="Ações"
           key="action"
-          width={120}
-          render={(data) => (
+          render={(_, member) => (
             <ActionsDiv>
-              <Tooltip
-                placement="topLeft"
-                title={"Editar"}
-                onClick={() => editOrCreateMember("edit", data)}
-              >
-                <EditOutlined />
+              <Tooltip title="Editar Membro">
+                <CommonButton
+                  icon={<EditOutlined />}
+                  onClick={() => editOrCreateMember("edit", member)}
+                />
               </Tooltip>
-
-              <Tooltip placement="topLeft" title={"Excluir"}>
-                <RestOutlined onClick={() => handleOpenModal(data)} />
+              <Tooltip title="Excluir Membro">
+                <CommonButton
+                  icon={<RestOutlined />}
+                  onClick={() => handleOpenModal(member)}
+                />
               </Tooltip>
             </ActionsDiv>
           )}
         />
       </Table>
+
       <ConfirmationModal
-        title="Apagar membro"
-        content={`Deseja mesmo apagar o membro "${excludeMember.name}"?`}
-        isVisible={openModalExcludeMember}
-        handleOk={() => handleExcludeMember(excludeMember._id)}
-        handleCancel={handleCloseModal}
+        title={"Excluir Membro"}
+        isOpen={openModalExcludeMember}
+        onClose={handleCloseModal}
+        onConfirm={handleExcludeMember}
       />
-      <FormModal {...editOrCreateModalInfo} />
+      <FormModal
+        open={editOrCreateModalInfo.open}
+        onClose={handleCloseEditOrCreate}
+        member={editOrCreateModalInfo.member}
+        mode={editOrCreateModalInfo.mode}
+        refetchMembers={refetchMembers}
+      />
     </MembersComponent>
   );
 };
 
 export default Members;
-
