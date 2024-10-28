@@ -221,7 +221,7 @@ const Members = () => {
       message.success("Criado com sucesso", 2.5);
       refetchMembers();
     } catch (err) {
-      console.error("erroo ao atualizar", err);
+      console.error("erro ao atualizar", err);
       hide();
       message.error("Houve um problema, tente novamente", 2.5);
     }
