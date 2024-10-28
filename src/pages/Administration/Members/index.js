@@ -22,8 +22,7 @@ import searchIcon from "../../../assets/searchIcon.svg";
 import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
 import FormModal from "../../../components/organisms/FormModal";
 
-import RolesSelectBox from "../../../components/molecules/RolesSelectBox";
-import TribesSelectBox from "../../../components/molecules/TribesSelectBox";
+import SelectBox from "../../../components/molecules/SelectBox";
 
 import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";
 
@@ -52,8 +51,9 @@ const Members = () => {
     open: false,
   });
 
-  const [selectedTribe, setSelectedTribe] = useState();
-  const [selectedRole, setSelectedRole] = useState();
+  const [selectedTribe, setSelectedTribe] = useState("");
+  const [selectedRole, setSelectedRole] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleOpenModal = (member) => {
     setExcludeMember(member);
@@ -74,49 +74,45 @@ const Members = () => {
         variables: { id: excludeMember._id },
       });
       message.success("Membro excluído com sucesso!", 2);
-      await refetchMembers(); // Refaz a consulta para atualizar a lista de membros
+      await refetchMembers();
     } catch (error) {
       message.error("Erro ao excluir membro!", 2);
       console.error(error);
     } finally {
-      handleCloseModal(); // Fecha o modal após a operação
+      handleCloseModal();
     }
   };
 
-  // Função de filtro combinada
   const combinedFilter = () => {
     let filteredMembers = [...allMembersData?.members];
 
-    if (selectedRole && selectedRole !== "") {
+    if (selectedRole) {
       filteredMembers = filteredMembers.filter(
         (member) => member.role?._id === selectedRole
       );
     }
 
-    if (selectedTribe && selectedTribe !== "") {
+    if (selectedTribe) {
       filteredMembers = filteredMembers.filter(
         (member) => member.tribe?._id === selectedTribe
+      );
+    }
+
+    if (searchTerm) {
+      filteredMembers = filteredMembers.filter(({ name }) =>
+        diacriticCaseInsensitiveMatch(name, searchTerm)
       );
     }
 
     setFilteredMembers(filteredMembers);
   };
 
-  // Atualiza os membros filtrados quando selectedRole ou selectedTribe mudam
   useEffect(() => {
     combinedFilter();
-  }, [selectedRole, selectedTribe]);
+  }, [selectedRole, selectedTribe, searchTerm, allMembersData]);
 
   const handleSearchMembers = (e) => {
-    if (e.target.value !== "") {
-      const filteredMembersAfterForEach = allMembersData?.members.filter(
-        ({ name }) => diacriticCaseInsensitiveMatch(name, e.target.value)
-      );
-
-      setFilteredMembers(filteredMembersAfterForEach);
-    } else {
-      setFilteredMembers([...allMembersData?.members]);
-    }
+    setSearchTerm(e.target.value);
   };
 
   useEffect(() => {
@@ -125,14 +121,12 @@ const Members = () => {
 
   const editOrCreateMember = (action, memberData) => {
     if (action === "edit") {
-      // Configurações para edição
       setEditOrCreateModalInfo({
         open: true,
         member: memberData,
         mode: "edit",
       });
     } else {
-      // Configurações para criação de novo membro
       setEditOrCreateModalInfo({
         open: true,
         member: null,
@@ -150,20 +144,7 @@ const Members = () => {
         loading={membersLoading}
       />
     );
-  else if (membersError) {
-    console.log(membersError);
-    message.error("Houve um problema, tente recarregar a pagina", 2.5);
-    return <h1>Erro, recarregue a pagina</h1>;
-  } else if (errorRoles) {
-    console.log(errorRoles);
-    message.error("Houve um problema, tente recarregar a pagina", 2.5);
-    return <h1>Erro, recarregue a pagina</h1>;
-  } else if (errorTribes) {
-    console.log(errorTribes);
-    message.error("Houve um problema, tente recarregar a pagina", 2.5);
-    return <h1>Erro, recarregue a pagina</h1>;
-  } else if (errorBadges) {
-    console.log(errorBadges);
+  else if (membersError || errorRoles || errorTribes || errorBadges) {
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
   }
@@ -178,7 +159,7 @@ const Members = () => {
         <InputText
           icon={searchIcon}
           placeholder="Pesquisar membros"
-          onChange={(e) => handleSearchMembers(e)}
+          onChange={handleSearchMembers}
         />
         <CommonButton
           buttonLabel="Adicionar novo membro"
@@ -189,19 +170,16 @@ const Members = () => {
         />
       </div>
       <div style={{ display: "flex", marginBottom: "35px" }}>
-        <TribesSelectBox
-          tribes={tribes?.tribes}
-          onChange={(value) => {
-            setSelectedTribe(value || "");
-          }}
+        <SelectBox
+          options={tribes?.tribes || []}
+          placeholder="Escolha uma tribo"
+          onChange={(value) => setSelectedTribe(value || "")}
           style={{ width: "250px" }}
         />
-
-        <RolesSelectBox
-          roles={roles?.roles}
-          onChange={(value) => {
-            setSelectedRole(value || "");
-          }}
+        <SelectBox
+          options={roles?.roles || []}
+          placeholder="Escolha um cargo"
+          onChange={(value) => setSelectedRole(value || "")}
           style={{ width: "250px" }}
         />
       </div>
