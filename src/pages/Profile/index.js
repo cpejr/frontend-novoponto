@@ -13,7 +13,7 @@ const CardView = () => {
   const { themeColors } = useContext(ThemeContext);
   const { data, updateSelf, getSessionData } = useContext(SessionContext);
   const { googleLogout } = useGoogleAuth();
-
+  //teste pra redeploy
   useEffect(() => {
     if (!!data) getSessionData();
     if (data && !data?.member?.message?.read)
