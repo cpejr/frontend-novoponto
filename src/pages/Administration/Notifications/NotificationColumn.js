@@ -7,20 +7,24 @@ const getNotificationColumns = (handleDeleteNotification) => [
     title: "Mensagem",
     dataIndex: "text",
     key: "text",
+    width: "15%",
   },
   {
     title: "Link",
     dataIndex: "link",
     key: "link",
+    width: "35%",
   },
   {
     title: "Link Validação",
     dataIndex: "linkValidation",
     key: "linkValidation",
+    width: "40%",
   },
   {
     title: "Ações",
     key: "actions",
+    width: "10%",
     render: (notification) => (
       <Tooltip title="Excluir">
         <RestOutlined

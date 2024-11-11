@@ -7,7 +7,7 @@ import {
   GET_NOTIFICATIONS,
 } from "../../../graphql/Notification";
 import { useMutation, useQuery } from "@apollo/client";
-import { message, Table } from "antd";
+import { message } from "antd";
 import MessageInput from "../../../components/atoms/NotificationInput";
 import {
   Container,
@@ -15,6 +15,8 @@ import {
   RowContainer,
   Title,
   TitleContainer,
+  TableTest,
+  ControllerWrapper,
 } from "./style";
 import getNotificationColumns from "./NotificationColumn";
 import { useForm, Controller } from "react-hook-form";
@@ -70,33 +72,48 @@ const Notification = () => {
 
       <form onSubmit={handleSubmit(createNotification)}>
         <RowContainer>
-          <Controller
-            name="text"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <MessageInput title="Defina a mensagem:" {...field} />
-            )}
-          />
-          <Controller
-            name="link"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <MessageInput title="Adicione o link:" {...field} />
-            )}
-          />
-          <Controller
-            name="linkValidation"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <MessageInput
-                title="Adicione o link da planilha dos resultados:"
-                {...field}
-              />
-            )}
-          />
+          <ControllerWrapper>
+            <Controller
+              name="text"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <MessageInput
+                  title="Defina a mensagem:"
+                  placeholder="Exemplo: 'Coleta quinzenal'."
+                  {...field}
+                />
+              )}
+            />
+          </ControllerWrapper>
+          <ControllerWrapper>
+            <Controller
+              name="link"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <MessageInput
+                  title="Adicione o link:"
+                  placeholder="Link do forms ou outro questionário."
+                  {...field}
+                />
+              )}
+            />
+          </ControllerWrapper>
+          <ControllerWrapper>
+            <Controller
+              name="linkValidation"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <MessageInput
+                  title="Tabela de confirmados:"
+                  placeholder="Link da tabela Google Sheets com todos que realizaram a coleta."
+                  {...field}
+                />
+              )}
+            />
+          </ControllerWrapper>
         </RowContainer>
         <CommonButton className="Button" type="submit">
           Enviar
@@ -104,7 +121,7 @@ const Notification = () => {
       </form>
 
       <NotificationsComponent>
-        <Table
+        <TableTest
           columns={columns}
           dataSource={loading || error ? [] : [...data.notifications].reverse()}
           loading={loading}

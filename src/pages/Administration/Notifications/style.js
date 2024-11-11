@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { TextArea } from "../../../components/atoms";
 import { colors } from "../../../context/ThemeProvider/pallete";
+import { Table } from "antd";
 
 export const Container = styled.div`
   width: 100%;
@@ -26,51 +27,6 @@ export const NotificationsComponent = styled.div`
   display: flex;
   flex-direction: column;
   padding: 30px 20px;
-
-  .notificationTable {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .notificationTable tr {
-    height: 80px;
-    background-color: ${colors.primary};
-    border-bottom: 2px solid ${colors.accent};
-    display: flex;
-    align-items: center;
-  }
-
-  .notificationTable thead tr {
-    height: 65px;
-    background-color: ${colors.accent};
-    display: flex;
-    padding-left: 20px;
-    padding-right: 90px;
-    justify-content: space-between;
-  }
-
-  .notificationTable thead th {
-    justify-content: space-between;
-    display: flex;
-    color: ${colors.white};
-  }
-
-  .notificationColumn {
-    width: 45%;
-    color: ${colors.white};
-    overflow: auto;
-    padding: 10px;
-  }
-
-  .garbageColumn {
-    svg {
-      font-size: 25px;
-      cursor: pointer;
-    }
-    svg:hover {
-      color: ${colors.red};
-    }
-  }
 `;
 
 export const TitleContainer = styled.div`
@@ -97,6 +53,18 @@ export const RowContainer = styled.div`
     flex-direction: column;
     gap: 10px;
     align-items: start;
+    width: 100%;
+  }
+`;
+
+export const ControllerWrapper = styled.div`
+  flex: 1;
+  width: 33%; /* Garante que cada controlador ocupe 33% da largura */
+  margin-right: 8px;
+
+  @media (max-width: 1000px) {
+    max-width: none;
+    width: 100%;
   }
 `;
 
@@ -106,6 +74,27 @@ export const Title = styled.h1`
   line-height: 29px;
   padding-left: 0.5rem;
   color: ${colors.white};
+`;
+
+export const TableTest = styled(Table)`
+  .ant-table {
+    width: 100%; /* Garante que a tabela ocupe a largura total do contêiner */
+  }
+
+  .ant-table-cell {
+    white-space: normal; /* Permite a quebra de linha dentro das células */
+    word-wrap: break-word; /* Garante que palavras longas sejam quebradas */
+    word-break: break-word; /* Adiciona suporte para quebra de palavras */
+    @media (max-width: 1015px) {
+      font-size: 12px;
+    }
+    @media (max-width: 960px) {
+      font-size: 10px;
+    }
+    @media (max-width: 630px) {
+      padding: 5px;
+    }
+  }
 `;
 
 export const TR = styled.tr``;

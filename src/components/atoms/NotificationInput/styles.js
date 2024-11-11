@@ -18,4 +18,7 @@ export const ContainerInput = styled.div`
 export const TextAreaMessage = styled(TextArea)`
   width: 500px;
   margin-right: 30px;
+  @media (max-width: 810px) {
+    width: 100%;
+  }
 `;
