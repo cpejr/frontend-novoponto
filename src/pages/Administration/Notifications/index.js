@@ -31,7 +31,6 @@ const Notification = () => {
 
   const createNotification = async (data) => {
     const hide = message.loading("Enviando");
-
     try {
       await createNotificationMutation({
         variables: data,
@@ -77,8 +76,10 @@ const Notification = () => {
               name="text"
               control={control}
               defaultValue=""
-              render={({ field }) => (
+              render={({ field,onChange }) => (
+                
                 <MessageInput
+                onChange={onChange}
                   title="Defina a mensagem:"
                   placeholder="Exemplo: 'Coleta quinzenal'."
                   {...field}
@@ -91,8 +92,9 @@ const Notification = () => {
               name="link"
               control={control}
               defaultValue=""
-              render={({ field }) => (
+              render={({ field,onChange }) => (
                 <MessageInput
+                onChange={onChange}
                   title="Adicione o link:"
                   placeholder="Link do forms ou outro questionário."
                   {...field}
@@ -105,8 +107,9 @@ const Notification = () => {
               name="linkValidation"
               control={control}
               defaultValue=""
-              render={({ field }) => (
+              render={({ field, onChange }) => (
                 <MessageInput
+                  onChange={onChange}
                   title="Tabela de confirmados:"
                   placeholder="Link da tabela Google Sheets com todos que realizaram a coleta."
                   {...field}
