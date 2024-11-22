@@ -48,7 +48,7 @@ const Notification = () => {
 
   const handleDeleteNotification = async (_id) => {
     const hide = message.loading("Deletando...");
-
+    
     try {
       await deleteNotificationMutation({ variables: { _id } });
       hide();
