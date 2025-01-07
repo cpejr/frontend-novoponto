@@ -19,7 +19,7 @@ const SaveButton = ({
 
   return (
     <CommonButton
-      width={"32px"}
+      width={"100px"}
       color={color}
       icon={_icon}
       {...props}

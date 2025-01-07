@@ -21,9 +21,10 @@ const MemberProfileContainer = styled.div`
   }
 
   .quote button {
-    position: absolute;
-    right: 22%;
-    bottom: 2%;
+    position: relative;
+    width: 10%;
+    align-items: end;
+    display: flex;
   }
 
   .message {
@@ -86,6 +87,10 @@ const MemberProfileContainer = styled.div`
     margin-right: 10%;
   }
 
+  .phoneInput {
+    padding-left: 8%;
+  }
+
   .messageAndFrase {
     margin-left: 7.5%;
   }
@@ -143,4 +148,3 @@ const MemberProfileContainer = styled.div`
 `;
 
 export { MemberProfileContainer };
-
