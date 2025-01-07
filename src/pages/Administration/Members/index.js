@@ -22,6 +22,8 @@ import searchIcon from "../../../assets/searchIcon.svg";
 import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
 import FormModal from "../../../components/organisms/FormModal";
 
+import SelectBox from "../../../components/molecules/SelectBox";
+
 import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";
 
 import validators from "../../../services/validators";
@@ -50,6 +52,10 @@ const Members = () => {
     open: false,
   });
 
+  const [selectedTribe, setSelectedTribe] = useState("");
+  const [selectedRole, setSelectedRole] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
   const handleOpenModal = (member) => {
     setExcludeMember(member);
     setOpenModalExcludeMember(true);
@@ -62,6 +68,57 @@ const Members = () => {
   const handleCloseEditOrCreate = () => {
     setEditOrCreateModalInfo({ open: false });
   };
+
+  const handleExcludeMember = async (memberId) => {
+    var hide = message.loading("Excluindo membro...");
+    try {
+      await deleteMemberMutation({ variables: { memberId } });
+      hide();
+      message.success("Excluído com sucesso", 2.5);
+    } catch (err) {
+      console.error(err);
+      hide();
+      message.error("Houve um problema, tente novamente", 2.5);
+    }
+    refetchMembers();
+    setOpenModalExcludeMember(false);
+  };
+
+  const combinedFilter = () => {
+    let filteredMembers = [...allMembersData?.members];
+
+    if (selectedRole) {
+      filteredMembers = filteredMembers.filter(
+        (member) => member.role?._id === selectedRole
+      );
+    }
+
+    if (selectedTribe) {
+      filteredMembers = filteredMembers.filter(
+        (member) => member.tribe?._id === selectedTribe
+      );
+    }
+
+    if (searchTerm) {
+      filteredMembers = filteredMembers.filter(({ name }) =>
+        diacriticCaseInsensitiveMatch(name, searchTerm)
+      );
+    }
+
+    setFilteredMembers(filteredMembers);
+  };
+
+  useEffect(() => {
+    combinedFilter();
+  }, [selectedRole, selectedTribe, searchTerm, allMembersData]);
+
+  const handleSearchMembers = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  useEffect(() => {
+    if (allMembersData) setFilteredMembers([...allMembersData?.members]);
+  }, [allMembersData]);
 
   const editOrCreateMember = (method, member) => {
     const withInitialValue = method === "edit";
@@ -87,7 +144,6 @@ const Members = () => {
         label: badge?.name,
       }))
     );
-
     if (withInitialValue) tribesOptions.push({ label: "", value: null });
     var fields = [
       {
@@ -95,7 +151,6 @@ const Members = () => {
         type: "text",
         label: "Nome",
         rules: [validators.antdRequired()],
-
         placeholder: "Escreva o nome do membro",
         initialValue: withInitialValue ? member.name : undefined,
       },
@@ -104,7 +159,6 @@ const Members = () => {
         type: "text",
         label: "Email",
         rules: [validators.antdRequired()],
-
         placeholder: "Escreva o email do membro",
         initialValue: withInitialValue ? member?.email : undefined,
       },
@@ -113,9 +167,7 @@ const Members = () => {
         type: "select",
         label: "Tribo",
         placeholder: "Escolha a tribo",
-
         options: tribesOptions,
-
         initialValue: withInitialValue ? member?.tribe?._id : undefined,
       },
       {
@@ -124,9 +176,7 @@ const Members = () => {
         label: "Cargo",
         placeholder: "Escolha o cargo",
         rules: [validators.antdRequired()],
-
         options: rolesOptions,
-
         initialValue: withInitialValue ? member?.role?._id : undefined,
       },
       {
@@ -135,9 +185,7 @@ const Members = () => {
         label: "Assessor",
         placeholder: "Escolha o membro",
         rules: [validators.antdInsideOptions(memberOptions)],
-
         options: memberOptions,
-
         initialValue: withInitialValue
           ? {
               text: member?.responsible?.name,
@@ -153,9 +201,7 @@ const Members = () => {
         type: "selectMultiple",
         label: "Reconhecimento",
         placeholder: "Escolha o reconhecimento",
-
         options: badgesOptions,
-
         initialValue: withInitialValue ? member?.badgeId : undefined,
       },
 
@@ -180,15 +226,12 @@ const Members = () => {
         initialValue: withInitialValue ? member?.phoneNumber : undefined,
       },
     ];
-
     const modalData = {
       title: "",
       fields: fields,
-
       open: true,
       cancel: handleCloseEditOrCreate,
     };
-
     if (method === "edit") {
       modalData.title = "Editar Membro";
       modalData.onSubmit = updateMember(member._id);
@@ -196,10 +239,8 @@ const Members = () => {
       modalData.title = "Criar Membro";
       modalData.onSubmit = createMember;
     }
-
     setEditOrCreateModalInfo(modalData);
   };
-
   const createMember = async (member) => {
     var hide = message.loading("Criando...");
 
@@ -225,10 +266,8 @@ const Members = () => {
       hide();
       message.error("Houve um problema, tente novamente", 2.5);
     }
-
     handleCloseEditOrCreate();
   };
-
   const updateMember = (memberId) => async (member) => {
     var hide = message.loading("Atualizando dados do membro...");
 
@@ -247,7 +286,6 @@ const Members = () => {
       await updateMemberMutation({
         variables: { memberId, data: newMember },
       });
-
       hide();
       message.success("Atualizado com sucesso", 2.5);
       refetchMembers();
@@ -255,41 +293,10 @@ const Members = () => {
       console.error(err);
       hide();
       message.error("Houve um problema, tente novamente", 2.5);
-    }
-    handleCloseEditOrCreate();
-  };
-
-  const handleExcludeMember = async (memberId) => {
-    var hide = message.loading("Excluindo membro...");
-    try {
-      await deleteMemberMutation({ variables: { memberId } });
-      hide();
-      message.success("Excluído com sucesso", 2.5);
-    } catch (err) {
-      console.error(err);
-      hide();
-      message.error("Houve um problema, tente novamente", 2.5);
-    }
-    refetchMembers();
-    setOpenModalExcludeMember(false);
-  };
-
-  const handleSearchMembers = (e) => {
-    if (e.target.value !== "") {
-      const filteredMembersAfterForEach = allMembersData?.members.filter(
-        ({ name }) => diacriticCaseInsensitiveMatch(name, e.target.value)
-      );
-
-      setFilteredMembers(filteredMembersAfterForEach);
-    } else {
-      setFilteredMembers([...allMembersData?.members]);
-    }
-  };
-
-  useEffect(() => {
-    if (allMembersData) setFilteredMembers([...allMembersData?.members]);
-  }, [allMembersData]);
-
+      handleCloseEditOrCreate();
+    };
+  }
+  
   if (membersLoading)
     return (
       <Skeleton
@@ -299,16 +306,7 @@ const Members = () => {
         loading={membersLoading}
       />
     );
-  else if (membersError) {
-    message.error("Houve um problema, tente recarregar a pagina", 2.5);
-    return <h1>Erro, recarregue a pagina</h1>;
-  } else if (errorRoles) {
-    message.error("Houve um problema, tente recarregar a pagina", 2.5);
-    return <h1>Erro, recarregue a pagina</h1>;
-  } else if (errorTribes) {
-    message.error("Houve um problema, tente recarregar a pagina", 2.5);
-    return <h1>Erro, recarregue a pagina</h1>;
-  } else if (errorBadges) {
+  else if (membersError || errorRoles || errorTribes || errorBadges) {
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
   }
@@ -323,7 +321,7 @@ const Members = () => {
         <InputText
           icon={searchIcon}
           placeholder="Pesquisar membros"
-          onChange={(e) => handleSearchMembers(e)}
+          onChange={handleSearchMembers}
         />
         <CommonButton
           buttonLabel="Adicionar novo membro"
@@ -331,6 +329,20 @@ const Members = () => {
           nowrap
           width="215px"
           onClick={() => editOrCreateMember("new")}
+        />
+      </div>
+      <div style={{ display: "flex", marginBottom: "35px" }}>
+        <SelectBox
+          options={tribes?.tribes || []}
+          placeholder="Escolha uma tribo"
+          onChange={(value) => setSelectedTribe(value || "")}
+          style={{ width: "250px" }}
+        />
+        <SelectBox
+          options={roles?.roles || []}
+          placeholder="Escolha um cargo"
+          onChange={(value) => setSelectedRole(value || "")}
+          style={{ width: "250px" }}
         />
       </div>
 
@@ -382,31 +394,34 @@ const Members = () => {
           }
         />
         <Column
+          title="Ações"
           key="action"
-          width={120}
-          render={(data) => (
+          render={( member) => (
             <ActionsDiv>
-              <Tooltip
-                placement="topLeft"
-                title={"Editar"}
-                onClick={() => editOrCreateMember("edit", data)}
-              >
-                <EditOutlined />
+              <Tooltip title="Editar Membro">
+                <CommonButton
+                  icon={<EditOutlined />}
+                  onClick={() => editOrCreateMember("edit", member)}
+                />
               </Tooltip>
-
-              <Tooltip placement="topLeft" title={"Excluir"}>
-                <RestOutlined onClick={() => handleOpenModal(data)} />
+              <Tooltip title="Excluir Membro">
+                <CommonButton
+                  icon={<RestOutlined />}
+                  onClick={() => handleOpenModal(member)}
+                />
               </Tooltip>
             </ActionsDiv>
           )}
         />
       </Table>
+
       <ConfirmationModal
         title="Apagar membro"
         content={`Deseja mesmo apagar o membro "${excludeMember.name}"?`}
         isVisible={openModalExcludeMember}
         handleOk={() => handleExcludeMember(excludeMember._id)}
         handleCancel={handleCloseModal}
+        onClose={handleCloseModal}
       />
       <FormModal {...editOrCreateModalInfo} />
     </MembersComponent>
