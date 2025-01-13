@@ -14,6 +14,7 @@ const SidebarMenuContainer = styled.div`
     margin-right: 16px;
     transition: color 0.2s;
   }
+
 `;
 
 export { SidebarMenuContainer };
