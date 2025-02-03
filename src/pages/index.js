@@ -14,3 +14,4 @@ export { default as Badges } from "./Administration/Badges";
 export { default as Projects } from "./Administration/Projects";
 export { default as Departaments } from "./Administration/Departaments";
 export { default as Notification } from "./Administration/Notifications";
+export {default as Calendar} from "./Calendar"

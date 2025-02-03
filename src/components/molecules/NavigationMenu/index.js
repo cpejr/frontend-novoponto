@@ -5,6 +5,7 @@ import {
   InfoCircleOutlined,
   LockOutlined,
   UserOutlined,
+  CalendarOutlined,
 } from "@ant-design/icons";
 import { Menu as AntdMenu, Badge } from "antd";
 import SubMenu from "antd/lib/menu/SubMenu";
@@ -50,6 +51,12 @@ const Menuu = ({ collapsed, ...props }) => {
         route="/ponto"
         icon={<BulbOutlined />}
         label="Ponto"
+      />
+      <MenuItem
+        key="/ponto/calendario"
+        route="/ponto/calendario"
+        icon={<CalendarOutlined />}
+        label="Calendario"
       />
       <MenuItem
         key="/ponto/profile"
@@ -148,7 +155,7 @@ const Menuu = ({ collapsed, ...props }) => {
         />
       </SubMenu>
 
-      <MenuItem
+      {/* <MenuItem
         key="novidades"
         icon={
           hasNewUpdate ? (
@@ -168,7 +175,7 @@ const Menuu = ({ collapsed, ...props }) => {
         className="mt-auto"
       >
         Novidades
-      </MenuItem>
+      </MenuItem> */}
     </AntdMenu>
   );
 };

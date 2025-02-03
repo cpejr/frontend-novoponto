@@ -21,9 +21,9 @@ import {
   Projects,
   Departaments,
   Notification,
+  Calendar
 } from "../pages";
 import Footer from "../components/molecules/Footer";
-
 function Menu() {
   return (
     <SidebarMenu>
@@ -32,6 +32,7 @@ function Menu() {
         <Route path="/ponto/alteracaodehoras" component={HourChanges} />
         <Route path="/ponto/profile" component={Profile} />
         <Route path="/ponto/standby" component={StandBy} />
+        <Route path="/ponto/calendario" component={Calendar}/>
         <RestrictedRoute
           minAccessLevel={1}
           path="/ponto/membros"
