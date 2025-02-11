@@ -61,11 +61,7 @@ const LoggedMembers = ({
 							/>
 						)} */}
             {tribe && (
-              <DefaultLabel
-                labelText={tribe.name}
-                labelColor={tribe.color}
-                className="d-none d-lg-block"
-              />
+              <DefaultLabel labelText={tribe.name} labelColor={tribe.color} />
             )}
           </Row>
         </Col>
