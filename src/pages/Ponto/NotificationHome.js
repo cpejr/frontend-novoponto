@@ -32,7 +32,6 @@ export const NotificationHome = () => {
         }
 
         setValidNotifications(validNot);
-        console.log(validNot);
       }
     };
 

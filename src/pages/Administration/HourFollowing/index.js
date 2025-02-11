@@ -59,7 +59,6 @@ const HourFollowing = () => {
       />
     );
   else if (membersError) {
-    console.log(membersError);
     message.error("Houve um problema, tente recarregar a pagina", 2.5);
     return <h1>Erro, recarregue a pagina</h1>;
   } else if (membersData) {
@@ -88,4 +87,3 @@ const HourFollowing = () => {
 };
 
 export default HourFollowing;
-

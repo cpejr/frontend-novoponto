@@ -7,7 +7,6 @@ import { SessionContext } from "../../../context/SessionProvider";
 const ExportExcel = ({ jsonData, archiveName }) => {
   const { data } = useContext(SessionContext);
   const { member } = data || {};
-  console.log(archiveName);
   const archiveType =
     "application/vnd.openxmlformats-officedocument.sheet;charset=UTF-8";
   const archiveExtension = ".xlsx";
@@ -19,7 +18,7 @@ const ExportExcel = ({ jsonData, archiveName }) => {
       Duração: session?.formatedDuration,
       "Nome da Tarefa": session?.task.name,
       "É presencial?": session?.isPresential,
-      Projeto: session?.project || "sem projeto",
+      Projeto: session?.project?.name || "sem projeto",
       Descrição: session?.description || "sem descrição",
     };
   });

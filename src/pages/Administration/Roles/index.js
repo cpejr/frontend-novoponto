@@ -96,8 +96,6 @@ const Roles = () => {
 
   const editOrCreateRole = (method, role, data) => {
     const withInitialValue = method === "edit";
-    console.log("🚀 ~ file: index.js:126 ~ editOrCreateRole ~ data:", data);
-    console.log("🚀 ~ file: index.js:116 ~ editOrCreateRole ~ role:", role);
     var fields = [
       {
         key: "name",
