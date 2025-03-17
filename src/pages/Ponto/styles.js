@@ -35,12 +35,23 @@ const TooltipTitle = styled.div`
 `;
 
 const RulesBox = styled.div`
-width: 100%;
-height: 300px;
-border: 2px solid #FFD100; 
-border-radius: 8px;     
-box-sizing: border-box;
-`
+  width: 100%;
+  max-height: 300px; /* Scroll interno se passar disso */
+  overflow-y: auto;
+  border: 2px solid #FFD100;
+  border-radius: 8px;
+  box-sizing: border-box;
+  
+
+  @media (max-width: 1024px) {
+    max-height: 350px;
+  }
+
+  @media (max-width: 768px) {
+    max-height: 300px;
+  }
+
+`;
 const RulesTitle = styled.div`
   width: 100%;
   height: 40px;
@@ -52,11 +63,18 @@ const RulesTitle = styled.div`
   align-items: center;
   justify-content: center;
   border-bottom: 3px solid #FFD100;
+    @media (max-width: 768px) {
+    font-size: 26px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 22px;
+  }
 `;
 const RulesFlex = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 14px;
   margin-top: 20px;
   width: 100%;
 `;
@@ -66,12 +84,33 @@ const RuleItem = styled.div`
   max-width: calc(14.28% - 16px);
   border: 2px solid yellow;
   border-radius: 8px;
-  padding: 12px;
-  background-color: #fff;
-  color: #000;
+  color: #fff;
   font-size: 16px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
   word-break: break-word;
+  @media (max-width: 1024px) {
+    flex: 1 1 calc(25% - 16px);
+    max-width: calc(25% - 16px);
+    font-size: 15px;
+  }
+
+  @media (max-width: 768px) {
+    flex: 1 1 calc(33.33% - 16px);
+    max-width: calc(33.33% - 16px);
+    font-size: 14px;
+  }
+
+  @media (max-width: 600px) {
+    flex: 1 1 calc(50% - 16px);
+    max-width: calc(50% - 16px);
+    font-size: 13px;
+  }
+
+  @media (max-width: 400px) {
+    flex: 1 1 100%;
+    max-width: 100%;
+    font-size: 12px;
+  }
 `;
 export { PontoComponent, newsComponent, TooltipTitle, RulesBox, RulesTitle, RulesFlex,RuleItem };
