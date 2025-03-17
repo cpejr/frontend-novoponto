@@ -36,13 +36,13 @@ const TooltipTitle = styled.div`
 
 const RulesBox = styled.div`
   width: 100%;
-  max-height: 300px; /* Scroll interno se passar disso */
+  max-height: 350px; /* Scroll interno se passar disso */
   overflow-y: auto;
   border: 2px solid #FFD100;
   border-radius: 8px;
   box-sizing: border-box;
-  margin-top:20px;
-
+  margin-top:25px;
+  padding-bottom:30px;
   @media (max-width: 1024px) {
     max-height: 350px;
   }
@@ -77,6 +77,7 @@ const RulesFlex = styled.div`
   gap: 14px;
   margin-top: 20px;
   width: 100%;
+  align-itens:center;
 `;
 
 const RuleItem = styled.div`
