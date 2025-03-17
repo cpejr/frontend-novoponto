@@ -33,6 +33,7 @@ const CREATE_SESSION = gql`
     $taskId: ID!
     $description: String
     $projectId: ID
+    $start: DateScalar
   ) {
     startSession(
       memberId: $memberId
@@ -40,6 +41,7 @@ const CREATE_SESSION = gql`
       taskId: $taskId
       description: $description
       projectId: $projectId
+      start: $start
     ) {
       start
       isPresential

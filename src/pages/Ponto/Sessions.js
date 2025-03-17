@@ -138,6 +138,12 @@ const Sessions = () => {
         characterLimit: "150",
         placeholder: "Descrição da atividade exercida",
       },
+      {
+        key: "start",
+        type: "time",
+        label: "Comecou a trabalhar que horas?",
+        placeholder: "Coloque o horario que comecou",
+      },
     ];
     const modalData = {
       title: "Confirmação de login",
@@ -149,6 +155,11 @@ const Sessions = () => {
     setCreateSessionModal(modalData);
   };
   const createSessionCall = async (modalData) => {
+    const selectedStart = modalData["Comecou a trabalhar que horas?"]?.toDate();
+    if (selectedStart && selectedStart > new Date()) {
+      message.error("Nao da pra trabalhar do futuro.");
+      return;
+    }
     const newSession = {
       isPresential:
         modalData[`Como deseja logar ${memberToLogin.current.name}?`],
@@ -156,9 +167,10 @@ const Sessions = () => {
       taskId: modalData["O que você pretende fazer neste horário?"],
       projectId: modalData["Você vai trabalhar em algum projeto?"],
       description: modalData["Deseja descrever melhor o que irá fazer?"],
+      start: modalData["Comecou a trabalhar que horas?"]?.toDate() || null,
     };
-
     handleCloseModal();
+    
     var hide = message.loading("Atualizando");
     try {
       await startSessionMutation({ variables: newSession });

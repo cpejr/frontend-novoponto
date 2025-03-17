@@ -4,7 +4,7 @@ import AutoCompleteInput from "../../molecules/AutocompleteInput";
 import BadgeInput from "../../molecules/BadgeInput";
 import SelectMultiple from "../../molecules/SelectMultiple";
 import { CommonSelectBox, InputText, TextArea } from "../../atoms";
-import { Form } from "antd";
+import { Form,TimePicker } from "antd";
 
 // This Modal recieves an array of fields and deals with each one of them, including its type and validation
 // It can be used to create or edit any object, since the object has only simple keys (no arrays or objects inside it)
@@ -85,6 +85,16 @@ const FormModal = ({ title, fields, onSubmit, open, cancel }) => {
           <TextArea placeholder={placeholder} maxLength={characterLimit} />
         );
         break;
+        case "time":
+          inputField = (
+            <TimePicker
+              format="HH:mm"
+              showNow={false}
+              placeholder={placeholder || "00:00"}
+              allowClear
+            />
+          );
+          break;
       default:
       case "text":
         inputField = <InputText placeholder={placeholder} />;
