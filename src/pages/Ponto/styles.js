@@ -41,7 +41,7 @@ const RulesBox = styled.div`
   border: 2px solid #FFD100;
   border-radius: 8px;
   box-sizing: border-box;
-  
+  margin-top:20px;
 
   @media (max-width: 1024px) {
     max-height: 350px;
