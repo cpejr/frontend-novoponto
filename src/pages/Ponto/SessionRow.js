@@ -60,7 +60,6 @@ const SessionRow = ({ session, onLogout, ...props }) => {
     () => member.name === data.member.name,
     [data.member.name, member.name]
   );
-
   const { data: dataProjects } = useQuery(GET_PROJECTS);
   const projectOptionsList = dataProjects?.projects.map((project) => {
     return { value: project._id, label: project.name };
@@ -135,12 +134,14 @@ const SessionRow = ({ session, onLogout, ...props }) => {
             />
           </Tooltip>
 
-          <Button
+          {isLoggedMember && (
+            <Button
             style={{ border: "none" }}
             className="d-flex align-items-center justify-content-center"
             icon={<HiOutlineLogout size="2em" />}
             onClick={handleLogout}
-          />
+            />
+            )}
         </td>
       </tr>
       <EditSessionModal

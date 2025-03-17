@@ -5,7 +5,7 @@ import { ThemeContext } from "../../context/ThemeProvider";
 import Sessions from "./Sessions";
 import NewsCarousel from "../../components/molecules/NewsCarousel";
 import { NotificationHome } from "./NotificationHome";
-
+import { SessionContext } from "../../context/SessionProvider";
 const Ponto = () => {
   const { themeColors } = useContext(ThemeContext);
   const rules = [
