@@ -213,7 +213,7 @@ const Sessions = () => {
         handleOk={() => handleLogoutMember(memberToLogout)}
         handleCancel={() => setMemberToLogout()}
       />
-      <ConfirmationModal
+      {/* <ConfirmationModal
         title="Confirmação"
         content={`Deseja deslogar todos os membros?`}
         isVisible={showLogoutAllMembers}
@@ -222,7 +222,7 @@ const Sessions = () => {
           setShowLogoutAllMembers(false);
         }}
         handleCancel={() => setShowLogoutAllMembers(false)}
-      />
+      /> */}
       <FormModal {...createSessionModal} />
     </div>
   );
