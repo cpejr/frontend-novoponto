@@ -141,7 +141,7 @@ const Sessions = () => {
       {
         key: "start",
         type: "time",
-        label: "Comecou a trabalhar que horas?",
+        label: "Caso tenha comecado a trabalhar antes , coloque o horario",
         placeholder: "Coloque o horario que comecou",
       },
     ];
@@ -155,7 +155,7 @@ const Sessions = () => {
     setCreateSessionModal(modalData);
   };
   const createSessionCall = async (modalData) => {
-    const selectedStart = modalData["Comecou a trabalhar que horas?"]?.toDate();
+    const selectedStart = modalData["Caso tenha comecado a trabalhar antes , coloque o horario"]?.toDate();
     if (selectedStart && selectedStart > new Date()) {
       message.error("Nao da pra trabalhar do futuro.");
       return;
@@ -167,7 +167,7 @@ const Sessions = () => {
       taskId: modalData["O que você pretende fazer neste horário?"],
       projectId: modalData["Você vai trabalhar em algum projeto?"],
       description: modalData["Deseja descrever melhor o que irá fazer?"],
-      start: modalData["Comecou a trabalhar que horas?"]?.toDate() || null,
+      start: modalData["Caso tenha comecado a trabalhar antes , coloque o horario"]?.toDate() || null,
     };
     handleCloseModal();
     
