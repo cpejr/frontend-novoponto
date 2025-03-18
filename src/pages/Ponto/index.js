@@ -26,9 +26,6 @@ const Ponto = () => {
       <RulesFlex>
           {rules.map((regra, index) => (
                 <RuleItem key={index}>
-                <span style={{ color: "#FFD100", fontWeight: "bold", marginRight: "6px" }}>
-                  {index + 1} -
-                </span>
                 {regra}
               </RuleItem>
           ))}

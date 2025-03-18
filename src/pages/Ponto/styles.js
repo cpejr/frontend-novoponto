@@ -38,10 +38,8 @@ const RulesBox = styled.div`
   width: 100%;
   max-height: 350px; /* Scroll interno se passar disso */
   overflow-y: auto;
-  border: 2px solid #FFD100;
-  border-radius: 8px;
   box-sizing: border-box;
-  margin-top:25px;
+  margin-top:60px;
   padding-bottom:30px;
   @media (max-width: 1024px) {
     max-height: 350px;
@@ -57,12 +55,13 @@ const RulesTitle = styled.div`
   height: 40px;
   text-align: center;
   font-size: 32px;
-  font-weight: bold;
+  //font-weight: bold;
   color: #FFD100;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 3px solid #FFD100;
+  border-bottom: 1px solid #FFD100;
+  padding-bottom:17px;
     @media (max-width: 768px) {
     font-size: 26px;
   }
@@ -74,22 +73,25 @@ const RulesTitle = styled.div`
 const RulesFlex = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 010px;
   margin-top: 20px;
   width: 100%;
   align-itens:center;
+  justify-content: space-evenly;
 `;
 
 const RuleItem = styled.div`
-  flex: 1 1 calc(14.28% - 16px); /* Aproximadamente 7 colunas */
+  flex: 1 1 calc(14.28% - 16px);
   max-width: calc(14.28% - 16px);
-  border: 2px solid yellow;
+  border: 0.5px solid #FFD100;
   border-radius: 8px;
   color: #fff;
   font-size: 16px;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 5px #FFD100;
   text-align: center;
+  align-itens:center;
   word-break: break-word;
+  padding:5px;
   @media (max-width: 1024px) {
     flex: 1 1 calc(25% - 16px);
     max-width: calc(25% - 16px);
