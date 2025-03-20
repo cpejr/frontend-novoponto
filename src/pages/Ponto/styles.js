@@ -36,10 +36,10 @@ const TooltipTitle = styled.div`
 
 const RulesBox = styled.div`
   width: 100%;
-  max-height: 350px; /* Scroll interno se passar disso */
+  max-height: 350px;
   overflow-y: auto;
   box-sizing: border-box;
-  margin-top:60px;
+  margin-top:45px;
   padding-bottom:30px;
   @media (max-width: 1024px) {
     max-height: 350px;
@@ -56,7 +56,7 @@ const RulesTitle = styled.div`
   text-align: center;
   font-size: 32px;
   //font-weight: bold;
-  color: #FFD100;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -83,11 +83,10 @@ const RulesFlex = styled.div`
 const RuleItem = styled.div`
   flex: 1 1 calc(14.28% - 16px);
   max-width: calc(14.28% - 16px);
-  border: 0.5px solid #FFD100;
+  border: 0.3px solid #FFD100;
   border-radius: 8px;
   color: #fff;
   font-size: 16px;
-  box-shadow: 2px 2px 5px #FFD100;
   text-align: center;
   align-itens:center;
   word-break: break-word;
