@@ -40,7 +40,7 @@ const HourChanges = () => {
 
   const [errors, setErrors] = useState(INITIAL_ERRORS);
   const [formData, setFormData] = useState({});
-
+  console.log(formData)
   const needComment = formData.hourAction !== "REMOVE";
 
   function validateFields() {

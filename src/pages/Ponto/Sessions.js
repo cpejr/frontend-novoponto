@@ -138,6 +138,12 @@ const Sessions = () => {
         characterLimit: "150",
         placeholder: "Descrição da atividade exercida",
       },
+      {
+        key: "start",
+        type: "time",
+        label: "Caso tenha comecado a trabalhar antes , coloque o horario",
+        placeholder: "Coloque o horario que comecou",
+      },
     ];
     const modalData = {
       title: "Confirmação de login",
@@ -149,6 +155,11 @@ const Sessions = () => {
     setCreateSessionModal(modalData);
   };
   const createSessionCall = async (modalData) => {
+    const selectedStart = modalData["Caso tenha comecado a trabalhar antes , coloque o horario"]?.toDate();
+    if (selectedStart && selectedStart > new Date()) {
+      message.error("Nao da pra trabalhar do futuro.");
+      return;
+    }
     const newSession = {
       isPresential:
         modalData[`Como deseja logar ${memberToLogin.current.name}?`],
@@ -156,9 +167,10 @@ const Sessions = () => {
       taskId: modalData["O que você pretende fazer neste horário?"],
       projectId: modalData["Você vai trabalhar em algum projeto?"],
       description: modalData["Deseja descrever melhor o que irá fazer?"],
+      start: modalData["Caso tenha comecado a trabalhar antes , coloque o horario"]?.toDate() || null,
     };
-
     handleCloseModal();
+    
     var hide = message.loading("Atualizando");
     try {
       await startSessionMutation({ variables: newSession });
@@ -213,7 +225,7 @@ const Sessions = () => {
         handleOk={() => handleLogoutMember(memberToLogout)}
         handleCancel={() => setMemberToLogout()}
       />
-      <ConfirmationModal
+      {/* <ConfirmationModal
         title="Confirmação"
         content={`Deseja deslogar todos os membros?`}
         isVisible={showLogoutAllMembers}
@@ -222,7 +234,7 @@ const Sessions = () => {
           setShowLogoutAllMembers(false);
         }}
         handleCancel={() => setShowLogoutAllMembers(false)}
-      />
+      /> */}
       <FormModal {...createSessionModal} />
     </div>
   );
