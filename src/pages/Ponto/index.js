@@ -22,7 +22,7 @@ const Ponto = () => {
       <NotificationHome />
       <NewsCarousel />
       <RulesBox>
-      <RulesTitle>Regras da Gestão</RulesTitle>
+      <RulesTitle>REGRAS DE GESTÃO</RulesTitle>
       <RulesFlex>
           {rules.map((regra, index) => (
                 <RuleItem key={index}>

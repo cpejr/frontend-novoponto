@@ -39,7 +39,7 @@ const RulesBox = styled.div`
   max-height: 350px;
   overflow-y: auto;
   box-sizing: border-box;
-  margin-top:45px;
+  margin-top:40px;
   padding-bottom:30px;
   @media (max-width: 1024px) {
     max-height: 350px;
@@ -52,16 +52,17 @@ const RulesBox = styled.div`
 `;
 const RulesTitle = styled.div`
   width: 100%;
-  height: 40px;
+  height: 70px;
   text-align: center;
   font-size: 32px;
-  //font-weight: bold;
+  font-weight: bold;
   color: white;
   display: flex;
   align-items: center;
+  font-family: inter;
   justify-content: center;
-  border-bottom: 1px solid #FFD100;
-  padding-bottom:17px;
+  border-bottom: 2px solid #FFD100;
+  padding-bottom:px;
     @media (max-width: 768px) {
     font-size: 26px;
   }
@@ -83,14 +84,15 @@ const RulesFlex = styled.div`
 const RuleItem = styled.div`
   flex: 1 1 calc(14.28% - 16px);
   max-width: calc(14.28% - 16px);
-  border: 0.3px solid #FFD100;
+  
   border-radius: 8px;
-  color: #fff;
+  color: #000;
   font-size: 16px;
   text-align: center;
   align-itens:center;
   word-break: break-word;
-  padding:5px;
+  padding:10px;
+  background-color:#FFD100;
   @media (max-width: 1024px) {
     flex: 1 1 calc(25% - 16px);
     max-width: calc(25% - 16px);

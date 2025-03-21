@@ -21,7 +21,7 @@ import {
 import searchIcon from "../../../assets/searchIcon.svg";
 import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
 import FormModal from "../../../components/organisms/FormModal";
-
+import { SessionContext } from "../../../context/SessionProvider";
 import SelectBox from "../../../components/molecules/SelectBox";
 
 import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";
@@ -36,11 +36,11 @@ const Members = () => {
   const { themeColors } = useContext(ThemeContext);
   const { membersLoading, membersError, allMembersData, refetchMembers } =
     useContext(GlobalsContext);
-
+  const { data,  } = useContext(SessionContext);
   const { data: roles, error: errorRoles } = useQuery(GET_ROLES);
   const { data: tribes, error: errorTribes } = useQuery(GET_TRIBES);
   const { data: badges, error: errorBadges } = useQuery(GET_BADGES);
-
+  
   const [updateMemberMutation] = useMutation(UpdateMember);
   const [createMemberMutation] = useMutation(CreateMember);
   const [deleteMemberMutation] = useMutation(DeleteMember);
@@ -268,6 +268,7 @@ const Members = () => {
     }
     handleCloseEditOrCreate();
   };
+  console.log(filteredMembers)
   const updateMember = (memberId) => async (member) => {
     var hide = message.loading("Atualizando dados do membro...");
 
@@ -413,6 +414,20 @@ const Members = () => {
             </ActionsDiv>
           )}
         />
+        {(data.member.role.name === "Gerente de Clima e Membros" ||
+          data.member.role.name === "Diretor(a) de Desenvolvimento" ||
+          data.member.role.name === "Assessor(a) de Desenvolvimento" ||
+          data.member.role.name === "Gerente de Recrutamento e Seleção" ||
+          data.member.role.name === "jose") && (
+          <Column
+            title="Bateu 3 Horas"
+            width={100}
+            render={(member) => (
+              <input type="checkbox"></input>
+            )}
+          />
+        )}
+
       </Table>
 
       <ConfirmationModal
