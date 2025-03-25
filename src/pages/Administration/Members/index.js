@@ -4,7 +4,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { GET_ROLES } from "../../../graphql/Roles";
 import { GET_BADGES } from "../../../graphql/Badges";
 import { GET_TRIBES } from "../../../graphql/Tribes";
-
+import {PRESENTIAL_MEMBERS} from "../../../graphql/Sessions"
 import {
   UpdateMember,
   DeleteMember,
@@ -40,7 +40,8 @@ const Members = () => {
   const { data: roles, error: errorRoles } = useQuery(GET_ROLES);
   const { data: tribes, error: errorTribes } = useQuery(GET_TRIBES);
   const { data: badges, error: errorBadges } = useQuery(GET_BADGES);
-  
+  const { data: presentialMembers, loading, error } = useQuery(PRESENTIAL_MEMBERS);
+  console.log(presentialMembers)
   const [updateMemberMutation] = useMutation(UpdateMember);
   const [createMemberMutation] = useMutation(CreateMember);
   const [deleteMemberMutation] = useMutation(DeleteMember);
@@ -268,7 +269,7 @@ const Members = () => {
     }
     handleCloseEditOrCreate();
   };
-  console.log(filteredMembers)
+
   const updateMember = (memberId) => async (member) => {
     var hide = message.loading("Atualizando dados do membro...");
 
