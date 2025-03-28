@@ -11,7 +11,7 @@ import {
   CreateMember,
 } from "../../../graphql/Member";
 import { Tooltip, message, Skeleton, Table } from "antd";
-import { MembersComponent, ActionsDiv } from "./styles";
+import { MembersComponent, ActionsDiv,IconsDiv } from "./styles";
 import { ThemeContext } from "../../../context/ThemeProvider";
 import {
   CommonButton,
@@ -23,7 +23,7 @@ import ConfirmationModal from "../../../components/molecules/ConfirmationModal";
 import FormModal from "../../../components/organisms/FormModal";
 import { SessionContext } from "../../../context/SessionProvider";
 import SelectBox from "../../../components/molecules/SelectBox";
-
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { EditOutlined, RestOutlined, TeamOutlined } from "@ant-design/icons";
 
 import validators from "../../../services/validators";
@@ -41,18 +41,19 @@ const Members = () => {
   const { data: tribes, error: errorTribes } = useQuery(GET_TRIBES);
   const { data: badges, error: errorBadges } = useQuery(GET_BADGES);
   const { data: presentialMembers, loading, error } = useQuery(PRESENTIAL_MEMBERS);
-  console.log(presentialMembers)
   const [updateMemberMutation] = useMutation(UpdateMember);
   const [createMemberMutation] = useMutation(CreateMember);
   const [deleteMemberMutation] = useMutation(DeleteMember);
 
   const [openModalExcludeMember, setOpenModalExcludeMember] = useState(false);
+
   const [filteredMembers, setFilteredMembers] = useState([]);
   const [excludeMember, setExcludeMember] = useState({});
   const [editOrCreateModalInfo, setEditOrCreateModalInfo] = useState({
     open: false,
   });
-
+  const [membersPresenceLoaded, setMembersPresenceLoaded] = useState(false);
+  const [totalPresentialMembers, setTotalPresentialMembers] = useState(0);
   const [selectedTribe, setSelectedTribe] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -298,7 +299,20 @@ const Members = () => {
       handleCloseEditOrCreate();
     };
   }
-  
+  const isMemberPresent = (memberName) => {
+    if (!membersPresenceLoaded) return false;
+    
+    return presentialMembers?.presentialMembers.some(
+      (presentialMember) => presentialMember.name === memberName
+    );
+  };
+  useEffect(() => {
+    if (presentialMembers) {
+      setMembersPresenceLoaded(true);
+      console.log(presentialMembers.presentialMember)
+      setTotalPresentialMembers(presentialMembers.presentialMembers.length)
+    }
+  }, [presentialMembers]);
   if (membersLoading)
     return (
       <Skeleton
@@ -419,12 +433,23 @@ const Members = () => {
           data.member.role.name === "Diretor(a) de Desenvolvimento" ||
           data.member.role.name === "Assessor(a) de Desenvolvimento" ||
           data.member.role.name === "Gerente de Recrutamento e Seleção" ||
-          data.member.role.name === "jose") && (
+          data.member.role.name === "Desenvolvedor Sênior") && (
           <Column
-            title="Bateu 3 Horas"
+            title={"Bateu 3 horas (" + totalPresentialMembers + ")" }
             width={100}
             render={(member) => (
-              <input type="checkbox"></input>
+              <IconsDiv>
+
+              {membersPresenceLoaded ? (
+                isMemberPresent(member.name) ? (
+                  <CheckOutlined style={{ color: "green" }} />
+                ) : (
+                  <CloseOutlined style={{ color: "red" }} />
+                )
+              ) : (
+                <Skeleton active />
+              )}
+            </IconsDiv>
             )}
           />
         )}

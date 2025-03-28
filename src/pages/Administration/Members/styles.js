@@ -84,5 +84,10 @@ const ActionsDiv = styled.div`
     cursor: pointer;
   }
 `;
-
-export { MembersComponent, ActionsDiv };
+const IconsDiv = styled.div`
+display: flex;
+align-items:center;
+justify-content: center;
+font-size: 24px; 
+`;
+export { MembersComponent, ActionsDiv ,IconsDiv};
