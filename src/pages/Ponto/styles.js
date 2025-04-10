@@ -61,7 +61,7 @@ const RulesTitle = styled.div`
   align-items: center;
   font-family: inter;
   justify-content: center;
-  border-bottom: 2px solid #FFD100;
+  // border-bottom: 2px solid #FFD100;
   padding-bottom:px;
     @media (max-width: 768px) {
     font-size: 26px;
