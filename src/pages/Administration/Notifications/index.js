@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { CommonButton } from "../../../components/atoms";
 import { MdOutlineTextsms } from "react-icons/md";
 import {
@@ -19,6 +19,7 @@ import {
   ControllerWrapper,
 } from "./style";
 import getNotificationColumns from "./NotificationColumn";
+import { DatePicker } from "antd";
 import { useForm, Controller } from "react-hook-form";
 
 const Notification = () => {
@@ -28,7 +29,11 @@ const Notification = () => {
   const [createNotificationMutation] = useMutation(CREATE_NOTIFICATION);
   const { loading, error, data, refetch } = useQuery(GET_NOTIFICATIONS);
   const [deleteNotificationMutation] = useMutation(DELETE_NOTIFICATION);
+  const [date,setDate] = useState(null)
 
+  function handleChangeData(key, data) {
+    setDate(data);
+  }
   const createNotification = async (data) => {
     const hide = message.loading("Enviando");
     try {
@@ -113,6 +118,22 @@ const Notification = () => {
                   title="Tabela de confirmados:"
                   placeholder="Link da tabela Google Sheets com todos que realizaram a coleta."
                   {...field}
+                />
+              )}
+            />
+          </ControllerWrapper>
+          <ControllerWrapper>
+            Expiracao
+            <Controller
+              name="date"
+              control={control}
+              defaultValue=""
+              render={({ field, onChange }) => (
+                <DatePicker
+                onChange={onChange}
+                locale="pt_BR"
+                format="DD/MM/yyyy"
+                {...field}
                 />
               )}
             />

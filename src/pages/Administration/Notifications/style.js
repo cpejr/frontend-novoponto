@@ -59,7 +59,7 @@ export const RowContainer = styled.div`
 
 export const ControllerWrapper = styled.div`
   flex: 1;
-  width: 33%; /* Garante que cada controlador ocupe 33% da largura */
+  width: 30%; /* Garante que cada controlador ocupe 33% da largura */
   margin-right: 8px;
 
   @media (max-width: 1000px) {
