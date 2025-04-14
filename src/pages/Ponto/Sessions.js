@@ -130,6 +130,7 @@ const Sessions = () => {
         label: "Você vai trabalhar em algum projeto?",
         placeholder: "Selecione o projeto",
         options: projectOptionsList,
+        rules: [validators.antdRequired()],
       },
       {
         key: "description",
