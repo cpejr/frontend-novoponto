@@ -19,6 +19,8 @@ const SessionsTable = ({
   sessions,
   formatedTotal,
   formatedPresentialTotal,
+  formatedWorking,
+  formatedMeeting,
 }) => {
   const { themeColors } = useContext(ThemeContext);
 
@@ -166,12 +168,20 @@ const SessionsTable = ({
   return (
     <HoursSumAndTablesArea>
       <div className="sum">
-        <h6 className="m-0 me-2">Soma total:</h6>
+        <h6 className="m-0 me-2">Total de Horas:</h6>
         <HourDisplayer text={formatedTotal} hourColor={themeColors.yellow} />
+      </div>
+      <div className="sum">
+        <h6 className="m-0 me-2">Horas em Trabalho:</h6>
+        <HourDisplayer text={formatedWorking} hourColor={themeColors.yellow} />
+      </div>
+      <div className="sum">
+        <h6 className="m-0 me-2">Horas em Reuniao:</h6>
+        <HourDisplayer text={formatedMeeting} hourColor={themeColors.yellow} />
       </div>
       <ExportButtonContainer>
         <div className="sum">
-          <h6 className="m-0 me-2">Soma presencial:</h6>
+          <h6 className="m-0 me-2">Horas Presencial:</h6>
           <HourDisplayer
             text={formatedPresentialTotal}
             hourColor={themeColors.yellow}

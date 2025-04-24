@@ -17,12 +17,20 @@ const MemberHistory = ({ memberId }) => {
   const startDate = rangeDate && rangeDate[0];
   const endDate = rangeDate && rangeDate[1];
 
-  const [loadCompiled, { loading, data, refetch }] = useLazyQuery(FetchCompiledForHC, {
-    fetchPolicy: "network-only",
-  });
-  const { aditionalHours, sessions, formatedTotal, formatedPresentialTotal } =
-    data?.compiled || {};
-
+  const [loadCompiled, { loading, data, refetch }] = useLazyQuery(
+    FetchCompiledForHC,
+    {
+      fetchPolicy: "network-only",
+    }
+  );
+  const {
+    aditionalHours,
+    sessions,
+    formatedTotal,
+    formatedPresentialTotal,
+    formatedMeeting,
+    formatedWorking,
+  } = data?.compiled || {};
   async function loadData() {
     return loadCompiled({
       variables: {
@@ -33,7 +41,6 @@ const MemberHistory = ({ memberId }) => {
     });
   }
 
- 
   useEffect(() => {
     if (startDate && endDate && memberId) loadData();
   }, [memberId, rangeDate]);
@@ -62,6 +69,8 @@ const MemberHistory = ({ memberId }) => {
               sessions={sessions}
               formatedTotal={formatedTotal}
               formatedPresentialTotal={formatedPresentialTotal}
+              formatedMeeting={formatedMeeting}
+              formatedWorking={formatedWorking}
             />
             <HomeOfficeTable
               aditionalHours={aditionalHours}

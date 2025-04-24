@@ -260,6 +260,8 @@ const FetchCompiledForHC = gql`
       total
       formatedTotal
       formatedPresentialTotal
+      formatedMeeting
+      formatedWorking
     }
   }
 `;
